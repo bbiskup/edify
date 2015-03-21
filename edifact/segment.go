@@ -17,6 +17,10 @@ func (s *Segment) AddElement(element *Element) {
 	s.Elements = append(s.Elements, element)
 }
 
+func (s *Segment) AddElements(elements []*Element) {
+	s.Elements = elements
+}
+
 func NewSegment(name string) *Segment {
 	return &Segment{name, []*Element{}}
 }
