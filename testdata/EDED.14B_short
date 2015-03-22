@@ -1,0 +1,36 @@
+2.   Data element specifications
+
+     Change indicators
+
+     a plus sign (+)    for an addition
+     an asterisk (*)    for an amendment to structure
+     a hash sign (#)    for changes to names
+     a vertical bar (|) for changes to text for descriptions and
+                        notes
+     a minus sign (-)   for marked for deletion (within either
+                        batch or interactive messages)
+     a letter X (X)     for marked for deletion (within both batch
+                        and interactive messages)
+
+     Usage indicators
+
+     [B] = used in batch messages only
+     [I] = used in interactive messages only
+     [C] = common usage in both batch and interactive messages
+
+----------------------------------------------------------------------
+
+     1000  Document name                                           [B]
+
+     Desc: Name of a document.
+
+     Repr: an..35
+
+----------------------------------------------------------------------
+
+     1001  Document name code                                      [C]
+
+     Desc: Code specifying the document name.
+
+     Repr: an..3
+
