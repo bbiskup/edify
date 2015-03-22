@@ -10,8 +10,9 @@ import (
 const (
 	UNH               = "UNH"
 	UNT               = "UNT"
-	SegTerm           = "'"
-	SegTagDataElemSep = "+"
+	SegTerm           = '\''
+	SegTagDataElemSep = '+'
+	ReleaseChar       = '?'
 )
 
 type Parser struct {
@@ -56,7 +57,7 @@ func (p *Parser) ParseSegment(segmentStr string) (segment *Segment) {
 		return nil
 	}
 
-	parts := strings.Split(segmentStr, SegTagDataElemSep)
+	parts := SplitEDIFACT(segmentStr, SegTagDataElemSep, ReleaseChar)
 	if len(parts) < 2 {
 		p.err = errors.New(fmt.Sprintf("Segment too short (%#v)", parts))
 		return nil
@@ -94,7 +95,7 @@ func (p *Parser) ParseMessage(edifactMessage string) (message *Message, err erro
 	// reset error
 	p.err = nil
 
-	segmentStrs := strings.Split(edifactMessage, SegTerm)
+	segmentStrs := SplitEDIFACT(edifactMessage, SegTerm, ReleaseChar)
 	log.Print("segmentStrs: ", segmentStrs)
 	segments := p.ParseSegments(segmentStrs)
 
