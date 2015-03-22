@@ -48,8 +48,20 @@ func NewDataElementSpec(num int32, name string, repr string) *DataElementSpec {
 type DataElementSpecParser struct {
 }
 
+func SplitByIndent(specLines []string, ident int) [][]string {
+	result := [][]string{}
+}
+
 // Parse a single data element spec from spec lines
 func (p *DataElementSpecParser) ParseSpec(specLines []string) (spec *DataElementSpec, err error) {
+	var num int32
+	var name string
+	var repr string
+
+	for _, line := range specLines {
+
+	}
+
 	return NewDataElementSpec(100, "dummyspec", "dummyrepr"), nil
 }
 

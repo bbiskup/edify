@@ -58,3 +58,26 @@ func TestSplitEDIFACT(t *testing.T) {
 		}
 	}
 }
+
+var indentTests = []struct {
+	str      string
+	expected int
+}{
+	{"", 0},
+	{" ", 1},
+	{" a", 1},
+	{"  ", 2},
+	{"  a", 2},
+	{"  a ", 2},
+	{"  ab ", 2},
+}
+
+func TestGetIndent(t *testing.T) {
+	for _, spec := range indentTests {
+		res := edi.GetIndent(spec.str)
+		if res != spec.expected {
+			t.Fatalf("Failed for spec '%s': expected %d, got %d",
+				spec.str, spec.expected, res)
+		}
+	}
+}

@@ -1,7 +1,7 @@
 package edifact
 
 import (
-	"fmt"
+//"fmt"
 )
 
 // Parser utilities
@@ -12,8 +12,8 @@ func SplitEDIFACT(str string, sep rune, escapeChar rune) []string {
 	isEscape := false
 	var current []rune
 
-	for i, c := range str {
-		fmt.Printf("Pos: %d, rune: %c\n", i, c)
+	for _, c := range str {
+		// fmt.Printf("Pos: %d, rune: %c\n", i, c)
 
 		if c == escapeChar {
 			isEscape = true
@@ -35,4 +35,16 @@ func SplitEDIFACT(str string, sep rune, escapeChar rune) []string {
 	}
 
 	return result
+}
+
+// Get indentation
+func GetIndent(str string) int {
+	var i int
+	for _, c := range str {
+		if c != ' ' {
+			break
+		}
+		i++
+	}
+	return i
 }
