@@ -10,7 +10,7 @@ import (
 func SplitEDIFACT(str string, sep rune, escapeChar rune) []string {
 	result := []string{}
 	isEscape := false
-	current := []rune{}
+	var current []rune
 
 	for i, c := range str {
 		fmt.Printf("Pos: %d, rune: %c\n", i, c)
@@ -30,7 +30,7 @@ func SplitEDIFACT(str string, sep rune, escapeChar rune) []string {
 		}
 		current = append(current, c)
 	}
-	if len(current) > 0 {
+	if current != nil {
 		result = append(result, string(current))
 	}
 
