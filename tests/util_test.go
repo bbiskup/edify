@@ -13,6 +13,12 @@ var splitTests = []struct {
 	expected   []string
 }{
 	{
+		input:      "",
+		sep:        '+',
+		escapeChar: '?',
+		expected:   []string{},
+	},
+	{
 		input:      "abc",
 		sep:        '+',
 		escapeChar: '?',
