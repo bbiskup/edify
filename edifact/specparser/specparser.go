@@ -34,7 +34,7 @@ type DataElementSpec struct {
 }
 
 func (s *DataElementSpec) String() string {
-	return fmt.Sprintf("%d %s [%]", s.Num, s.Name, s.Repr)
+	return fmt.Sprintf("DataElementSpec: %d %s [%s]", s.Num, s.Name, s.Repr)
 }
 
 func NewDataElementSpec(num int32, name string, repr string) *DataElementSpec {
@@ -48,24 +48,9 @@ func NewDataElementSpec(num int32, name string, repr string) *DataElementSpec {
 type DataElementSpecParser struct {
 }
 
-// Scan the next numLines non-empty lines from the given scanner
-func (p *DataElementSpecParser) ScanNNonEmptyLines(scanner *bufio.Scanner, numLines int) (lines []string, err error) {
-	i := 0
-	for {
-		scanner.Scan()
-		err := scanner.Err()
-		if err != nil {
-			return nil, err
-		}
-
-		lines = append(lines, scanner.Text())
-		i++
-
-		if i >= numLines {
-			break
-		}
-	}
-	return lines, nil
+// Parse a single data element spec from spec lines
+func (p *DataElementSpecParser) ParseSpec(specLines []string) (spec *DataElementSpec, err error) {
+	return NewDataElementSpec(100, "dummyspec", "dummyrepr"), nil
 }
 
 // fetch all lines up to next spec separator
@@ -98,8 +83,18 @@ func (p *DataElementSpecParser) GetNextSpecLines(scanner *bufio.Scanner) (lines 
 	return lines, true
 }
 
-func (p *DataElementSpecParser) ParseSpecFile(fileName string) (specs map[string]*DataElementSpec, err error) {
-	result := map[string]*DataElementSpec{}
+type SpecMap map[int32]*DataElementSpec
+
+func (sm SpecMap) String() string {
+	result := []string{}
+	for key, value := range sm {
+		result = append(result, fmt.Sprintf("%d: %s", key, value))
+	}
+	return strings.Join(result, ", ")
+}
+
+func (p *DataElementSpecParser) ParseSpecFile(fileName string) (specs SpecMap, err error) {
+	result := SpecMap{}
 	file, err := os.Open(fileName)
 	if err != nil {
 		return nil, err
@@ -133,6 +128,11 @@ func (p *DataElementSpecParser) ParseSpecFile(fileName string) (specs map[string
 			return nil, err
 		}
 
+		spec, err := p.ParseSpec(specLines)
+		if err != nil {
+			return nil, err
+		}
+		result[spec.Num] = spec
 	}
 	return result, nil
 }

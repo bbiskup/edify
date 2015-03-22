@@ -27,5 +27,5 @@ func main() {
 		fmt.Printf("Parse error: %s\n", err)
 		return
 	}
-	fmt.Printf("Specs: %s", specs)
+	fmt.Printf("Specs: %s\n", specs)
 }
