@@ -1,7 +1,8 @@
 package edifact
 
 import (
-//"fmt"
+	//"fmt"
+	"log"
 )
 
 // Parser utilities
@@ -47,4 +48,33 @@ func GetIndent(str string) int {
 		i++
 	}
 	return i
+}
+
+// Splits array of lines by hanging indent
+func SplitByHangingIndent(lines []string) [][]string {
+	result := [][]string{}
+	numLines := len(lines)
+	oldIndent := 9999999999
+	var currentSection []string
+	for i := 0; i < numLines; i++ {
+		line := lines[i]
+		indent := GetIndent(line)
+		log.Printf("indent: %d", indent)
+
+		if indent < oldIndent {
+			if currentSection != nil {
+				result = append(result, currentSection)
+			}
+			currentSection = []string{line}
+		} else {
+			currentSection = append(currentSection, line)
+		}
+		oldIndent = indent
+	}
+
+	if currentSection != nil && len(currentSection) > 0 {
+		result = append(result, currentSection)
+	}
+
+	return result
 }

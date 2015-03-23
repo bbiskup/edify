@@ -59,7 +59,7 @@ func TestSplitEDIFACT(t *testing.T) {
 	}
 }
 
-var indentTests = []struct {
+var getIndentTests = []struct {
 	str      string
 	expected int
 }{
@@ -73,11 +73,67 @@ var indentTests = []struct {
 }
 
 func TestGetIndent(t *testing.T) {
-	for _, spec := range indentTests {
+	for _, spec := range getIndentTests {
 		res := edi.GetIndent(spec.str)
 		if res != spec.expected {
 			t.Fatalf("Failed for spec '%s': expected %d, got %d",
 				spec.str, spec.expected, res)
+		}
+	}
+}
+
+var splitByHangingIndentTests = []struct {
+	lines    []string
+	expected [][]string
+}{
+	{
+		lines:    []string{},
+		expected: [][]string{},
+	},
+	{
+		lines: []string{
+			"abc",
+		},
+		expected: [][]string{
+			[]string{"abc"},
+		},
+	},
+	{
+		lines: []string{
+			"abc",
+			" def",
+			" ghi",
+		},
+		expected: [][]string{
+			[]string{"abc", " def", " ghi"},
+		},
+	},
+	{
+		lines: []string{
+			"abc",
+			" def",
+			" ghi",
+			"jkl",
+			" mno",
+			" pqr",
+		},
+		expected: [][]string{
+			[]string{"abc", " def", " ghi"},
+			[]string{"jkl", " mno", " pqr"},
+		},
+	},
+}
+
+func TestSplitByHangingIndent(t *testing.T) {
+	for _, spec := range splitByHangingIndentTests {
+		res := edi.SplitByHangingIndent(spec.lines)
+
+		expectedStr := fmt.Sprintf("%s", spec.expected)
+		resStr := fmt.Sprintf("%s", res)
+
+		if resStr != expectedStr {
+			t.Fatalf("Failed for spec '%s': expected %s, got %s",
+				resStr, expectedStr, res)
 		}
 	}
 }
