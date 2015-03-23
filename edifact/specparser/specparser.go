@@ -10,6 +10,7 @@ package edifact
 
 import (
 	"bufio"
+	"errors"
 	"fmt"
 	"log"
 	"os"
@@ -54,8 +55,10 @@ func (p *DataElementSpecParser) ParseSpec(specLines []string) (spec *DataElement
 	var name string
 	var repr string
 
-	for _, line := range specLines {
+	specLinesSections := specLinesSections(specLines)
 
+	if len(specLinesSections) != 3 {
+		return nil, errors.NewError("Incorrect number of spec segments")
 	}
 
 	return NewDataElementSpec(100, "dummyspec", "dummyrepr"), nil

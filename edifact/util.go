@@ -3,6 +3,7 @@ package edifact
 import (
 	//"fmt"
 	"log"
+	"strings"
 )
 
 // Parser utilities
@@ -58,6 +59,9 @@ func SplitByHangingIndent(lines []string) [][]string {
 	var currentSection []string
 	for i := 0; i < numLines; i++ {
 		line := lines[i]
+		if len(strings.TrimSpace(line)) == 0 {
+			continue
+		}
 		indent := GetIndent(line)
 		log.Printf("indent: %d", indent)
 

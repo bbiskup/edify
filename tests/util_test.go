@@ -110,6 +110,22 @@ var splitByHangingIndentTests = []struct {
 	},
 	{
 		lines: []string{
+			"",
+			"abc",
+			" def",
+			" ghi",
+			"",
+			"jkl",
+			" mno",
+			"",
+		},
+		expected: [][]string{
+			[]string{"abc", " def", " ghi"},
+			[]string{"jkl", " mno"},
+		},
+	},
+	{
+		lines: []string{
 			"abc",
 			" def",
 			" ghi",
