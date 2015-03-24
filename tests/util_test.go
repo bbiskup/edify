@@ -101,6 +101,16 @@ var splitByHangingIndentTests = []struct {
 	{
 		lines: []string{
 			"abc",
+			"def",
+		},
+		expected: [][]string{
+			[]string{"abc"},
+			[]string{"def"},
+		},
+	},
+	{
+		lines: []string{
+			"abc",
 			" def",
 			" ghi",
 		},
@@ -142,14 +152,14 @@ var splitByHangingIndentTests = []struct {
 
 func TestSplitByHangingIndent(t *testing.T) {
 	for _, spec := range splitByHangingIndentTests {
-		res := edi.SplitByHangingIndent(spec.lines)
+		res := edi.SplitByHangingIndent(spec.lines, 0)
 
 		expectedStr := fmt.Sprintf("%s", spec.expected)
 		resStr := fmt.Sprintf("%s", res)
 
 		if resStr != expectedStr {
 			t.Fatalf("Failed for spec '%s': expected %s, got %s",
-				resStr, expectedStr, res)
+				spec.lines, expectedStr, res)
 		}
 	}
 }

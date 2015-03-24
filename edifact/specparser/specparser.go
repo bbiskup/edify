@@ -10,10 +10,13 @@ package edifact
 
 import (
 	"bufio"
+	edi "edifact_experiments/edifact"
 	"errors"
 	"fmt"
 	"log"
 	"os"
+	"regexp"
+	"strconv"
 	"strings"
 )
 
@@ -25,6 +28,8 @@ const (
 const (
 	ID_IDX = 5
 	ID_LEN = 4
+
+	dataElementSectionIndent = 5
 )
 
 // DataElement specification
@@ -47,21 +52,31 @@ func NewDataElementSpec(num int32, name string, repr string) *DataElementSpec {
 }
 
 type DataElementSpecParser struct {
+	numLineRE *regexp.Regexp
 }
 
-// Parse a single data element spec from spec lines
+// Parse a single data element spec
 func (p *DataElementSpecParser) ParseSpec(specLines []string) (spec *DataElementSpec, err error) {
-	var num int32
-	var name string
-	var repr string
 
-	specLinesSections := specLinesSections(specLines)
-
-	if len(specLinesSections) != 3 {
-		return nil, errors.NewError("Incorrect number of spec segments")
+	specLinesSections := edi.SplitByHangingIndent(specLines, dataElementSectionIndent)
+	numSpecLinesSections := len(specLinesSections)
+	if numSpecLinesSections < 3 {
+		fmt.Printf("specLines:\n%s\n", strings.Join(specLines, "\n"))
+		return nil, errors.New(fmt.Sprintf("Too few (%d) spec segments", numSpecLinesSections))
 	}
 
-	return NewDataElementSpec(100, "dummyspec", "dummyrepr"), nil
+	numSection := specLinesSections[0]
+	numSectionHeader := numSection[0]
+	numLineMatch := p.numLineRE.FindAllString(numSectionHeader, -1)
+	if numLineMatch == nil {
+		return nil, errors.New(fmt.Sprintf("Missing num section in line '%s'", numSectionHeader))
+	}
+	num, err := strconv.Atoi(numLineMatch[0])
+	if err != nil {
+		return nil, err
+	}
+
+	return NewDataElementSpec(int32(num), "dummyspec", "dummyrepr"), nil
 }
 
 // fetch all lines up to next spec separator
@@ -113,6 +128,7 @@ func (p *DataElementSpecParser) ParseSpecFile(fileName string) (specs SpecMap, e
 	defer file.Close()
 
 	scanner := bufio.NewScanner(file)
+	first := true
 
 	for {
 		// read specification parts
@@ -122,6 +138,12 @@ func (p *DataElementSpecParser) ParseSpecFile(fileName string) (specs SpecMap, e
 		if !hasMore && len(specLines) == 0 {
 			log.Println("No more lines")
 			break
+		}
+
+		if first {
+			// Skip header part
+			first = false
+			continue
 		}
 
 		log.Printf("specLines: %s", specLines)
@@ -149,5 +171,8 @@ func (p *DataElementSpecParser) ParseSpecFile(fileName string) (specs SpecMap, e
 }
 
 func NewDataElementSpecParser() *DataElementSpecParser {
-	return &DataElementSpecParser{}
+	return &DataElementSpecParser{
+		numLineRE: regexp.MustCompile(
+			`^[:blank:]+(\d+)[:blank:]+(.*)([BIC])$`),
+	}
 }

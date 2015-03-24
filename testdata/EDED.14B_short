@@ -34,3 +34,16 @@
 
      Repr: an..3
 
+----------------------------------------------------------------------
+
+     3223  First related location identifier                       [C]
+
+     Desc: To identify a first related location.
+
+     Repr: an..35
+
+     Note: 
+           1 Recommend use UN/ECE Recommendation No. 16:
+           UN/LOCODE. If not applicable, use appropriate code set
+           in combination with 1131/3055.
+

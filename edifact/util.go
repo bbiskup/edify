@@ -52,7 +52,7 @@ func GetIndent(str string) int {
 }
 
 // Splits array of lines by hanging indent
-func SplitByHangingIndent(lines []string) [][]string {
+func SplitByHangingIndent(lines []string, splitIndent int) [][]string {
 	result := [][]string{}
 	numLines := len(lines)
 	oldIndent := 9999999999
@@ -63,9 +63,9 @@ func SplitByHangingIndent(lines []string) [][]string {
 			continue
 		}
 		indent := GetIndent(line)
-		log.Printf("indent: %d", indent)
+		log.Printf("line: '%s'; indent: %d", line, indent)
 
-		if indent < oldIndent {
+		if indent < oldIndent || indent == splitIndent {
 			if currentSection != nil {
 				result = append(result, currentSection)
 			}
