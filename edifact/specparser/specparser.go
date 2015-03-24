@@ -60,18 +60,27 @@ type DataElementSpecParser struct {
 // Parse a single data element spec
 func (p *DataElementSpecParser) ParseSpec(specLines []string) (spec *DataElementSpec, err error) {
 
-	specLinesSections := edi.SplitByHangingIndent(specLines, dataElementSectionIndent)
+	numSpecLines := len(specLines)
+	for i := 0; i < numSpecLines; i++ {
+		specLines[i] = specLines[i][1:]
+	}
+
+	specLinesSections := edi.SplitByHangingIndent(specLines,
+		dataElementSectionIndent-1)
 	numSpecLinesSections := len(specLinesSections)
 	if numSpecLinesSections < 3 {
 		fmt.Printf("specLines:\n%s\n", strings.Join(specLines, "\n"))
-		return nil, errors.New(fmt.Sprintf("Too few (%d) spec segments", numSpecLinesSections))
+		return nil, errors.New(fmt.Sprintf("Too few (%d) spec segments",
+			numSpecLinesSections))
 	}
 
 	numSection := specLinesSections[0]
 	numSectionHeader := numSection[0]
 	numLineMatch := p.numLineRE.FindStringSubmatch(numSectionHeader)
 	if numLineMatch == nil {
-		return nil, errors.New(fmt.Sprintf("Missing num section in line '%s'", numSectionHeader))
+		return nil, errors.New(
+			fmt.Sprintf("Missing num section in line '%s'",
+				numSectionHeader))
 	}
 	num, err := strconv.Atoi(numLineMatch[1])
 	if err != nil {
@@ -184,6 +193,6 @@ func (p *DataElementSpecParser) ParseSpecFile(fileName string) (specs SpecMap, e
 func NewDataElementSpecParser() *DataElementSpecParser {
 	return &DataElementSpecParser{
 		numLineRE: regexp.MustCompile(
-			`^[ ]{5}(\d{4})[ ]+(.*)(\[[BIC]\])$`),
+			`^[ ]{4}(\d{4})[ ]+(.*)(\[[BIC]\])$`),
 	}
 }

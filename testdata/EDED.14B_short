@@ -47,3 +47,12 @@
            UN/LOCODE. If not applicable, use appropriate code set
            in combination with 1131/3055.
 
+----------------------------------------------------------------------
+
+|    7088  Dangerous goods flashpoint description                  [B]
+
+|    Desc: To describe the flashpoint of dangerous goods.
+
+     Repr: an..8
+
+----------------------------------------------------------------------
