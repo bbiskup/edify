@@ -34,20 +34,22 @@ const (
 
 // DataElement specification
 type DataElementSpec struct {
-	Num  int32
-	Name string
-	Repr string
+	Num   int32
+	Name  string
+	Descr string
+	Repr  string
 }
 
 func (s *DataElementSpec) String() string {
-	return fmt.Sprintf("DataElementSpec: %d %s [%s]", s.Num, s.Name, s.Repr)
+	return fmt.Sprintf("DataElementSpec: %d '%s' [%s]", s.Num, s.Name, s.Repr)
 }
 
-func NewDataElementSpec(num int32, name string, repr string) *DataElementSpec {
+func NewDataElementSpec(num int32, name string, descr string, repr string) *DataElementSpec {
 	return &DataElementSpec{
-		Num:  num,
-		Name: name,
-		Repr: repr,
+		Num:   num,
+		Name:  name,
+		Descr: descr,
+		Repr:  repr,
 	}
 }
 
@@ -76,7 +78,16 @@ func (p *DataElementSpecParser) ParseSpec(specLines []string) (spec *DataElement
 		return nil, err
 	}
 
-	return NewDataElementSpec(int32(num), "dummyspec", "dummyrepr"), nil
+	specName := numLineMatch[2]
+
+	descLine := specLinesSections[1][0]
+	colonIdx := strings.Index(descLine, ":")
+	if colonIdx == -1 {
+		return nil, errors.New("Could not parse description")
+	}
+	description := strings.TrimSpace(descLine[colonIdx:])
+
+	return NewDataElementSpec(int32(num), specName, description, "dummyrepr"), nil
 }
 
 // fetch all lines up to next spec separator
