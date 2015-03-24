@@ -67,11 +67,11 @@ func (p *DataElementSpecParser) ParseSpec(specLines []string) (spec *DataElement
 
 	numSection := specLinesSections[0]
 	numSectionHeader := numSection[0]
-	numLineMatch := p.numLineRE.FindAllString(numSectionHeader, -1)
+	numLineMatch := p.numLineRE.FindStringSubmatch(numSectionHeader)
 	if numLineMatch == nil {
 		return nil, errors.New(fmt.Sprintf("Missing num section in line '%s'", numSectionHeader))
 	}
-	num, err := strconv.Atoi(numLineMatch[0])
+	num, err := strconv.Atoi(numLineMatch[1])
 	if err != nil {
 		return nil, err
 	}
@@ -173,6 +173,6 @@ func (p *DataElementSpecParser) ParseSpecFile(fileName string) (specs SpecMap, e
 func NewDataElementSpecParser() *DataElementSpecParser {
 	return &DataElementSpecParser{
 		numLineRE: regexp.MustCompile(
-			`^[:blank:]+(\d+)[:blank:]+(.*)([BIC])$`),
+			`^[ ]{5}(\d{4})[ ]+(.*)(\[[BIC]\])$`),
 	}
 }
