@@ -15,6 +15,8 @@ var repSpec = []struct {
 	{"a2", sp.NewRepr(sp.Alpha, false, 2)},
 	{"an2", sp.NewRepr(sp.AlphaNum, false, 2)},
 	{"an..2", sp.NewRepr(sp.AlphaNum, true, 2)},
+	{"n3", sp.NewRepr(sp.Num, false, 3)},
+	{"n..3", sp.NewRepr(sp.Num, true, 3)},
 }
 
 func TestRep(t *testing.T) {
