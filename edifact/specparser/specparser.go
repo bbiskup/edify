@@ -38,7 +38,6 @@ type DataElementSpecParser struct {
 
 // Parse a single data element spec
 func (p *DataElementSpecParser) ParseSpec(specLines []string) (spec *DataElementSpec, err error) {
-
 	numSpecLines := len(specLines)
 	for i := 0; i < numSpecLines; i++ {
 		specLines[i] = specLines[i][1:]
