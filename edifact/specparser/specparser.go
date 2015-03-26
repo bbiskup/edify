@@ -10,7 +10,7 @@ package specparser
 
 import (
 	"bufio"
-	edi "edifact_experiments/edifact"
+	edi "edifice/edifact"
 	"errors"
 	"fmt"
 	"log"

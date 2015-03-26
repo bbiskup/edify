@@ -1,7 +1,7 @@
 package tests
 
 import (
-	edi "edifact_experiments/edifact"
+	edi "edifice/edifact"
 	"testing"
 )
 

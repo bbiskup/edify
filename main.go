@@ -1,8 +1,8 @@
 package main
 
 import (
-	//edi "edifact_experiments/edifact"
-	sp "edifact_experiments/edifact/specparser"
+	//edi "edifice/edifact"
+	sp "edifice/edifact/specparser"
 	"fmt"
 )
 

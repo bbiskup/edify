@@ -1,7 +1,7 @@
 package tests
 
 import (
-	sp "edifact_experiments/edifact/specparser"
+	sp "edifice/edifact/specparser"
 	"fmt"
 	"strings"
 	"testing"

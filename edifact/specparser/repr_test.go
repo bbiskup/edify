@@ -1,7 +1,7 @@
 package specparser
 
 import (
-	sp "edifact_experiments/edifact/specparser"
+	sp "edifice/edifact/specparser"
 	"reflect"
 	"testing"
 )
