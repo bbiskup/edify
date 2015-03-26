@@ -19,7 +19,7 @@ var repSpec = []struct {
 	{"n..3", sp.NewRepr(sp.Num, true, 3)},
 }
 
-func TestRep(t *testing.T) {
+func TestParseRepr(t *testing.T) {
 	for _, spec := range repSpec {
 		res, err := sp.ParseRepr(spec.reprStr)
 		if err != nil {

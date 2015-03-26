@@ -44,6 +44,49 @@ func (r *Repr) String() string {
 	return fmt.Sprintf("%s%s%d", typeStr, rangeStr, r.Max)
 }
 
+func IsNumChar(char rune) bool {
+	return char >= '0' && char <= '9'
+}
+
+// A.1 alphabetic character set: A character set that contains
+//     letters and may contain control characters and special
+//     characters but not digits (ISO 2382/4)
+func IsEDIFACTAlphabetic(char rune) bool {
+	// TODO restrictive enough
+	return !IsNumChar(char)
+}
+
+func (r *Repr) Validate(dataElementStr string) (valid bool, err error) {
+	var typ = r.Typ
+	var strLen uint32
+
+	for _, c := range dataElementStr {
+		strLen++
+		if typ == AlphaNum {
+			continue
+		} else {
+			isNum := IsNumChar(c)
+			if typ == Num && !isNum {
+				return false, errors.New(fmt.Sprintf("Found non-numeric character '%c'", c))
+			} else if typ == Alpha && isNum {
+				return false, errors.New(fmt.Sprintf("Found numeric character '%c'", c))
+			}
+		}
+	}
+	if r.Range {
+		if strLen > r.Max {
+			return false, errors.New(fmt.Sprintf("String too long: '%s' (max: %d)",
+				dataElementStr, r.Max))
+		}
+	} else {
+		if strLen != r.Max {
+			return false, errors.New(fmt.Sprintf("String '%s' should have %d characters)",
+				dataElementStr, r.Max))
+		}
+	}
+	return true, nil
+}
+
 func NewRepr(typ ReprType, range_ bool, max_ uint32) *Repr {
 	return &Repr{
 		Typ:   typ,
