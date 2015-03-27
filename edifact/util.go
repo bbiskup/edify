@@ -1,8 +1,6 @@
 package edifact
 
 import (
-	//"fmt"
-	"log"
 	"strings"
 )
 
@@ -63,7 +61,7 @@ func SplitByHangingIndent(lines []string, splitIndent int) [][]string {
 			continue
 		}
 		indent := GetIndent(line)
-		log.Printf("line: '%s'; indent: %d", line, indent)
+		// log.Printf("line: '%s'; indent: %d", line, indent)
 
 		if indent < oldIndent || indent == splitIndent {
 			if currentSection != nil {
