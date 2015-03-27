@@ -27,5 +27,8 @@ func main() {
 		fmt.Printf("Parse error: %s\n", err)
 		return
 	}
-	fmt.Printf("Specs: %s\n", specs)
+	fmt.Printf("Specs:\n")
+	for _, spec := range specs {
+		fmt.Printf("\t%s\n", spec)
+	}
 }
