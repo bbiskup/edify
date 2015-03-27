@@ -59,6 +59,12 @@ func TestSplitEDIFACT(t *testing.T) {
 	}
 }
 
+func BenchmarkSplitEDIFACT(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		edi.SplitEDIFACT("abc+d?+ef+ghi", '+', '?')
+	}
+}
+
 var getIndentTests = []struct {
 	str      string
 	expected int
