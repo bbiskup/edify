@@ -3,6 +3,7 @@ package tests
 import (
 	edi "edifice/edifact"
 	"fmt"
+	"strings"
 	"testing"
 )
 
@@ -167,5 +168,28 @@ func TestSplitByHangingIndent(t *testing.T) {
 			t.Fatalf("Failed for spec '%s': expected %s, got %s",
 				spec.lines, expectedStr, res)
 		}
+	}
+}
+
+func BenchmarkSplitByHangingIndent(b *testing.B) {
+	testStr := `
+
+     8023  Freight and other charges description identifier        [B]
+
+     Desc: Code identifying freight and other charges.
+
+     Repr: an..17
+
+     Note: 
+           1 Use UN/ECE Recommendation No. 23: Freight costs and
+           charges. If not applicable, use appropriate code in
+           combination with 1131/3055.
+
+
+	`
+	testLines := strings.Split(testStr, "\n")
+	b.ResetTimer()
+	for i := 0; i < b.N; i++ {
+		edi.SplitByHangingIndent(testLines, 4)
 	}
 }
