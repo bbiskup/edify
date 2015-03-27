@@ -1,4 +1,4 @@
-package specparser
+package tests
 
 import (
 	sp "edifice/edifact/specparser"
