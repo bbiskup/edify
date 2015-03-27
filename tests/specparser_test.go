@@ -31,3 +31,15 @@ func TestParseSpecLines(t *testing.T) {
 	}
 	fmt.Printf("res: %s", res)
 }
+
+func BenchmarkParseSpecLines(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		p := sp.NewDataElementSpecParser()
+		specs, err := p.ParseSpecFile("../testdata/EDED.14B")
+		if err != nil {
+			fmt.Printf("Parse error: %s\n", err)
+			return
+		}
+		fmt.Printf("Parsed %d specs\n", len(specs))
+	}
+}
