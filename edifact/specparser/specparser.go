@@ -136,7 +136,7 @@ func (p *DataElementSpecParser) ParseSpecFile(fileName string) (specs SpecMap, e
 	for {
 		// read specification parts
 		specLines, hasMore := p.GetNextSpecLines(scanner)
-		log.Printf("hasMore? %t\n", hasMore)
+		// log.Printf("hasMore? %t\n", hasMore)
 
 		if !hasMore && len(specLines) == 0 {
 			log.Println("No more lines")
@@ -149,7 +149,7 @@ func (p *DataElementSpecParser) ParseSpecFile(fileName string) (specs SpecMap, e
 			continue
 		}
 
-		log.Printf("specLines: %s", specLines)
+		// log.Printf("specLines: %s", specLines)
 
 		err := scanner.Err()
 		if err != nil {
