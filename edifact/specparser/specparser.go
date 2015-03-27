@@ -52,7 +52,7 @@ func (p *DataElementSpecParser) ParseSpec(specLines []string) (spec *DataElement
 		dataElementSectionIndent-1)
 	numSpecLinesSections := len(specLinesSections)
 	if numSpecLinesSections < 3 {
-		fmt.Printf("specLines:\n%s\n", strings.Join(specLines, "\n"))
+		log.Printf("specLines:\n%s\n", strings.Join(specLines, "\n"))
 		return nil, errors.New(fmt.Sprintf("Too few (%d) spec segments",
 			numSpecLinesSections))
 	}

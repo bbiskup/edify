@@ -2,7 +2,7 @@ package tests
 
 import (
 	sp "edifice/edifact/specparser"
-	"fmt"
+	"log"
 	"strings"
 	"testing"
 )
@@ -29,7 +29,7 @@ func TestParseSpecLines(t *testing.T) {
 	if err != nil {
 		t.Fatalf("Failed to parse specLines", err)
 	}
-	fmt.Printf("res: %s", res)
+	log.Printf("res: %s", res)
 }
 
 func BenchmarkParseSpecLines(b *testing.B) {
@@ -37,9 +37,9 @@ func BenchmarkParseSpecLines(b *testing.B) {
 		p := sp.NewDataElementSpecParser()
 		specs, err := p.ParseSpecFile("../testdata/EDED.14B")
 		if err != nil {
-			fmt.Printf("Parse error: %s\n", err)
+			log.Printf("Parse error: %s\n", err)
 			return
 		}
-		fmt.Printf("Parsed %d specs\n", len(specs))
+		log.Printf("Parsed %d specs\n", len(specs))
 	}
 }
