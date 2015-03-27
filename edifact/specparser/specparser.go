@@ -40,7 +40,12 @@ type DataElementSpecParser struct {
 func (p *DataElementSpecParser) ParseSpec(specLines []string) (spec *DataElementSpec, err error) {
 	numSpecLines := len(specLines)
 	for i := 0; i < numSpecLines; i++ {
-		specLines[i] = specLines[i][1:]
+		line := specLines[i]
+		if len(line) > 0 {
+			specLines[i] = line[1:]
+		} else {
+			specLines[i] = ""
+		}
 	}
 
 	specLinesSections := edi.SplitByHangingIndent(specLines,
