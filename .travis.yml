@@ -5,9 +5,9 @@ cache:
     - $HOME/.gvm
 
 install:
-  - bash < <(curl -s -S -L https://raw.githubusercontent.com/moovweb/gvm/master/binscripts/gvm-installer)
+  - # bash < <(curl -s -S -L https://raw.githubusercontent.com/moovweb/gvm/master/binscripts/gvm-installer)
 
 script:
-  - $HOME/.gvm/scripts/gvm version
-  - $HOME/.gvm/scripts/gvm install go1.4
+  - gvm version
+  - gvm install go1.4
   - go test tests/*_test.go
