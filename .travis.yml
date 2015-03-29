@@ -6,9 +6,9 @@ cache:
 
 install:
   - sudo apt-get install -y curl
-  - bash < <(curl -s -S -L https://raw.githubusercontent.com/moovweb/gvm/master/binscripts/gvm-installer)
+  - bash < <(curl -s -S -L https://raw.githubusercontent.com/moovweb/gvm/master/binscripts/gvm-installer) || true
 
 script:
-  - $HOME/.gvm/scripts/gvm version
-  - $HOME/.gvm/scripts/gvm install go1.4
+  - . $HOME/.gvm/scripts/gvm && gvm version
+  - . $HOME/.gvm/scripts/gvm && gvm install go1.4
   - go test tests/*_test.go
