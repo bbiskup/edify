@@ -49,6 +49,16 @@ func (p *DataElementSpecParser) getNameAndNum(specLinesSections [][]string) (nam
 	return
 }
 
+func (p *DataElementSpecParser) getDescr(specLinesSections [][]string) (descr string, err error) {
+	descLine := specLinesSections[1][0]
+	colonIdx := strings.Index(descLine, ":")
+	if colonIdx == -1 {
+		return "", errors.New("Could not parse description")
+	}
+	description := strings.TrimSpace(descLine[colonIdx:])
+	return description, nil
+}
+
 // Parse a single data element spec
 func (p *DataElementSpecParser) ParseSpec(specLines []string) (spec *DataElementSpec, err error) {
 	numSpecLines := len(specLines)
@@ -75,14 +85,12 @@ func (p *DataElementSpecParser) ParseSpec(specLines []string) (spec *DataElement
 		return nil, err
 	}
 
-	specName := name
-	descLine := specLinesSections[1][0]
-	colonIdx := strings.Index(descLine, ":")
-	if colonIdx == -1 {
-		return nil, errors.New("Could not parse description")
+	description, err := p.getDescr(specLinesSections)
+	if err != nil {
+		return nil, err
 	}
-	description := strings.TrimSpace(descLine[colonIdx:])
-	return NewDataElementSpec(int32(num), specName, description, "dummyrepr"), nil
+
+	return NewDataElementSpec(int32(num), name, description, "dummyrepr"), nil
 }
 
 type SpecMap map[int32]*DataElementSpec
