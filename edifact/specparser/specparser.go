@@ -151,14 +151,6 @@ func (p *DataElementSpecParser) ParseSpecFile(fileName string) (specs SpecMap, e
 		if err != nil {
 			return nil, err
 		}
-		line := strings.TrimSpace(scanner.Text())
-		if len(line) == 0 {
-			continue
-		}
-
-		if err != nil {
-			return nil, err
-		}
 
 		spec, err := p.ParseSpec(specLines)
 		if err != nil {
