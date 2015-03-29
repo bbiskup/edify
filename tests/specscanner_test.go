@@ -29,6 +29,13 @@ func TestSpecScannerFromFile(t *testing.T) {
 	}
 }
 
+func TestSpecScannerFileNotExistent(t *testing.T) {
+	_, err := sp.NewSpecScanner("../testdata/specscanner/__NONEXISTANT__")
+	if err == nil {
+		t.Fatalf("NewSpecScanner should fail with nonexistent file")
+	}
+}
+
 var specScannerSpecs = []struct {
 	inContents string
 	expected   [][]string
