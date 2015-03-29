@@ -9,12 +9,10 @@ package specparser
  */
 
 import (
-	"bufio"
 	"errors"
 	"fmt"
 	edi "github.com/bbiskup/edifice/edifact"
 	"log"
-	"os"
 	"regexp"
 	"strconv"
 	"strings"
@@ -34,6 +32,21 @@ const (
 
 type DataElementSpecParser struct {
 	numLineRE *regexp.Regexp
+}
+
+// Get data element spec number
+func (p *DataElementSpecParser) getNameAndNum(specLinesSections [][]string) (name string, num int, err error) {
+	numSection := specLinesSections[0]
+	numSectionHeader := numSection[0]
+	numLineMatch := p.numLineRE.FindStringSubmatch(numSectionHeader)
+	if numLineMatch == nil {
+		return "", -1, errors.New(
+			fmt.Sprintf("Missing num section in line '%s'",
+				numSectionHeader))
+	}
+	name = numLineMatch[2]
+	num, err = strconv.Atoi(numLineMatch[1])
+	return
 }
 
 // Parse a single data element spec
@@ -57,20 +70,12 @@ func (p *DataElementSpecParser) ParseSpec(specLines []string) (spec *DataElement
 			numSpecLinesSections))
 	}
 
-	numSection := specLinesSections[0]
-	numSectionHeader := numSection[0]
-	numLineMatch := p.numLineRE.FindStringSubmatch(numSectionHeader)
-	if numLineMatch == nil {
-		return nil, errors.New(
-			fmt.Sprintf("Missing num section in line '%s'",
-				numSectionHeader))
-	}
-	num, err := strconv.Atoi(numLineMatch[1])
+	name, num, err := p.getNameAndNum(specLinesSections)
 	if err != nil {
 		return nil, err
 	}
 
-	specName := numLineMatch[2]
+	specName := name
 	descLine := specLinesSections[1][0]
 	colonIdx := strings.Index(descLine, ":")
 	if colonIdx == -1 {
@@ -78,36 +83,6 @@ func (p *DataElementSpecParser) ParseSpec(specLines []string) (spec *DataElement
 	}
 	description := strings.TrimSpace(descLine[colonIdx:])
 	return NewDataElementSpec(int32(num), specName, description, "dummyrepr"), nil
-}
-
-// fetch all lines up to next spec separator
-func (p *DataElementSpecParser) GetNextSpecLines(scanner *bufio.Scanner) (lines []string, hasMore bool) {
-	for {
-		scanResult := scanner.Scan()
-		if !scanResult {
-			if scanner.Err() == nil {
-				// EOF
-				return lines, false
-			}
-		}
-		err := scanner.Err()
-		if err != nil {
-			return nil, true
-		}
-
-		line := scanner.Text()
-		strippedLine := strings.TrimSpace(line)
-		if len(strippedLine) == 0 {
-			continue
-		}
-
-		if strings.HasPrefix(line, specSep) {
-			return lines, true
-		}
-
-		lines = append(lines, line)
-	}
-	return lines, true
 }
 
 type SpecMap map[int32]*DataElementSpec
@@ -122,21 +97,25 @@ func (sm SpecMap) String() string {
 
 func (p *DataElementSpecParser) ParseSpecFile(fileName string) (specs SpecMap, err error) {
 	result := SpecMap{}
-	file, err := os.Open(fileName)
-	if err != nil {
-		return nil, err
-	}
-	defer file.Close()
 
-	scanner := bufio.NewScanner(file)
+	scanner, err := NewSpecScanner(fileName)
+	if err != nil {
+		log.Printf("Unable to create spec scanner for file %s: %s",
+			fileName, err)
+	}
+
 	first := true
 
 	for {
 		// read specification parts
-		specLines, hasMore := p.GetNextSpecLines(scanner)
+		specLines, err := scanner.GetNextSpecLines()
 		// log.Printf("hasMore? %t\n", hasMore)
 
-		if !hasMore && len(specLines) == 0 {
+		if err != nil {
+			return nil, err
+		}
+
+		if !scanner.hasMore && len(specLines) == 0 {
 			log.Println("No more lines")
 			break
 		}
@@ -145,11 +124,6 @@ func (p *DataElementSpecParser) ParseSpecFile(fileName string) (specs SpecMap, e
 			// Skip header part
 			first = false
 			continue
-		}
-
-		err := scanner.Err()
-		if err != nil {
-			return nil, err
 		}
 
 		spec, err := p.ParseSpec(specLines)

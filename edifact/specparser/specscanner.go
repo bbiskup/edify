@@ -17,6 +17,14 @@ type SpecScanner struct {
 	hasMore bool
 }
 
+func (s *SpecScanner) Err() error {
+	if s != nil {
+		return s.scanner.Err()
+	} else {
+		return nil
+	}
+}
+
 func (s *SpecScanner) String() string {
 	var name string
 	if s.file != nil {
