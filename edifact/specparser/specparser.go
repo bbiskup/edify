@@ -71,14 +71,12 @@ func (p *DataElementSpecParser) ParseSpec(specLines []string) (spec *DataElement
 	}
 
 	specName := numLineMatch[2]
-
 	descLine := specLinesSections[1][0]
 	colonIdx := strings.Index(descLine, ":")
 	if colonIdx == -1 {
 		return nil, errors.New("Could not parse description")
 	}
 	description := strings.TrimSpace(descLine[colonIdx:])
-
 	return NewDataElementSpec(int32(num), specName, description, "dummyrepr"), nil
 }
 
@@ -148,8 +146,6 @@ func (p *DataElementSpecParser) ParseSpecFile(fileName string) (specs SpecMap, e
 			first = false
 			continue
 		}
-
-		// log.Printf("specLines: %s", specLines)
 
 		err := scanner.Err()
 		if err != nil {

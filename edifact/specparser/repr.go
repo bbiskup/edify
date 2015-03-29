@@ -52,7 +52,7 @@ func IsNumChar(char rune) bool {
 //     letters and may contain control characters and special
 //     characters but not digits (ISO 2382/4)
 func IsEDIFACTAlphabetic(char rune) bool {
-	// TODO restrictive enough
+	// TODO restrictive enough?
 	return !IsNumChar(char)
 }
 
