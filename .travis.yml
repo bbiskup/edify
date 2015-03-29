@@ -9,7 +9,10 @@ cache:
 
 install:
   - sudo apt-get install -y curl bison
+  - go get golang.org/x/tools/cmd/vet
 
 script:
+  - go vet
+  - go build
   - go test -v tests/*_test.go
   - go test -v -bench . tests/*_test.go
