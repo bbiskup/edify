@@ -1,7 +1,7 @@
 package tests
 
 import (
-	sp "edifice/edifact/specparser"
+	sp "github.com/bbiskup/edifice/edifact/specparser"
 	"log"
 	"strings"
 	"testing"

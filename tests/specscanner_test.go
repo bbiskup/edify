@@ -2,7 +2,7 @@ package tests
 
 import (
 	"bufio"
-	sp "edifice/edifact/specparser"
+	sp "github.com/bbiskup/edifice/edifact/specparser"
 	"reflect"
 	"strings"
 	"testing"

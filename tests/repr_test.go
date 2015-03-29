@@ -1,8 +1,8 @@
 package tests
 
 import (
-	sp "edifice/edifact/specparser"
 	"fmt"
+	sp "github.com/bbiskup/edifice/edifact/specparser"
 	"reflect"
 	"strings"
 	"testing"

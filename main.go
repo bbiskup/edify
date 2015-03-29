@@ -1,9 +1,8 @@
 package main
 
 import (
-	//edi "edifice/edifact"
-	sp "edifice/edifact/specparser"
 	"fmt"
+	sp "github.com/bbiskup/edifice/edifact/specparser"
 )
 
 func main() {

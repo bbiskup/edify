@@ -1,8 +1,8 @@
 package tests
 
 import (
-	edi "edifice/edifact"
 	"fmt"
+	edi "github.com/bbiskup/edifice/edifact"
 	"strings"
 	"testing"
 )

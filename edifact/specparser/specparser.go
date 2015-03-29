@@ -10,9 +10,9 @@ package specparser
 
 import (
 	"bufio"
-	edi "edifice/edifact"
 	"errors"
 	"fmt"
+	edi "github.com/bbiskup/edifice/edifact"
 	"log"
 	"os"
 	"regexp"
