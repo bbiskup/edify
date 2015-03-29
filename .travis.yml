@@ -12,3 +12,4 @@ install:
 
 script:
   - go test -v tests/*_test.go
+  - go test -v -bench . tests/*_test.go
