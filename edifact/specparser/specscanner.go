@@ -33,7 +33,6 @@ func (s *SpecScanner) GetNextSpecLines() (lines []string, err error) {
 		if !s.hasMore {
 			return nil, errors.New("No more data")
 		}
-		log.Printf("scanning")
 		scanResult := s.scanner.Scan()
 		if !scanResult {
 			if s.scanner.Err() == nil {
