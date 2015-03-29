@@ -12,4 +12,4 @@ install:
 script:
   - . $HOME/.gvm/scripts/gvm && gvm version
   - . $HOME/.gvm/scripts/gvm && gvm install go1.4
-  - go test tests/*_test.go
+  - GOPATH=/usr/local/go go test tests/*_test.go
