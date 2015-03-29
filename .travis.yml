@@ -7,6 +7,7 @@ cache:
 install:
   - sudo apt-get install -y curl
   - bash < <(curl -s -S -L https://raw.githubusercontent.com/moovweb/gvm/master/binscripts/gvm-installer) || true
+  - sudo mkdir -p /usr/local/go
 
 script:
   - . $HOME/.gvm/scripts/gvm && gvm version
