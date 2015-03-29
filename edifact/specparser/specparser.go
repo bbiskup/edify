@@ -49,6 +49,7 @@ func (p *DataElementSpecParser) getNameAndNum(specLinesSections [][]string) (nam
 	return
 }
 
+// Get data element description
 func (p *DataElementSpecParser) getDescr(specLinesSections [][]string) (descr string, err error) {
 	descLine := specLinesSections[1][0]
 	colonIdx := strings.Index(descLine, ":")
@@ -57,6 +58,16 @@ func (p *DataElementSpecParser) getDescr(specLinesSections [][]string) (descr st
 	}
 	description := strings.TrimSpace(descLine[colonIdx:])
 	return description, nil
+}
+
+func (p *DataElementSpecParser) getRepr(specLinesSections [][]string) (repr *Repr, err error) {
+	reprLine := strings.TrimSpace(specLinesSections[2][0])
+	reprLineTokens := strings.Split(reprLine, ":")
+	if len(reprLineTokens) != 2 || reprLineTokens[0] != "Repr" {
+		return nil, errors.New(fmt.Sprintf("Malformed repr line :'%s'", reprLine))
+	}
+	reprStr := strings.TrimSpace(reprLineTokens[1])
+	return ParseRepr(reprStr)
 }
 
 // Parse a single data element spec
@@ -90,7 +101,12 @@ func (p *DataElementSpecParser) ParseSpec(specLines []string) (spec *DataElement
 		return nil, err
 	}
 
-	return NewDataElementSpec(int32(num), name, description, "dummyrepr"), nil
+	repr, err := p.getRepr(specLinesSections)
+	if err != nil {
+		return nil, err
+	}
+
+	return NewDataElementSpec(int32(num), name, description, repr), nil
 }
 
 type SpecMap map[int32]*DataElementSpec
