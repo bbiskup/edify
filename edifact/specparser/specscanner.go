@@ -2,7 +2,6 @@ package specparser
 
 import (
 	"bufio"
-	"errors"
 	"fmt"
 	"log"
 	"os"
@@ -38,9 +37,6 @@ func (s *SpecScanner) String() string {
 // fetch all lines up to next spec separator
 func (s *SpecScanner) GetNextSpecLines() (lines []string, err error) {
 	for {
-		if !s.hasMore {
-			return nil, errors.New("No more data")
-		}
 		scanResult := s.scanner.Scan()
 		if !scanResult {
 			if s.scanner.Err() == nil {
