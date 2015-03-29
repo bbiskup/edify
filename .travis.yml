@@ -11,4 +11,4 @@ install:
   - sudo apt-get install -y curl bison
 
 script:
-  - go test tests/*_test.go
+  - go test -v tests/*_test.go
