@@ -3,7 +3,6 @@ package tests
 import (
 	sp "edifice/edifact/specparser"
 	"log"
-	"reflect"
 	"strings"
 	"testing"
 )
@@ -42,26 +41,5 @@ func BenchmarkParseSpecLines(b *testing.B) {
 			return
 		}
 		log.Printf("Parsed %d specs\n", len(specs))
-	}
-}
-
-func TestSpecScannerFromFile(t *testing.T) {
-	scanner, err := sp.NewSpecScanner("../testdata/specscanner/1")
-	if err != nil {
-		t.Fatalf("Error creating SpecScanner: %s", err)
-	}
-
-	expected := [][]string{
-		[]string{"one"},
-		[]string{"two"},
-		[]string{"three"},
-	}
-
-	first, err := scanner.GetAllSpecLines()
-	if err != nil {
-		t.Fatalf("Error reading first spec line: %s", err)
-	}
-	if !reflect.DeepEqual(first, expected) {
-		t.Fatalf("Expected: %s, got: %s", expected, first)
 	}
 }
