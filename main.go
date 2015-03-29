@@ -21,7 +21,7 @@ func main() {
 	*/
 
 	p := sp.NewDataElementSpecParser()
-	specs, err := p.ParseSpecFile("testdata/EDED.14B_short")
+	specs, err := p.ParseSpecFile("testdata/EDED.14B")
 	if err != nil {
 		fmt.Printf("Parse error: %s\n", err)
 		return
