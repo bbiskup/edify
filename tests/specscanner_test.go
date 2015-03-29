@@ -66,7 +66,6 @@ func TestSpecScannerFromReader(t *testing.T) {
 	for _, spec := range specScannerSpecs {
 		reader := strings.NewReader(spec.inContents)
 		bufReader := bufio.NewReader(reader)
-
 		scanner := sp.NewSpecScannerFromReader(bufReader)
 
 		allLines, err := scanner.GetAllSpecLines()
