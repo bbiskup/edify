@@ -34,11 +34,30 @@ var specScannerSpecs = []struct {
 	expected   [][]string
 }{
 	{`one
+
+`,
+		[][]string{
+			{"one"},
+		},
+	},
+	{`one
 -------------------------
 two`,
 		[][]string{
 			{"one"},
 			{"two"},
+		},
+	},
+	{`one
+-------------------------
+two
+
+three
+four
+`,
+		[][]string{
+			{"one"},
+			{"two", "three", "four"},
 		},
 	},
 }
