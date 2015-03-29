@@ -5,7 +5,7 @@ cache:
     - $HOME/.gvm
 
 install:
-  - apt-get install -y curl
+  - sudo apt-get install -y curl
   - bash < <(curl -s -S -L https://raw.githubusercontent.com/moovweb/gvm/master/binscripts/gvm-installer)
 
 script:
