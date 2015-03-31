@@ -19,7 +19,7 @@ type CompositeDataElementSpecParser struct {
 func (p *CompositeDataElementSpecParser) ParseHeader(header string) (pos int, name string, title string, mandatory bool, count int, err error) {
 	headerMatch := p.headerRE.FindStringSubmatch(header)
 	if headerMatch == nil {
-		err = errors.New("Missing header section")
+		err = errors.New(fmt.Sprintf("Missing header section (header: '%s'", header))
 		return
 	}
 
@@ -117,6 +117,10 @@ func (p *CompositeDataElementSpecParser) Parse(specLines []string) (spec *Compos
 			return nil, err
 		}
 		componentSpecs = append(componentSpecs, elemSpec)
+	}
+
+	if len(componentSpecs) == 0 {
+		return nil, errors.New("No component elements")
 	}
 
 	spec = NewCompositeDataElementSpec(name, title, count, isMandatory, componentSpecs)

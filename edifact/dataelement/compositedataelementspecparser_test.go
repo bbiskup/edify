@@ -38,6 +38,13 @@ var parserSpec = []struct {
 		"",
 		true,
 	},
+	{
+		[]string{
+			"020    C138 PRICE MULTIPLIER INFORMATION               C    2      ",
+		},
+		"",
+		true,
+	},
 }
 
 func TestParser(t *testing.T) {
@@ -45,6 +52,7 @@ func TestParser(t *testing.T) {
 		parser := NewCompositeDataElementSpecParser()
 		res, err := parser.Parse(spec.specLines)
 		if err != nil && spec.expectErr {
+			fmt.Printf("expected err: %s", err)
 			continue
 		}
 
