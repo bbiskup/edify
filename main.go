@@ -22,8 +22,9 @@ func main() {
 			Name:    "download_specs",
 			Aliases: []string{"d"},
 			Action: func(c *cli.Context) {
-				url := c.Args().First()
-				err = commands.DownloadSpecs(url)
+				// version: e.g. d14b
+				version := c.Args().First()
+				err = commands.DownloadSpecs(version)
 			},
 		},
 		{

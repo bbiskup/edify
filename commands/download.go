@@ -8,21 +8,22 @@ import (
 	"net/http"
 	"net/url"
 	"os"
+	"strings"
 )
 
 const (
+	urlRoot     = "http://www.unece.org/fileadmin/DAM/trade/untdid/"
 	downloadDir = ".edify/downloads"
-	specFile    = "edififact_spec"
 )
 
-func prepareTargetPath(specFile string) (*os.File, error) {
+func prepareTargetPath(version string) (*os.File, error) {
 	// Ensure the download directory exists
 	err := os.MkdirAll(downloadDir, os.ModeDir|os.ModePerm)
 	if err != nil {
 		return nil, err
 	}
 
-	targetPath := downloadDir + string(os.PathSeparator) + specFile
+	targetPath := downloadDir + string(os.PathSeparator) + version
 
 	targetFile, err := os.Create(targetPath)
 	if err != nil {
@@ -33,11 +34,13 @@ func prepareTargetPath(specFile string) (*os.File, error) {
 }
 
 // Retrieve EDIFACT specification files for validation
-func DownloadSpecs(urlStr string) error {
-	log.Printf("Download %s", urlStr)
-	if len(urlStr) == 0 {
-		return errors.New("No URL specified")
+func DownloadSpecs(version string) error {
+
+	if len(version) == 0 {
+		return errors.New("No version specified")
 	}
+
+	urlStr := strings.Join([]string{urlRoot, version, version + ".zip"}, "/")
 
 	// Validate URL
 	_, err := url.Parse(urlStr)
@@ -45,11 +48,13 @@ func DownloadSpecs(urlStr string) error {
 		return err
 	}
 
-	targetFile, err := prepareTargetPath(specFile)
+	targetFile, err := prepareTargetPath(version)
 	if err != nil {
 		return err
 	}
 	defer targetFile.Close()
+
+	log.Printf("Download version %s (%s)", version, urlStr)
 
 	check := http.Client{
 		CheckRedirect: func(r *http.Request, via []*http.Request) error {
