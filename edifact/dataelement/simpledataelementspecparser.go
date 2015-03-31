@@ -119,8 +119,7 @@ func (p *SimpleDataElementSpecParser) ParseSpecFile(fileName string) (specs Simp
 
 	scanner, err := util.NewSpecScanner(fileName)
 	if err != nil {
-		log.Printf("Unable to create spec scanner for file %s: %s",
-			fileName, err)
+		return
 	}
 
 	first := true

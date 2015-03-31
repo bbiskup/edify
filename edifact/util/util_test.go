@@ -1,8 +1,7 @@
-package tests
+package util
 
 import (
 	"fmt"
-	"github.com/bbiskup/edifice/edifact/util"
 	"strings"
 	"testing"
 )
@@ -50,7 +49,7 @@ var splitTests = []struct {
 
 func TestSplitEDIFACT(t *testing.T) {
 	for _, s := range splitTests {
-		res := util.SplitEDIFACT(s.input, s.sep, s.escapeChar)
+		res := SplitEDIFACT(s.input, s.sep, s.escapeChar)
 
 		resStr := fmt.Sprintf("%#v", res)
 		expectedStr := fmt.Sprintf("%#v", s.expected)
@@ -62,7 +61,7 @@ func TestSplitEDIFACT(t *testing.T) {
 
 func BenchmarkSplitEDIFACT(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		util.SplitEDIFACT("abc+d?+ef+ghi", '+', '?')
+		SplitEDIFACT("abc+d?+ef+ghi", '+', '?')
 	}
 }
 
@@ -81,7 +80,7 @@ var getIndentTests = []struct {
 
 func TestGetIndent(t *testing.T) {
 	for _, spec := range getIndentTests {
-		res := util.GetIndent(spec.str)
+		res := GetIndent(spec.str)
 		if res != spec.expected {
 			t.Fatalf("Failed for spec '%s': expected %d, got %d",
 				spec.str, spec.expected, res)
@@ -159,7 +158,7 @@ var splitByHangingIndentTests = []struct {
 
 func TestSplitByHangingIndent(t *testing.T) {
 	for _, spec := range splitByHangingIndentTests {
-		res := util.SplitByHangingIndent(spec.lines, 0)
+		res := SplitByHangingIndent(spec.lines, 0)
 
 		expectedStr := fmt.Sprintf("%s", spec.expected)
 		resStr := fmt.Sprintf("%s", res)
@@ -190,15 +189,15 @@ func BenchmarkSplitByHangingIndent(b *testing.B) {
 	testLines := strings.Split(testStr, "\n")
 	b.ResetTimer()
 	for i := 0; i < b.N; i++ {
-		util.SplitByHangingIndent(testLines, 4)
+		SplitByHangingIndent(testLines, 4)
 	}
 }
 
 func TestCustBoolStr(t *testing.T) {
-	if util.CustBoolStr(true, "yes", "no") != "yes" {
+	if CustBoolStr(true, "yes", "no") != "yes" {
 		t.Fail()
 	}
-	if util.CustBoolStr(false, "yes", "no") != "no" {
+	if CustBoolStr(false, "yes", "no") != "no" {
 		t.Fail()
 	}
 }

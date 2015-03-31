@@ -1,15 +1,14 @@
-package tests
+package util
 
 import (
 	"bufio"
-	"github.com/bbiskup/edifice/edifact/util"
 	"reflect"
 	"strings"
 	"testing"
 )
 
 func TestSpecScannerFromFile(t *testing.T) {
-	scanner, err := util.NewSpecScanner("../testdata/specscanner/1")
+	scanner, err := NewSpecScanner("../../testdata/specscanner/1")
 	if err != nil {
 		t.Fatalf("Error creating SpecScanner: %s", err)
 	}
@@ -30,7 +29,7 @@ func TestSpecScannerFromFile(t *testing.T) {
 }
 
 func TestSpecScannerFileNotExistent(t *testing.T) {
-	_, err := util.NewSpecScanner("../testdata/specscanner/__NONEXISTANT__")
+	_, err := NewSpecScanner("../../testdata/specscanner/__NONEXISTANT__")
 	if err == nil {
 		t.Fatalf("NewSpecScanner should fail with nonexistent file")
 	}
@@ -73,7 +72,7 @@ func TestSpecScannerFromReader(t *testing.T) {
 	for _, spec := range specScannerSpecs {
 		reader := strings.NewReader(spec.inContents)
 		bufReader := bufio.NewReader(reader)
-		scanner := util.NewSpecScannerFromReader(bufReader)
+		scanner := NewSpecScannerFromReader(bufReader)
 
 		allLines, err := scanner.GetAllSpecLines()
 		if err != nil {

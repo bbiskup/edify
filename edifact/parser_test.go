@@ -1,8 +1,7 @@
-package tests
+package edifact
 
 /* TODO implement
 import (
-	edi "github.com/bbiskup/edifice/edifact"
 	"testing"
 )
 
