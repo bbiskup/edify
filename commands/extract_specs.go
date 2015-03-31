@@ -43,7 +43,7 @@ func extractSpecsFirstLevel(archivePath string, targetDir string) error {
 }
 
 // Extract zips inside top-level spec zip to same dir
-func extractSingleFile(targetDir string, archiveFile string) error {
+func extractInnerZIP(targetDir string, archiveFile string) error {
 	archivePath := targetDir + string(os.PathSeparator) + archiveFile
 
 	reader, err := zip.OpenReader(archivePath)
@@ -88,7 +88,7 @@ func extractSpecsSecondLevel(targetDir string) error {
 		}
 		log.Printf("Extracting %s (%.2f MB)", name, float32(entry.Size())/1e6)
 
-		err = extractSingleFile(targetDir, name)
+		err = extractInnerZIP(targetDir, name)
 		if err != nil {
 			return err
 		}
