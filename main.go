@@ -36,6 +36,15 @@ func main() {
 			},
 		},
 		{
+			Name:    "purge_specs",
+			Aliases: []string{"u"},
+			Action: func(c *cli.Context) {
+				// version: e.g. d14b
+				version := c.Args().First()
+				err = commands.PurgeSpecs(version)
+			},
+		},
+		{
 			Name:    "parse",
 			Aliases: []string{"p"},
 			Action: func(c *cli.Context) {

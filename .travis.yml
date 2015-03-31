@@ -20,4 +20,5 @@ script:
   - make bench
   - time ./edify download_specs d14b
   - time ./edify extract_specs d14b
+  - time ./edify purge_specs d14b
   - time ./edify ./edify parse testdata/EDED.14B
