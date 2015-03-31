@@ -18,3 +18,5 @@ script:
   - make check
   - make test
   - make bench
+  - time ./edify download_specs d14b
+  - time ./edify ./edify parse testdata/EDED.14B
