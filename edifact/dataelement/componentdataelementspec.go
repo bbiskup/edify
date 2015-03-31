@@ -2,7 +2,7 @@ package dataelement
 
 import (
 	"fmt"
-	"github.com/bbiskup/edifice/edifact/util"
+	"github.com/bbiskup/edify/edifact/util"
 )
 
 type ComponentDataElementSpec struct {
