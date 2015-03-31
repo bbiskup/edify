@@ -3,6 +3,7 @@ package tests
 import (
 	"fmt"
 	edi "github.com/bbiskup/edifice/edifact"
+	"github.com/bbiskup/edifice/edifact/util"
 	"strings"
 	"testing"
 )
@@ -50,7 +51,7 @@ var splitTests = []struct {
 
 func TestSplitEDIFACT(t *testing.T) {
 	for _, s := range splitTests {
-		res := edi.SplitEDIFACT(s.input, s.sep, s.escapeChar)
+		res := util.SplitEDIFACT(s.input, s.sep, s.escapeChar)
 
 		resStr := fmt.Sprintf("%#v", res)
 		expectedStr := fmt.Sprintf("%#v", s.expected)
@@ -62,7 +63,7 @@ func TestSplitEDIFACT(t *testing.T) {
 
 func BenchmarkSplitEDIFACT(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		edi.SplitEDIFACT("abc+d?+ef+ghi", '+', '?')
+		util.SplitEDIFACT("abc+d?+ef+ghi", '+', '?')
 	}
 }
 
