@@ -13,7 +13,10 @@ type SegmentSpecMap map[string]*SegmentSpec
 
 // Parse a single segment specification
 func (p *SegmentSpecParser) ParseSpec(specLines []string) (spec *SegmentSpec, err error) {
-	panic("not implemented")
+	/*for _, line := range specLines {
+
+		}*/
+	panic("Not implemented")
 }
 
 func (p *SegmentSpecParser) ParseSpecFile(fileName string) (specs SegmentSpecMap, err error) {

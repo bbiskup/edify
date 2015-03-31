@@ -20,7 +20,7 @@ func main() {
 		fmt.Println(i)
 	*/
 
-	p := sp.NewDataElementSpecParser()
+	p := sp.NewSimpleDataElementSpecParser()
 	specs, err := p.ParseSpecFile("testdata/EDED.14B")
 	if err != nil {
 		fmt.Printf("Parse error: %s\n", err)

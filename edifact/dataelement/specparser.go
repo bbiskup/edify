@@ -1,7 +1,7 @@
 package dataelement
 
 /**
- *  Parser for EDIFACT specification
+ *  Parser for EDIFACT simple data element specification
  *
  * Sample spec archive:
  *    http://www.unece.org/tradewelcome/areas-of-work/un-centre-for-trade-facilitation-and-e-business-uncefact/outputs/standards/unedifact/directories/download.html
@@ -22,15 +22,15 @@ const (
 	ID_IDX = 5
 	ID_LEN = 4
 
-	dataElementSectionIndent = 5
+	simpleDataElementSectionIndent = 5
 )
 
-type DataElementSpecParser struct {
+type SimpleDataElementSpecParser struct {
 	numLineRE *regexp.Regexp
 }
 
 // Get data element spec number
-func (p *DataElementSpecParser) getNameAndNum(specLinesSections [][]string) (name string, num int, err error) {
+func (p *SimpleDataElementSpecParser) getNameAndNum(specLinesSections [][]string) (name string, num int, err error) {
 	numSection := specLinesSections[0]
 	numSectionHeader := numSection[0]
 	numLineMatch := p.numLineRE.FindStringSubmatch(numSectionHeader)
@@ -45,7 +45,7 @@ func (p *DataElementSpecParser) getNameAndNum(specLinesSections [][]string) (nam
 }
 
 // Get data element description
-func (p *DataElementSpecParser) getDescr(specLinesSections [][]string) (descr string, err error) {
+func (p *SimpleDataElementSpecParser) getDescr(specLinesSections [][]string) (descr string, err error) {
 	descLine := specLinesSections[1][0]
 	colonIdx := strings.Index(descLine, ":")
 	if colonIdx == -1 {
@@ -55,7 +55,7 @@ func (p *DataElementSpecParser) getDescr(specLinesSections [][]string) (descr st
 	return description, nil
 }
 
-func (p *DataElementSpecParser) getRepr(specLinesSections [][]string) (repr *Repr, err error) {
+func (p *SimpleDataElementSpecParser) getRepr(specLinesSections [][]string) (repr *Repr, err error) {
 	reprLine := strings.TrimSpace(specLinesSections[2][0])
 	reprLineTokens := strings.Split(reprLine, ":")
 	if len(reprLineTokens) != 2 || reprLineTokens[0] != "Repr" {
@@ -66,7 +66,7 @@ func (p *DataElementSpecParser) getRepr(specLinesSections [][]string) (repr *Rep
 }
 
 // Parse a single data element spec
-func (p *DataElementSpecParser) ParseSpec(specLines []string) (spec *DataElementSpec, err error) {
+func (p *SimpleDataElementSpecParser) ParseSpec(specLines []string) (spec *SimpleDataElementSpec, err error) {
 	numSpecLines := len(specLines)
 	for i := 0; i < numSpecLines; i++ {
 		line := specLines[i]
@@ -78,7 +78,7 @@ func (p *DataElementSpecParser) ParseSpec(specLines []string) (spec *DataElement
 	}
 
 	specLinesSections := util.SplitByHangingIndent(specLines,
-		dataElementSectionIndent-1)
+		simpleDataElementSectionIndent-1)
 	numSpecLinesSections := len(specLinesSections)
 	if numSpecLinesSections < 3 {
 		log.Printf("specLines:\n%s\n", strings.Join(specLines, "\n"))
@@ -101,12 +101,12 @@ func (p *DataElementSpecParser) ParseSpec(specLines []string) (spec *DataElement
 		return nil, err
 	}
 
-	return NewDataElementSpec(int32(num), name, description, repr), nil
+	return NewSimpleDataElementSpec(int32(num), name, description, repr), nil
 }
 
-type DataElementSpecMap map[int32]*DataElementSpec
+type SimpleDataElementSpecMap map[int32]*SimpleDataElementSpec
 
-func (sm DataElementSpecMap) String() string {
+func (sm SimpleDataElementSpecMap) String() string {
 	result := []string{}
 	for key, value := range sm {
 		result = append(result, fmt.Sprintf("%d: %s", key, value))
@@ -114,8 +114,8 @@ func (sm DataElementSpecMap) String() string {
 	return strings.Join(result, ", ")
 }
 
-func (p *DataElementSpecParser) ParseSpecFile(fileName string) (specs DataElementSpecMap, err error) {
-	result := DataElementSpecMap{}
+func (p *SimpleDataElementSpecParser) ParseSpecFile(fileName string) (specs SimpleDataElementSpecMap, err error) {
+	result := SimpleDataElementSpecMap{}
 
 	scanner, err := util.NewSpecScanner(fileName)
 	if err != nil {
@@ -153,8 +153,8 @@ func (p *DataElementSpecParser) ParseSpecFile(fileName string) (specs DataElemen
 	return result, nil
 }
 
-func NewDataElementSpecParser() *DataElementSpecParser {
-	return &DataElementSpecParser{
+func NewSimpleDataElementSpecParser() *SimpleDataElementSpecParser {
+	return &SimpleDataElementSpecParser{
 		numLineRE: regexp.MustCompile(
 			`^[ ]{4}(\d{4})[ ]+(.*)(\[[BIC]\])$`),
 	}
