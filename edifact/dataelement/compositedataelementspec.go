@@ -17,7 +17,7 @@ type CompositeDataElementSpec struct {
 func (s *CompositeDataElementSpec) String() string {
 	specsStrs := []string{}
 	for _, spec := range s.ComponentSpecs {
-		specsStrs = append(specsStrs, fmt.Sprintf("\t%s", spec))
+		specsStrs = append(specsStrs, fmt.Sprintf("\t%s", spec.String()))
 	}
 	componentSpecsStr := strings.Join(specsStrs, "\n")
 	isMandatoryStr := util.CustBoolStr(s.IsMandatory, "mandatory", "conditional")

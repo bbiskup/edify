@@ -108,7 +108,11 @@ func (p *CompositeDataElementSpecParser) Parse(specLines []string) (spec *Compos
 	componentSpecs := []*ComponentDataElementSpec{}
 	numSpecLines := len(specLines)
 	for i := 1; i < numSpecLines; i++ {
-		elemSpec, err := p.ParseComponentDataElementSpec(specLines[i])
+		line := specLines[i]
+		if len(strings.TrimSpace(line)) == 0 {
+			continue
+		}
+		elemSpec, err := p.ParseComponentDataElementSpec(line)
 		if err != nil {
 			return nil, err
 		}

@@ -19,6 +19,16 @@ var parserSpec = []struct {
 		"Composite C138 PRICE MULTIPLIER INFORMATION 1 (conditional)\n\tComponent 5394 (mandatory)\n\tComponent 5393 (conditional)",
 		nil,
 	},
+	{
+		[]string{
+			"020    C138 PRICE MULTIPLIER INFORMATION               M    2      ",
+			"       5394  Price multiplier rate                     M      n..12",
+			"       5393  Price multiplier type code qualifier      C      an..3",
+			"",
+		},
+		"Composite C138 PRICE MULTIPLIER INFORMATION 2 (mandatory)\n\tComponent 5394 (mandatory)\n\tComponent 5393 (conditional)",
+		nil,
+	},
 }
 
 func TestParser(t *testing.T) {
@@ -31,10 +41,17 @@ func TestParser(t *testing.T) {
 
 		if err != nil {
 			t.Errorf(fmt.Sprintf("Failed to parse spec %s: %s", spec.specLines, err))
+			continue
 		}
 
-		if res.String() != spec.expectedResStr {
-			t.Errorf("Expected: %s, got: %s", spec.expectedErr, res)
+		if res == nil {
+			t.Errorf("No result")
+			continue
+		}
+
+		resStr := res.String()
+		if resStr != spec.expectedResStr {
+			t.Errorf("Expected: %s, got: %s", spec.expectedResStr, resStr)
 		}
 	}
 }
