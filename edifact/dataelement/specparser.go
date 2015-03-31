@@ -1,4 +1,4 @@
-package specparser
+package dataelement
 
 /**
  *  Parser for EDIFACT specification

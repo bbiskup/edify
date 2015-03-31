@@ -2,7 +2,7 @@ package tests
 
 import (
 	"fmt"
-	sp "github.com/bbiskup/edifice/edifact/specparser"
+	sp "github.com/bbiskup/edifice/edifact/dataelement"
 	"reflect"
 	"strings"
 	"testing"

@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	sp "github.com/bbiskup/edifice/edifact/specparser"
+	sp "github.com/bbiskup/edifice/edifact/dataelement"
 )
 
 func main() {
