@@ -11,6 +11,7 @@ var parserSpec = []struct {
 	expectErr      bool
 }{
 	{
+		// Valid
 		[]string{
 			"020    C138 PRICE MULTIPLIER INFORMATION               C    1      ",
 			"       5394  Price multiplier rate                     M      n..12",
@@ -20,16 +21,18 @@ var parserSpec = []struct {
 		false,
 	},
 	{
+		// Valid, other values
 		[]string{
-			"020    C138 PRICE MULTIPLIER INFORMATION               M    2      ",
-			"       5394  Price multiplier rate                     M      n..12",
-			"       5393  Price multiplier type code qualifier      C      an..3",
+			"021    C139 PRICE MULTIPLIER INFORMATION               M    2      ",
+			"       5395  Price multiplier rate                     M      n..12",
+			"       5396  Price multiplier type code qualifier      C      an..3",
 			"",
 		},
-		"Composite C138 PRICE MULTIPLIER INFORMATION 2 (mandatory)\n\tComponent 5394 (mandatory)\n\tComponent 5393 (conditional)",
+		"Composite C139 PRICE MULTIPLIER INFORMATION 2 (mandatory)\n\tComponent 5395 (mandatory)\n\tComponent 5396 (conditional)",
 		false,
 	},
 	{
+		// Invalid (incorrect header)
 		[]string{
 			"020    C138 PRICE MULTIPLIER INFORMATION               X    2      ",
 			"       5394  Price multiplier rate                     M      n..12",
@@ -39,6 +42,17 @@ var parserSpec = []struct {
 		true,
 	},
 	{
+		// Invalid (incorrect component)
+		[]string{
+			"020    C138 PRICE MULTIPLIER INFORMATION               C    2      ",
+			"       5394  Price multiplier rate                     X      n..12",
+			"",
+		},
+		"",
+		true,
+	},
+	{
+		// Invalid (no components)
 		[]string{
 			"020    C138 PRICE MULTIPLIER INFORMATION               C    2      ",
 		},
