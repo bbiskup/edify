@@ -2,6 +2,7 @@ package dataelement
 
 import (
 	"errors"
+	"fmt"
 	"regexp"
 	"strconv"
 	"strings"
@@ -9,8 +10,8 @@ import (
 
 // Parses composite element specification (e.g. EDSD.14B)
 type CompositeDataElementSpecParser struct {
-	headerRE     *regexp.Regexp
-	simpleElemRE *regexp.Regexp
+	headerRE        *regexp.Regexp
+	componentElemRE *regexp.Regexp
 }
 
 // Parse composite element spec header of the form
@@ -22,7 +23,7 @@ func (p *CompositeDataElementSpecParser) ParseHeader(header string) (pos int, na
 		return
 	}
 
-	if len(headerMatch) != 5 {
+	if len(headerMatch) != 6 {
 		panic("Internal error: incorrect regular expression")
 	}
 
@@ -55,13 +56,13 @@ func (p *CompositeDataElementSpecParser) ParseHeader(header string) (pos int, na
 // Parse a line of the form
 // "       3477  Address format code                       M      an..3"
 func (p *CompositeDataElementSpecParser) ParseComponentDataElementSpec(specLine string) (spec *ComponentDataElementSpec, err error) {
-	specMatch := p.headerRE.FindStringSubmatch(specLine)
+	specMatch := p.componentElemRE.FindStringSubmatch(specLine)
 	if specMatch == nil {
-		err = errors.New("Failed to match component data element spec")
+		err = errors.New(fmt.Sprintf("Failed to match component data element spec '%s'", specLine))
 		return
 	}
 
-	if len(specMatch) != 5 {
+	if len(specMatch) != 4 {
 		panic("Internal error: incorrect regular expression")
 	}
 
@@ -122,7 +123,7 @@ func NewCompositeDataElementSpecParser() *CompositeDataElementSpecParser {
 	// TODO account for change indicators?
 	return &CompositeDataElementSpecParser{
 		// We ignore the repr spec (already available via simple data element specs)
-		headerRE:     regexp.MustCompile(`^(\d{3})[ ]{4}(C\d{3}) ([A-Z ]{42}) ([CM])[ ]{4}(\d+)`),
-		simpleElemRE: regexp.MustCompile(`^[ ]{7}(\d{4}) ([A-Z ]{42}) ([CM]) .+`),
+		headerRE:        regexp.MustCompile(`^(\d{3})[ ]{4}(C\d{3}) ([A-Z ]{42}) ([CM])[ ]{4}(\d+)`),
+		componentElemRE: regexp.MustCompile(`^[ ]{7}(\d{4})  ([A-Za-z ]{41}) ([CM]) .+$`),
 	}
 }
