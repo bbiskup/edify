@@ -12,17 +12,16 @@ func main() {
 	app.Name = "edify"
 	app.Usage = "EDIFACT tool"
 	app.EnableBashCompletion = true
+
+	var err error
+
 	app.Commands = []cli.Command{
 		{
 			Name:    "download",
 			Aliases: []string{"d"},
 			Action: func(c *cli.Context) {
 				url := c.Args().First()
-				err := commands.Download(url)
-				if err != nil {
-					fmt.Printf("Error: %s\n", err)
-					os.Exit(1)
-				}
+				err = commands.Download(url)
 			},
 		},
 		{
@@ -30,16 +29,17 @@ func main() {
 			Aliases: []string{"p"},
 			Action: func(c *cli.Context) {
 				fileName := c.Args().First()
-				err := commands.ParseSimpleDataElements(fileName)
-				if err != nil {
-					fmt.Printf("Error: %s\n", err)
-					os.Exit(1)
-				}
+				err = commands.ParseSimpleDataElements(fileName)
 			},
 		},
 	}
 
 	app.Run(os.Args)
+	if err != nil {
+		fmt.Printf("Error: %s\n", err)
+		os.Exit(1)
+	}
+
 	/*
 		e := edi.NewElement("name1", "value1")
 		s := edi.NewSegment("segname1")
