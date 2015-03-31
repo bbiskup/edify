@@ -96,6 +96,7 @@ func extractSpecsSecondLevel(targetDir string) error {
 	return nil
 }
 
+// Extract EDIFACT specs from file provided by UNECE
 func ExtractSpecs(version string) error {
 	archivePath := downloadPath(version)
 
