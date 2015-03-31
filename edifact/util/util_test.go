@@ -54,7 +54,7 @@ func TestSplitEDIFACT(t *testing.T) {
 		resStr := fmt.Sprintf("%#v", res)
 		expectedStr := fmt.Sprintf("%#v", s.expected)
 		if resStr != expectedStr {
-			t.Fatalf("Expected: %#v; got: %#c", expectedStr, resStr)
+			t.Fatalf("Expected: %#v; got: %#v", expectedStr, resStr)
 		}
 	}
 }

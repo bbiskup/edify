@@ -26,7 +26,7 @@ func TestParseSpecLines(t *testing.T) {
 	p := NewSimpleDataElementSpecParser()
 	res, err := p.ParseSpec(strings.Split(specLines, "\n"))
 	if err != nil {
-		t.Fatalf("Failed to parse specLines", err)
+		t.Fatalf("Failed to parse specLines: %s", err)
 	}
 	log.Printf("res: %s", res)
 }

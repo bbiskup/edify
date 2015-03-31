@@ -73,8 +73,6 @@ func (s *SpecScanner) GetNextSpecLines() (lines []string, err error) {
 
 		lines = append(lines, line)
 	}
-	s.HasMore = true
-	return lines, nil
 }
 
 // return all spec lines at once

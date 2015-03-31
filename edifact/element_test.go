@@ -9,6 +9,6 @@ func TestSimpleDataElementString(t *testing.T) {
 	res := elem.String()
 	expected := "testName testValue"
 	if res != expected {
-		t.Fatalf("%s != %s")
+		t.Fatalf("%s != %s", res, expected)
 	}
 }
