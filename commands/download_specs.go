@@ -74,7 +74,7 @@ func DownloadSpecs(version string) error {
 	defer response.Body.Close()
 	log.Printf("Download status: %s", response.Status)
 
-	if response.StatusCode != 200 {
+	if response.StatusCode != http.StatusOK {
 		return errors.New(fmt.Sprintf("Download failed with status %s", response.Status))
 	}
 
