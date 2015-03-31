@@ -18,6 +18,7 @@ func extractSpecsFirstLevel(archivePath string, targetDir string) error {
 
 	// Create target dir
 
+	var count int32
 	for _, f := range reader.File {
 		log.Printf("Extracting %s", f.Name)
 		contents, err := f.Open()
@@ -35,7 +36,42 @@ func extractSpecsFirstLevel(archivePath string, targetDir string) error {
 		if err != nil {
 			return err
 		}
+		count++
 	}
+	log.Printf("Extracted %d files on 1st level", count)
+	return nil
+}
+
+// Extract zips inside top-level spec zip to same dir
+func extractSingleFile(targetDir string, archiveFile string) error {
+	archivePath := targetDir + string(os.PathSeparator) + archiveFile
+
+	reader, err := zip.OpenReader(archivePath)
+	if err != nil {
+		return err
+	}
+
+	var count int32
+	for _, f := range reader.File {
+		log.Printf("Extracting %s (2nd level)", f.Name)
+		contents, err := f.Open()
+		if err != nil {
+			return err
+		}
+		defer contents.Close()
+
+		targetFile, err := os.Create(targetDir + string(os.PathSeparator) + f.Name)
+		if err != nil {
+			return err
+		}
+
+		_, err = io.Copy(targetFile, contents)
+		if err != nil {
+			return err
+		}
+		count++
+	}
+	log.Printf("Extracted %d files on 1st level", count)
 	return nil
 }
 
@@ -50,6 +86,11 @@ func extractSpecsSecondLevel(targetDir string) error {
 			continue
 		}
 		log.Printf("Extracting %s (%.2f MB)", name, float32(entry.Size())/1e6)
+
+		err = extractSingleFile(targetDir, name)
+		if err != nil {
+			return err
+		}
 	}
 	return nil
 }
