@@ -1,10 +1,11 @@
 package main
 
 import (
-	"fmt"
 	"github.com/bbiskup/edify/commands"
 	"github.com/codegangsta/cli"
+	"log"
 	"os"
+	"time"
 )
 
 func main() {
@@ -35,11 +36,18 @@ func main() {
 		},
 	}
 
+	start := time.Now()
+
 	app.Run(os.Args)
 	if err != nil {
-		fmt.Printf("Error: %s\n", err)
+		log.Printf("Error: %s\n", err)
 		os.Exit(1)
 	}
+
+	end := time.Now()
+	duration := end.Sub(start)
+
+	log.Printf("Duration: %d ms", duration.Nanoseconds()/1e6)
 
 	/*
 		e := edi.NewElement("name1", "value1")
