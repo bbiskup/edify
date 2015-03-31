@@ -15,5 +15,4 @@ script:
   - go vet
   - go build
   - make test
-  - go test -v tests/*_test.go
-  - go test -v -bench . tests/*_test.go
+  - make bench
