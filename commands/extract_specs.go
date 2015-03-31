@@ -81,9 +81,17 @@ func extractInnerZIP(targetDir string, archiveFile string) error {
 		if err != nil {
 			return err
 		}
+
 		count++
 	}
 	log.Printf("Extracted %d files on 1st level", count)
+
+	// Inner zip is no longer needed
+	err = os.Remove(archivePath)
+	if err != nil {
+		return err
+	}
+
 	return nil
 }
 
