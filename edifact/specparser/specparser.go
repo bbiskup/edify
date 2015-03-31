@@ -44,7 +44,7 @@ func (p *DataElementSpecParser) getNameAndNum(specLinesSections [][]string) (nam
 			fmt.Sprintf("Missing num section in line '%s'",
 				numSectionHeader))
 	}
-	name = numLineMatch[2]
+	name = strings.TrimSpace(numLineMatch[2])
 	num, err = strconv.Atoi(numLineMatch[1])
 	return
 }
