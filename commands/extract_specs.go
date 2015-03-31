@@ -3,8 +3,10 @@ package commands
 import (
 	"archive/zip"
 	"io"
+	"io/ioutil"
 	"log"
 	"os"
+	"strings"
 )
 
 func extractSpecsFirstLevel(archivePath string, targetDir string) error {
@@ -37,6 +39,21 @@ func extractSpecsFirstLevel(archivePath string, targetDir string) error {
 	return nil
 }
 
+func extractSpecsSecondLevel(targetDir string) error {
+	dirContents, err := ioutil.ReadDir(targetDir)
+	if err != nil {
+		return err
+	}
+	for _, entry := range dirContents {
+		name := entry.Name()
+		if !strings.HasSuffix(name, ".zip") {
+			continue
+		}
+		log.Printf("Extracting %s (%.2f MB)", name, float32(entry.Size())/1e6)
+	}
+	return nil
+}
+
 func ExtractSpecs(version string) error {
 	archivePath := downloadPath(version)
 
@@ -50,5 +67,8 @@ func ExtractSpecs(version string) error {
 	if err != nil {
 		return err
 	}
+
+	err = extractSpecsSecondLevel(targetDir)
+
 	return nil
 }
