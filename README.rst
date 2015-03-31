@@ -1,4 +1,4 @@
-Edifice
+Edify
 =======
 
 Parser/validator for EDIFACT messages.
@@ -12,5 +12,5 @@ Branch Status
 dev    |travis-dev|
 ====== ===============
 
-.. |travis-dev| image:: https://travis-ci.org/bbiskup/edifice.svg?branch=dev
-        :target: https://travis-ci.org/bbiskup/edifice
+.. |travis-dev| image:: https://travis-ci.org/bbiskup/edify.svg?branch=dev
+        :target: https://travis-ci.org/bbiskup/edify
