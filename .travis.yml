@@ -14,5 +14,6 @@ install:
 script:
   - go vet
   - go build
+  - make check
   - make test
   - make bench
