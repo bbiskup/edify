@@ -1,4 +1,4 @@
-package edifact
+package util
 
 import (
 	"strings"

@@ -1,4 +1,4 @@
-package dataelement
+package util
 
 import (
 	"bufio"
@@ -9,11 +9,16 @@ import (
 	"strings"
 )
 
+const (
+	// Separator between specifications (partial)
+	specSep = "--------------------"
+)
+
 // scanner for spec files with entries separated by "-----...." lines
 type SpecScanner struct {
 	file    *os.File
 	scanner *bufio.Scanner
-	hasMore bool
+	HasMore bool
 }
 
 func (s *SpecScanner) Err() error {
@@ -45,13 +50,13 @@ func (s *SpecScanner) GetNextSpecLines() (lines []string, err error) {
 					s.file.Close()
 					s.file = nil
 				}
-				s.hasMore = false
+				s.HasMore = false
 				return lines, nil
 			}
 		}
 		err := s.scanner.Err()
 		if err != nil {
-			s.hasMore = false
+			s.HasMore = false
 			return nil, err
 		}
 
@@ -62,20 +67,20 @@ func (s *SpecScanner) GetNextSpecLines() (lines []string, err error) {
 		}
 
 		if strings.HasPrefix(line, specSep) {
-			s.hasMore = true
+			s.HasMore = true
 			return lines, nil
 		}
 
 		lines = append(lines, line)
 	}
-	s.hasMore = true
+	s.HasMore = true
 	return lines, nil
 }
 
 // return all spec lines at once
 func (s *SpecScanner) GetAllSpecLines() (linesGroups [][]string, err error) {
 	result := [][]string{}
-	for s.hasMore {
+	for s.HasMore {
 		specLines, err := s.GetNextSpecLines()
 		if err != nil {
 			return nil, err
@@ -102,7 +107,7 @@ func NewSpecScannerFromReader(reader *bufio.Reader) *SpecScanner {
 	return &SpecScanner{
 		file:    nil,
 		scanner: bufio.NewScanner(reader),
-		hasMore: true,
+		HasMore: true,
 	}
 }
 

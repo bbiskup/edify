@@ -12,15 +12,11 @@ import (
 	"errors"
 	"fmt"
 	edi "github.com/bbiskup/edifice/edifact"
+	"github.com/bbiskup/edifice/edifact/util"
 	"log"
 	"regexp"
 	"strconv"
 	"strings"
-)
-
-const (
-	// Separator between specifications (partial)
-	specSep = "--------------------"
 )
 
 const (
@@ -109,9 +105,9 @@ func (p *DataElementSpecParser) ParseSpec(specLines []string) (spec *DataElement
 	return NewDataElementSpec(int32(num), name, description, repr), nil
 }
 
-type SpecMap map[int32]*DataElementSpec
+type DataElementSpecMap map[int32]*DataElementSpec
 
-func (sm SpecMap) String() string {
+func (sm DataElementSpecMap) String() string {
 	result := []string{}
 	for key, value := range sm {
 		result = append(result, fmt.Sprintf("%d: %s", key, value))
@@ -119,10 +115,10 @@ func (sm SpecMap) String() string {
 	return strings.Join(result, ", ")
 }
 
-func (p *DataElementSpecParser) ParseSpecFile(fileName string) (specs SpecMap, err error) {
-	result := SpecMap{}
+func (p *DataElementSpecParser) ParseSpecFile(fileName string) (specs DataElementSpecMap, err error) {
+	result := DataElementSpecMap{}
 
-	scanner, err := NewSpecScanner(fileName)
+	scanner, err := util.NewSpecScanner(fileName)
 	if err != nil {
 		log.Printf("Unable to create spec scanner for file %s: %s",
 			fileName, err)
@@ -133,13 +129,12 @@ func (p *DataElementSpecParser) ParseSpecFile(fileName string) (specs SpecMap, e
 	for {
 		// read specification parts
 		specLines, err := scanner.GetNextSpecLines()
-		// log.Printf("hasMore? %t\n", hasMore)
 
 		if err != nil {
 			return nil, err
 		}
 
-		if !scanner.hasMore && len(specLines) == 0 {
+		if !scanner.HasMore && len(specLines) == 0 {
 			log.Println("No more lines")
 			break
 		}
