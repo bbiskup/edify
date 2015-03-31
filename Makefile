@@ -12,3 +12,6 @@ bench:
 
 check:
 	go vet
+
+get-deps:
+	go get -t ./...
