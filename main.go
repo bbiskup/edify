@@ -28,7 +28,7 @@ func main() {
 		},
 		{
 			Name:    "extract_specs",
-			Aliases: []string{"u"},
+			Aliases: []string{"x"},
 			Action: func(c *cli.Context) {
 				// version: e.g. d14b
 				version := c.Args().First()
