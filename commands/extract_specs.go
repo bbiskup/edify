@@ -7,9 +7,7 @@ import (
 	"os"
 )
 
-func ExtractSpecs(version string) error {
-	archivePath := downloadPath(version)
-
+func extractSpecsFirstLevel(archivePath string, targetDir string) error {
 	reader, err := zip.OpenReader(archivePath)
 	if err != nil {
 		return err
@@ -17,11 +15,6 @@ func ExtractSpecs(version string) error {
 	defer reader.Close()
 
 	// Create target dir
-	targetDirName := downloadDir + string(os.PathSeparator) + version
-	err = os.Mkdir(targetDirName, os.ModeDir|os.ModePerm)
-	if err != nil {
-		return err
-	}
 
 	for _, f := range reader.File {
 		log.Printf("Extracting %s", f.Name)
@@ -31,7 +24,7 @@ func ExtractSpecs(version string) error {
 		}
 		defer contents.Close()
 
-		targetFile, err := os.Create(targetDirName + string(os.PathSeparator) + f.Name)
+		targetFile, err := os.Create(targetDir + string(os.PathSeparator) + f.Name)
 		if err != nil {
 			return err
 		}
@@ -40,6 +33,22 @@ func ExtractSpecs(version string) error {
 		if err != nil {
 			return err
 		}
+	}
+	return nil
+}
+
+func ExtractSpecs(version string) error {
+	archivePath := downloadPath(version)
+
+	targetDir := downloadDir + string(os.PathSeparator) + version
+	err := os.MkdirAll(targetDir, os.ModeDir|os.ModePerm)
+	if err != nil {
+		return err
+	}
+
+	err = extractSpecsFirstLevel(archivePath, targetDir)
+	if err != nil {
+		return err
 	}
 	return nil
 }
