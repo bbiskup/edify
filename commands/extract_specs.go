@@ -75,6 +75,7 @@ func extractSingleFile(targetDir string, archiveFile string) error {
 	return nil
 }
 
+// Extract zips inside top-level spec zip
 func extractSpecsSecondLevel(targetDir string) error {
 	dirContents, err := ioutil.ReadDir(targetDir)
 	if err != nil {
