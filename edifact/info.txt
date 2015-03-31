@@ -1,6 +1,13 @@
 Ideas for path syntax for referencing elements or other parts of msg
 ====================================================================
 
+
+Spec archive: http://www.unece.org/fileadmin/DAM/trade/untdid/d14b/d14b.zip
+
+Information about files contained in spec archive: 
+.edify/downloads/d14b/_TextFiles/CONTENT.TXT
+
+
 Reference message:
 
 UNA:+.? '
