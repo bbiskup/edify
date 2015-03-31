@@ -15,6 +15,23 @@ const (
 	specFile    = "edififact_spec"
 )
 
+func prepareTargetPath(specFile string) (*os.File, error) {
+	// Ensure the download directory exists
+	err := os.MkdirAll(downloadDir, os.ModeDir|os.ModePerm)
+	if err != nil {
+		return nil, err
+	}
+
+	targetPath := downloadDir + string(os.PathSeparator) + specFile
+
+	targetFile, err := os.Create(targetPath)
+	if err != nil {
+		return nil, err
+	}
+
+	return targetFile, nil
+}
+
 // Retrieve EDIFACT specification files for validation
 func DownloadSpecs(urlStr string) error {
 	log.Printf("Download %s", urlStr)
@@ -28,15 +45,7 @@ func DownloadSpecs(urlStr string) error {
 		return err
 	}
 
-	targetPath := downloadDir + string(os.PathSeparator) + specFile
-
-	// Ensure the download directory exists
-	err = os.MkdirAll(downloadDir, os.ModeDir|os.ModePerm)
-	if err != nil {
-		return err
-	}
-
-	targetFile, err := os.Create(targetPath)
+	targetFile, err := prepareTargetPath(specFile)
 	if err != nil {
 		return err
 	}
@@ -65,7 +74,7 @@ func DownloadSpecs(urlStr string) error {
 		return err
 	}
 
-	log.Printf("Download of '%s' (%f bytes) complete", urlStr, size/1e6)
+	log.Printf("Download of '%s' (%.2f MB) complete", urlStr, float64(size)/1e6)
 
 	return nil
 }
