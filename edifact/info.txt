@@ -25,3 +25,7 @@ BGM.010.2380
 # using directory information
 
 BGM.dateTimePeriod
+
+
+###### Web application
+e.g. http://www.truugo.com/edifact/d14b/

@@ -17,11 +17,12 @@ func main() {
 
 	app.Commands = []cli.Command{
 		{
-			Name:    "download",
+			// URL e.g.: http://www.unece.org/fileadmin/DAM/trade/untdid/d14b/d14b.zip
+			Name:    "download_specs",
 			Aliases: []string{"d"},
 			Action: func(c *cli.Context) {
 				url := c.Args().First()
-				err = commands.Download(url)
+				err = commands.DownloadSpecs(url)
 			},
 		},
 		{
