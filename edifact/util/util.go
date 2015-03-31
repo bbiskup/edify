@@ -80,3 +80,12 @@ func SplitByHangingIndent(lines []string, splitIndent int) [][]string {
 
 	return result
 }
+
+// Custom string for boolean value
+func CustBoolStr(value bool, trueStr string, falseStr string) string {
+	if value {
+		return trueStr
+	} else {
+		return falseStr
+	}
+}

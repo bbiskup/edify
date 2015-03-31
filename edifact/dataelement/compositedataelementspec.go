@@ -2,13 +2,16 @@ package dataelement
 
 import (
 	"fmt"
+	"github.com/bbiskup/edifice/edifact/util"
 	"strings"
 )
 
 type CompositeDataElementSpec struct {
-	Num            string
 	Name           string
-	ComponentSpecs []*SimpleDataElementSpec
+	Title          string
+	Count          int
+	IsMandatory    bool
+	ComponentSpecs []*ComponentDataElementSpec
 }
 
 func (s *CompositeDataElementSpec) String() string {
@@ -17,13 +20,21 @@ func (s *CompositeDataElementSpec) String() string {
 		specsStrs = append(specsStrs, fmt.Sprintf("\t%s", spec))
 	}
 	componentSpecsStr := strings.Join(specsStrs, "\n")
-	return fmt.Sprintf("%s %s\n%s", s.Num, s.Name, componentSpecsStr)
+	isMandatoryStr := util.CustBoolStr(s.IsMandatory, "mandatory", "conditional")
+	return fmt.Sprintf(
+		"Composite %s %s %d (%s)\n%s",
+		s.Name, s.Title, s.Count, isMandatoryStr, componentSpecsStr)
 }
 
-func NewCompositeDataElementSpec(num string, name string, componentSpecs []*SimpleDataElementSpec) *CompositeDataElementSpec {
+func NewCompositeDataElementSpec(
+	name string, title string, count int, isMandatory bool,
+	componentSpecs []*ComponentDataElementSpec) *CompositeDataElementSpec {
+
 	return &CompositeDataElementSpec{
-		Num:            num,
 		Name:           name,
+		Title:          title,
+		Count:          count,
+		IsMandatory:    isMandatory,
 		ComponentSpecs: componentSpecs,
 	}
 }

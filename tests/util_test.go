@@ -193,3 +193,12 @@ func BenchmarkSplitByHangingIndent(b *testing.B) {
 		util.SplitByHangingIndent(testLines, 4)
 	}
 }
+
+func TestCustBoolStr(t *testing.T) {
+	if util.CustBoolStr(true, "yes", "no") != "yes" {
+		t.Fail()
+	}
+	if util.CustBoolStr(false, "yes", "no") != "no" {
+		t.Fail()
+	}
+}
