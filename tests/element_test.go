@@ -5,7 +5,7 @@ import (
 	"testing"
 )
 
-func TestString(t *testing.T) {
+func TestSimpleDataElementString(t *testing.T) {
 	elem := edi.NewElement("testName", "testValue")
 	res := elem.String()
 	expected := "testName testValue"

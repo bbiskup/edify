@@ -1,14 +1,14 @@
 package tests
 
 import (
-	sp "github.com/bbiskup/edifice/edifact/dataelement"
+	de "github.com/bbiskup/edifice/edifact/dataelement"
 	"log"
 	"strings"
 	"testing"
 )
 
 func TestSpecParser(t *testing.T) {
-	p := sp.NewSimpleDataElementSpecParser()
+	p := de.NewSimpleDataElementSpecParser()
 	_, err := p.ParseSpecFile("../testdata/EDED.14B_short")
 	if err != nil {
 		t.Fatalf("Parse error: %s", err)
@@ -24,7 +24,7 @@ const specLines = `
 `
 
 func TestParseSpecLines(t *testing.T) {
-	p := sp.NewSimpleDataElementSpecParser()
+	p := de.NewSimpleDataElementSpecParser()
 	res, err := p.ParseSpec(strings.Split(specLines, "\n"))
 	if err != nil {
 		t.Fatalf("Failed to parse specLines", err)
@@ -34,7 +34,7 @@ func TestParseSpecLines(t *testing.T) {
 
 func BenchmarkParseSpecLines(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		p := sp.NewSimpleDataElementSpecParser()
+		p := de.NewSimpleDataElementSpecParser()
 		specs, err := p.ParseSpecFile("../testdata/EDED.14B")
 		if err != nil {
 			log.Printf("Parse error: %s\n", err)
