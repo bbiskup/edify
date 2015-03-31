@@ -18,7 +18,6 @@ func main() {
 
 	app.Commands = []cli.Command{
 		{
-			// URL e.g.: http://www.unece.org/fileadmin/DAM/trade/untdid/d14b/d14b.zip
 			Name:    "download_specs",
 			Aliases: []string{"d"},
 			Action: func(c *cli.Context) {
