@@ -29,12 +29,12 @@ func main() {
 			Name:    "parse",
 			Aliases: []string{"p"},
 			Action: func(c *cli.Context) {
-				what := c.Args().First()
-				if len(what) == 0 {
-					fmt.Println("No filename given")
+				fileName := c.Args().First()
+				err := commands.ParseSimpleDataElements(fileName)
+				if err != nil {
+					fmt.Printf("Error: %s\n", err)
 					os.Exit(1)
 				}
-				commands.ParseSimpleDataElements(what)
 			},
 		},
 	}
