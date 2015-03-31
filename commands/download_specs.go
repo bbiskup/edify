@@ -12,9 +12,13 @@ import (
 )
 
 const (
-	urlRoot     = "http://www.unece.org/fileadmin/DAM/trade/untdid/"
+	urlRoot     = "http://www.unece.org/fileadmin/DAM/trade/untdid"
 	downloadDir = ".edify/downloads"
 )
+
+func downloadPath(version string) string {
+	return downloadDir + string(os.PathSeparator) + version + ".zip"
+}
 
 func prepareTargetPath(version string) (*os.File, error) {
 	// Ensure the download directory exists
@@ -23,7 +27,7 @@ func prepareTargetPath(version string) (*os.File, error) {
 		return nil, err
 	}
 
-	targetPath := downloadDir + string(os.PathSeparator) + version
+	targetPath := downloadPath(version)
 
 	targetFile, err := os.Create(targetPath)
 	if err != nil {
