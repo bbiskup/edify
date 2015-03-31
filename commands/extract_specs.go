@@ -51,6 +51,9 @@ func extractInnerZIP(targetDir string, archiveFile string) error {
 		return err
 	}
 
+	archiveFileTokens := strings.Split(archiveFile, ".")
+	archiveFilePrefix := archiveFileTokens[0]
+
 	var count int32
 	for _, f := range reader.File {
 		log.Printf("Extracting %s (2nd level)", f.Name)
@@ -60,7 +63,16 @@ func extractInnerZIP(targetDir string, archiveFile string) error {
 		}
 		defer contents.Close()
 
-		targetFile, err := os.Create(targetDir + string(os.PathSeparator) + f.Name)
+		targetSubDir := strings.Join([]string{
+			targetDir, archiveFilePrefix,
+		}, string(os.PathSeparator))
+
+		err = os.MkdirAll(targetSubDir, os.ModeDir|os.ModePerm)
+		if err != nil {
+			return err
+		}
+
+		targetFile, err := os.Create(targetSubDir + string(os.PathSeparator) + f.Name)
 		if err != nil {
 			return err
 		}
@@ -111,7 +123,5 @@ func ExtractSpecs(version string) error {
 		return err
 	}
 
-	err = extractSpecsSecondLevel(targetDir)
-
-	return nil
+	return extractSpecsSecondLevel(targetDir)
 }
