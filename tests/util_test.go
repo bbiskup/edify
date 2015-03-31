@@ -2,7 +2,6 @@ package tests
 
 import (
 	"fmt"
-	edi "github.com/bbiskup/edifice/edifact"
 	"github.com/bbiskup/edifice/edifact/util"
 	"strings"
 	"testing"
@@ -82,7 +81,7 @@ var getIndentTests = []struct {
 
 func TestGetIndent(t *testing.T) {
 	for _, spec := range getIndentTests {
-		res := edi.GetIndent(spec.str)
+		res := util.GetIndent(spec.str)
 		if res != spec.expected {
 			t.Fatalf("Failed for spec '%s': expected %d, got %d",
 				spec.str, spec.expected, res)
@@ -160,7 +159,7 @@ var splitByHangingIndentTests = []struct {
 
 func TestSplitByHangingIndent(t *testing.T) {
 	for _, spec := range splitByHangingIndentTests {
-		res := edi.SplitByHangingIndent(spec.lines, 0)
+		res := util.SplitByHangingIndent(spec.lines, 0)
 
 		expectedStr := fmt.Sprintf("%s", spec.expected)
 		resStr := fmt.Sprintf("%s", res)
@@ -191,6 +190,6 @@ func BenchmarkSplitByHangingIndent(b *testing.B) {
 	testLines := strings.Split(testStr, "\n")
 	b.ResetTimer()
 	for i := 0; i < b.N; i++ {
-		edi.SplitByHangingIndent(testLines, 4)
+		util.SplitByHangingIndent(testLines, 4)
 	}
 }

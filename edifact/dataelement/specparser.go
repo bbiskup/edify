@@ -11,7 +11,6 @@ package dataelement
 import (
 	"errors"
 	"fmt"
-	edi "github.com/bbiskup/edifice/edifact"
 	"github.com/bbiskup/edifice/edifact/util"
 	"log"
 	"regexp"
@@ -78,7 +77,7 @@ func (p *DataElementSpecParser) ParseSpec(specLines []string) (spec *DataElement
 		}
 	}
 
-	specLinesSections := edi.SplitByHangingIndent(specLines,
+	specLinesSections := util.SplitByHangingIndent(specLines,
 		dataElementSectionIndent-1)
 	numSpecLinesSections := len(specLinesSections)
 	if numSpecLinesSections < 3 {
