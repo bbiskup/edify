@@ -1,6 +1,7 @@
 package util
 
 import (
+	"errors"
 	"strings"
 )
 
@@ -189,4 +190,13 @@ func TrimWhiteSpaceAndJoin(lines []string, joinStr string) string {
 		trimmed = append(trimmed, strings.TrimSpace(line))
 	}
 	return strings.Join(trimmed, joinStr)
+}
+
+func CheckNotNil(values ...interface{}) error {
+	for _, val := range values {
+		if val == nil {
+			return errors.New("Not-nil check failed")
+		}
+	}
+	return nil
 }

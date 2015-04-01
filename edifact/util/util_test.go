@@ -387,3 +387,41 @@ func TestTrimWhiteSpaceAndJoin(t *testing.T) {
 		}
 	}
 }
+
+var checkNotNilSpecs = []struct {
+	values    []interface{}
+	expectErr bool
+}{
+	{
+		[]interface{}{},
+		false,
+	},
+	{
+		[]interface{}{1},
+		false,
+	},
+	{
+		[]interface{}{"x"},
+		false,
+	},
+	{
+		[]interface{}{nil},
+		true,
+	},
+	{
+		[]interface{}{1, nil},
+		true,
+	},
+}
+
+func TestCheckNotNil(t *testing.T) {
+	for _, spec := range checkNotNilSpecs {
+		err := CheckNotNil(spec.values...)
+		if spec.expectErr && err == nil {
+			t.Errorf("Expected an error")
+		}
+		if !spec.expectErr && err != nil {
+			t.Errorf("Unexpected error: %s", err)
+		}
+	}
+}
