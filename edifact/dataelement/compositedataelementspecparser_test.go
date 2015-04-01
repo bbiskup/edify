@@ -25,46 +25,48 @@ var parserSpec = []struct {
 		},
 		"Composite C001 TRANSPORT MEANS 'Code an...'\n\tComponent 1131 (cond.)\n\tComponent 3055 (cond.)\n\tComponent 8178 (cond.)",
 		false,
-	}, /*
-		{
-			// Valid, other values
-			[]string{
-				"021    C139 PRICE MULTIPLIER INFORMATION               M    2      ",
-				"       5395  Price multiplier rate                     M      n..12",
-				"       5396  Price multiplier type code qualifier      C      an..3",
-				"",
-			},
-			"Composite C139 PRICE MULTIPLIER INFORMATION 2 (mandatory)\n\tComponent 5395 (mandatory)\n\tComponent 5396 (conditional)",
-			false,
-		},
-		{
-			// Invalid (incorrect header)
-			[]string{
-				"020    C138 PRICE MULTIPLIER INFORMATION               X    2      ",
-				"       5394  Price multiplier rate                     M      n..12",
-				"",
-			},
+	},
+	{
+		// Invalid (no components)
+		[]string{
+			"       C001 TRANSPORT MEANS",
 			"",
-			true,
-		},
-		{
-			// Invalid (incorrect component)
-			[]string{
-				"020    C138 PRICE MULTIPLIER INFORMATION               C    2      ",
-				"       5394  Price multiplier rate                     X      n..12",
-				"",
-			},
+			"       Desc: Code and/or name identifying the type of means of",
+			"             transport.",
 			"",
-			true,
 		},
-		{
-			// Invalid (no components)
-			[]string{
-				"020    C138 PRICE MULTIPLIER INFORMATION               C    2      ",
-			},
+		"",
+		true,
+	},
+	{
+		// Invalid (no header)
+		[]string{
 			"",
-			true,
-		},*/
+			"       Desc: Code and/or name identifying the type of means of",
+			"             transport.",
+			"",
+			"010    8179  Transport means description code          C      an..8",
+			"020    1131  Code list identification code             C      an..17",
+			"030    3055  Code list responsible agency code         C      an..3",
+			"040    8178  Transport means description               C      an..17",
+		},
+		"",
+		true,
+	},
+	{
+		// Valid (fallback description)
+		[]string{
+			"       C001 TRANSPORT MEANS",
+			"",
+			"",
+			"010    8179  Transport means description code          C      an..8",
+			"020    1131  Code list identification code             C      an..17",
+			"030    3055  Code list responsible agency code         C      an..3",
+			"040    8178  Transport means description               C      an..17",
+		},
+		"Composite C001 TRANSPORT MEANS '<no des...'\n\tComponent 1131 (cond.)\n\tComponent 3055 (cond.)\n\tComponent 8178 (cond.)",
+		true,
+	},
 }
 
 func TestParser(t *testing.T) {
