@@ -10,7 +10,7 @@ func TestCompositeDataElementString(t *testing.T) {
 	elem := NewCompositeDataElementSpec("C817", "ADDRESS USAGE", "test description", []*ComponentDataElementSpec{
 		e1,
 	})
-	expected := "Composite C817 ADDRESS USAGE 'test de...'\n\tComponent 1 (mandatory)"
+	expected := "Composite C817 ADDRESS USAGE 'test de...'\n\tComponent 1 (mand.)"
 
 	res := fmt.Sprintf("%s", elem)
 	if res != expected {
