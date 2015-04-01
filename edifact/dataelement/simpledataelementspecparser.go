@@ -126,7 +126,7 @@ func (p *SimpleDataElementSpecParser) ParseSpecFile(fileName string) (specs Simp
 
 	for {
 		// read specification parts
-		specLines, err := scanner.GetNextSpecLines()
+		specLines, err := scanner.GetNextSpecLines(true)
 
 		if err != nil {
 			return nil, err

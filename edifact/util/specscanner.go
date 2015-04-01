@@ -40,7 +40,7 @@ func (s *SpecScanner) String() string {
 }
 
 // fetch all lines up to next spec separator
-func (s *SpecScanner) GetNextSpecLines() (lines []string, err error) {
+func (s *SpecScanner) GetNextSpecLines(skipEmptyLines bool) (lines []string, err error) {
 	for {
 		scanResult := s.scanner.Scan()
 		if !scanResult {
@@ -62,7 +62,7 @@ func (s *SpecScanner) GetNextSpecLines() (lines []string, err error) {
 
 		line := s.scanner.Text()
 		strippedLine := strings.TrimSpace(line)
-		if len(strippedLine) == 0 {
+		if skipEmptyLines && len(strippedLine) == 0 {
 			continue
 		}
 
@@ -76,10 +76,10 @@ func (s *SpecScanner) GetNextSpecLines() (lines []string, err error) {
 }
 
 // return all spec lines at once
-func (s *SpecScanner) GetAllSpecLines() (linesGroups [][]string, err error) {
+func (s *SpecScanner) GetAllSpecLines(skipEmptyLines bool) (linesGroups [][]string, err error) {
 	result := [][]string{}
 	for s.HasMore {
-		specLines, err := s.GetNextSpecLines()
+		specLines, err := s.GetNextSpecLines(skipEmptyLines)
 		if err != nil {
 			return nil, err
 		}

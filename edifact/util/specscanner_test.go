@@ -19,7 +19,7 @@ func TestSpecScannerFromFile(t *testing.T) {
 		[]string{"three"},
 	}
 
-	allLines, err := scanner.GetAllSpecLines()
+	allLines, err := scanner.GetAllSpecLines(true)
 	if err != nil {
 		t.Fatalf("Error reading spec lines: %s", err)
 	}
@@ -74,7 +74,7 @@ func TestSpecScannerFromReader(t *testing.T) {
 		bufReader := bufio.NewReader(reader)
 		scanner := NewSpecScannerFromReader(bufReader)
 
-		allLines, err := scanner.GetAllSpecLines()
+		allLines, err := scanner.GetAllSpecLines(true)
 		if err != nil {
 			t.Fatalf("Error reading spec lines: %s", err)
 		}

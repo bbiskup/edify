@@ -5,6 +5,7 @@ import (
 	"testing"
 )
 
+/* OBSOLETE (old format using segment specification)
 var parserSpec = []struct {
 	specLines      []string
 	expectedResStr string
@@ -64,7 +65,7 @@ var parserSpec = []struct {
 func TestParser(t *testing.T) {
 	for _, spec := range parserSpec {
 		parser := NewCompositeDataElementSpecParser()
-		res, err := parser.Parse(spec.specLines)
+		res, err := parser.ParseSpec(spec.specLines)
 		if err != nil && spec.expectErr {
 			fmt.Printf("expected err: %s", err)
 			continue
@@ -85,4 +86,14 @@ func TestParser(t *testing.T) {
 			t.Errorf("Expected: %s, got: %s", spec.expectedResStr, resStr)
 		}
 	}
+}
+*/
+
+func TestParseFile(t *testing.T) {
+	parser := NewCompositeDataElementSpecParser()
+	res, err := parser.ParseSpecFile("../../testdata/EDCD.14B")
+	if err != nil {
+		t.Fatalf("Unable to parse composite data element spec: %s", err)
+	}
+	fmt.Printf("res: %s", res)
 }

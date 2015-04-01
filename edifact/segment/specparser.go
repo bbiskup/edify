@@ -15,7 +15,7 @@ type SegmentSpecMap map[string]*SegmentSpec
 func (p *SegmentSpecParser) ParseSpec(specLines []string) (spec *SegmentSpec, err error) {
 	/*for _, line := range specLines {
 
-		}*/
+			}*/
 	panic("Not implemented")
 }
 
@@ -32,7 +32,7 @@ func (p *SegmentSpecParser) ParseSpecFile(fileName string) (specs SegmentSpecMap
 
 	for {
 		// read specification parts
-		specLines, err := scanner.GetNextSpecLines()
+		specLines, err := scanner.GetNextSpecLines(true)
 
 		if err != nil {
 			return nil, err
