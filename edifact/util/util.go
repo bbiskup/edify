@@ -82,7 +82,7 @@ func SplitByHangingIndent(lines []string, splitIndent int) [][]string {
 	return result
 }
 
-func removeLeadingAndTrailingEmptyLines(lines []string) []string {
+func RemoveLeadingAndTrailingEmptyLines(lines []string) []string {
 	if len(lines) == 0 {
 		return lines
 	}

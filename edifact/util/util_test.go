@@ -235,7 +235,7 @@ var removeLeadingAndTrailingEmptyLinesSpecs = []struct {
 
 func TestRemoveLeadingAndTrailingEmptyLines(t *testing.T) {
 	for _, spec := range removeLeadingAndTrailingEmptyLinesSpecs {
-		res := removeLeadingAndTrailingEmptyLines(spec.lines)
+		res := RemoveLeadingAndTrailingEmptyLines(spec.lines)
 		if !reflect.DeepEqual(res, spec.expected) {
 			t.Errorf("Expected: %s, got: %s", spec.expected, res)
 		}
