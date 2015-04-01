@@ -10,7 +10,17 @@ import (
 	"strings"
 )
 
-func Parse(fileName string) error {
+func Parse(fileNames []string) error {
+	for _, fileName := range fileNames {
+		err := ParseFile(fileName)
+		if err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
+func ParseFile(fileName string) error {
 	if len(fileName) == 0 {
 		return errors.New("No filename given")
 	}
@@ -40,12 +50,12 @@ func ParseSimpleDataElements(fileName string) error {
 	if err != nil {
 		return err
 	}
-	fmt.Printf("Specs:\n")
+	fmt.Printf("Found %d specs", len(specs))
+	/*fmt.Printf("Specs:\n")
 	for _, spec := range specs {
 		fmt.Printf("\t%s\n", spec)
-	}
+	}*/
 	fmt.Println("")
-	panic("xyz")
 	return nil
 }
 

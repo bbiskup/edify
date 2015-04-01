@@ -48,8 +48,8 @@ func main() {
 			Name:    "parse",
 			Aliases: []string{"p"},
 			Action: func(c *cli.Context) {
-				fileName := c.Args().First()
-				err = commands.Parse(fileName)
+				fileNames := c.Args()
+				err = commands.Parse(fileNames)
 			},
 		},
 	}
