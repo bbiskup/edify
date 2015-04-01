@@ -56,8 +56,9 @@ func (p *CompositeDataElementSpecParser) ParseHeader(header string) (pos int, na
 	return
 }*/
 
-// Parse a line of the form
-// "       3477  Address format code                       M      an..3"
+/* Parse a line of the form
+010    3148  Communication address identifier          M      an..512
+*/
 func (p *CompositeDataElementSpecParser) ParseComponentDataElemenSpec(specLine string) (spec *ComponentDataElementSpec, err error) {
 	specMatch := p.componentElemRE.FindStringSubmatch(specLine)
 	if specMatch == nil {
@@ -69,7 +70,7 @@ func (p *CompositeDataElementSpecParser) ParseComponentDataElemenSpec(specLine s
 		panic("Internal error: incorrect regular expression")
 	}
 
-	numStr := specMatch[1]
+	numStr := specMatch[2]
 	num, err := strconv.Atoi(numStr)
 	if err != nil {
 		return
@@ -184,6 +185,31 @@ func (p *CompositeDataElementSpecParser) ParseComponentSpecs(componentGroup []st
 }
 
 /**
+Parse a composite data element description of the form
+
+       Desc: To specify the event category.
+
+or multi-line:
+
+       Desc: Communication number of a department or employee in
+             a specified channel.
+
+*/
+func (p *CompositeDataElementSpecParser) ParseDescription(lines []string) (string, error) {
+	lines = util.JoinByHangingIndent(lines, 7, true)
+	if len(lines) != 1 {
+		return "", errors.New(fmt.Sprintf("Failed to parse description '%s'", lines))
+	}
+	line := lines[0]
+
+	line = strings.TrimSpace(line)
+	if strings.HasPrefix(line, "Desc: ") {
+		line = line[6:]
+	}
+	return line, nil
+}
+
+/**
   Parse a single section from composite data element spec file, e.g. EDCD14B
   Example:
 
@@ -223,7 +249,16 @@ func (p *CompositeDataElementSpecParser) ParseSpec(specLines []string) (spec *Co
 	}
 
 	// TODO parse description
-	_ = groups[1]
+	descrGroup := groups[1]
+	var descr string
+	if len(descrGroup) == 0 {
+		descr = "<no description>"
+	} else {
+		descr, err = p.ParseDescription(descrGroup)
+		if err != nil {
+			return nil, err
+		}
+	}
 
 	componentGroup := groups[2]
 
@@ -232,7 +267,7 @@ func (p *CompositeDataElementSpecParser) ParseSpec(specLines []string) (spec *Co
 		return
 	}
 
-	spec = NewCompositeDataElementSpec(id, name, "dummy description", componentSpecs)
+	spec = NewCompositeDataElementSpec(id, name, descr, componentSpecs)
 
 	return
 }
