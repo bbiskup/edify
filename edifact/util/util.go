@@ -1,6 +1,7 @@
 package util
 
 import (
+	"log"
 	"strings"
 )
 
@@ -146,4 +147,41 @@ func Ellipsis(str string, maxLen int) string {
 		}
 
 	}
+}
+
+/* join lines indented beyond the specified base indent with the previous line
+ */
+func JoinByHangingIndent(lines []string, baseIndent int, collapseSpaces bool) []string {
+	result := []string{}
+	current := []string{}
+
+	concat := func(tokens []string) string {
+		if collapseSpaces {
+			trimmed := []string{}
+			for _, token := range tokens {
+				trimmed = append(trimmed, strings.TrimSpace(token))
+			}
+			return strings.Join(trimmed, " ")
+		} else {
+			return strings.Join(tokens, "")
+		}
+	}
+
+	for _, line := range lines {
+		indent := GetIndent(line)
+		if indent <= baseIndent {
+			if len(current) > 0 {
+				result = append(result, concat(current))
+			}
+			current = []string{line}
+		} else {
+			current = append(current, line)
+		}
+
+		log.Printf("line %s result %s current %s", line, result, current)
+	}
+	if len(current) > 0 {
+		result = append(result, concat(current))
+	}
+	return result
 }

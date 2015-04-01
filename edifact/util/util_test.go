@@ -308,3 +308,57 @@ func TestEllipsis(t *testing.T) {
 		}
 	}
 }
+
+var joinByHangingIndentSpecs = []struct {
+	lines          []string
+	expected       []string
+	baseIndent     int
+	collapseSpaces bool
+}{
+	{
+		[]string{},
+		[]string{},
+		0, true,
+	},
+	{
+		[]string{"one"},
+		[]string{"one"},
+		0, true,
+	},
+	{
+		[]string{"one", "two"},
+		[]string{"one", "two"},
+		0, true,
+	},
+	{
+		[]string{"one", "  two"},
+		[]string{"one  two"},
+		0, false,
+	},
+	{
+		[]string{"one", "  two"},
+		[]string{"one two"},
+		0, true,
+	},
+	{
+		[]string{"one", "  two", "  three", "four"},
+		[]string{"one two three", "four"},
+		0, true,
+	},
+	{
+		[]string{" one", "  two", "  three", " four"},
+		[]string{"one two three", "four"},
+		1, true,
+	},
+}
+
+func TestJoinByHangingIndent(t *testing.T) {
+	for _, spec := range joinByHangingIndentSpecs {
+		res := JoinByHangingIndent(spec.lines, spec.baseIndent, spec.collapseSpaces)
+		resStr := fmt.Sprintf("%#v", res)
+		expectedStr := fmt.Sprintf("%#v", spec.expected)
+		if expectedStr != resStr {
+			t.Errorf("Expected: %s, got: %s", expectedStr, resStr)
+		}
+	}
+}
