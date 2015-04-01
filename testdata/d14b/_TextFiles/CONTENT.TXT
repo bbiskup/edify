@@ -1,0 +1,171 @@
+   UNITED NATIONS DIRECTORIES FOR ELECTRONIC DATA INTERCHANGE 
+                FOR ADMINISTRATION, COMMERCE AND TRANSPORT
+
+
+                             UN/EDIFACT
+
+                         STANDARD DIRECTORY
+
+
+           UNITED NATIONS TRADE DATA INTERCHANGE DIRECTORY
+                              (UNTDID)
+
+
+
+                               D.14B
+
+
+
+
+
+
+
+
+
+
+                             2014-11-19
+
+
+
+
+
+
+
+
+
+
+
+
+
+Approved by the United Nations Centre for Trade Facilitation and 
+Electronic Business (UN/CEFACT)
+
+
+
+
+Copyright (1993-2014) United Nations, all rights reserved
+---------------------------------------------------------------------------
+
+
+
+                           TABLE OF CONTENTS
+
+        DESCRIPTION                                FILE
+
+PART 1  INTRODUCTION                               d100-introduction.txt
+
+PART 2  TERMS AND DEFINITIONS                    
+        Glossary                                   d200-glossary.txt
+
+PART 3  UNITED NATIONS DIRECTORIES FOR ELECTRONIC DATA INTERCHANGE 
+	FOR ADMINISTRATION, COMMERCE AND TRANSPORT
+
+Chapter 1 Introduction                             content.txt
+
+Chapter 2 Message type directory xDMD              xdmd.zip (1)(2)
+     1.   Indexes
+     1.1  Index of message types by code           xdmdi1.14B
+     1.2  Index of message types by name           xdmdi2.14B
+     2.   Message type specifications              yyyyyy_D.14B
+          (yyyyyy = message type; for example,
+          invoic_D.14B contains the
+          specification for the invoice message)
+
+Chapter 3 Segment directory xDSD                   xdsd.zip (1)(3)
+     1.   Indexes
+     1.1  Index of segments by tag                 xdsdi1.14B
+     1.2  Index of segments by name                xdsdi2.14B
+     2.   Segment specifications                   xdsD.14B
+
+Chapter 4 Composite data element directory xDCD    xdcd.zip (1)(4)
+     1.   Indexes
+     1.1  Index of composites by tag               xdcdi1.14B
+     1.2  Index of composites by name              xdcdi2.14B
+     2.   Composite specifications                 xdcD.14B
+
+Chapter 5 Data element directory EDED              eded.zip (1)(5)
+     1.   Indexes
+     1.1  Index of data elements by tag            ededi1.14B
+     1.2  Index of data elements by name           ededi2.14B
+     2.   Data element specifications              edeD.14B
+
+Chapter 6 Code lists                               uncl.zip (1)(6)
+     1.   Code list UNCL                           uncl.14B
+
+
+
+
+
+
+NOTES:
+
+(1) Each .zip file expands when "unzipped" (following the instructions
+in the readme.txt file) to become the files listed above with the
+exception of all content.txt references. These are found in this file
+(below). 
+
+(2) Chapter 2 of Part 3 does not include syntax service messages
+(e.g., CONTRL) of UN/EDIFACT.
+
+(3) Chapter 3 of Part 3 does not include service segments (tags
+beginning with Uxx) defined in ISO 9735 (the EDIFACT syntax).
+Version control of these service segments is reflected in data
+element 0002 in the interchange header segment and is based on change
+to ISO 9735. Therefore the usual UN/EDIFACT directory version/release
+procedures for UN/EDIFACT messages (using data elements 0052 and 0054
+in the message header segment and the functional group header segment)
+is NOT applicable to those segments.
+
+(4) Chapter 4 of Part 5 does not include service composite data
+elements (the "Sxxx" series) which are defined in ISO 9735 (the
+EDIFACT syntax). Version control for these composite data elements
+is reflected in data element 0002 in the interchange header segment
+and is based on changes to ISO 9735. Therefore the usual UN/EDIFACT 
+directory version/release procedures for UN/EDIFACT messages (using 
+data elements 0052 and 0054 in composite S008, S009 and S306) is NOT
+applicable to those composite data elements.
+
+(5) Chapter 5 of Part 3 does not include service data elements (the
+"0xxx" series) which are defined in ISO 9735 (the EDIFACT syntax).
+Version control for these data elements is reflected in data element
+0002 in the interchange header segment and is based on changes to 
+ISO 9735. Therefore the usual UN/EDIFACT directory version/release 
+procedures for UN/EDIFACT messages (using data elements 0052 and 0054)
+is NOT applicable to those data elements.
+
+(6) Past practice to include the UNSL has been eliminated effective
+with the approval of ISO 9735 version 4 and production of the D.99B
+directory. The full service code list directory is available from the
+UN/ECE secretariat.
+
+
+PART 3    UNITED NATIONS DIRECTORIES FOR ELECTRONIC DATA INTERCHANGE
+          FOR ADMINISTRATION, COMMERCE AND TRANSPORT
+
+CHAPTER 1 Introduction
+
+This Part 3 of the UN/EDIFACT directories shall in each successive
+issue include:
+
+     all unchanged, changed and new UN Standard Message Types (UNSMs)
+     and their supporting directories agreed for public use by 
+     UN/CEFACT.
+
+In the directories, UNSMs are specified in the chapter xDMD,
+segments in xDSD, composite data elements in xDCD, data elements in
+EDED and code lists in UNCL (where x=E for the batch directory set
+and x=I for the interactive directory set).
+
+Additions, changes and deletions in a new issue will be marked in
+reference to the previous issue of the directory.
+
+The data element part of the UN Trade Data Element Directory (UNTDED),
+of which EDED (the Data element directory within the standard
+directory) is an excerpt in condensed form, is also ISO standard 7372
+for which there is a UN/ECE-ISO agreement for the Maintenance Agency,
+ISO 7372 MA.
+
+The complete contents of the current directory, as well as the files
+in which this information can be found, are listed in the table of
+contents in the file content.txt.
+

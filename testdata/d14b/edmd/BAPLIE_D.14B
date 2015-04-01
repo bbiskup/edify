@@ -1,0 +1,539 @@
+                                UN/EDIFACT
+
+                  UNITED NATIONS STANDARD MESSAGE (UNSM)
+
+         Bayplan/stowage plan occupied and empty locations message
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                           Message Type : BAPLIE
+                                           Version      : D
+                                           Release      : 14B
+                                           Contr. Agency: UN
+
+                                           Revision     : 7
+                                           Date         : 2014-11-17
+
+
+
+
+
+
+SOURCE: TBG3 Transport
+
+
+
+                                  CONTENTS
+
+         Bayplan/stowage plan occupied and empty locations message
+
+0.     INTRODUCTION
+
+1.     SCOPE
+
+       1.1   Functional definition
+
+       1.2   Field of application
+
+       1.3   Principles
+
+2.     REFERENCES
+
+3.     TERMS AND DEFINITIONS
+
+       3.1   Standard terms and definitions
+
+4.     MESSAGE DEFINITION
+
+       4.1   Segment clarification
+
+       4.2   Segment index (alphabetical sequence by tag)
+
+       4.3   Message structure
+             4.3.1 Segment table
+
+
+
+
+
+
+
+
+
+
+
+
+
+---------------------------------------------------------------------------
+For general information on UN standard message types see UN Trade Data
+Interchange Directory, UNTDID, Part 4, Section 2.3, UN/ECE UNSM
+General Introduction
+---------------------------------------------------------------------------
+
+
+
+0.     INTRODUCTION
+
+       This specification provides the definition of the Bayplan/stowage
+       plan occupied and empty locations message (BAPLIE) to be used in
+       Electronic Data Interchange (EDI) between trading partners involved
+       in administration, commerce and transport.
+
+1.     SCOPE
+
+       The bayplan/stowage plan occupied and empty locations message may be
+       used for both national and international applications. The reporting
+       of empty locations has to be mutually agreed between partners. 
+       
+       The BAPLIE message is typically exchanged between a container
+       terminal operator / stevedore, vessel operator, shipping line,
+       ship's master, tonnage center, non-vessel operating common carrier,
+       container operator, slot charterer, customs and other authorities.  
+       
+       It is based on universal practice related to monitoring the
+       logistics transport chain and is not dependent on the type of
+       business or industry.
+
+1.1    Functional definition
+
+       A message to transmit information about equipment (mostly
+       containers) and goods on a means of transport (typically a container
+       vessel), including their location on the means of transport.
+
+1.2    Field of application
+
+       The Bayplan/stowage plan occupied and empty locations message may be
+       used for both national and international applications. It is based
+       on universal practice related to administration, commerce and
+       transport, and is not dependent on the type of business or industry.
+
+1.3    Principles
+
+       BAPLIE has been designed for application with container vessels
+       deployed in scheduled liner services. Message principles, however,
+       might be applied in other areas of transportation too.
+       
+       The message is used to transmit information related only to one
+       vessel/voyage combination.   
+       
+       Information transmitted by the message is related to only one port
+       of call.
+       It shows the status of cargo on board the vessel after departure
+       from this port and by this also shows the arrival status at vessel's
+        next port of call. 
+       
+       If created before vessel's departure, the message might be used to
+       describe planned status. If created after departure, it describes
+       vessel's actual status.
+        
+       Typically the message transmits information on all containers and
+       other goods on board the vessel (Full BAPLIE). In that case the
+       BAPLIE shows the total amount of occupied locations, cargo and
+       containers on board the vessel. 
+       It is also possible to transmit only cargo related to a single
+       container operator (Part BAPLIE). 
+        
+       The message contains the following vessel related information:
+       Vessel name and identifier, related port and next port of call,
+       arrival and departure dates at the related and next port of call.
+        
+       The message contains the following cargo related information:
+       Equipment ID, size-type code, weight, stowage location on the vessel
+       and the responsible operator party, port of loading and discharge.
+       Dependent on nature of cargo further attributes such as temperature
+       control, identification of dangerous goods, non-standard dimensions,
+       handling requirements may be added.
+       
+       A full BAPLIE contains information about stowage locations which
+       cannot be used for loading equipment.
+
+2.     REFERENCES
+
+       See UNTDID, Part 4, Chapter 2.3 UN/ECE UNSM - General Introduction,
+       Section 1.
+
+3.     TERMS AND DEFINITIONS
+
+3.1    Standard terms and definitions
+
+       See UNTDID, Part 4, Chapter 2.3 UN/ECE UNSM - General Introduction,
+       Section 2.
+
+4.     MESSAGE DEFINITION
+
+4.1    Segment clarification
+
+       This section should be read in conjunction with the segment table
+       which indicates mandatory, conditional and repeating requirements.
+
+00010   UNH, Message header
+        A service segment starting and uniquely identifying a message. The
+        message type code for the Bayplan/stowage plan occupied and empty
+        locations message is BAPLIE.
+
+        Note: Bayplan/stowage plan occupied and empty locations messages
+        conforming to this document must contain the following data in
+        segment UNH, composite S009:
+
+        Data element  0065 BAPLIE
+                      0052 D
+                      0054 14B
+                      0051 UN
+
+00020   BGM, Beginning of message
+        A segment to indicate the type and function of the message and to
+        transmit the identifying number. The type and function of a BAPLIE
+        message are determined by the following 3 components: C002.1001:
+        Type of bayplan, "full" or "partial" C002.1000: In the case of a
+        partial bayplan provides additional defining text DE 1373: status
+        of bayplan, "draft" or "actual".
+
+00030   DTM, Date/time/period
+        A segment to indicate dates and times for the entire message
+        including the date and time of the preparation of the message.
+
+
+00040   Segment group 1:  RFF-DTM
+        A group of segments to specify the document or message to which the
+        current message relates, and related dates and times.
+
+00050      RFF, Reference
+           A segment to identify a reference which applies to the entire
+           message, e.g. the reference to a previous message.
+
+00060      DTM, Date/time/period
+           A segment to indicate dates and times relating to the reference.
+
+
+00070   Segment group 2:  NAD-SG3
+        A group of segments to identify a party for the entire message
+        including the message sender and related contacts.
+
+00080      NAD, Name and address
+           A segment to specify the name/address of the party and to
+           identify the party role.
+
+
+00090      Segment group 3:  CTA-COM
+           A group of segments to identify contacts and communication
+           information related to the party.
+
+00100         CTA, Contact information
+              A segment to identify a person or department within the
+              party.
+
+00110         COM, Communication contact
+              A segment to identify communication numbers or email
+              addresses for a person or department to whom communication
+              should be directed.
+
+
+00120   Segment group 4:  TDT-RFF-FTX-SG5
+        A group of segments identifying the means of transport and related
+        details for a transport stage. Transmission of this group is
+        mandatory for the current stage of transport.
+
+00130      TDT, Transport information
+           A segment to provide transport information for this transport
+           stage such as the means of transport and discharge voyage
+           number.
+
+00140      RFF, Reference
+           A segment to identify references for this transport stage such
+           as the loading voyage number.
+
+00150      FTX, Free text
+           A segment to transmit general information about the transport
+           stage.
+
+
+00160      Segment group 5:  LOC-DTM
+           A group of segments identifying locations relevant to this
+           transport stage as well as currently scheduled date(s) and
+           time(s).
+
+00170         LOC, Place/location identification
+              A segment to identify a location related to the transport
+              stage such as current or next port of call.
+
+00180         DTM, Date/time/period
+              A segment to specify dates and times related to the location.
+
+00190   UNS, Section control
+        A segment separating the header section and the detail section of
+        the message.
+
+
+00200   Segment group 6:  LOC-FTX-RFF-SG7-CNT
+        A group of segments providing information about a stowage location
+        and the cargo related to this location.
+
+00210      LOC, Place/location identification
+           A segment to identify a stowage location.
+
+00220      FTX, Free text
+           A segment to transmit additional information related to a
+           stowage location.
+
+00230      RFF, Reference
+           A segment containing references to cargo or equipment related to
+           another stowage location.
+
+
+00240      Segment group 7:  EQD-NAD-MEA-HAN-DIM-RFF-GDS-FTX-SG8-SG9-SG10-
+                             SG11
+           A group of segments providing information about a unit of
+           equipment or uncontainerised cargo.
+
+00250         EQD, Equipment details
+              A segment to identify a unit of equipment or uncontainerised
+              cargo.
+
+00260         NAD, Name and address
+              A segment identify parties related to a unit of equipment or
+              uncontainerised cargo including the operator.
+
+00270         MEA, Measurements
+              A segment to specify weight or other measurements related to
+              a unit of equipment or uncontainerised cargo.
+
+00280         HAN, Handling instructions
+              A segment to specify requirements for the stowage and
+              handling of a unit of equipment or uncontainerised cargo.
+
+00290         DIM, Dimensions
+              A segment to specify off-standard dimensions of a unit of
+              equipment or the dimensions of uncontainerised cargo.
+
+00300         RFF, Reference
+              A segment to specify a reference to a stowage location or any
+              other reference related to a unit of equipment or
+              uncontainerised cargo such as a booking reference or
+              transport documents.
+
+00310         GDS, Nature of cargo
+              A segment to identify or otherwise describe the goods carried
+              in a unit of equipment or uncontainerised cargo.
+
+00320         FTX, Free text
+              A segment to transmit additional information related to a
+              unit of equipment or uncontainerised cargo.
+
+
+00330         Segment group 8:  LOC-TSR-TDT
+              A group of segments specifying geographical locations related
+              to a unit of equipment or uncontainerised cargo and
+              processing requirements related to this location.
+
+00340            LOC, Place/location identification
+                 A segment to identify a geographical location related to a
+                 unit of equipment or uncontainerised cargo.
+
+00350            TSR, Transport service requirements
+                 A segment to specify transport service requirements such
+                 as priority or transshipment services.
+
+00360            TDT, Transport information
+                 A segment to specify information regarding a related
+                 transport stage such as mode of transport, means of
+                 transport, its conveyance reference number and the
+                 identification of the means of transport.
+
+
+00370         Segment group 9:  TMP-RNG-DTM
+              A group of segments containing information about required
+              temperature control.
+
+00380            TMP, Temperature
+                 A segment to specify a type of temperature control setting
+                 and optionally a specific temperature for a unit of
+                 equipment or uncontainerised cargo.
+
+00390            RNG, Range details
+                 A segment to specify the required temperature range.
+
+00400            DTM, Date/time/period
+                 A segment to specify a date/time related to the required
+                 temperature control.
+
+
+00410         Segment group 10: EQA-NAD
+              A group of segments providing information about attached
+              transport equipment including the operator.
+
+00420            EQA, Attached equipment
+                 A segment to specify attached transport equipment.
+
+00430            NAD, Name and address
+                 A segment to specify the operator of the attached
+                 transport equipment.
+
+
+00440         Segment group 11: DGS-ATT-MEA-FTX-SG12
+              A group of segments providing dangerous goods information
+              related to a unit of equipment or uncontainerised cargo
+              including official hazard identification and emergency
+              contact information.
+
+00450            DGS, Dangerous goods
+                 A segment to provide dangerous goods information including
+                 all information sufficient to provide official
+                 identification of this hazard.
+
+00460            ATT, Attribute
+                 A segment to specify an additional dangerous goods
+                 attribute relating to this hazard such as a UNDG extension
+                 code, the proper shipping name or others.
+
+00470            MEA, Measurements
+                 A segment to specify measurements related to this hazard.
+
+00480            FTX, Free text
+                 A segment to transmit additional free text information
+                 related to this hazard.
+
+
+00490            Segment group 12: CTA-COM
+                 A group of segments to identify contacts and communication
+                 numbers related to this hazard.
+
+00500               CTA, Contact information
+                    A segment to identify a contact person for this hazard
+                    such as an emergency contact.
+
+00510               COM, Communication contact
+                    A segment to identify communication numbers or email
+                    addresses for the contact person for this hazard.
+
+00520      CNT, Control total
+           A segment to specify the number of units of equipment or
+           uncontainerised cargo in a stowage location.
+
+00530   UNT, Message trailer
+        A service segment ending a message, giving the total number of
+        segments in the message (including the UNH & UNT) and the control
+        reference number of the message.
+
+4.2    Segment index (alphabetical sequence by tag)
+
+          ATT Attribute
+          BGM Beginning of message
+          CNT Control total
+          COM Communication contact
+          CTA Contact information
+          DGS Dangerous goods
+          DIM Dimensions
+          DTM Date/time/period
+          EQA Attached equipment
+          EQD Equipment details
+          FTX Free text
+          GDS Nature of cargo
+          HAN Handling instructions
+          LOC Place/location identification
+          MEA Measurements
+          NAD Name and address
+          RFF Reference
+          RNG Range details
+          TDT Transport information
+          TMP Temperature
+          TSR Transport service requirements
+          UNH Message header
+          UNS Section control
+          UNT Message trailer
+
+4.3    Message structure
+
+4.3.1  Segment table
+
+Pos     Tag Name                                     S   R
+
+00010   UNH Message header                           M   1     
+00020   BGM Beginning of message                     M   1     
+00030   DTM Date/time/period                         C   9     
+
+00040       ---- Segment group 1  ------------------ C   9----------------+
+00050   RFF Reference                                M   1                |
+00060   DTM Date/time/period                         C   9----------------+
+
+00070       ---- Segment group 2  ------------------ C   9----------------+
+00080   NAD Name and address                         M   1                |
+                                                                          |
+00090       ---- Segment group 3  ------------------ C   9---------------+|
+00100   CTA Contact information                      M   1               ||
+00110   COM Communication contact                    C   9---------------++
+
+00120       ---- Segment group 4  ------------------ M   9----------------+
+00130   TDT Transport information                    M   1                |
+00140   RFF Reference                                C   9                |
+00150   FTX Free text                                C   9                |
+                                                                          |
+00160       ---- Segment group 5  ------------------ C   9---------------+|
+00170   LOC Place/location identification            M   1               ||
+00180   DTM Date/time/period                         C   9---------------++
+00190   UNS Section control                          M   1     
+
+00200       ---- Segment group 6  ------------------ C   99999------------+
+00210   LOC Place/location identification            M   1                |
+00220   FTX Free text                                C   9                |
+00230   RFF Reference                                C   9                |
+                                                                          |
+00240       ---- Segment group 7  ------------------ C   9---------------+|
+00250   EQD Equipment details                        M   1               ||
+00260   NAD Name and address                         C   9               ||
+00270   MEA Measurements                             C   9               ||
+00280   HAN Handling instructions                    C   99              ||
+00290   DIM Dimensions                               C   9               ||
+00300   RFF Reference                                C   9               ||
+00310   GDS Nature of cargo                          C   99              ||
+00320   FTX Free text                                C   9               ||
+                                                                         ||
+00330       ---- Segment group 8  ------------------ C   9--------------+||
+00340   LOC Place/location identification            M   1              |||
+00350   TSR Transport service requirements           C   1              |||
+00360   TDT Transport information                    C   1--------------+||
+                                                                         ||
+00370       ---- Segment group 9  ------------------ C   9--------------+||
+00380   TMP Temperature                              M   1              |||
+00390   RNG Range details                            C   1              |||
+00400   DTM Date/time/period                         C   1--------------+||
+                                                                         ||
+00410       ---- Segment group 10 ------------------ C   9--------------+||
+00420   EQA Attached equipment                       M   1              |||
+00430   NAD Name and address                         C   1--------------+||
+                                                                         ||
+00440       ---- Segment group 11 ------------------ C   999------------+||
+00450   DGS Dangerous goods                          M   1              |||
+00460   ATT Attribute                                C   9              |||
+00470   MEA Measurements                             C   9              |||
+00480   FTX Free text                                C   9              |||
+                                                                        |||
+00490       ---- Segment group 12 ------------------ C   9-------------+|||
+00500   CTA Contact information                      M   1             ||||
+00510   COM Communication contact                    C   9-------------+++|
+00520   CNT Control total                            M   1----------------+
+00530   UNT Message trailer                          M   1     

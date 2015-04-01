@@ -1,0 +1,3374 @@
+2.   Segment specifications
+
+     Change indicators
+
+     a plus sign (+)    for an addition
+     an asterisk (*)    for an amendment to structure
+     a hash sign (#)    for changes to names
+     a vertical bar (|) for changes to text for functional
+                        descriptions or notes
+     a letter X (X)     for marked for deletion
+
+----------------------------------------------------------------------
+
+       ADR  ADDRESS
+
+       Function: To specify an address.
+
+010    C817 ADDRESS USAGE                              C    1
+       3299  Address purpose code                      C      an..3
+       3131  Address type code                         C      an..3
+       3475  Address status code                       C      an..3
+
+020    C090 ADDRESS DETAILS                            C    1
+       3477  Address format code                       M      an..3
+       3286  Address component description             M      an..70
+       3286  Address component description             C      an..70
+       3286  Address component description             C      an..70
+       3286  Address component description             C      an..70
+       3286  Address component description             C      an..70
+
+030    3164 CITY NAME                                  C    1 an..35
+
+040    3251 POSTAL IDENTIFICATION CODE                 C    1 an..17
+
+050    3207 COUNTRY IDENTIFIER                         C    1 an..3
+
+060    C819 COUNTRY SUBDIVISION DETAILS                C    5
+       3229  Country subdivision identifier            C      an..9
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+       3228  Country subdivision name                  C      an..70
+
+070    C517 LOCATION IDENTIFICATION                    C    5
+       3225  Location identifier                       C      an..35
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+       3224  Location name                             C      an..256
+
+----------------------------------------------------------------------
+
+       AGR  AGREEMENT IDENTIFICATION
+
+       Function: To specify the agreement details.
+
+010    C543 AGREEMENT TYPE IDENTIFICATION              C    1
+       7431  Agreement type code qualifier             M      an..3
+       7433  Agreement type description code           C      an..3
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+       7434  Agreement type description                C      an..70
+
+020    9419 SERVICE LAYER CODE                         C    1 an..3
+
+----------------------------------------------------------------------
+
+       AJT  ADJUSTMENT DETAILS
+
+       Function: To identify the reason for an adjustment.
+
+010    4465 ADJUSTMENT REASON DESCRIPTION CODE         M    1 an..3
+
+020    1082 LINE ITEM IDENTIFIER                       C    1 an..6
+
+----------------------------------------------------------------------
+
+       ALC  ALLOWANCE OR CHARGE
+
+       Function: To identify allowance or charge details.
+
+010    5463 ALLOWANCE OR CHARGE CODE QUALIFIER         M    1 an..3
+
+020    C552 ALLOWANCE/CHARGE INFORMATION               C    1
+       1230  Allowance or charge identifier            C      an..35
+       5189  Allowance or charge identification code   C      an..3
+
+030    4471 SETTLEMENT MEANS CODE                      C    1 an..3
+
+040    1227 CALCULATION SEQUENCE CODE                  C    1 an..3
+
+050    C214 SPECIAL SERVICES IDENTIFICATION            C    1
+       7161  Special service description code          C      an..3
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+       7160  Special service description               C      an..35
+       7160  Special service description               C      an..35
+
+----------------------------------------------------------------------
+
+       ALI  ADDITIONAL INFORMATION
+
+       Function: To indicate that special conditions due to the
+                 origin, customs preference, fiscal or commercial
+                 factors are applicable.
+
+010    3239 COUNTRY OF ORIGIN IDENTIFIER               C    1 an..3
+
+020    9213 DUTY REGIME TYPE CODE                      C    1 an..3
+
+030    4183 SPECIAL CONDITION CODE                     C    1 an..3
+
+040    4183 SPECIAL CONDITION CODE                     C    1 an..3
+
+050    4183 SPECIAL CONDITION CODE                     C    1 an..3
+
+060    4183 SPECIAL CONDITION CODE                     C    1 an..3
+
+070    4183 SPECIAL CONDITION CODE                     C    1 an..3
+
+----------------------------------------------------------------------
+
+       APP  APPLICABILITY
+
+       Function: To specify the applicability.
+
+010    9051 APPLICABILITY CODE QUALIFIER               C    1 an..3
+
+020    C973 APPLICABILITY TYPE                         C    1
+       9049  Applicability type description code       C      an..3
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+       9048  Applicability type description            C      an..35
+
+030    C082 PARTY IDENTIFICATION DETAILS               C    1
+       3039  Party identifier                          M      an..35
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+
+----------------------------------------------------------------------
+
+       APR  ADDITIONAL PRICE INFORMATION
+
+       Function: To provide information concerning pricing
+                 related to class of trade, price multiplier, and
+                 reason for change.
+
+010    4043 TRADE CLASS CODE                           C    1 an..3
+
+020    C138 PRICE MULTIPLIER INFORMATION               C    1
+       5394  Price multiplier rate                     M      n..12
+       5393  Price multiplier type code qualifier      C      an..3
+
+030    C960 REASON FOR CHANGE                          C    1
+       4295  Change reason description code            C      an..3
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+       4294  Change reason description                 C      an..35
+
+----------------------------------------------------------------------
+
+       ARD  MONETARY AMOUNT FUNCTION
+
+       Function: To provide details of the function of a monetary
+                 amount.
+
+010    C549 MONETARY AMOUNT FUNCTION                   C    1
+       5007  Monetary amount function description code C      an..3
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+       5006  Monetary amount function description      C      an..70
+
+020    C008 MONETARY AMOUNT FUNCTION DETAIL            C    8
+       5105  Monetary amount function detail
+             description code                          C      an..17
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+       5104  Monetary amount function detail
+             description                               C      an..70
+
+----------------------------------------------------------------------
+
+       ARR  ARRAY INFORMATION
+
+       Function: To contain the data in an array.
+
+010    C778 POSITION IDENTIFICATION                    C    1
+       7164  Hierarchical structure level identifier   C      an..35
+       1050  Sequence position identifier              C      an..10
+
+020    C770 ARRAY CELL DETAILS                         C    1
+       9424  Array cell data description               C      an..512
+
+       Note: 
+            The composite C770 - array cell details - occurs
+            9,999 times in the segment. The use of the ARR
+            segment is restricted to be used only with Version 3
+            of ISO-9735.
+            The component 9424 - array cell information - occurs
+            100 times in the composite C770. The use of C770 is
+            restricted to be used only with the ARR segment
+            within Version 3 of ISO-9735.
+
+----------------------------------------------------------------------
+
+       ASI  ARRAY STRUCTURE IDENTIFICATION
+
+       Function: To identify the structure of an array.
+
+010    C779 ARRAY STRUCTURE IDENTIFICATION             M    1
+       9428  Array cell structure identifier           M      an..35
+       7405  Object identification code qualifier      C      an..3
+
+020    C082 PARTY IDENTIFICATION DETAILS               C    1
+       3039  Party identifier                          M      an..35
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+
+030    4405 STATUS DESCRIPTION CODE                    C    1 an..3
+
+040    4513 MAINTENANCE OPERATION CODE                 C    1 an..3
+
+----------------------------------------------------------------------
+
+       ATT  ATTRIBUTE
+
+       Function: To identify a specific attribute.
+
+010    9017 ATTRIBUTE FUNCTION CODE QUALIFIER          M    1 an..3
+
+020    C955 ATTRIBUTE TYPE                             C    1
+       9021  Attribute type description code           C      an..17
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+       9020  Attribute type description                C      an..70
+
+030    C956 ATTRIBUTE DETAIL                           C    5
+       9019  Attribute description code                C      an..17
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+       9018  Attribute description                     C      an..256
+
+----------------------------------------------------------------------
+
+       AUT  AUTHENTICATION RESULT
+
+       Function: To specify results of the application of an
+                 authentication procedure.
+
+010    9280 VALIDATION RESULT TEXT                     M    1 an..35
+
+020    9282 VALIDATION KEY IDENTIFIER                  C    1 an..35
+
+----------------------------------------------------------------------
+
+       BAS  BASIS
+
+       Function: To describe the foundation or starting point.
+
+010    9045 BASIS CODE QUALIFIER                       M    1 an..3
+
+020    C974 BASIS TYPE                                 M    1
+       9047  Basis type description code               C      an..3
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+       9046  Basis type description                    C      an..35
+
+----------------------------------------------------------------------
+
+       BGM  BEGINNING OF MESSAGE
+
+       Function: To indicate the type and function of a message
+                 and to transmit the identifying number.
+
+010    C002 DOCUMENT/MESSAGE NAME                      C    1
+       1001  Document name code                        C      an..3
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+       1000  Document name                             C      an..35
+
+020    C106 DOCUMENT/MESSAGE IDENTIFICATION            C    1
+       1004  Document identifier                       C      an..70
+       1056  Version identifier                        C      an..9
+       1060  Revision identifier                       C      an..6
+
+030    1225 MESSAGE FUNCTION CODE                      C    1 an..3
+
+040    4343 RESPONSE TYPE CODE                         C    1 an..3
+
+050    1373 DOCUMENT STATUS CODE                       C    1 an..3
+
+060    3453 LANGUAGE NAME CODE                         C    1 an..3
+
+----------------------------------------------------------------------
+
+       BII  STRUCTURE IDENTIFICATION
+
+       Function: A segment used to convey an indexing structure
+                 mechanism which identifies the positioning of a
+                 group or item.
+
+010    7429 INDEXING STRUCTURE CODE QUALIFIER          M    1 an..3
+
+020    C045 BILL LEVEL IDENTIFICATION                  M    1
+       7436  Level one identifier                      C      an..17
+       7438  Level two identifier                      C      an..17
+       7440  Level three identifier                    C      an..17
+       7442  Level four identifier                     C      an..17
+       7444  Level five identifier                     C      an..17
+       7446  Level six identifier                      C      an..17
+
+030    7140 ITEM IDENTIFIER                            C    1 an..35
+
+----------------------------------------------------------------------
+
+       BUS  BUSINESS FUNCTION
+
+       Function: To provide information related to the processing
+                 and purpose of a financial message.
+
+010    C521 BUSINESS FUNCTION                          C    1
+       4027  Business function type code qualifier     M      an..3
+       4025  Business function code                    M      an..3
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+       4022  Business description                      C      an..70
+
+020    3279 GEOGRAPHIC AREA CODE                       C    1 an..3
+
+030    4487 FINANCIAL TRANSACTION TYPE CODE            C    1 an..3
+
+040    C551 BANK OPERATION                             C    1
+       4383  Bank operation code                       M      an..3
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+
+050    4463 INTRA-COMPANY PAYMENT INDICATOR CODE       C    1 an..3
+
+----------------------------------------------------------------------
+
+       CAV  CHARACTERISTIC VALUE
+
+       Function: To provide the value of a characteristic.
+
+010    C889 CHARACTERISTIC VALUE                       M    1
+       7111  Characteristic value description code     C      an..3
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+       7110  Characteristic value description          C      an..35
+       7110  Characteristic value description          C      an..35
+
+----------------------------------------------------------------------
+
+       CCD  CREDIT COVER DETAILS
+
+       Function: To request a credit cover, reply to that request
+                 and disclose the reason for the reply.
+
+010    4505 CREDIT COVER REQUEST TYPE CODE             C    1 an..3
+
+020    4507 CREDIT COVER RESPONSE TYPE CODE            C    1 an..3
+
+030    4509 CREDIT COVER RESPONSE REASON CODE          C    1 an..3
+
+----------------------------------------------------------------------
+
+       CCI  CHARACTERISTIC/CLASS ID
+
+       Function: To identify and describe a specific
+                 characteristic and its relevance for subsequent
+                 business processes.
+
+010    7059 CLASS TYPE CODE                            C    1 an..3
+
+020    C502 MEASUREMENT DETAILS                        C    1
+       6313  Measured attribute code                   C      an..3
+       6321  Measurement significance code             C      an..3
+       6155  Non-discrete measurement name code        C      an..17
+       6154  Non-discrete measurement name             C      an..70
+
+030    C240 CHARACTERISTIC DESCRIPTION                 C    1
+       7037  Characteristic description code           M      an..17
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+       7036  Characteristic description                C      an..35
+       7036  Characteristic description                C      an..35
+
+040    4051 CHARACTERISTIC RELEVANCE CODE              C    1 an..3
+
+----------------------------------------------------------------------
+
+       CDI  PHYSICAL OR LOGICAL STATE
+
+       Function: To describe a physical or logical state.
+
+010    7001 PHYSICAL OR LOGICAL STATE TYPE CODE
+            QUALIFIER                                  M    1 an..3
+
+020    C564 PHYSICAL OR LOGICAL STATE INFORMATION      M    1
+       7007  Physical or logical state description
+             code                                      C      an..3
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+       7006  Physical or logical state description     C      an..70
+
+----------------------------------------------------------------------
+
+       CDS  CODE SET IDENTIFICATION
+
+       Function: To identify a code set and to give its class and
+                 maintenance operation.
+
+010    C702 CODE SET IDENTIFICATION                    M    1
+       9150  Simple data element tag identifier        C      an..4
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+
+020    1507 DESIGNATED CLASS CODE                      C    1 an..3
+
+030    4513 MAINTENANCE OPERATION CODE                 C    1 an..3
+
+----------------------------------------------------------------------
+
+       CDV  CODE VALUE DEFINITION
+
+       Function: To provide information related to a code value.
+
+010    9426 CODE VALUE TEXT                            M    1 an..35
+
+020    9434 CODE NAME                                  C    1 an..70
+
+030    4513 MAINTENANCE OPERATION CODE                 C    1 an..3
+
+040    9453 CODE VALUE SOURCE CODE                     C    1 an..3
+
+050    7299 REQUIREMENT DESIGNATOR CODE                C    1 an..3
+
+----------------------------------------------------------------------
+
+       CED  COMPUTER ENVIRONMENT DETAILS
+
+       Function: To give a precise definition of all necessary
+                 elements belonging to the configuration of a
+                 computer system like hardware, firmware,
+                 operating system, communication (VANS, network
+                 type, protocol, format) and application
+                 software.
+
+010    1501 COMPUTER ENVIRONMENT DETAILS CODE
+            QUALIFIER                                  M    1 an..3
+
+020    C079 COMPUTER ENVIRONMENT IDENTIFICATION        M    1
+       1511  Computer environment name code            C      an..3
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+       1510  Computer environment name                 C      an..35
+       1056  Version identifier                        C      an..9
+       1058  Release identifier                        C      an..9
+       7402  Object identifier                         C      an..35
+
+030    9448 FILE GENERATION COMMAND NAME               C    1 an..35
+
+----------------------------------------------------------------------
+
+       CIN  CLINICAL INFORMATION
+
+       Function: To describe an item of clinical information.
+
+010    6415 CLINICAL INFORMATION TYPE CODE QUALIFIER   M    1 an..3
+
+020    C836 CLINICAL INFORMATION DETAILS               C    1
+       6413  Clinical information description
+             identifier                                C      an..17
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+       6412  Clinical information description          C      an..70
+
+030    C837 CERTAINTY DETAILS                          C    1
+       4049  Certainty description code                C      an..3
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+       4048  Certainty description                     C      an..35
+
+----------------------------------------------------------------------
+
+       CLA  CLAUSE IDENTIFICATION
+
+       Function: To identify a clause in a treaty, law and/or
+                 contract.
+
+010    4059 CLAUSE CODE QUALIFIER                      M    1 an..3
+
+020    C970 CLAUSE NAME                                C    1
+       4069  Clause name code                          C      an..17
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+       4068  Clause name                               C      an..70
+
+----------------------------------------------------------------------
+
+       CLI  CLINICAL INTERVENTION
+
+       Function: To specify a clinical intervention such as
+                 treatments and investigations.
+
+010    9441 CLINICAL INTERVENTION TYPE CODE QUALIFIER  M    1 an..3
+
+020    C828 CLINICAL INTERVENTION DETAILS              C    1
+       9437  Clinical intervention description code    C      an..17
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+       9436  Clinical intervention description         C      an..70
+
+----------------------------------------------------------------------
+
+       CMP  COMPOSITE DATA ELEMENT IDENTIFICATION
+
+       Function: To identify a composite data element and to give
+                 its class and maintenance operation.
+
+010    9146 COMPOSITE DATA ELEMENT TAG IDENTIFIER      M    1 an..4
+
+020    1507 DESIGNATED CLASS CODE                      C    1 an..3
+
+030    4513 MAINTENANCE OPERATION CODE                 C    1 an..3
+
+----------------------------------------------------------------------
+
+       CNI  CONSIGNMENT INFORMATION
+
+       Function: To identify one consignment.
+
+010    1490 CONSOLIDATION ITEM NUMBER                  C    1 n..5
+
+020    C503 DOCUMENT/MESSAGE DETAILS                   C    1
+       1004  Document identifier                       C      an..70
+       1373  Document status code                      C      an..3
+       1366  Document source description               C      an..70
+       3453  Language name code                        C      an..3
+       1056  Version identifier                        C      an..9
+       1060  Revision identifier                       C      an..6
+
+030    1312 CONSIGNMENT LOAD SEQUENCE IDENTIFIER       C    1 n..4
+
+----------------------------------------------------------------------
+
+       CNT  CONTROL TOTAL
+
+       Function: To provide control total.
+
+010    C270 CONTROL                                    M    1
+       6069  Control total type code qualifier         M      an..3
+       6066  Control total quantity                    M      n..18
+       6411  Measurement unit code                     C      an..8
+
+----------------------------------------------------------------------
+
+       COD  COMPONENT DETAILS
+
+       Function: To provide component details of an object (e.g.
+                 product, container) such as its type and the
+                 material of which it is composed.
+
+010    C823 TYPE OF UNIT/COMPONENT                     C    1
+       7505  Unit or component type description code   C      an..3
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+       7504  Unit or component type description        C      an..35
+
+020    C824 COMPONENT MATERIAL                         C    1
+       7507  Component material description code       C      an..3
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+       7506  Component material description            C      an..35
+
+----------------------------------------------------------------------
+
+       COM  COMMUNICATION CONTACT
+
+       Function: To identify a communication number of a
+                 department or a person to whom communication
+                 should be directed.
+
+010    C076 COMMUNICATION CONTACT                      M    3
+       3148  Communication address identifier          M      an..512
+       3155  Communication means type code             M      an..3
+
+----------------------------------------------------------------------
+
+       COT  CONTRIBUTION DETAILS
+
+       Function: To specify details about membership
+                 contributions.
+
+010    5047 CONTRIBUTION CODE QUALIFIER                M    1 an..3
+
+020    C953 CONTRIBUTION TYPE                          C    1
+       5049  Contribution type description code        M      an..3
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+       5048  Contribution type description             C      an..35
+
+030    C522 INSTRUCTION                                C    1
+       4403  Instruction type code qualifier           M      an..3
+       4401  Instruction description code              C      an..3
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+       4400  Instruction description                   C      an..35
+
+040    C203 RATE/TARIFF CLASS                          C    1
+       5243  Rate or tariff class description code     M      an..9
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+       5242  Rate or tariff class description          C      an..35
+       5275  Supplementary rate or tariff code         C      an..6
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+       5275  Supplementary rate or tariff code         C      an..6
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+
+050    C960 REASON FOR CHANGE                          C    1
+       4295  Change reason description code            C      an..3
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+       4294  Change reason description                 C      an..35
+
+----------------------------------------------------------------------
+
+       CPI  CHARGE PAYMENT INSTRUCTIONS
+
+       Function: To identify a charge.
+
+010    C229 CHARGE CATEGORY                            C    1
+       5237  Charge category code                      M      an..3
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+
+020    C231 METHOD OF PAYMENT                          C    1
+       4215  Transport charges payment method code     M      an..3
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+
+030    4237 PAYMENT ARRANGEMENT CODE                   C    1 an..3
+
+----------------------------------------------------------------------
+
+       CPS  CONSIGNMENT PACKING SEQUENCE
+
+       Function: To identify the sequence in which physical
+                 packing is presented in the consignment, and
+                 optionally to identify the hierarchical
+                 relationship between packing layers.
+
+010    7164 HIERARCHICAL STRUCTURE LEVEL IDENTIFIER    M    1 an..35
+
+020    7166 HIERARCHICAL STRUCTURE PARENT IDENTIFIER   C    1 an..35
+
+030    7075 PACKAGING LEVEL CODE                       C    1 an..3
+
+----------------------------------------------------------------------
+
+       CPT  ACCOUNT IDENTIFICATION
+
+       Function: To provide account identification information.
+
+010    4437 ACCOUNT TYPE CODE QUALIFIER                M    1 an..3
+
+020    C593 ACCOUNT IDENTIFICATION                     M    1
+       1147  Account identifier                        M      an..35
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+       1148  Account abbreviated name                  C      an..17
+       1146  Account name                              C      an..35
+       1146  Account name                              C      an..35
+       6345  Currency identification code              C      an..3
+
+----------------------------------------------------------------------
+
+       CST  CUSTOMS STATUS OF GOODS
+
+       Function: To specify goods in terms of customs identities,
+                 status and intended use.
+
+010    1496 GOODS ITEM NUMBER                          C    1 an..6
+
+020    C246 CUSTOMS IDENTITY CODES                     C    1
+       7361  Customs goods identifier                  M      an..18
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+
+030    C246 CUSTOMS IDENTITY CODES                     C    1
+       7361  Customs goods identifier                  M      an..18
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+
+040    C246 CUSTOMS IDENTITY CODES                     C    1
+       7361  Customs goods identifier                  M      an..18
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+
+050    C246 CUSTOMS IDENTITY CODES                     C    1
+       7361  Customs goods identifier                  M      an..18
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+
+060    C246 CUSTOMS IDENTITY CODES                     C    1
+       7361  Customs goods identifier                  M      an..18
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+
+----------------------------------------------------------------------
+
+       CTA  CONTACT INFORMATION
+
+       Function: To identify a person or a department to whom
+                 communication should be directed.
+
+010    3139 CONTACT FUNCTION CODE                      C    1 an..3
+
+020    C056 CONTACT DETAILS                            C    1
+       3413  Contact identifier                        C      an..17
+       3412  Contact name                              C      an..256
+
+----------------------------------------------------------------------
+
+       CUX  CURRENCIES
+
+       Function: To specify currencies used in the transaction
+                 and relevant details for the rate of exchange.
+
+010    C504 CURRENCY DETAILS                           C    1
+       6347  Currency usage code qualifier             M      an..3
+       6345  Currency identification code              C      an..3
+       6343  Currency type code qualifier              C      an..3
+       6348  Currency rate                             C      n..4
+
+020    C504 CURRENCY DETAILS                           C    1
+       6347  Currency usage code qualifier             M      an..3
+       6345  Currency identification code              C      an..3
+       6343  Currency type code qualifier              C      an..3
+       6348  Currency rate                             C      n..4
+
+030    5402 CURRENCY EXCHANGE RATE                     C    1 n..12
+
+040    6341 EXCHANGE RATE CURRENCY MARKET IDENTIFIER   C    1 an..3
+
+----------------------------------------------------------------------
+
+       DAM  DAMAGE
+
+       Function: To specify damage including action taken.
+
+010    7493 DAMAGE DETAILS CODE QUALIFIER              M    1 an..3
+
+020    C821 TYPE OF DAMAGE                             C    1
+       7501  Damage type description code              C      an..3
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+       7500  Damage type description                   C      an..35
+
+030    C822 DAMAGE AREA                                C    1
+       7503  Damage area description code              C      an..4
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+       7502  Damage area description                   C      an..35
+
+040    C825 DAMAGE SEVERITY                            C    1
+       7509  Damage severity description code          C      an..3
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+       7508  Damage severity description               C      an..35
+
+050    C826 ACTION                                     C    1
+       1229  Action code                               C      an..3
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+       1228  Action description                        C      an..35
+
+----------------------------------------------------------------------
+
+       DFN  DEFINITION FUNCTION
+
+       Function: To specify a definition function.
+
+010    9023 DEFINITION FUNCTION CODE                   M    1 an..3
+
+020    9025 DEFINITION EXTENT CODE                     C    1 an..3
+
+030    4519 DEFINITION IDENTIFIER                      C    1 an..35
+
+----------------------------------------------------------------------
+
+       DGS  DANGEROUS GOODS
+
+       Function: To identify dangerous goods.
+
+010    8273 DANGEROUS GOODS REGULATIONS CODE           C    1 an..3
+
+020    C205 HAZARD CODE                                C    1
+       8351  Hazard identification code                M      an..7
+       8078  Additional hazard classification
+             identifier                                C      an..7
+       8092  Hazard code version identifier            C      an..10
+
+030    C234 UNDG INFORMATION                           C    1
+       7124  United Nations Dangerous Goods (UNDG)
+             identifier                                C      n4
+       7088  Dangerous goods flashpoint description    C      an..8
+
+040    C223 DANGEROUS GOODS SHIPMENT FLASHPOINT        C    1
+       7106  Shipment flashpoint degree                C      n3
+       6411  Measurement unit code                     C      an..8
+
+050    8339 PACKAGING DANGER LEVEL CODE                C    1 an..3
+
+060    8364 EMERGENCY PROCEDURE FOR SHIPS IDENTIFIER   C    1 an..8
+
+070    8410 HAZARD MEDICAL FIRST AID GUIDE IDENTIFIER  C    1 an..4
+
+080    8126 TRANSPORT EMERGENCY CARD IDENTIFIER        C    1 an..10
+
+090    C235 HAZARD IDENTIFICATION PLACARD DETAILS      C    1
+       8158  Orange hazard placard upper part
+             identifier                                C      an..4
+       8186  Orange hazard placard lower part
+             identifier                                C      an4
+
+100    C236 DANGEROUS GOODS LABEL                      C    1
+       8246  Dangerous goods marking identifier        C      an..4
+       8246  Dangerous goods marking identifier        C      an..4
+       8246  Dangerous goods marking identifier        C      an..4
+       8246  Dangerous goods marking identifier        C      an..4
+
+110    8255 PACKING INSTRUCTION TYPE CODE              C    1 an..3
+
+120    8179 TRANSPORT MEANS DESCRIPTION CODE           C    1 an..8
+
+130    8211 HAZARDOUS CARGO TRANSPORT AUTHORISATION
+            CODE                                       C    1 an..3
+
+140    C289 TUNNEL RESTRICTION                         C    1
+       8461  Tunnel Restriction Code                   C      an..6
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+
+----------------------------------------------------------------------
+
+       DII  DIRECTORY IDENTIFICATION
+
+       Function: To identify a directory and to give its release,
+                 status, controlling agency, language and
+                 maintenance operation.
+
+010    1056 VERSION IDENTIFIER                         M    1 an..9
+
+020    1058 RELEASE IDENTIFIER                         M    1 an..9
+
+030    9148 DIRECTORY STATUS IDENTIFIER                C    1 an..3
+
+040    1476 CONTROLLING AGENCY IDENTIFIER              C    1 an..2
+
+050    3453 LANGUAGE NAME CODE                         C    1 an..3
+
+060    4513 MAINTENANCE OPERATION CODE                 C    1 an..3
+
+----------------------------------------------------------------------
+
+       DIM  DIMENSIONS
+
+       Function: To specify dimensions.
+
+010    6145 DIMENSION TYPE CODE QUALIFIER              M    1 an..3
+
+020    C211 DIMENSIONS                                 M    1
+       6411  Measurement unit code                     M      an..8
+       6168  Length measure                            C      n..15
+       6140  Width measure                             C      n..15
+       6008  Height measure                            C      n..15
+       6182  Diameter measure                          C      n..15
+
+----------------------------------------------------------------------
+
+       DLI  DOCUMENT LINE IDENTIFICATION
+
+       Function: To specify the processing mode of a specific
+                 line within a referenced document.
+
+010    1073 DOCUMENT LINE ACTION CODE                  M    1 an..3
+
+020    1082 LINE ITEM IDENTIFIER                       M    1 an..6
+
+----------------------------------------------------------------------
+
+       DLM  DELIVERY LIMITATIONS
+
+       Function: To specify limitations on deliveries.
+
+010    4455 BACK ORDER ARRANGEMENT TYPE CODE           C    1 an..3
+
+020    C522 INSTRUCTION                                C    1
+       4403  Instruction type code qualifier           M      an..3
+       4401  Instruction description code              C      an..3
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+       4400  Instruction description                   C      an..35
+
+030    C214 SPECIAL SERVICES IDENTIFICATION            C    1
+       7161  Special service description code          C      an..3
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+       7160  Special service description               C      an..35
+       7160  Special service description               C      an..35
+
+040    4457 SUBSTITUTION CONDITION CODE                C    1 an..3
+
+----------------------------------------------------------------------
+
+       DMS  DOCUMENT/MESSAGE SUMMARY
+
+       Function: To specify summary information relating to the
+                 document/message.
+
+010    C106 DOCUMENT/MESSAGE IDENTIFICATION            C    1
+       1004  Document identifier                       C      an..70
+       1056  Version identifier                        C      an..9
+       1060  Revision identifier                       C      an..6
+
+020    C002 DOCUMENT/MESSAGE NAME                      C    1
+       1001  Document name code                        C      an..3
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+       1000  Document name                             C      an..35
+
+030    7240 ITEM TOTAL QUANTITY                        C    1 n..15
+
+----------------------------------------------------------------------
+
+       DOC  DOCUMENT/MESSAGE DETAILS
+
+       Function: To identify documents and details directly
+                 related to it.
+
+010    C002 DOCUMENT/MESSAGE NAME                      M    1
+       1001  Document name code                        C      an..3
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+       1000  Document name                             C      an..35
+
+020    C503 DOCUMENT/MESSAGE DETAILS                   C    1
+       1004  Document identifier                       C      an..70
+       1373  Document status code                      C      an..3
+       1366  Document source description               C      an..70
+       3453  Language name code                        C      an..3
+       1056  Version identifier                        C      an..9
+       1060  Revision identifier                       C      an..6
+
+030    3153 COMMUNICATION MEDIUM TYPE CODE             C    1 an..3
+
+040    1220 DOCUMENT COPIES REQUIRED QUANTITY          C    1 n..2
+
+050    1218 DOCUMENT ORIGINALS REQUIRED QUANTITY       C    1 n..2
+
+----------------------------------------------------------------------
+
+       DRD  DATA REPRESENTATION DETAILS
+
+       Function: To specify the details of the data
+                 representation.
+
+010    7512 STRUCTURE COMPONENT IDENTIFIER             C    1 an..35
+
+020    7515 STRUCTURE TYPE CODE                        C    1 an..3
+
+030    9169 DATA REPRESENTATION TYPE CODE              C    1 an..3
+
+040    6174 SIZE MEASURE                               C    1 n..15
+
+----------------------------------------------------------------------
+
+       DSG  DOSAGE ADMINISTRATION
+
+       Function: To communicate how dose(s) are administered.
+
+010    6085 DOSAGE ADMINISTRATION CODE QUALIFIER       M    1 an..3
+
+020    C838 DOSAGE DETAILS                             C    1
+       6083  Dosage description identifier             C      an..8
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+       6082  Dosage description                        C      an..70
+
+----------------------------------------------------------------------
+
+       DSI  DATA SET IDENTIFICATION
+
+       Function: To identify a data set.
+
+010    C782 DATA SET IDENTIFICATION                    M    1
+       1520  Data set identifier                       M      an..35
+       7405  Object identification code qualifier      C      an..3
+
+020    C082 PARTY IDENTIFICATION DETAILS               C    1
+       3039  Party identifier                          M      an..35
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+
+030    4405 STATUS DESCRIPTION CODE                    C    1 an..3
+
+040    C286 SEQUENCE INFORMATION                       C    1
+       1050  Sequence position identifier              M      an..10
+       1159  Sequence identifier source code           C      an..3
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+
+050    1060 REVISION IDENTIFIER                        C    1 an..6
+
+----------------------------------------------------------------------
+
+       DTM  DATE/TIME/PERIOD
+
+       Function: To specify date, and/or time, or period.
+
+010    C507 DATE/TIME/PERIOD                           M    1
+       2005  Date or time or period function code
+             qualifier                                 M      an..3
+       2380  Date or time or period text               C      an..35
+       2379  Date or time or period format code        C      an..3
+
+----------------------------------------------------------------------
+
+       EDT  EDITING DETAILS
+
+       Function: To specify editing details.
+
+010    6178 EDIT FIELD LENGTH MEASURE                  C    1 n..3
+
+020    9026 EDIT MASK FORMAT IDENTIFIER                C    1 an..35
+
+030    9031 EDIT MASK REPRESENTATION CODE              C    1 an..3
+
+040    4447 FREE TEXT FORMAT CODE                      C    1 an..3
+
+----------------------------------------------------------------------
+
+       EFI  EXTERNAL FILE LINK IDENTIFICATION
+
+       Function: To specify the link of one non-EDIFACT external
+                 file to an EDIFACT message.
+
+010    C077 FILE IDENTIFICATION                        M    1
+       1508  File name                                 C      an..35
+       7008  Item description                          C      an..256
+
+020    C099 FILE DETAILS                               C    1
+       1516  File format name                          M      an..17
+       1056  Version identifier                        C      an..9
+       1503  Data format description code              C      an..3
+       1502  Data format description                   C      an..35
+
+030    1050 SEQUENCE POSITION IDENTIFIER               C    1 an..10
+
+040    9450 FILE COMPRESSION TECHNIQUE NAME            C    1 an..35
+
+----------------------------------------------------------------------
+
+       ELM  SIMPLE DATA ELEMENT DETAILS
+
+       Function: To identify a simple data element and give
+                 related details.
+
+010    9150 SIMPLE DATA ELEMENT TAG IDENTIFIER         M    1 an..4
+
+020    9153 SIMPLE DATA ELEMENT CHARACTER
+            REPRESENTATION CODE                        C    1 an..3
+
+030    6113 LENGTH TYPE CODE                           C    1 an..3
+
+040    9156 SIMPLE DATA ELEMENT MAXIMUM LENGTH MEASURE C    1 n..3
+
+050    9158 SIMPLE DATA ELEMENT MINIMUM LENGTH MEASURE C    1 n..3
+
+060    9161 CODE SET INDICATOR CODE                    C    1 an..3
+
+070    1507 DESIGNATED CLASS CODE                      C    1 an..3
+
+080    4513 MAINTENANCE OPERATION CODE                 C    1 an..3
+
+090    6432 SIGNIFICANT DIGITS QUANTITY                C    1 n..2
+
+----------------------------------------------------------------------
+
+       ELU  DATA ELEMENT USAGE DETAILS
+
+       Function: To specify the usage of a data element.
+
+010    9162 DATA ELEMENT TAG IDENTIFIER                M    1 an..4
+
+020    7299 REQUIREMENT DESIGNATOR CODE                C    1 an..3
+
+030    1050 SEQUENCE POSITION IDENTIFIER               C    1 an..10
+
+040    4513 MAINTENANCE OPERATION CODE                 C    1 an..3
+
+050    6176 OCCURRENCES MAXIMUM NUMBER                 C    1 n..7
+
+060    9453 CODE VALUE SOURCE CODE                     C    1 an..3
+
+070    9285 VALIDATION CRITERIA CODE                   C    1 an..3
+
+080    9175 DATA ELEMENT USAGE TYPE CODE               C    1 an..3
+
+----------------------------------------------------------------------
+
+       ELV  ELEMENT VALUE DEFINITION
+
+       Function: To define an element value.
+
+010    9029 VALUE DEFINITION CODE QUALIFIER            M    1 an..3
+
+020    9422 VALUE TEXT                                 C    1 an..512
+
+030    7299 REQUIREMENT DESIGNATOR CODE                C    1 an..3
+
+040    4513 MAINTENANCE OPERATION CODE                 C    1 an..3
+
+----------------------------------------------------------------------
+
+       EMP  EMPLOYMENT DETAILS
+
+       Function: To specify employment details.
+
+010    9003 EMPLOYMENT DETAILS CODE QUALIFIER          M    1 an..3
+
+020    C948 EMPLOYMENT CATEGORY                        C    1
+       9005  Employment category description code      C      an..3
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+       9004  Employment category description           C      an..35
+
+030    C951 OCCUPATION                                 C    1
+       9009  Occupation description code               C      an..3
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+       9008  Occupation description                    C      an..35
+       9008  Occupation description                    C      an..35
+
+040    C950 QUALIFICATION CLASSIFICATION               C    1
+       9007  Qualification classification description
+             code                                      C      an..3
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+       9006  Qualification classification description  C      an..35
+       9006  Qualification classification description  C      an..35
+
+050    3480 PERSON JOB TITLE                           C    1 an..35
+
+060    9035 QUALIFICATION APPLICATION AREA CODE        C    1 an..3
+
+----------------------------------------------------------------------
+
+       EQA  ATTACHED EQUIPMENT
+
+       Function: To specify attached or related equipment.
+
+010    8053 EQUIPMENT TYPE CODE QUALIFIER              M    1 an..3
+
+020    C237 EQUIPMENT IDENTIFICATION                   C    1
+       8260  Equipment identifier                      C      an..17
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+       3207  Country identifier                        C      an..3
+
+----------------------------------------------------------------------
+
+       EQD  EQUIPMENT DETAILS
+
+       Function: To identify a unit of equipment.
+
+010    8053 EQUIPMENT TYPE CODE QUALIFIER              M    1 an..3
+
+020    C237 EQUIPMENT IDENTIFICATION                   C    1
+       8260  Equipment identifier                      C      an..17
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+       3207  Country identifier                        C      an..3
+
+030    C224 EQUIPMENT SIZE AND TYPE                    C    1
+       8155  Equipment size and type description code  C      an..10
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+       8154  Equipment size and type description       C      an..35
+
+040    8077 EQUIPMENT SUPPLIER CODE                    C    1 an..3
+
+050    8249 EQUIPMENT STATUS CODE                      C    1 an..3
+
+060    8169 FULL OR EMPTY INDICATOR CODE               C    1 an..3
+
+070    4233 MARKING INSTRUCTIONS CODE                  C    1 an..3
+
+----------------------------------------------------------------------
+
+       EQN  NUMBER OF UNITS
+
+       Function: To specify the number of units.
+
+010    C523 NUMBER OF UNIT DETAILS                     M    1
+       6350  Units quantity                            C      n..15
+       6353  Unit type code qualifier                  C      an..3
+
+----------------------------------------------------------------------
+
+       ERC  APPLICATION ERROR INFORMATION
+
+       Function: To identify the type of application error within
+                 a message.
+
+010    C901 APPLICATION ERROR DETAIL                   M    1
+       9321  Application error code                    M      an..8
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+
+----------------------------------------------------------------------
+
+       ERP  ERROR POINT DETAILS
+
+       Function: A segment to identify the location of an
+                 application error within a message.
+
+010    C701 ERROR POINT DETAILS                        C    1
+       1049  Message section code                      C      an..3
+       1052  Message item identifier                   C      an..35
+       1054  Message sub-item identifier               C      n..6
+
+020    C853 ERROR SEGMENT POINT DETAILS                C    1
+       9166  Segment tag identifier                    C      an..3
+       1050  Sequence position identifier              C      an..10
+       1159  Sequence identifier source code           C      an..3
+
+----------------------------------------------------------------------
+
+       EVE  EVENT
+
+       Function: To specify details about events.
+
+010    9635 EVENT DETAILS CODE QUALIFIER               C    1 an..3
+
+020    C004 EVENT CATEGORY                             C    1
+       9637  Event category description code           C      an..3
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+       9636  Event category description                C      an..70
+
+030    C030 EVENT TYPE                                 C    1
+       9171  Event type description code               C      an..3
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+       9170  Event type description                    C      an..70
+
+040    C063 EVENT IDENTIFICATION                       C    5
+       9173  Event description code                    C      an..35
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+       9172  Event                                     C      an..256
+
+050    1229 ACTION CODE                                C    1 an..3
+
+----------------------------------------------------------------------
+
+       FCA  FINANCIAL CHARGES ALLOCATION
+
+       Function: Description of allocation of charges.
+
+010    4471 SETTLEMENT MEANS CODE                      M    1 an..3
+
+020    C878 CHARGE/ALLOWANCE ACCOUNT                   C    1
+       3434  Institution branch identifier             M      an..17
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+       3194  Account holder identifier                 C      an..35
+       6345  Currency identification code              C      an..3
+
+----------------------------------------------------------------------
+
+       FII  FINANCIAL INSTITUTION INFORMATION
+
+       Function: To identify an account and a related financial
+                 institution.
+
+010    3035 PARTY FUNCTION CODE QUALIFIER              M    1 an..3
+
+020    C078 ACCOUNT HOLDER IDENTIFICATION              C    1
+       3194  Account holder identifier                 C      an..35
+       3192  Account holder name                       C      an..35
+       3192  Account holder name                       C      an..35
+       6345  Currency identification code              C      an..3
+
+030    C088 INSTITUTION IDENTIFICATION                 C    1
+       3433  Institution name code                     C      an..11
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+       3434  Institution branch identifier             C      an..17
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+       3432  Institution name                          C      an..70
+       3436  Institution branch location name          C      an..70
+
+040    3207 COUNTRY IDENTIFIER                         C    1 an..3
+
+----------------------------------------------------------------------
+
+       FNS  FOOTNOTE SET
+
+       Function: To identify a set of footnotes.
+
+010    C783 FOOTNOTE SET IDENTIFICATION                M    1
+       9430  Footnote set identifier                   M      an..35
+       7405  Object identification code qualifier      C      an..3
+
+020    C082 PARTY IDENTIFICATION DETAILS               C    1
+       3039  Party identifier                          M      an..35
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+
+030    4405 STATUS DESCRIPTION CODE                    C    1 an..3
+
+040    4513 MAINTENANCE OPERATION CODE                 C    1 an..3
+
+----------------------------------------------------------------------
+
+       FNT  FOOTNOTE
+
+       Function: To identify a footnote.
+
+010    C784 FOOTNOTE IDENTIFICATION                    M    1
+       9432  Footnote identifier                       M      an..35
+       7405  Object identification code qualifier      C      an..3
+
+020    C082 PARTY IDENTIFICATION DETAILS               C    1
+       3039  Party identifier                          M      an..35
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+
+030    4405 STATUS DESCRIPTION CODE                    C    1 an..3
+
+040    4513 MAINTENANCE OPERATION CODE                 C    1 an..3
+
+----------------------------------------------------------------------
+
+       FOR  FORMULA
+
+       Function: To identify a formula.
+
+010    9501 FORMULA TYPE CODE QUALIFIER                M    1 an..3
+
+020    7402 OBJECT IDENTIFIER                          C    1 an..35
+
+030    9502 FORMULA NAME                               C    1 an..35
+
+040    4440 FREE TEXT                                  C    1 an..512
+
+050    C961 FORMULA COMPLEXITY                         C    1
+       9505  Formula complexity code                   C      an..3
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+
+----------------------------------------------------------------------
+
+       FSQ  FORMULA SEQUENCE
+
+       Function: To provide a single operation within the
+                 sequence of operations of a formula.
+
+010    9507 FORMULA SEQUENCE CODE QUALIFIER            M    1 an..3
+
+020    9509 FORMULA SEQUENCE OPERAND CODE              C    1 an..17
+
+030    1050 SEQUENCE POSITION IDENTIFIER               C    1 an..10
+
+040    9510 FORMULA SEQUENCE NAME                      C    1 an..35
+
+050    4440 FREE TEXT                                  C    1 an..512
+
+----------------------------------------------------------------------
+
+       FTX  FREE TEXT
+
+       Function: To provide free form or coded text information.
+
+010    4451 TEXT SUBJECT CODE QUALIFIER                M    1 an..3
+
+020    4453 FREE TEXT FUNCTION CODE                    C    1 an..3
+
+030    C107 TEXT REFERENCE                             C    1
+       4441  Free text description code                M      an..17
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+
+040    C108 TEXT LITERAL                               C    1
+       4440  Free text                                 M      an..512
+       4440  Free text                                 C      an..512
+       4440  Free text                                 C      an..512
+       4440  Free text                                 C      an..512
+       4440  Free text                                 C      an..512
+
+050    3453 LANGUAGE NAME CODE                         C    1 an..3
+
+060    4447 FREE TEXT FORMAT CODE                      C    1 an..3
+
+----------------------------------------------------------------------
+
+       GDS  NATURE OF CARGO
+
+       Function: To indicate the type of cargo as a general
+                 classification.
+
+010    C703 NATURE OF CARGO                            C    1
+       7085  Cargo type classification code            M      an..3
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+
+020    C288 PRODUCT GROUP                              C    1
+       5389  Product group name code                   C      an..25
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+       5388  Product group name                        C      an..35
+
+----------------------------------------------------------------------
+
+       GEI  PROCESSING INFORMATION
+
+       Function: To identify processing information.
+
+010    9649 PROCESSING INFORMATION CODE QUALIFIER      M    1 an..3
+
+020    C012 PROCESSING INDICATOR                       C    1
+       7365  Processing indicator description code     C      an..3
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+       7364  Processing indicator description          C      an..35
+
+030    7187 PROCESS TYPE DESCRIPTION CODE              C    1 an..17
+
+----------------------------------------------------------------------
+
+       GID  GOODS ITEM DETAILS
+
+       Function: To indicate totals of a goods item.
+
+010    1496 GOODS ITEM NUMBER                          C    1 an..6
+
+020    C213 NUMBER AND TYPE OF PACKAGES                C    1
+       7224  Package quantity                          C      n..8
+       7065  Package type description code             C      an..17
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+       7064  Type of packages                          C      an..35
+       7233  Packaging related description code        C      an..3
+
+030    C213 NUMBER AND TYPE OF PACKAGES                C    1
+       7224  Package quantity                          C      n..8
+       7065  Package type description code             C      an..17
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+       7064  Type of packages                          C      an..35
+       7233  Packaging related description code        C      an..3
+
+040    C213 NUMBER AND TYPE OF PACKAGES                C    1
+       7224  Package quantity                          C      n..8
+       7065  Package type description code             C      an..17
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+       7064  Type of packages                          C      an..35
+       7233  Packaging related description code        C      an..3
+
+050    C213 NUMBER AND TYPE OF PACKAGES                C    1
+       7224  Package quantity                          C      n..8
+       7065  Package type description code             C      an..17
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+       7064  Type of packages                          C      an..35
+       7233  Packaging related description code        C      an..3
+
+060    C213 NUMBER AND TYPE OF PACKAGES                C    1
+       7224  Package quantity                          C      n..8
+       7065  Package type description code             C      an..17
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+       7064  Type of packages                          C      an..35
+       7233  Packaging related description code        C      an..3
+
+----------------------------------------------------------------------
+
+       GIN  GOODS IDENTITY NUMBER
+
+       Function: To give specific identification numbers, either
+                 as single numbers or ranges.
+
+010    7405 OBJECT IDENTIFICATION CODE QUALIFIER       M    1 an..3
+
+020    C208 IDENTITY NUMBER RANGE                      M    1
+       7402  Object identifier                         M      an..35
+       7402  Object identifier                         C      an..35
+
+030    C208 IDENTITY NUMBER RANGE                      C    1
+       7402  Object identifier                         M      an..35
+       7402  Object identifier                         C      an..35
+
+040    C208 IDENTITY NUMBER RANGE                      C    1
+       7402  Object identifier                         M      an..35
+       7402  Object identifier                         C      an..35
+
+050    C208 IDENTITY NUMBER RANGE                      C    1
+       7402  Object identifier                         M      an..35
+       7402  Object identifier                         C      an..35
+
+060    C208 IDENTITY NUMBER RANGE                      C    1
+       7402  Object identifier                         M      an..35
+       7402  Object identifier                         C      an..35
+
+----------------------------------------------------------------------
+
+       GIR  RELATED IDENTIFICATION NUMBERS
+
+       Function: To specify a related set of identification
+                 numbers.
+
+010    7297 SET TYPE CODE QUALIFIER                    M    1 an..3
+
+020    C206 IDENTIFICATION NUMBER                      M    1
+       7402  Object identifier                         M      an..35
+       7405  Object identification code qualifier      C      an..3
+       4405  Status description code                   C      an..3
+
+030    C206 IDENTIFICATION NUMBER                      C    1
+       7402  Object identifier                         M      an..35
+       7405  Object identification code qualifier      C      an..3
+       4405  Status description code                   C      an..3
+
+040    C206 IDENTIFICATION NUMBER                      C    1
+       7402  Object identifier                         M      an..35
+       7405  Object identification code qualifier      C      an..3
+       4405  Status description code                   C      an..3
+
+050    C206 IDENTIFICATION NUMBER                      C    1
+       7402  Object identifier                         M      an..35
+       7405  Object identification code qualifier      C      an..3
+       4405  Status description code                   C      an..3
+
+060    C206 IDENTIFICATION NUMBER                      C    1
+       7402  Object identifier                         M      an..35
+       7405  Object identification code qualifier      C      an..3
+       4405  Status description code                   C      an..3
+
+----------------------------------------------------------------------
+
+       GOR  GOVERNMENTAL REQUIREMENTS
+
+       Function: To indicate the requirement for a specific
+                 governmental action and/or procedure or which
+                 specific procedure is valid for a specific part
+                 of the transport and cross-border transactions.
+
+010    8323 TRANSPORT MOVEMENT CODE                    C    1 an..3
+
+020    C232 GOVERNMENT ACTION                          C    1
+       9415  Government agency identification code     C      an..3
+       9411  Government involvement code               C      an..3
+       9417  Government action code                    C      an..3
+       9353  Government procedure code                 C      an..3
+
+030    C232 GOVERNMENT ACTION                          C    1
+       9415  Government agency identification code     C      an..3
+       9411  Government involvement code               C      an..3
+       9417  Government action code                    C      an..3
+       9353  Government procedure code                 C      an..3
+
+040    C232 GOVERNMENT ACTION                          C    1
+       9415  Government agency identification code     C      an..3
+       9411  Government involvement code               C      an..3
+       9417  Government action code                    C      an..3
+       9353  Government procedure code                 C      an..3
+
+050    C232 GOVERNMENT ACTION                          C    1
+       9415  Government agency identification code     C      an..3
+       9411  Government involvement code               C      an..3
+       9417  Government action code                    C      an..3
+       9353  Government procedure code                 C      an..3
+
+----------------------------------------------------------------------
+
+       GPO  GEOGRAPHICAL POSITION
+
+       Function: To specify a geographical position.
+
+010    6029 GEOGRAPHICAL POSITION CODE QUALIFIER       M    1 an..3
+
+020    6000 LATITUDE DEGREE                            C    1 an..10
+
+030    6002 LONGITUDE DEGREE                           C    1 an..11
+
+040    6096 ALTITUDE                                   C    1 n..18
+
+----------------------------------------------------------------------
+
+       GRU  SEGMENT GROUP USAGE DETAILS
+
+       Function: To specify the usage of a segment group within a
+                 message type structure and its maintenance
+                 operation.
+
+010    9164 GROUP IDENTIFIER                           M    1 an..4
+
+020    7299 REQUIREMENT DESIGNATOR CODE                C    1 an..3
+
+030    6176 OCCURRENCES MAXIMUM NUMBER                 C    1 n..7
+
+040    4513 MAINTENANCE OPERATION CODE                 C    1 an..3
+
+050    1050 SEQUENCE POSITION IDENTIFIER               C    1 an..10
+
+----------------------------------------------------------------------
+
+       HAN  HANDLING INSTRUCTIONS
+
+       Function: To specify handling and where necessary, notify
+                 hazards.
+
+010    C524 HANDLING INSTRUCTIONS                      C    1
+       4079  Handling instruction description code     C      an..3
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+       4078  Handling instruction description          C      an..512
+
+020    C218 HAZARDOUS MATERIAL                         C    1
+       7419  Hazardous material category name code     C      an..7
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+       7418  Hazardous material category name          C      an..35
+
+----------------------------------------------------------------------
+
+       HYN  HIERARCHY INFORMATION
+
+       Function: A segment to identify hierarchical connections
+                 from a given item to a higher or lower levelled
+                 item or to identify dependencies among the
+                 content of hierarchically related groups of
+                 data.
+
+010    7173 HIERARCHY OBJECT CODE QUALIFIER            M    1 an..3
+
+020    7171 HIERARCHICAL STRUCTURE RELATIONSHIP CODE   C    1 an..3
+
+030    1229 ACTION CODE                                C    1 an..3
+
+040    C212 ITEM NUMBER IDENTIFICATION                 C    1
+       7140  Item identifier                           C      an..35
+       7143  Item type identification code             C      an..3
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+
+050    7166 HIERARCHICAL STRUCTURE PARENT IDENTIFIER   C    1 an..35
+
+----------------------------------------------------------------------
+
+       ICD  INSURANCE COVER DESCRIPTION
+
+       Function: To describe the insurance cover.
+
+010    C330 INSURANCE COVER TYPE                       M    1
+       4497  Insurance cover type code                 M      an..3
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+
+020    C331 INSURANCE COVER DETAILS                    M    1
+       4495  Insurance cover description code          C      an..17
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+       4494  Insurance cover description               C      an..35
+       4494  Insurance cover description               C      an..35
+
+----------------------------------------------------------------------
+
+       IDE  IDENTITY
+
+       Function: To identify an object.
+
+010    7495 OBJECT TYPE CODE QUALIFIER                 M    1 an..3
+
+020    C206 IDENTIFICATION NUMBER                      C    1
+       7402  Object identifier                         M      an..35
+       7405  Object identification code qualifier      C      an..3
+       4405  Status description code                   C      an..3
+
+030    C082 PARTY IDENTIFICATION DETAILS               C    1
+       3039  Party identifier                          M      an..35
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+
+040    4405 STATUS DESCRIPTION CODE                    C    1 an..3
+
+050    1222 CONFIGURATION LEVEL NUMBER                 C    1 n..2
+
+060    C778 POSITION IDENTIFICATION                    C   99
+       7164  Hierarchical structure level identifier   C      an..35
+       1050  Sequence position identifier              C      an..10
+
+070    C240 CHARACTERISTIC DESCRIPTION                 C    1
+       7037  Characteristic description code           M      an..17
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+       7036  Characteristic description                C      an..35
+       7036  Characteristic description                C      an..35
+
+----------------------------------------------------------------------
+
+       IFD  INFORMATION DETAIL
+
+       Function: To specify details about items of information.
+
+010    4153 INFORMATION DETAILS CODE QUALIFIER         C    1 an..3
+
+020    C009 INFORMATION CATEGORY                       C    1
+       4149  Information category description code     C      an..3
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+       4148  Information category description          C      an..70
+
+030    C010 INFORMATION TYPE                           C    1
+       4473  Information type code                     C      an..4
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+       4472  Information type                          C      an..35
+
+040    C011 INFORMATION DETAIL                         C    5
+       4151  Information detail description code       C      an..17
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+       4150  Information detail description            C      an..256
+
+050    4405 STATUS DESCRIPTION CODE                    C    1 an..3
+
+----------------------------------------------------------------------
+
+       IHC  PERSON CHARACTERISTIC
+
+       Function: To specify characteristics of a person such as
+                 ethnic origin.
+
+010    3289 PERSON CHARACTERISTIC CODE QUALIFIER       M    1 an..3
+
+020    C818 PERSON INHERITED CHARACTERISTIC DETAILS    C    1
+       3311  Inherited characteristic description code C      an..8
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+       3310  Inherited characteristic description      C      an..70
+
+----------------------------------------------------------------------
+
+       IMD  ITEM DESCRIPTION
+
+       Function: To describe an item in either an industry or
+                 free format.
+
+010    7077 DESCRIPTION FORMAT CODE                    C    1 an..3
+
+020    C272 ITEM CHARACTERISTIC                        C    1
+       7081  Item characteristic code                  C      an..3
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+
+030    C273 ITEM DESCRIPTION                           C    1
+       7009  Item description code                     C      an..17
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+       7008  Item description                          C      an..256
+       7008  Item description                          C      an..256
+       3453  Language name code                        C      an..3
+
+040    7383 SURFACE OR LAYER CODE                      C    1 an..3
+
+----------------------------------------------------------------------
+
+       IND  INDEX DETAILS
+
+       Function: To specify an index.
+
+010    C545 INDEX IDENTIFICATION                       C    1
+       5013  Index code qualifier                      M      an..3
+       5027  Index type identifier                     C      an..17
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+
+020    C546 INDEX VALUE                                C    1
+       5030  Index text                                M      an..35
+       5039  Index representation code                 C      an..3
+
+----------------------------------------------------------------------
+
+       INP  PARTIES AND INSTRUCTION
+
+       Function: To specify parties to an instruction, the
+                 instruction, or both.
+
+010    C849 PARTIES TO INSTRUCTION                     C    1
+       3301  Enacting party identifier                 M      an..35
+       3285  Instruction receiving party identifier    C      an..35
+
+020    C522 INSTRUCTION                                C    1
+       4403  Instruction type code qualifier           M      an..3
+       4401  Instruction description code              C      an..3
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+       4400  Instruction description                   C      an..35
+
+030    C850 STATUS OF INSTRUCTION                      C    1
+       4405  Status description code                   M      an..3
+       3036  Party name                                C      an..70
+
+040    1229 ACTION CODE                                C    1 an..3
+
+----------------------------------------------------------------------
+
+       INV  INVENTORY MANAGEMENT RELATED DETAILS
+
+       Function: To provide the different information related to
+                 the inventory management functions and needed to
+                 process properly the inventory movements and the
+                 inventory balances.
+
+010    4501 INVENTORY MOVEMENT DIRECTION CODE          C    1 an..3
+
+020    7491 INVENTORY TYPE CODE                        C    1 an..3
+
+030    4499 INVENTORY MOVEMENT REASON CODE             C    1 an..3
+
+040    4503 INVENTORY BALANCE METHOD CODE              C    1 an..3
+
+050    C522 INSTRUCTION                                C    1
+       4403  Instruction type code qualifier           M      an..3
+       4401  Instruction description code              C      an..3
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+       4400  Instruction description                   C      an..35
+
+----------------------------------------------------------------------
+
+       IRQ  INFORMATION REQUIRED
+
+       Function: To indicate which information is requested in a
+                 responding message.
+
+010    C333 INFORMATION REQUEST                        M    1
+       4511  Requested information description code    C      an..3
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+       4510  Requested information description         C      an..35
+
+----------------------------------------------------------------------
+
+       LAN  LANGUAGE
+
+       Function: To specify a language.
+
+010    3455 LANGUAGE CODE QUALIFIER                    M    1 an..3
+
+020    C508 LANGUAGE DETAILS                           C    1
+       3453  Language name code                        C      an..3
+       3452  Language name                             C      an..35
+
+----------------------------------------------------------------------
+
+       LIN  LINE ITEM
+
+       Function: To identify a line item and configuration.
+
+010    1082 LINE ITEM IDENTIFIER                       C    1 an..6
+
+020    1229 ACTION CODE                                C    1 an..3
+
+030    C212 ITEM NUMBER IDENTIFICATION                 C    1
+       7140  Item identifier                           C      an..35
+       7143  Item type identification code             C      an..3
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+
+040    C829 SUB-LINE INFORMATION                       C    1
+       5495  Sub-line indicator code                   C      an..3
+       1082  Line item identifier                      C      an..6
+
+050    1222 CONFIGURATION LEVEL NUMBER                 C    1 n..2
+
+060    7083 CONFIGURATION OPERATION CODE               C    1 an..3
+
+----------------------------------------------------------------------
+
+       LOC  PLACE/LOCATION IDENTIFICATION
+
+       Function: To identify a place or a location and/or related
+                 locations.
+
+010    3227 LOCATION FUNCTION CODE QUALIFIER           M    1 an..3
+
+020    C517 LOCATION IDENTIFICATION                    C    1
+       3225  Location identifier                       C      an..35
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+       3224  Location name                             C      an..256
+
+030    C519 RELATED LOCATION ONE IDENTIFICATION        C    1
+       3223  First related location identifier         C      an..35
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+       3222  First related location name               C      an..70
+
+040    C553 RELATED LOCATION TWO IDENTIFICATION        C    1
+       3233  Second related location identifier        C      an..35
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+       3232  Second related location name              C      an..70
+
+050    5479 RELATION CODE                              C    1 an..3
+
+----------------------------------------------------------------------
+
+       MEA  MEASUREMENTS
+
+       Function: To specify physical measurements, including
+                 dimension tolerances, weights and counts.
+
+010    6311 MEASUREMENT PURPOSE CODE QUALIFIER         M    1 an..3
+
+020    C502 MEASUREMENT DETAILS                        C    1
+       6313  Measured attribute code                   C      an..3
+       6321  Measurement significance code             C      an..3
+       6155  Non-discrete measurement name code        C      an..17
+       6154  Non-discrete measurement name             C      an..70
+
+030    C174 VALUE/RANGE                                C    1
+       6411  Measurement unit code                     M      an..8
+       6314  Measure                                   C      an..18
+       6162  Range minimum quantity                    C      n..18
+       6152  Range maximum quantity                    C      n..18
+       6432  Significant digits quantity               C      n..2
+
+040    7383 SURFACE OR LAYER CODE                      C    1 an..3
+
+----------------------------------------------------------------------
+
+       MEM  MEMBERSHIP DETAILS
+
+       Function: To specify details about membership.
+
+010    7449 MEMBERSHIP TYPE CODE QUALIFIER             M    1 an..3
+
+020    C942 MEMBERSHIP CATEGORY                        C    1
+       7451  Membership category description code      M      an..4
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+       7450  Membership category description           C      an..35
+
+030    C944 MEMBERSHIP STATUS                          C    1
+       7453  Membership status description code        C      an..3
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+       7452  Membership status description             C      an..35
+
+040    C945 MEMBERSHIP LEVEL                           C    1
+       7455  Membership level code qualifier           M      an..3
+       7457  Membership level description code         C      an..9
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+       7456  Membership level description              C      an..35
+
+050    C203 RATE/TARIFF CLASS                          C    1
+       5243  Rate or tariff class description code     M      an..9
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+       5242  Rate or tariff class description          C      an..35
+       5275  Supplementary rate or tariff code         C      an..6
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+       5275  Supplementary rate or tariff code         C      an..6
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+
+060    C960 REASON FOR CHANGE                          C    1
+       4295  Change reason description code            C      an..3
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+       4294  Change reason description                 C      an..35
+
+----------------------------------------------------------------------
+
+       MKS  MARKET/SALES CHANNEL INFORMATION
+
+       Function: To specify to which market and/or through which
+                 sales distribution channel and/or for which end-
+                 use the sales of product/service have been made
+                 or are given as forecast.
+
+010    7293 SECTOR AREA IDENTIFICATION CODE QUALIFIER  M    1 an..3
+
+020    C332 SALES CHANNEL IDENTIFICATION               M    1
+       3496  Sales channel identifier                  M      an..17
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+
+030    1229 ACTION CODE                                C    1 an..3
+
+----------------------------------------------------------------------
+
+       MOA  MONETARY AMOUNT
+
+       Function: To specify a monetary amount.
+
+010    C516 MONETARY AMOUNT                            M    1
+       5025  Monetary amount type code qualifier       M      an..3
+       5004  Monetary amount                           C      n..35
+       6345  Currency identification code              C      an..3
+       6343  Currency type code qualifier              C      an..3
+       4405  Status description code                   C      an..3
+
+----------------------------------------------------------------------
+
+       MSG  MESSAGE TYPE IDENTIFICATION
+
+       Function: To identify a message type and to give its class
+                 and maintenance operation.
+
+010    C709 MESSAGE IDENTIFIER                         M    1
+       1003  Message type code                         M      an..6
+       1056  Version identifier                        C      an..9
+       1058  Release identifier                        C      an..9
+       1476  Controlling agency identifier             C      an..2
+       1523  Message implementation identification
+             code                                      C      an..6
+       1060  Revision identifier                       C      an..6
+       1373  Document status code                      C      an..3
+
+020    1507 DESIGNATED CLASS CODE                      C    1 an..3
+
+030    4513 MAINTENANCE OPERATION CODE                 C    1 an..3
+
+040    C941 RELATIONSHIP                               C    1
+       9143  Relationship description code             C      an..3
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+       9142  Relationship description                  C      an..35
+
+----------------------------------------------------------------------
+
+       MTD  MAINTENANCE OPERATION DETAILS
+
+       Function: To identify a maintenance operation and its
+                 responsible parties.
+
+010    7495 OBJECT TYPE CODE QUALIFIER                 M    1 an..3
+
+020    4513 MAINTENANCE OPERATION CODE                 C    1 an..3
+
+030    3005 MAINTENANCE OPERATION OPERATOR CODE        C    1 an..3
+
+040    3009 MAINTENANCE OPERATION PAYER CODE           C    1 an..3
+
+----------------------------------------------------------------------
+
+       NAD  NAME AND ADDRESS
+
+       Function: To specify the name/address and their related
+                 function, either by C082 only and/or
+                 unstructured by C058 or structured by C080 thru
+                 3207.
+
+010    3035 PARTY FUNCTION CODE QUALIFIER              M    1 an..3
+
+020    C082 PARTY IDENTIFICATION DETAILS               C    1
+       3039  Party identifier                          M      an..35
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+
+030    C058 NAME AND ADDRESS                           C    1
+       3124  Name and address description              M      an..35
+       3124  Name and address description              C      an..35
+       3124  Name and address description              C      an..35
+       3124  Name and address description              C      an..35
+       3124  Name and address description              C      an..35
+
+040    C080 PARTY NAME                                 C    1
+       3036  Party name                                M      an..70
+       3036  Party name                                C      an..70
+       3036  Party name                                C      an..70
+       3036  Party name                                C      an..70
+       3036  Party name                                C      an..70
+       3045  Party name format code                    C      an..3
+
+050    C059 STREET                                     C    1
+       3042  Street and number or post office box
+             identifier                                M      an..35
+       3042  Street and number or post office box
+             identifier                                C      an..35
+       3042  Street and number or post office box
+             identifier                                C      an..35
+       3042  Street and number or post office box
+             identifier                                C      an..35
+
+060    3164 CITY NAME                                  C    1 an..35
+
+070    C819 COUNTRY SUBDIVISION DETAILS                C    1
+       3229  Country subdivision identifier            C      an..9
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+       3228  Country subdivision name                  C      an..70
+
+080    3251 POSTAL IDENTIFICATION CODE                 C    1 an..17
+
+090    3207 COUNTRY IDENTIFIER                         C    1 an..3
+
+----------------------------------------------------------------------
+
+       NAT  NATIONALITY
+
+       Function: To specify a nationality.
+
+010    3493 NATIONALITY CODE QUALIFIER                 M    1 an..3
+
+020    C042 NATIONALITY DETAILS                        C    1
+       3293  Nationality name code                     C      an..3
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+       3292  Nationality name                          C      a..35
+
+----------------------------------------------------------------------
+
+       PAC  PACKAGE
+
+       Function: To describe the number and type of
+                 packages/physical units.
+
+010    7224 PACKAGE QUANTITY                           C    1 n..8
+
+020    C531 PACKAGING DETAILS                          C    1
+       7075  Packaging level code                      C      an..3
+       7233  Packaging related description code        C      an..3
+       7073  Packaging terms and conditions code       C      an..3
+
+030    C202 PACKAGE TYPE                               C    1
+       7065  Package type description code             C      an..17
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+       7064  Type of packages                          C      an..35
+
+040    C402 PACKAGE TYPE IDENTIFICATION                C    1
+       7077  Description format code                   M      an..3
+       7064  Type of packages                          M      an..35
+       7143  Item type identification code             C      an..3
+       7064  Type of packages                          C      an..35
+       7143  Item type identification code             C      an..3
+
+050    C532 RETURNABLE PACKAGE DETAILS                 C    1
+       8395  Returnable package freight payment
+             responsibility code                       C      an..3
+       8393  Returnable package load contents code     C      an..3
+
+----------------------------------------------------------------------
+
+       PAI  PAYMENT INSTRUCTIONS
+
+       Function: To specify the instructions for payment.
+
+010    C534 PAYMENT INSTRUCTION DETAILS                M    1
+       4439  Payment conditions code                   C      an..3
+       4431  Payment guarantee means code              C      an..3
+       4461  Payment means code                        C      an..3
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+       4435  Payment channel code                      C      an..3
+
+----------------------------------------------------------------------
+
+       PAS  ATTENDANCE
+
+       Function: To specify attendance information relating to an
+                 individual.
+
+010    9443 ATTENDANCE TYPE CODE QUALIFIER             M    1 an..3
+
+020    C839 ATTENDEE CATEGORY                          C    1
+       7459  Attendee category description code        C      an..3
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+       7458  Attendee category description             C      an..35
+
+030    C840 ATTENDANCE ADMISSION DETAILS               C    1
+       9445  Admission type description code           C      an..3
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+       9444  Admission type description                C      an..35
+
+040    C841 ATTENDANCE DISCHARGE DETAILS               C    1
+       9447  Discharge type description code           C      an..3
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+       9446  Discharge type description                C      an..35
+
+----------------------------------------------------------------------
+
+       PCC  PREMIUM CALCULATION COMPONENT DETAILS
+
+       Function: To identify the component affecting a premium
+                 calculation and the value category of the
+                 component.
+
+010    C820 PREMIUM CALCULATION COMPONENT              C    1
+       4521  Premium calculation component identifier  C      an..17
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+
+020    4522 PREMIUM CALCULATION COMPONENT VALUE
+            CATEGORY IDENTIFIER                        C    1 an..35
+
+----------------------------------------------------------------------
+
+       PCD  PERCENTAGE DETAILS
+
+       Function: To specify percentage information.
+
+010    C501 PERCENTAGE DETAILS                         M    1
+       5245  Percentage type code qualifier            M      an..3
+       5482  Percentage                                C      n..10
+       5249  Percentage basis identification code      C      an..3
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+
+020    4405 STATUS DESCRIPTION CODE                    C    1 an..3
+
+----------------------------------------------------------------------
+
+       PCI  PACKAGE IDENTIFICATION
+
+       Function: To specify markings and labels on individual
+                 packages or physical units.
+
+010    4233 MARKING INSTRUCTIONS CODE                  C    1 an..3
+
+020    C210 MARKS & LABELS                             C    1
+       7102  Shipping marks description                M      an..35
+       7102  Shipping marks description                C      an..35
+       7102  Shipping marks description                C      an..35
+       7102  Shipping marks description                C      an..35
+       7102  Shipping marks description                C      an..35
+       7102  Shipping marks description                C      an..35
+       7102  Shipping marks description                C      an..35
+       7102  Shipping marks description                C      an..35
+       7102  Shipping marks description                C      an..35
+       7102  Shipping marks description                C      an..35
+
+030    8169 FULL OR EMPTY INDICATOR CODE               C    1 an..3
+
+040    C827 TYPE OF MARKING                            C    1
+       7511  Marking type code                         M      an..3
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+
+----------------------------------------------------------------------
+
+       PDI  PERSON DEMOGRAPHIC INFORMATION
+
+       Function: To specify items of person demographic
+                 information.
+
+010    3499 GENDER CODE                                C    1 an..3
+
+020    C085 MARITAL STATUS DETAILS                     C    1
+       3479  Marital status description code           C      an..3
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+       3478  Marital status description                C      an..35
+
+030    C101 RELIGION DETAILS                           C    1
+       3483  Religion name code                        C      an..3
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+       3482  Religion name                             C      an..35
+
+----------------------------------------------------------------------
+
+       PER  PERIOD RELATED DETAILS
+
+       Function: Specification of details relating to a period.
+
+010    2023 PERIOD TYPE CODE QUALIFIER                 C    1 an..3
+
+020    C977 PERIOD DETAIL                              C    1
+       2119  Period detail description code            C      an..3
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+       2118  Period detail description                 C      an..35
+
+----------------------------------------------------------------------
+
+       PGI  PRODUCT GROUP INFORMATION
+
+       Function: To indicate the group in which a product
+                 belongs.
+
+010    5379 PRODUCT GROUP TYPE CODE                    M    1 an..3
+
+020    C288 PRODUCT GROUP                              C    1
+       5389  Product group name code                   C      an..25
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+       5388  Product group name                        C      an..35
+
+----------------------------------------------------------------------
+
+       PIA  ADDITIONAL PRODUCT ID
+
+       Function: To specify additional or substitutional item
+                 identification codes.
+
+010    4347 PRODUCT IDENTIFIER CODE QUALIFIER          M    1 an..3
+
+020    C212 ITEM NUMBER IDENTIFICATION                 M    1
+       7140  Item identifier                           C      an..35
+       7143  Item type identification code             C      an..3
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+
+030    C212 ITEM NUMBER IDENTIFICATION                 C    1
+       7140  Item identifier                           C      an..35
+       7143  Item type identification code             C      an..3
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+
+040    C212 ITEM NUMBER IDENTIFICATION                 C    1
+       7140  Item identifier                           C      an..35
+       7143  Item type identification code             C      an..3
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+
+050    C212 ITEM NUMBER IDENTIFICATION                 C    1
+       7140  Item identifier                           C      an..35
+       7143  Item type identification code             C      an..3
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+
+060    C212 ITEM NUMBER IDENTIFICATION                 C    1
+       7140  Item identifier                           C      an..35
+       7143  Item type identification code             C      an..3
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+
+----------------------------------------------------------------------
+
+       PNA  PARTY IDENTIFICATION
+
+       Function: To specify information necessary to establish
+                 the identity of a party.
+
+010    3035 PARTY FUNCTION CODE QUALIFIER              M    1 an..3
+
+020    C206 IDENTIFICATION NUMBER                      C    1
+       7402  Object identifier                         M      an..35
+       7405  Object identification code qualifier      C      an..3
+       4405  Status description code                   C      an..3
+
+030    C082 PARTY IDENTIFICATION DETAILS               C    1
+       3039  Party identifier                          M      an..35
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+
+040    3403 NAME TYPE CODE                             C    1 an..3
+
+050    3397 NAME STATUS CODE                           C    1 an..3
+
+060    C816 NAME COMPONENT DETAILS                     C    1
+       3405  Name component type code qualifier        M      an..3
+       3398  Name component description                C      an..256
+       3401  Name component usage code                 C      an..3
+       3295  Name original alphabet code               C      an..3
+
+070    C816 NAME COMPONENT DETAILS                     C    1
+       3405  Name component type code qualifier        M      an..3
+       3398  Name component description                C      an..256
+       3401  Name component usage code                 C      an..3
+       3295  Name original alphabet code               C      an..3
+
+080    C816 NAME COMPONENT DETAILS                     C    1
+       3405  Name component type code qualifier        M      an..3
+       3398  Name component description                C      an..256
+       3401  Name component usage code                 C      an..3
+       3295  Name original alphabet code               C      an..3
+
+090    C816 NAME COMPONENT DETAILS                     C    1
+       3405  Name component type code qualifier        M      an..3
+       3398  Name component description                C      an..256
+       3401  Name component usage code                 C      an..3
+       3295  Name original alphabet code               C      an..3
+
+100    C816 NAME COMPONENT DETAILS                     C    1
+       3405  Name component type code qualifier        M      an..3
+       3398  Name component description                C      an..256
+       3401  Name component usage code                 C      an..3
+       3295  Name original alphabet code               C      an..3
+
+110    1229 ACTION CODE                                C    1 an..3
+
+----------------------------------------------------------------------
+
+       POC  PURPOSE OF CONVEYANCE CALL
+
+       Function: To specify the purpose of the call of the
+                 conveyance.
+
+010    C525 PURPOSE OF CONVEYANCE CALL                 M    1
+       8025  Conveyance call purpose description code  C      an..3
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+       8024  Conveyance call purpose description       C      an..35
+
+----------------------------------------------------------------------
+
+       PRC  PROCESS IDENTIFICATION
+
+       Function: To identify a process.
+
+010    C242 PROCESS TYPE AND DESCRIPTION               C    1
+       7187  Process type description code             M      an..17
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+       7186  Process type description                  C      an..35
+       7186  Process type description                  C      an..35
+
+020    C830 PROCESS IDENTIFICATION DETAILS             C    1
+       7191  Process description code                  C      an..17
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+       7190  Process description                       C      an..70
+
+----------------------------------------------------------------------
+
+       PRI  PRICE DETAILS
+
+       Function: To specify price information.
+
+010    C509 PRICE INFORMATION                          C    1
+       5125  Price code qualifier                      M      an..3
+       5118  Price amount                              C      n..15
+       5375  Price type code                           C      an..3
+       5387  Price specification code                  C      an..3
+       5284  Unit price basis quantity                 C      n..9
+       6411  Measurement unit code                     C      an..8
+
+020    5213 SUB-LINE ITEM PRICE CHANGE OPERATION CODE  C    1 an..3
+
+----------------------------------------------------------------------
+
+       PRV  PROVISO DETAILS
+
+       Function: Details regarding the stipulation or limitation
+                 in a document.
+
+010    4071 PROVISO CODE QUALIFIER                     M    1 an..3
+
+020    C971 PROVISO TYPE                               C    1
+       4073  Proviso type description code             C      an..3
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+       4072  Proviso type description                  C      an..35
+
+030    C972 PROVISO CALCULATION                        C    1
+       4075  Proviso calculation description code      C      an..3
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+       4074  Proviso calculation description           C      an..35
+
+----------------------------------------------------------------------
+
+       PSD  PHYSICAL SAMPLE DESCRIPTION
+
+       Function: To define the physical sample parameters
+                 associated with a test, resulting in discrete
+                 measurements.
+
+010    4407 SAMPLE PROCESS STEP CODE                   C    1 an..3
+
+020    7039 SAMPLE SELECTION METHOD CODE               C    1 an..3
+
+030    C526 FREQUENCY DETAILS                          C    1
+       6071  Frequency code qualifier                  M      an..3
+       6072  Frequency rate                            C      n..9
+       6411  Measurement unit code                     C      an..8
+
+040    7045 SAMPLE STATE CODE                          C    1 an..3
+
+050    7047 SAMPLE DIRECTION CODE                      C    1 an..3
+
+060    C514 SAMPLE LOCATION DETAILS                    C    1
+       3237  Sample location description code          C      an..3
+       3236  Sample location description               C      an..35
+
+070    C514 SAMPLE LOCATION DETAILS                    C    1
+       3237  Sample location description code          C      an..3
+       3236  Sample location description               C      an..35
+
+080    C514 SAMPLE LOCATION DETAILS                    C    1
+       3237  Sample location description code          C      an..3
+       3236  Sample location description               C      an..35
+
+----------------------------------------------------------------------
+
+       PTY  PRIORITY
+
+       Function: The segment is used to communicate priority
+                 information.
+
+010    4035 PRIORITY TYPE CODE QUALIFIER               M    1 an..3
+
+020    C585 PRIORITY DETAILS                           C    1
+       4037  Priority description code                 C      an..3
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+       4036  Priority description                      C      an..35
+
+----------------------------------------------------------------------
+
+       PYT  PAYMENT TERMS
+
+       Function: To specify the terms of payment.
+
+010    4279 PAYMENT TERMS TYPE CODE QUALIFIER          M    1 an..3
+
+020    C019 PAYMENT TERMS                              C    1
+       4277  Payment terms description identifier      C      an..17
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+       4276  Payment terms description                 C      an..35
+
+030    2475 EVENT TIME REFERENCE CODE                  C    1 an..3
+
+040    2009 TERMS TIME RELATION CODE                   C    1 an..3
+
+050    2151 PERIOD TYPE CODE                           C    1 an..3
+
+060    2152 PERIOD COUNT QUANTITY                      C    1 n..3
+
+----------------------------------------------------------------------
+
+       QRS  QUERY AND RESPONSE
+
+       Function: To provide a declaration in the form of a coded
+                 question and response.
+
+010    7293 SECTOR AREA IDENTIFICATION CODE QUALIFIER  M    1 an..3
+
+020    C811 QUESTION DETAILS                           C    1
+       4057  Question description code                 C      an..3
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+       4056  Question description                      C      an..256
+
+030    C812 RESPONSE DETAILS                           C    1
+       4345  Response description code                 C      an..3
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+       4344  Response description                      C      an..256
+
+----------------------------------------------------------------------
+
+       QTY  QUANTITY
+
+       Function: To specify a pertinent quantity.
+
+010    C186 QUANTITY DETAILS                           M    1
+       6063  Quantity type code qualifier              M      an..3
+       6060  Quantity                                  M      an..35
+       6411  Measurement unit code                     C      an..8
+
+----------------------------------------------------------------------
+
+       QUA  QUALIFICATION
+
+       Function: To specify the qualification of a person.
+
+010    9037 QUALIFICATION TYPE CODE QUALIFIER          M    1 an..3
+
+020    C950 QUALIFICATION CLASSIFICATION               C    1
+       9007  Qualification classification description
+             code                                      C      an..3
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+       9006  Qualification classification description  C      an..35
+       9006  Qualification classification description  C      an..35
+
+----------------------------------------------------------------------
+
+       QVR  QUANTITY VARIANCES
+
+       Function: To specify item details relating to quantity
+                 variances.
+
+010    C279 QUANTITY DIFFERENCE INFORMATION            C    1
+       6064  Variance quantity                         M      n..15
+       6063  Quantity type code qualifier              C      an..3
+
+020    4221 DISCREPANCY NATURE IDENTIFICATION CODE     C    1 an..3
+
+030    C960 REASON FOR CHANGE                          C    1
+       4295  Change reason description code            C      an..3
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+       4294  Change reason description                 C      an..35
+
+----------------------------------------------------------------------
+
+       RCS  REQUIREMENTS AND CONDITIONS
+
+       Function: To specify sector/subject requirements and
+                 conditions.
+
+010    7293 SECTOR AREA IDENTIFICATION CODE QUALIFIER  M    1 an..3
+
+020    C550 REQUIREMENT/CONDITION IDENTIFICATION       C    1
+       7295  Requirement or condition description
+             identifier                                M      an..17
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+       7294  Requirement or condition description      C      an..35
+
+030    1229 ACTION CODE                                C    1 an..3
+
+040    3207 COUNTRY IDENTIFIER                         C    1 an..3
+
+----------------------------------------------------------------------
+
+       REL  RELATIONSHIP
+
+       Function: To identify relationships between objects.
+
+010    9141 RELATIONSHIP TYPE CODE QUALIFIER           M    1 an..3
+
+020    C941 RELATIONSHIP                               C    1
+       9143  Relationship description code             C      an..3
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+       9142  Relationship description                  C      an..35
+
+----------------------------------------------------------------------
+
+       RFF  REFERENCE
+
+       Function: To specify a reference.
+
+010    C506 REFERENCE                                  M    1
+       1153  Reference code qualifier                  M      an..3
+       1154  Reference identifier                      C      an..70
+       1156  Document line identifier                  C      an..6
+       1056  Version identifier                        C      an..9
+       1060  Revision identifier                       C      an..6
+
+----------------------------------------------------------------------
+
+       RJL  ACCOUNTING JOURNAL IDENTIFICATION
+
+       Function: To identify an accounting journal.
+
+010    C595 ACCOUNTING JOURNAL IDENTIFICATION          C    1
+       1171  Accounting journal identifier             M      an..17
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+       1170  Accounting journal name                   C      an..35
+
+020    C596 ACCOUNTING ENTRY TYPE DETAILS              C    1
+       4475  Accounting entry type name code           M      an..17
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+       4474  Accounting entry type name                C      an..35
+
+----------------------------------------------------------------------
+
+       RNG  RANGE DETAILS
+
+       Function: To identify a range.
+
+010    6167 RANGE TYPE CODE QUALIFIER                  M    1 an..3
+
+020    C280 RANGE                                      C    1
+       6411  Measurement unit code                     M      an..8
+       6162  Range minimum quantity                    C      n..18
+       6152  Range maximum quantity                    C      n..18
+
+----------------------------------------------------------------------
+
+       ROD  RISK OBJECT TYPE
+
+       Function: To identify a type of object at risk.
+
+010    C851 RISK OBJECT TYPE                           C    1
+       7179  Risk object type identifier               C      an..17
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+
+020    C852 RISK OBJECT SUB-TYPE                       C    1
+       7177  Risk object sub-type description
+             identifier                                C      an..17
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+       7176  Risk object sub-type description          C      an..70
+
+----------------------------------------------------------------------
+
+       RSL  RESULT
+
+       Function: To specify a discrete or non-discrete result as
+                 a value or value range.
+
+010    6087 RESULT VALUE TYPE CODE QUALIFIER           M    1 an..3
+
+020    6077 RESULT REPRESENTATION CODE                 C    1 an..3
+
+030    C831 RESULT DETAILS                             C    1
+       6314  Measure                                   C      an..18
+       6321  Measurement significance code             C      an..3
+       6155  Non-discrete measurement name code        C      an..17
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+       6154  Non-discrete measurement name             C      an..70
+
+040    C831 RESULT DETAILS                             C    1
+       6314  Measure                                   C      an..18
+       6321  Measurement significance code             C      an..3
+       6155  Non-discrete measurement name code        C      an..17
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+       6154  Non-discrete measurement name             C      an..70
+
+050    C848 MEASUREMENT UNIT DETAILS                   C    1
+       6411  Measurement unit code                     C      an..8
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+       6410  Measurement unit name                     C      an..35
+
+060    6079 RESULT NORMALCY CODE                       C    1 an..3
+
+----------------------------------------------------------------------
+
+       RTE  RATE DETAILS
+
+       Function: To specify rate information.
+
+010    C128 RATE DETAILS                               M    1
+       5419  Rate type code qualifier                  M      an..3
+       5420  Unit price basis rate                     M      n..15
+       5284  Unit price basis quantity                 C      n..9
+       6411  Measurement unit code                     C      an..8
+
+020    4405 STATUS DESCRIPTION CODE                    C    1 an..3
+
+----------------------------------------------------------------------
+
+       SAL  REMUNERATION TYPE IDENTIFICATION
+
+       Function: Identification of a remuneration type.
+
+010    C049 REMUNERATION TYPE IDENTIFICATION           C    1
+       5315  Remuneration type name code               C      an..3
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+       5314  Remuneration type name                    C      an..35
+       5314  Remuneration type name                    C      an..35
+
+----------------------------------------------------------------------
+
+       SCC  SCHEDULING CONDITIONS
+
+       Function: To specify scheduling conditions.
+
+010    4017 DELIVERY PLAN COMMITMENT LEVEL CODE        M    1 an..3
+
+020    4493 DELIVERY INSTRUCTION CODE                  C    1 an..3
+
+030    C329 PATTERN DESCRIPTION                        C    1
+       2013  Frequency code                            C      an..3
+       2015  Despatch pattern code                     C      an..3
+       2017  Despatch pattern timing code              C      an..3
+
+----------------------------------------------------------------------
+
+       SCD  STRUCTURE COMPONENT DEFINITION
+
+       Function: To specify a component of a data structure (e.g.
+                 an array or table).
+
+010    7497 STRUCTURE COMPONENT FUNCTION CODE
+            QUALIFIER                                  M    1 an..3
+
+020    C786 STRUCTURE COMPONENT IDENTIFICATION         C    1
+       7512  Structure component identifier            M      an..35
+       7405  Object identification code qualifier      C      an..3
+
+030    C082 PARTY IDENTIFICATION DETAILS               C    1
+       3039  Party identifier                          M      an..35
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+
+040    4405 STATUS DESCRIPTION CODE                    C    1 an..3
+
+050    1222 CONFIGURATION LEVEL NUMBER                 C    1 n..2
+
+060    C778 POSITION IDENTIFICATION                    C    1
+       7164  Hierarchical structure level identifier   C      an..35
+       1050  Sequence position identifier              C      an..10
+
+070    C240 CHARACTERISTIC DESCRIPTION                 C    1
+       7037  Characteristic description code           M      an..17
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+       7036  Characteristic description                C      an..35
+       7036  Characteristic description                C      an..35
+
+----------------------------------------------------------------------
+
+       SEG  SEGMENT IDENTIFICATION
+
+       Function: To identify a segment and give its class and
+                 maintenance operation.
+
+010    9166 SEGMENT TAG IDENTIFIER                     M    1 an..3
+
+020    1507 DESIGNATED CLASS CODE                      C    1 an..3
+
+030    4513 MAINTENANCE OPERATION CODE                 C    1 an..3
+
+----------------------------------------------------------------------
+
+       SEL  SEAL NUMBER
+
+       Function: To specify the seal number or a range of seal
+                 numbers.
+
+010    9308 TRANSPORT UNIT SEAL IDENTIFIER             C    1 an..35
+
+020    C215 SEAL ISSUER                                C    1
+       9303  Sealing party name code                   C      an..3
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+       9302  Sealing party name                        C      an..35
+
+030    4517 SEAL CONDITION CODE                        C    1 an..3
+
+040    C208 IDENTITY NUMBER RANGE                      C    1
+       7402  Object identifier                         M      an..35
+       7402  Object identifier                         C      an..35
+
+050    4525 SEAL TYPE CODE                             C    1 an..3
+
+----------------------------------------------------------------------
+
+       SEQ  SEQUENCE DETAILS
+
+       Function: To provide details relating to the sequence.
+
+010    1229 ACTION CODE                                C    1 an..3
+
+020    C286 SEQUENCE INFORMATION                       C    1
+       1050  Sequence position identifier              M      an..10
+       1159  Sequence identifier source code           C      an..3
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+
+----------------------------------------------------------------------
+
+       SFI  SAFETY INFORMATION
+
+       Function: To identify regulatory safety information.
+
+010    7164 HIERARCHICAL STRUCTURE LEVEL IDENTIFIER    M    1 an..35
+
+020    C814 SAFETY SECTION                             C    1
+       4046  Safety section number                     M      n..2
+       4044  Safety section name                       C      an..70
+
+030    C815 ADDITIONAL SAFETY INFORMATION              C    1
+       4039  Additional safety information description
+             code                                      M      an..3
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+       4038  Additional safety information description C      an..35
+
+040    4513 MAINTENANCE OPERATION CODE                 C    1 an..3
+
+----------------------------------------------------------------------
+
+       SGP  SPLIT GOODS PLACEMENT
+
+       Function: To specify the placement of goods in relation to
+                 equipment.
+
+010    C237 EQUIPMENT IDENTIFICATION                   M    1
+       8260  Equipment identifier                      C      an..17
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+       3207  Country identifier                        C      an..3
+
+020    7224 PACKAGE QUANTITY                           C    1 n..8
+
+----------------------------------------------------------------------
+
+       SGU  SEGMENT USAGE DETAILS
+
+       Function: To specify the details of the usage of a segment
+                 within a message type structure.
+
+010    9166 SEGMENT TAG IDENTIFIER                     M    1 an..3
+
+020    7299 REQUIREMENT DESIGNATOR CODE                C    1 an..3
+
+030    6176 OCCURRENCES MAXIMUM NUMBER                 C    1 n..7
+
+040    7168 LEVEL NUMBER                               C    1 n..3
+
+050    1050 SEQUENCE POSITION IDENTIFIER               C    1 an..10
+
+060    1049 MESSAGE SECTION CODE                       C    1 an..3
+
+070    4513 MAINTENANCE OPERATION CODE                 C    1 an..3
+
+----------------------------------------------------------------------
+
+       SPR  ORGANISATION CLASSIFICATION DETAILS
+
+       Function: To provide classification details relating to
+                 the activities of an organisation.
+
+010    7293 SECTOR AREA IDENTIFICATION CODE QUALIFIER  M    1 an..3
+
+020    3079 ORGANISATION CLASSIFICATION CODE           C    1 an..3
+
+030    C844 ORGANISATION CLASSIFICATION DETAIL         C    1
+       3083  Organisational class name code            C      an..17
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+       3082  Organisational class name                 C      an..70
+
+----------------------------------------------------------------------
+
+       SPS  SAMPLING PARAMETERS FOR SUMMARY STATISTICS
+
+       Function: To define the sampling parameters associated
+                 with summary statistics reported.
+
+010    C526 FREQUENCY DETAILS                          C    1
+       6071  Frequency code qualifier                  M      an..3
+       6072  Frequency rate                            C      n..9
+       6411  Measurement unit code                     C      an..8
+
+020    6074 CONFIDENCE PERCENT                         C    1 n..6
+
+030    C512 SIZE DETAILS                               C    1
+       6173  Size type code qualifier                  C      an..3
+       6174  Size measure                              C      n..15
+
+040    C512 SIZE DETAILS                               C    1
+       6173  Size type code qualifier                  C      an..3
+       6174  Size measure                              C      n..15
+
+050    C512 SIZE DETAILS                               C    1
+       6173  Size type code qualifier                  C      an..3
+       6174  Size measure                              C      n..15
+
+060    C512 SIZE DETAILS                               C    1
+       6173  Size type code qualifier                  C      an..3
+       6174  Size measure                              C      n..15
+
+070    C512 SIZE DETAILS                               C    1
+       6173  Size type code qualifier                  C      an..3
+       6174  Size measure                              C      n..15
+
+----------------------------------------------------------------------
+
+       STA  STATISTICS
+
+       Function: To transmit summary statistics related to a
+                 specified collection of test result values.
+
+010    6331 STATISTIC TYPE CODE QUALIFIER              M    1 an..3
+
+020    C527 STATISTICAL DETAILS                        C    1
+       6314  Measure                                   C      an..18
+       6411  Measurement unit code                     C      an..8
+       6313  Measured attribute code                   C      an..3
+       6321  Measurement significance code             C      an..3
+
+----------------------------------------------------------------------
+
+       STC  STATISTICAL CONCEPT
+
+       Function: To specify a statistical concept.
+
+010    C785 STATISTICAL CONCEPT IDENTIFICATION         M    1
+       6434  Statistical concept identifier            M      an..35
+       7405  Object identification code qualifier      C      an..3
+
+020    C082 PARTY IDENTIFICATION DETAILS               C    1
+       3039  Party identifier                          M      an..35
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+
+030    4405 STATUS DESCRIPTION CODE                    C    1 an..3
+
+040    4513 MAINTENANCE OPERATION CODE                 C    1 an..3
+
+----------------------------------------------------------------------
+
+       STG  STAGES
+
+       Function: To provide information related to the kind of
+                 stage in a process, the number of stages and the
+                 actual stage.
+
+010    9421 PROCESS STAGE CODE QUALIFIER               M    1 an..3
+
+020    6426 PROCESS STAGES QUANTITY                    C    1 n..2
+
+030    6428 PROCESS STAGES ACTUAL QUANTITY             C    1 n..2
+
+----------------------------------------------------------------------
+
+       STS  STATUS
+
+       Function: To specify the status of an object or service,
+                 including its category and the reason(s) for the
+                 status.
+
+010    C601 STATUS CATEGORY                            C    1
+       9015  Status category code                      M      an..3
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+
+020    C555 STATUS                                     C    1
+       4405  Status description code                   M      an..3
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+       4404  Status description                        C      an..35
+
+030    C556 STATUS REASON                              C    1
+       9013  Status reason description code            M      an..3
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+       9012  Status reason description                 C      an..256
+
+040    C556 STATUS REASON                              C    1
+       9013  Status reason description code            M      an..3
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+       9012  Status reason description                 C      an..256
+
+050    C556 STATUS REASON                              C    1
+       9013  Status reason description code            M      an..3
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+       9012  Status reason description                 C      an..256
+
+060    C556 STATUS REASON                              C    1
+       9013  Status reason description code            M      an..3
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+       9012  Status reason description                 C      an..256
+
+070    C556 STATUS REASON                              C    1
+       9013  Status reason description code            M      an..3
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+       9012  Status reason description                 C      an..256
+
+----------------------------------------------------------------------
+
+       TAX  DUTY/TAX/FEE DETAILS
+
+       Function: To specify relevant duty/tax/fee information.
+
+010    5283 DUTY OR TAX OR FEE FUNCTION CODE QUALIFIER M    1 an..3
+
+020    C241 DUTY/TAX/FEE TYPE                          C    1
+       5153  Duty or tax or fee type name code         C      an..3
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+       5152  Duty or tax or fee type name              C      an..35
+
+030    C533 DUTY/TAX/FEE ACCOUNT DETAIL                C    1
+       5289  Duty or tax or fee account code           M      an..6
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+
+040    5286 DUTY OR TAX OR FEE ASSESSMENT BASIS
+            QUANTITY                                   C    1 an..15
+
+050    C243 DUTY/TAX/FEE DETAIL                        C    1
+       5279  Duty or tax or fee rate code              C      an..7
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+       5278  Duty or tax or fee rate                   C      an..17
+       5273  Duty or tax or fee rate basis code        C      an..12
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+
+060    5305 DUTY OR TAX OR FEE CATEGORY CODE           C    1 an..3
+
+070    3446 PARTY TAX IDENTIFIER                       C    1 an..20
+
+080    1227 CALCULATION SEQUENCE CODE                  C    1 an..3
+
+090    5307 TAX OR DUTY OR FEE PAYMENT DUE DATE CODE   C    1 an..3
+
+----------------------------------------------------------------------
+
+       TCC  CHARGE/RATE CALCULATIONS
+
+       Function: To specify charges.
+
+010    C200 CHARGE                                     C    1
+       8023  Freight and other charges description
+             identifier                                C      an..17
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+       8022  Freight and other charges description     C      an..26
+       4237  Payment arrangement code                  C      an..3
+       7140  Item identifier                           C      an..35
+
+020    C203 RATE/TARIFF CLASS                          C    1
+       5243  Rate or tariff class description code     M      an..9
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+       5242  Rate or tariff class description          C      an..35
+       5275  Supplementary rate or tariff code         C      an..6
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+       5275  Supplementary rate or tariff code         C      an..6
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+
+030    C528 COMMODITY/RATE DETAIL                      C    1
+       7357  Commodity identification code             C      an..18
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+
+040    C554 RATE/TARIFF CLASS DETAIL                   C    1
+       5243  Rate or tariff class description code     C      an..9
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+
+----------------------------------------------------------------------
+
+       TDT  TRANSPORT INFORMATION
+
+       Function: To specify information regarding the transport
+                 such as mode of transport, means of transport,
+                 its conveyance reference number and the
+                 identification of the means of transport.
+
+010    8051 TRANSPORT STAGE CODE QUALIFIER             M    1 an..3
+
+020    8028 MEANS OF TRANSPORT JOURNEY IDENTIFIER      C    1 an..17
+
+030    C220 MODE OF TRANSPORT                          C    1
+       8067  Transport mode name code                  C      an..3
+       8066  Transport mode name                       C      an..17
+
+040    C001 TRANSPORT MEANS                            C    1
+       8179  Transport means description code          C      an..8
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+       8178  Transport means description               C      an..17
+
+050    C040 CARRIER                                    C    1
+       3127  Carrier identifier                        C      an..17
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+       3126  Carrier name                              C      an..35
+
+060    8101 TRANSIT DIRECTION INDICATOR CODE           C    1 an..3
+
+070    C401 EXCESS TRANSPORTATION INFORMATION          C    1
+       8457  Excess transportation reason code         M      an..3
+       8459  Excess transportation responsibility code M      an..3
+       7130  Customer shipment authorisation
+             identifier                                C      an..17
+
+080    C222 TRANSPORT IDENTIFICATION                   C    1
+       8213  Transport means identification name
+             identifier                                C      an..35
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+       8212  Transport means identification name       C      an..70
+       8453  Transport means nationality code          C      an..3
+
+090    8281 TRANSPORT MEANS OWNERSHIP INDICATOR CODE   C    1 an..3
+
+100    C003 POWER TYPE                                 C    1
+       7041  Power type code                           C      an..3
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+       7040  Power type description                    C      an..17
+
+       Dependency note:
+       040  D5(040,030) If first, then all
+
+----------------------------------------------------------------------
+
+       TEM  TEST METHOD
+
+       Function: To describe the nature of the test performed.
+
+010    C244 TEST METHOD                                C    1
+       4415  Test method identifier                    C      an..17
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+       4416  Test description                          C      an..70
+
+020    4419 TEST ADMINISTRATION METHOD CODE            C    1 an..3
+
+030    3077 TEST MEDIUM CODE                           C    1 an..3
+
+040    6311 MEASUREMENT PURPOSE CODE QUALIFIER         C    1 an..3
+
+050    7188 TEST METHOD REVISION IDENTIFIER            C    1 an..30
+
+060    C515 TEST REASON                                C    1
+       4425  Test reason name code                     C      an..17
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+       4424  Test reason name                          C      an..35
+
+----------------------------------------------------------------------
+
+       TMD  TRANSPORT MOVEMENT DETAILS
+
+       Function: To specify operational transport movement
+                 details for a goods item or equipment (which may
+                 differ from the contractual conditions).
+
+010    C219 MOVEMENT TYPE                              C    1
+       8335  Movement type description code            C      an..3
+       8334  Movement type description                 C      an..35
+
+020    8332 EQUIPMENT PLAN DESCRIPTION                 C    1 an..26
+
+030    8341 HAULAGE ARRANGEMENTS CODE                  C    1 an..3
+
+----------------------------------------------------------------------
+
+       TMP  TEMPERATURE
+
+       Function: To specify the temperature setting.
+
+010    6245 TEMPERATURE TYPE CODE QUALIFIER            M    1 an..3
+
+020    C239 TEMPERATURE SETTING                        C    1
+       6246  Temperature degree                        C      n..15
+       6411  Measurement unit code                     C      an..8
+
+----------------------------------------------------------------------
+
+       TOD  TERMS OF DELIVERY OR TRANSPORT
+
+       Function: To specify terms of delivery or transport.
+
+010    4055 DELIVERY OR TRANSPORT TERMS FUNCTION CODE  C    1 an..3
+
+020    4215 TRANSPORT CHARGES PAYMENT METHOD CODE      C    1 an..3
+
+030    C100 TERMS OF DELIVERY OR TRANSPORT             C    1
+       4053  Delivery or transport terms description
+             code                                      C      an..3
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+       4052  Delivery or transport terms description   C      an..70
+       4052  Delivery or transport terms description   C      an..70
+
+----------------------------------------------------------------------
+
+       TPL  TRANSPORT PLACEMENT
+
+       Function: To specify placement of goods or equipment in
+                 relation to the transport used. The segment
+                 serves as a pointer to the TDT segment group.
+
+010    C222 TRANSPORT IDENTIFICATION                   M    1
+       8213  Transport means identification name
+             identifier                                C      an..35
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+       8212  Transport means identification name       C      an..70
+       8453  Transport means nationality code          C      an..3
+
+----------------------------------------------------------------------
+
+       TRU  TECHNICAL RULES
+
+       Function: A segment specifying technical rules.
+
+010    7402 OBJECT IDENTIFIER                          M    1 an..35
+
+020    1056 VERSION IDENTIFIER                         C    1 an..9
+
+030    1058 RELEASE IDENTIFIER                         C    1 an..9
+
+040    7175 RULE PART IDENTIFIER                       C    1 an..7
+
+050    3055 CODE LIST RESPONSIBLE AGENCY CODE          C    1 an..3
+
+----------------------------------------------------------------------
+
+       TSR  TRANSPORT SERVICE REQUIREMENTS
+
+       Function: To specify the contract and carriage conditions
+                 and service and priority requirements for the
+                 transport.
+
+010    C536 CONTRACT AND CARRIAGE CONDITION            C    1
+       4065  Contract and carriage condition code      M      an..3
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+
+020    C233 SERVICE                                    C    1
+       7273  Service requirement code                  M      an..3
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+       7273  Service requirement code                  C      an..3
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+
+030    C537 TRANSPORT PRIORITY                         C    1
+       4219  Transport service priority code           M      an..3
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+
+040    C703 NATURE OF CARGO                            C    1
+       7085  Cargo type classification code            M      an..3
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+
+----------------------------------------------------------------------
+
+       VLI  VALUE LIST IDENTIFICATION
+
+       Function: To identify a coded or non coded value list.
+
+010    C780 VALUE LIST IDENTIFICATION                  M    1
+       1518  Value list identifier                     M      an..35
+       7405  Object identification code qualifier      C      an..3
+
+020    C082 PARTY IDENTIFICATION DETAILS               C    1
+       3039  Party identifier                          M      an..35
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+
+030    4405 STATUS DESCRIPTION CODE                    C    1 an..3
+
+040    1514 VALUE LIST NAME                            C    1 an..70
+
+050    1507 DESIGNATED CLASS CODE                      C    1 an..3
+
+060    1505 VALUE LIST TYPE CODE                       C    1 an..3
+
+070    C240 CHARACTERISTIC DESCRIPTION                 C    1
+       7037  Characteristic description code           M      an..17
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+       7036  Characteristic description                C      an..35
+       7036  Characteristic description                C      an..35
+
+080    4513 MAINTENANCE OPERATION CODE                 C    1 an..3

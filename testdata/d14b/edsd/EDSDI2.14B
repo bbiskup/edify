@@ -1,0 +1,169 @@
+1.2  Index of segments by alphabetical sequence by name
+
+     Change indicators
+
+     a plus sign (+)    for an addition
+     an asterisk (*)    for an amendment to structure
+     a hash sign (#)    for changes to names
+     a vertical bar (|) for changes to text for functional
+                        descriptions or notes
+     a letter X (X)     for marked for deletion
+
+    Tag  Name
+
+    CPT  Account identification
+    RJL  Accounting journal identification
+    ALI  Additional information
+    APR  Additional price information
+    PIA  Additional product id
+    ADR  Address
+    AJT  Adjustment details
+    AGR  Agreement identification
+    ALC  Allowance or charge
+    APP  Applicability
+    ERC  Application error information
+    ARR  Array information
+    ASI  Array structure identification
+    EQA  Attached equipment
+    PAS  Attendance
+    ATT  Attribute
+    AUT  Authentication result
+    BAS  Basis
+    BGM  Beginning of message
+    BUS  Business function
+    CAV  Characteristic value
+    CCI  Characteristic/class id
+    CPI  Charge payment instructions
+    TCC  Charge/rate calculations
+    CLA  Clause identification
+    CIN  Clinical information
+    CLI  Clinical intervention
+    CDS  Code set identification
+    CDV  Code value definition
+    COM  Communication contact
+    COD  Component details
+    CMP  Composite data element identification
+    CED  Computer environment details
+    CNI  Consignment information
+    CPS  Consignment packing sequence
+    CTA  Contact information
+    COT  Contribution details
+    CNT  Control total
+    CCD  Credit cover details
+    CUX  Currencies
+    CST  Customs status of goods
+    DAM  Damage
+    DGS  Dangerous goods
+    ELU  Data element usage details
+    DRD  Data representation details
+    DSI  Data set identification
+    DTM  Date/time/period
+    DFN  Definition function
+    DLM  Delivery limitations
+    DIM  Dimensions
+    DII  Directory identification
+    DLI  Document line identification
+    DOC  Document/message details
+    DMS  Document/message summary
+    DSG  Dosage administration
+    TAX  Duty/tax/fee details
+    EDT  Editing details
+    ELV  Element value definition
+    EMP  Employment details
+    EQD  Equipment details
+    ERP  Error point details
+    EVE  Event
+    EFI  External file link identification
+    FCA  Financial charges allocation
+    FII  Financial institution information
+    FNT  Footnote
+    FNS  Footnote set
+    FOR  Formula
+    FSQ  Formula sequence
+    FTX  Free text
+    GPO  Geographical position
+    GIN  Goods identity number
+    GID  Goods item details
+    GOR  Governmental requirements
+    HAN  Handling instructions
+    HYN  Hierarchy information
+    IDE  Identity
+    IND  Index details
+    IFD  Information detail
+    IRQ  Information required
+    ICD  Insurance cover description
+    INV  Inventory management related details
+    IMD  Item description
+    LAN  Language
+    LIN  Line item
+    MTD  Maintenance operation details
+    MKS  Market/sales channel information
+    MEA  Measurements
+    MEM  Membership details
+    MSG  Message type identification
+    MOA  Monetary amount
+    ARD  Monetary amount function
+    NAD  Name and address
+    NAT  Nationality
+    GDS  Nature of cargo
+    EQN  Number of units
+    SPR  Organisation classification details
+    PAC  Package
+    PCI  Package identification
+    INP  Parties and instruction
+    PNA  Party identification
+    PAI  Payment instructions
+    PYT  Payment terms
+    PCD  Percentage details
+    PER  Period related details
+    IHC  Person characteristic
+    PDI  Person demographic information
+    CDI  Physical or logical state
+    PSD  Physical sample description
+    LOC  Place/location identification
+    PCC  Premium calculation component details
+    PRI  Price details
+    PTY  Priority
+    PRC  Process identification
+    GEI  Processing information
+    PGI  Product group information
+    PRV  Proviso details
+    POC  Purpose of conveyance call
+    QUA  Qualification
+    QTY  Quantity
+    QVR  Quantity variances
+    QRS  Query and response
+    RNG  Range details
+    RTE  Rate details
+    RFF  Reference
+    GIR  Related identification numbers
+    REL  Relationship
+    SAL  Remuneration type identification
+    RCS  Requirements and conditions
+    RSL  Result
+    ROD  Risk object type
+    SFI  Safety information
+    SPS  Sampling parameters for summary statistics
+    SCC  Scheduling conditions
+    SEL  Seal number
+    GRU  Segment group usage details
+    SEG  Segment identification
+    SGU  Segment usage details
+    SEQ  Sequence details
+    ELM  Simple data element details
+    SGP  Split goods placement
+    STG  Stages
+    STC  Statistical concept
+    STA  Statistics
+    STS  Status
+    SCD  Structure component definition
+    BII  Structure identification
+    TRU  Technical rules
+    TMP  Temperature
+    TOD  Terms of delivery or transport
+    TEM  Test method
+    TDT  Transport information
+    TMD  Transport movement details
+    TPL  Transport placement
+    TSR  Transport service requirements
+    VLI  Value list identification

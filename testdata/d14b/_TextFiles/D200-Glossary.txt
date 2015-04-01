@@ -1,0 +1,411 @@
+                                                  
+UN/EDIFACT STANDARD DIRECTORY
+
+PART 2  TERMINOLOGY
+
+GLOSSARY
+
+Note: These definitions are to explain terms as they are used in the context of 
+the UN/EDIFACT Directories. 
+
+
+Code: (a) a character string used as an abbreviated means of recording or identifying 
+	information.
+      
+Code list: The complete set of data element values of a coded simple data 
+	element. (ISO 9735)
+
+Code value: A coded representation of a permissible data element value.
+
+Component data element: a simple data element used within a composite data 
+	element. [ISO 9735]
+
+Component data element separator: a service character used to separate the 
+	component data elements within a composite data element.  [ISO 9735] 
+	UN/EDIFACT: the default service character reserved for use is the colon.
+
+Composite data element: an identified, named and structured set of functionally 
+	related component data elements, as described in a composite data element 
+	specification.  In transfer, a composite data element is a specific 
+	ordered set of one or more component data element(s) in conformance with a 
+	composite data element specification. [ISO 9735]
+
+Composite data element definition: A statement that describes the meaning of a 
+	composite data element and permits its differentiation from all other 
+	composite data elements. Referred to as 'composite data element 
+	description' in document.
+
+Composite data element specification: the description of a composite data 
+	element in a composite data element directory, including the specification 
+	of the position and status of the component data elements constituting the 
+	composite data element. [ISO 9735]
+
+Conditional: a type of status, used in a message specification, segment 
+	specification, or composite data element specification, to specify that a 
+	segment group, segment, composite data element, stand-alone data element 
+	or component data element is used optionally or when the appropriate 
+	conditions occur.  [ISO 9735]
+
+Data element: a unit of data described in a data element specification. There 
+	are two classes of data element: simple data elements and composite data 
+	elements. [ISO 9735]
+
+
+Data element definition: A statement that describes the meaning of a simple data 
+	element (simple data element definition) or a composite data element 
+	(composite data element definition).
+
+
+Data element directory: a listing of identified, named and specified simple data 
+	elements (simple data element directory) or composite data elements 
+	(composite data element directory).  [ISO 9735]  
+	UN/EDIFACT: See EDED, EDCD and IDCD.
+ 
+Data element name: one or more words in a natural language identifying
+ 	a data element concept.  
+
+
+Data element separator: a service character used to separate from each:
+	- non repeating stand-alone data elements; or
+	- composite data elements in a segment; or
+	- a set of occurrences of a repeating data element; or
+	- a null set of occurrences of a repeating data element,
+	where a set of occurrences of a repeating data element is a repeating data 
+	element having one or more of its occurrences (up to a maximum specified 
+	number) present in a transfer; and where a null set of occurrences of a 
+	repeating data element is a repeating data element for which none of its 
+	specified occurrences are present in a transfer. [ISO 9735] UN/EDIFACT: 
+	the default service character reserved for use is the plus sign.
+
+Data element specification: the specification of a composite data element in a 
+	composite data element directory (composite data element specification), 
+	or of a simple data element in a simple data element directory (simple 
+	data element specification). [ISO 9735]
+
+Data element tag: a unique identifier for a data element in a data
+	element directory.  
+
+Data element value: a specific instance of a simple data element, represented as 
+	specified in a simple data element specification and, if the simple data 
+	element is coded, in a code list. [ISO 9735].
+
+Data value representation: the types of characters allowed (e.g. alphabetic, 
+	numeric) and conditions of length relating to the data element values of a 
+	simple data element. [ISO 9735]
+
+Dependency identifier: an identifier used in a dependency note to specify the 
+	type of dependency between the entities listed in the dependency note. 
+	[ISO 9735]
+
+Dependency note: a note used: 
+	i. in a message specification to express relationships between segment 
+	groups,  between segments, between segments and segments groups; 
+	ii. in a segment specification to express relationships between data 
+	elements;
+	iii. in a composite data element specification to express relationships 
+	between component data elements. [ISO 9735]
+
+Dialogue: A two-way conversation between an initiator and responder within an 
+	interactive EDI transaction. It is formally composed of a pair of 
+	interchanges. (ISO 9735)
+
+Directory version: see release, version and version/release.
+
+
+ECE: Economic Commission for Europe.  See UNECE.
+
+EDCD: EDIFACT Composite data element Directory, directory in the UNTDID listing 
+	composite data elements used in batch messages.  
+
+EDED: EDIFACT data Element Directory, directory in the UNTDID listing data 
+	elements.   Usage indicators show which data elements are used only in 
+	batch messages, which are used only in interactive messages and which are 
+	of common usage in both batch and interactive messages.
+
+EDI: (Electronic Data Interchange): the electronic transfer from computer 
+	application to computer application of transactions using an agreed 
+	standard to structure the transaction or message data. [ISO 9735].
+ 
+EDIFACT: Electronic Data Interchange for Administration, Commerce and
+ 	Transport.  See UN/EDIFACT.
+
+EDMD: EDIFACT Message Directory, directory in the UNTDID listing messages for 
+	batch processing. 
+
+EDSD: EDIFACT Segment Directory, directory in the UNTDID listing segments used 
+	in batch messages. 
+
+EWG (UN/EDIFACT Working Group): a Permanent Working Group of the United Nations 
+	Centre for Trade Facilitation and Electronic Business (UN/CEFACT).  The 
+	purpose of the EWG is to develop and maintain UN/EDIFACT and extend it 
+	towards new technologies, such as XML schemas; and promote and publish the 
+	global use of UN e-Business Standards to public and private sectors, 
+	including SME s, user communities and providers. 
+
+
+External code list: A list of code values, not included in a UN/EDIFACT Code 
+	List Directory, that is maintained and published by a recognised 
+	Maintenance Agency.
+
+Generic data element: see qualified data element.
+
+I-EDI (Interactive EDI): the exchange of pre-defined and structured data within 
+	a dialogue, which conforms to the syntax of Parts 1 and 3 of ISO 9735 for 
+	some business purpose, between a pair of co-operating processes, in a 
+	timely manner. [ISO 9735]
+
+IDCD: Interactive EDIFACT composite data elements Directory, directory in the 
+	UNTDID listing composite data elements for use in interactive messages. 
+
+IDMD: Interactive EDIFACT Message Directory, directory in the UNTDID listing 
+	messages for interactive processing. 
+
+IDSD: Interactive EDIFACT Segment Directory, directory in the UNTDID listing 
+	segments for use in interactive messages.
+
+ISO: International Organization for Standardization, based in
+	Geneva.  It is a worldwide, non-governmental federation of national 
+	standards bodies (ISO member bodies) from approximately 130 countries. The 
+	work of ISO's technical committees results in international agreements 
+	which are published as International Standards. 
+
+ISO 7372: Trade data interchange -- Trade data elements directory.  This ISO 
+	standard is an endorsement of document United Nations Economic Commission 
+	for Europe (UNECE), Trade Facilitation, Trade Data Elements Directory 
+	(TDED), volume 1).  
+
+ISO 9735: Electronic data interchange for administration, commerce and transport 
+	(EDIFACT) -- Application level syntax rules.  These syntax rules are to be 
+	applied to the UN/EDIFACT international standard as agreed by the UNECE. 
+	ISO 9735 is maintained by the ISO/TC 154-UN/CEFACT Joint Syntax Working Group 
+	(JSWG)
+
+
+Level: relative hierarchical position of a data segment within a message.
+
+ 
+Mandatory: a type of status, used in a message specification, segment 
+	specification, or composite data element specification, to specify that a 
+	segment group, segment, composite data element, stand-alone data element 
+	or component data element shall be used at least one time.  [ISO 9735]
+
+Maximum number of repetitions: specifies the maximum number of occurrences 
+	allowed for a stand-alone data element, composite data element, segment, segment 
+	group which may be repeated.
+
+Message: an identified, named and structured set of functionally related 
+	segments, covering the requirements for a specific type of transaction (e.g. 
+	invoice), as described in a message specification; a message starts with a 
+	message header and ends with a message trailer. In transfer, a message is a 
+	specific ordered set of segments in conformance with a message specification. 
+	[ISO 9735]  
+
+Message definition: An identified, named and structured set of functionally 
+	related segments, covering the requirements for a specific type of 
+	transaction (e.g. invoice), as described in a message specification; a 
+	message starts with a message header and ends with a message trailer. In 
+	transfer, a message is a specific ordered set of segments in conformance 
+	with a message specification. (ISO 9735)  
+
+Message directory: a listing of identified, named, described and
+	specified message types. (EDMD, IDMD)
+
+
+Message specification: the description of a message in a message directory, 
+	including the specification of the position, status and maximum number of 
+	occurrences of the segments and segment groups constituting the message. 
+	[ISO 9735]
+
+Message type: code identifying a type of message. 
+
+Position identifier: An identifier used to identify an entity (segment group, 
+	segment, or data element) by its position in the parent entity. (ISO 9735)
+
+Qualified data element: a data element whose precise meaning is
+	conveyed by an associated qualifier.
+
+Qualified data segment: a data segment whose precise meaning is
+	conveyed by an associated qualifier.
+
+Qualifier: a simple data element whose data element value, extracted from a code 
+	list, gives specific meaning to the function of another data element or a 
+	segment. [ISO 9735]
+
+Release:  starting in March 1997 values contained in service simple data element 
+	[0054] shall be interpreted as a concatenated number reflecting both 
+	version and release and shall uniquely identify any instance of a 
+	published directory. Version shall be interpreted as the annual variant of 
+	the published directory.  Release shall be interpreted as the sequence of 
+	publication for multiple directories published within any annual variant. 
+	The value for [0054] is represented by the year {YY} followed by a 
+	sequential alpha character assigned by the UNECE. This sequential alpha 
+	character begins with "A" at the start of each year and is incremented if 
+	more than one directory is published during the same year, e.g. the letter 
+	"A" for the first issue of the year or the letter "B" for the second issue 
+	of the year.
+
+Repeating data element: a composite data element or stand-alone data element 
+	having a maximum repetition of greater than one in the segment 
+	specification. [ISO 9735] Allowable in Version 4 of ISO 9735.
+
+Repeating segment: a segment that may repeat in a message as
+	specified in the relevant message type specification.
+
+Requirement designator: see status.
+
+Revision: an indicator of change appearing on the boilerplate cover page after 
+	"Revision".  When applied to an UNSM, in any instance of a Standard 
+	Directory the value indicates the number of times the UNSM has been 
+	revised as of that particular point in time.  Upon initial approval of the 
+	message as a UNSM, the value applied shall be 1 (one) and each subsequent 
+	change to the message boilerplate or segment table shall result in the 
+	incremental increase of this value by 1 (one). In the case of a recast 
+	message, the number shall again be incremented by 1 (one) from its 
+	previous value.  The number is automatically assigned during directory 
+	production. When applied to a MID, the revision number is assigned by the 
+	organization developing the MID and is a sequential number starting with 0 
+	(zero) and incremented by 1 (one) with each change to the MID.
+
+Segment: an identified, named and structured set of functionally related 
+	composite data elements and/or stand-alone data elements, as described in 
+	a segment specification; a segment starts with the segment tag and ends 
+	with the segment terminator. In transfer, a segment is a specific ordered 
+	set of one or more composite data element(s) and/or stand-alone data 
+	element(s) in conformance with a segment specification and the syntax 
+	rules for transfer. [ISO 9735]
+
+
+Segment definition: A statement that describes the purpose of a segment and 
+	permits its differentiation from all other segments. Referred to as 
+	'segment description' in document.
+
+Segment directory: a listing of identified and named segments with their segment 
+	specification [ISO 9735] See EDSD and IDSD.
+
+Segment group: An identified hierarchical set of segments and/or segment groups 
+	within a message. (ISO 9735)   
+
+Segment qualifier: see qualifier.
+
+Segment specification: The description of a segment in a segment directory, 
+	including the specification of the position, status, maximum number of 
+	repetitions and any dependency notes of the data elements constituting the 
+	segment. 
+
+Segment table: a table showing the sequential order of segments,
+	their arrangements in segment groups and the status and
+	allowed repetitions of the segments and groups in a message.
+
+Segment tag: 3 upper alphabetic characters string that uniquely identify a 
+	segment in a segment directory 
+
+Segment terminator: a service character indicating the end of a
+	segment.  [ISO 9735] UN/EDIFACT: the default service character reserved for 
+	use is the apostrophe.
+
+Simple data element: a data element containing a single data element value. 
+	There are two uses of a simple data element: within a composite data 
+	element (component data element); and within a segment outside a composite 
+	data element (stand-alone data element). [ISO 9735]
+
+Simple element definition: A statement that describes the meaning of a simple 
+	data element and permits the differentiation from all other simple data 
+	elements. Referred to as 'data element description' in document.
+
+Simple data element directory: A listing of identified and named simple data 
+	elements with their simple data element specification. (ISO 9735)
+ 
+
+Simple data element specification: the set of attributes characterising a simple 
+	data element in a simple data element directory.[ISO 9735]
+
+Standard message: a United Nations Standard Message (UNSM) as 
+	published by the United Nations in the UN/EDIFACT Standard Directory (UNTDID).
+
+Status: an attribute of a segment, a composite data element or a simple data 
+	element identifying the rules for the presence or absence of the 
+	segment/data element in the usage of a message. The types of status are 
+	conditional and mandatory. [ISO 9735]
+
+TDID: see UNTDID.
+
+Technical assessment: the process by which UN/EDIFACT Messages
+	and supporting Directories are evaluated for conformance to syntax, message 
+	design and syntax implementation rules. Technical Assessment is performed 
+	within the UN/EDIFACT Working Group, T1 Technical Assessment Sub Working 
+	Group as part of the agreed UN/EDIFACT procedures.
+
+Trigger segment: the segment starting a segment group. [ISO 9735]
+
+UN/CEFACT: Centre for Trade Facilitation and Electronic Business.  The parent 
+	body within the UNECE of the UN/EDIFACT Working Group.
+
+UNCL: United Nation code list, directory in the UNTDID listing code sets 
+        associated with coded data elements.
+
+UNECE: United Nations Economic Commission of Europe, one of the
+	five regional commissions of the United Nations.  The headquarters are in 
+	Geneva.
+
+UN/EDIFACT: United Nations rules for Electronic Data Interchange
+	for Administration, Commerce and Transport.  They comprise a set of standards, 
+	directories and rules for the electronic interchange of structured data, and 
+	in particular that related to trade in goods or services, between
+	independent computerized information systems.  Recommended
+	within the framework of the United Nations, the rules are
+	approved and published by the UNECE in the United Nations
+	Trade Data Interchange Directory (UNTDID) and are maintained
+	under agreed procedures.  
+
+
+UN/EDIFACT STANDARD DIRECTORY: the directory of UNSM messages and their
+	supporting segment, composite, data element and code list 
+	directories.  Also known as the UNTDID.  
+
+UNSM: United Nations Standard Message, an EDIFACT message type
+	approved for international use.  A UNSM is a message which:
+	I.   has been registered, published and which is maintained
+        by the United Nations Economic Commission for Europe;
+     	II.  has the values contained in the Controlling Agency,
+        Message Type, Message Version Number and Message
+        Release Number fields (the requirements for the use of
+        which are specified in ISO 9735), allocated and
+        controlled by the UNECE;
+     	III. always has the code value "UN" in the Controlling
+        Agency field. 
+
+UNSIM: United Nations Standard Interactive Message, an EDIFACT message type
+	approved for international use.  A UNSIM is a message which:
+	I.   has been registered, published and which is maintained
+        by the United Nations Economic Commission for Europe;
+     	II.  has the values contained in the Controlling Agency,
+        Message Type, Message Version Number and Message
+        Release Number fields (the requirements for the use of
+        which are specified in ISO 9735), allocated and
+        controlled by the UNECE;
+     	III. always has the code value "UN" in the Controlling
+        Agency field.
+
+UNTDID: United Nations Trade Data Interchange Directory. UNTDID includes: 
+	UN/EDIFACT Message type directories (EDMD, IDMD)
+	UN/EDIFACT Segment directories (EDSD, IDSD)
+	UN/EDIFACT Composite data element directories (EDCD, IDCD)
+	UN/EDIFACT Data element directory (EDED)
+	UN/EDIFACT Code list (UNCL)
+	Explanatory material. 
+
+Version:  starting in March 1997, the version number identified within service 
+	simple data element [0052] has the following interpretation: for MIDs, the 
+	value for [0052] is "0" signifying that the message is a MID and is not 
+	contained in the directory.  For UNSMs, the value for [0052] is "D" 
+	signifying that the message is contained within the directory and is an 
+	approved standard message.
+
+Version/release: in directories published prior to March 1997, different 
+	interpretations were given to the concept of version and release than the 
+	concepts applied to current directories. For earlier directories, consult 
+	the definitions applied within the service code lists for service simple 
+	data elements [0052] and [0054]. For current interpretations, see 
+	definitions included herein for version and for release. 
+
+

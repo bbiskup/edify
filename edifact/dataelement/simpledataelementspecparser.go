@@ -11,6 +11,7 @@ package dataelement
 import (
 	"errors"
 	"fmt"
+	"github.com/bbiskup/edify/edifact/codes"
 	"github.com/bbiskup/edify/edifact/util"
 	"log"
 	"regexp"
@@ -26,7 +27,8 @@ const (
 )
 
 type SimpleDataElementSpecParser struct {
-	numLineRE *regexp.Regexp
+	codesSpecs codes.CodesSpecMap
+	numLineRE  *regexp.Regexp
 }
 
 // Get data element spec number
@@ -101,7 +103,12 @@ func (p *SimpleDataElementSpecParser) ParseSpec(specLines []string) (spec *Simpl
 		return nil, err
 	}
 
-	return NewSimpleDataElementSpec(int32(num), name, description, repr), nil
+	id := int32(num)
+
+	// may be nil for fields that don't use a code
+	codesSpec := p.codesSpecs[id]
+
+	return NewSimpleDataElementSpec(id, name, description, repr, codesSpec)
 }
 
 type SimpleDataElementSpecMap map[int32]*SimpleDataElementSpec
@@ -152,8 +159,9 @@ func (p *SimpleDataElementSpecParser) ParseSpecFile(fileName string) (specs Simp
 	return result, nil
 }
 
-func NewSimpleDataElementSpecParser() *SimpleDataElementSpecParser {
+func NewSimpleDataElementSpecParser(codesSpecs codes.CodesSpecMap) *SimpleDataElementSpecParser {
 	return &SimpleDataElementSpecParser{
+		codesSpecs: codesSpecs,
 		numLineRE: regexp.MustCompile(
 			`^[ ]{4}(\d{4})[ ]+(.*)(\[[BIC]\])$`),
 	}

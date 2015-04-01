@@ -1,0 +1,116 @@
+PART 5    UNITED NATIONS DIRECTORIES FOR ELECTRONIC DATA INTERCHANGE
+          FOR ADMINISTRATION, COMMERCE AND TRANSPORT
+
+CHAPTER 4 Composite data element directory IDCD
+
+1.   Indexes
+
+1.1  Index of composites by alphanumeric sequence by tag
+
+     Change indicators
+
+     a plus sign (+)    for an addition
+     an asterisk (*)    for an amendment to structure
+     a hash sign (#)    for changes to names
+     a vertical bar (|) for changes to text for descriptions or
+                        notes
+     a letter X (X)     for marked for deletion
+
+    Tag  Name
+
+    E001 Address details
+    E002 Commission details
+    E003 Attribute information
+    E004 Rule details
+    E005 Rule text
+    E006 Rule status
+    E007 Traffic restriction details
+    E008 Geographic details
+    E009 Daily availability information
+    E010 Selection details information
+    E011 Rate class details
+    E012 Name information
+    E013 Date and time information
+    E014 Time reference details
+    E015 Product data information
+    E016 Insurance cover requirement
+    E017 Monetary amount
+    E018 Price information
+    E019 Promotion details
+    E020 Tax details
+    E021 Service
+    E022 Instruction information
+    E023 Party demographic information
+    E024 Supporting evidence
+    E025 Basis of service information
+    E026 Admission
+    E027 Invoice type
+    E028 Related cause
+    E029 Diagnosis
+    E030 Adjustment information
+    E031 Message application product specification
+    E032 Party identification
+    E033 Language details
+    E034 Time zone
+    E035 Quantity details
+    E080 Party name
+    E082 Party identification details
+    E083 Delivery pattern
+    E175 Measurement value and details
+    E206 Object identification
+    E211 Dimensions
+    E212 Item number identification
+    E362 Related time information
+    E504 Currency details
+    E506 Reference
+    E507 Date/time/period
+    E517 Location identification
+    E520 Frequency
+    E523 Number of unit details
+    E778 Position identification
+    E817 Address usage
+    E819 Country sub-entity details
+    E901 Application error details
+    E941 Relationship
+    E946 Certainty
+    E958 Quantity and action details
+    E959 Additional service details
+    E961 Transport details
+    E962 Terminal information
+    E963 Distance or time details
+    E964 Traveller time details
+    E965 Facilities
+    E966 Contact information
+    E967 Consumer reference identification
+    E968 Document information
+    E969 Validity dates
+    E970 Frequent traveller identification
+    E971 Free text qualification
+    E972 Message processing details
+    E973 Delivering system details
+    E974 Originator identification details
+    E975 Location
+    E976 Originator details
+    E977 Payment details
+    E978 Credit card information
+    E979 Reservation control information
+    E980 Special requirement type details
+    E981 Special requirement details
+    E982 Tariff information
+    E983 Rate information
+    E984 Associated charges information
+    E985 Traveller surname and related information
+    E986 Traveller details
+    E987 Product date and time
+    E988 Company identification
+    E989 Product identification details
+    E990 Sequence number details
+    E991 Vehicle information
+    E992 Position
+    E993 Tour details
+    E994 Stopover information
+    E995 Movement details
+    E996 Product class details
+    E997 Accommodation allocation information
+    E998 Discount information
+    E999 Connection details

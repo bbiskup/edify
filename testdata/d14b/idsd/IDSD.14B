@@ -1,0 +1,1592 @@
+2.   Segment specifications
+
+     Change indicators
+
+     a plus sign (+)    for an addition
+     an asterisk (*)    for an amendment to structure
+     a hash sign (#)    for changes to names
+     a vertical bar (|) for changes to text for functional
+                        descriptions or notes
+     a letter X (X)     for marked for deletion
+
+----------------------------------------------------------------------
+
+       AAI  ACCOMMODATION ALLOCATION INFORMATION
+
+       Function: To specify the references, the type and the
+                 characteristic of accommodations allocated as a
+                 result of a reservation request.
+
+010    E997 ACCOMMODATION ALLOCATION INFORMATION       M   20
+       1154  Reference identifier                      M      an..70
+       9143  Relationship description code             C      an..3
+       4187  Special requirement type code             C      an..4
+       7111  Characteristic value description code     C      an..3
+       4184  Special requirement description           C      an..17
+
+       Note: 
+            The component 4184 - Special requirement description
+            - occurs 99 times in the composite.
+
+----------------------------------------------------------------------
+
+       ADI  HEALTH CARE CLAIM ADJUDICATION INFORMATION
+
+       Function: To provide adjudication information for all
+                 services in a health care claim.
+
+010    E206 OBJECT IDENTIFICATION                      M    3
+       7402  Object identifier                         M      an..35
+       7405  Object identification code qualifier      C      an..3
+       4405  Status description code                   C      an..3
+
+020    E021 SERVICE                                    C    3
+       7135  Product identifier                        M      an..35
+       1131  Code list identification code             C      an..17
+       9629  Procedure modification code               C      an..3
+       9629  Procedure modification code               C      an..3
+       9629  Procedure modification code               C      an..3
+       9629  Procedure modification code               C      an..3
+
+030    1229 ACTION CODE                                C    1 an..3
+
+040    E017 MONETARY AMOUNT                            C   15
+       5025  Monetary amount type code qualifier       C      an..3
+       5004  Monetary amount                           C      n..35
+       6345  Currency identification code              C      an..3
+       6343  Currency type code qualifier              C      an..3
+       4405  Status description code                   C      an..3
+
+050    6060 QUANTITY                                   C    3 an..35
+
+060    E030 ADJUSTMENT INFORMATION                     C   15
+       9619  Adjustment category code                  M      an..3
+       4465  Adjustment reason description code        M      an..3
+       5004  Monetary amount                           C      n..35
+
+070    9620 POLICY LIMITATION IDENTIFIER               C    4 an..10
+
+080    5389 PRODUCT GROUP NAME CODE                    C    1 an..25
+
+090    E507 DATE/TIME/PERIOD                           C    1
+       2005  Date or time or period function code
+             qualifier                                 M      an..3
+       2380  Date or time or period text               C      an..35
+       2379  Date or time or period format code        C      an..3
+
+100    9639 DIAGNOSIS CATEGORY CODE                    C    1 an..3
+
+110    5482 PERCENTAGE                                 C    1 n..10
+
+----------------------------------------------------------------------
+
+       ADS  ADDRESS
+
+       Function: To specify an address.
+
+010    E817 ADDRESS USAGE                              C    1
+       3299  Address purpose code                      C      an..3
+       3131  Address type code                         C      an..3
+       3475  Address status code                       C      an..3
+
+020    E001 ADDRESS DETAILS                            C    1
+       3477  Address format code                       M      an..3
+       3286  Address component description             M      an..70
+       3286  Address component description             C      an..70
+       3286  Address component description             C      an..70
+       3286  Address component description             C      an..70
+       3286  Address component description             C      an..70
+       3286  Address component description             C      an..70
+
+030    3164 CITY NAME                                  C    1 an..35
+
+040    3251 POSTAL IDENTIFICATION CODE                 C    1 an..17
+
+050    3207 COUNTRY IDENTIFIER                         C    1 an..3
+
+060    E819 COUNTRY SUB-ENTITY DETAILS                 C    1
+       3229  Country subdivision identifier            C      an..9
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+       3228  Country subdivision name                  C      an..70
+
+070    E517 LOCATION IDENTIFICATION                    C    1
+       3225  Location identifier                       C      an..35
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+       3224  Location name                             C      an..256
+
+----------------------------------------------------------------------
+
+       ALS  ADDITIONAL LOCATION INFORMATION
+
+       Function: To specify the type of location, the actual
+                 location in coded and full name text, and the
+                 country code of the location.
+
+010    3227 LOCATION FUNCTION CODE QUALIFIER           M    1 an..3
+
+020    E975 LOCATION                                   M   99
+       3225  Location identifier                       C      an..35
+       3224  Location name                             C      an..256
+       3207  Country identifier                        C      an..3
+       3227  Location function code qualifier          C      an..3
+
+030    6000 LATITUDE DEGREE                            C    1 an..10
+
+040    6002 LONGITUDE DEGREE                           C    1 an..11
+
+----------------------------------------------------------------------
+
+       APD  ADDITIONAL TRANSPORT DETAILS
+
+       Function: To convey additional information concerning a
+                 means of transport.
+
+010    E961 TRANSPORT DETAILS                          C    1
+       8179  Transport means description code          C      an..8
+       8216  Journey stops quantity                    C      n..3
+       2162  Journey leg duration quantity             C      an..6
+       5482  Percentage                                C      n..10
+       2160  Days of week set identifier               C      an..7
+       2380  Date or time or period text               C      an..35
+       8215  Transport means change indicator code     C      an1
+       3225  Location identifier                       C      an..35
+       3225  Location identifier                       C      an..35
+       3225  Location identifier                       C      an..35
+
+020    E962 TERMINAL INFORMATION                       C    2
+       3463  Gate identifier                           C      an..6
+       3223  First related location identifier         C      an..35
+       3223  First related location identifier         C      an..35
+
+030    E963 DISTANCE OR TIME DETAILS                   C    1
+       6314  Measure                                   C      an..18
+       6411  Measurement unit code                     C      an..8
+       2002  Time                                      C      n4
+
+040    E964 TRAVELLER TIME DETAILS                     C    1
+       2002  Time                                      C      n4
+       2002  Time                                      C      n4
+       2156  Check-in time                             C      an..10
+
+050    E965 FACILITIES                                 C   10
+       9039  Facility type description code            C      an..3
+       9038  Facility type description                 C      an..70
+       7133  Product details type code qualifier       C      an..3
+       7037  Characteristic description code           C      an..17
+
+----------------------------------------------------------------------
+
+       ASD  SERVICE DETAILS
+
+       Function: To specify date, time, location and additional
+                 characteristic information related to a service.
+
+010    E959 ADDITIONAL SERVICE DETAILS                 M    9
+       7161  Special service description code          M      an..3
+       2002  Time                                      C      n4
+       2002  Time                                      C      n4
+       2000  Date                                      C      an..14
+       3224  Location name                             C      an..256
+       3225  Location identifier                       C      an..35
+       3227  Location function code qualifier          C      an..3
+       7037  Characteristic description code           C      an..17
+       3223  First related location identifier         C      an..35
+       3207  Country identifier                        C      an..3
+       7160  Special service description               C      an..35
+       7036  Characteristic description                C      an..35
+       1229  Action code                               C      an..3
+       3233  Second related location identifier        C      an..35
+       3453  Language name code                        C      an..3
+       6072  Frequency rate                            C      n..9
+       6411  Measurement unit code                     C      an..8
+       6060  Quantity                                  C      an..35
+       3036  Party name                                C      an..70
+
+020    E013 DATE AND TIME INFORMATION                  C   99
+       2005  Date or time or period function code
+             qualifier                                 M      an..3
+       2380  Date or time or period text               M      an..35
+       2379  Date or time or period format code        C      an..3
+       4440  Free text                                 C      an..512
+
+030    2160 DAYS OF WEEK SET IDENTIFIER                C    1 an..7
+
+----------------------------------------------------------------------
+
+       ATI  TOUR INFORMATION
+
+       Function: To convey information concerning a tour.
+
+010    E993 TOUR DETAILS                               C    1
+       7135  Product identifier                        C      an..35
+       3036  Party name                                C      an..70
+       6168  Length measure                            C      n..15
+       8216  Journey stops quantity                    C      n..3
+       2160  Days of week set identifier               C      an..7
+       6350  Units quantity                            C      n..15
+       6060  Quantity                                  C      an..35
+
+020    E994 STOPOVER INFORMATION                       C   99
+       3225  Location identifier                       C      an..35
+       6350  Units quantity                            C      n..15
+
+----------------------------------------------------------------------
+
+       ATR  ATTRIBUTE
+
+       Function: To identify a specific attribute.
+
+010    9017 ATTRIBUTE FUNCTION CODE QUALIFIER          M    1 an..3
+
+020    E003 ATTRIBUTE INFORMATION                      M    1
+       9021  Attribute type description code           M      an..17
+       9018  Attribute description                     C      an..256
+
+----------------------------------------------------------------------
+
+       BCD  BENEFIT AND COVERAGE DETAIL
+
+       Function: A segment to identify and provide information
+                 about benefit and coverage.
+
+010    5267 SERVICE TYPE CODE                          M    1 an..3
+
+020    7517 BENEFIT AND COVERAGE CODE                  M    1 an..3
+
+030    3507 BENEFIT COVERAGE CONSTITUENTS CODE         C    1 an..3
+
+040    2151 PERIOD TYPE CODE                           C    1 an..3
+
+050    E017 MONETARY AMOUNT                            C    1
+       5025  Monetary amount type code qualifier       C      an..3
+       5004  Monetary amount                           C      n..35
+       6345  Currency identification code              C      an..3
+       6343  Currency type code qualifier              C      an..3
+       4405  Status description code                   C      an..3
+
+060    5482 PERCENTAGE                                 C    1 n..10
+
+070    6063 QUANTITY TYPE CODE QUALIFIER               C    1 an..3
+
+080    6060 QUANTITY                                   C    1 an..35
+
+090    9607 YES OR NO INDICATOR CODE                   C    2 an..3
+
+100    4497 INSURANCE COVER TYPE CODE                  C    1 an..3
+
+110    4440 FREE TEXT                                  C    1 an..512
+
+----------------------------------------------------------------------
+
+       BLI  BILLABLE INFORMATION
+
+       Function: To provide billable information for a claim or
+                 encounter.
+
+010    5004 MONETARY AMOUNT                            C    3 n..35
+
+020    E029 DIAGNOSIS                                  C    9
+       7135  Product identifier                        M      an..35
+       9623  Diagnosis type code                       C      an..3
+       1131  Code list identification code             C      an..17
+
+030    E507 DATE/TIME/PERIOD                           C    9
+       2005  Date or time or period function code
+             qualifier                                 M      an..3
+       2380  Date or time or period text               C      an..35
+       2379  Date or time or period format code        C      an..3
+
+040    7402 OBJECT IDENTIFIER                          C    5 an..35
+
+050    9607 YES OR NO INDICATOR CODE                   C    3 an..3
+
+060    E028 RELATED CAUSE                              C    9
+       9625  Related cause code                        C      an..3
+       2000  Date                                      C      an..14
+       3229  Country subdivision identifier            C      an..9
+
+----------------------------------------------------------------------
+
+       CLT  CLEAR TERMINATE INFORMATION
+
+       Function: To specify information required to undo all or
+                 part of the previous actions in a business
+                 transaction.
+
+010    1229 ACTION CODE                                M    1 an..3
+
+020    1225 MESSAGE FUNCTION CODE                      C    2 an..3
+
+030    4440 FREE TEXT                                  C    1 an..512
+
+----------------------------------------------------------------------
+
+       CMN  COMMISSION INFORMATION
+
+       Function: To specify information about a commission.
+
+010    E002 COMMISSION DETAILS                         M    9
+       4439  Payment conditions code                   M      an..3
+       5004  Monetary amount                           C      n..35
+       6345  Currency identification code              C      an..3
+       3036  Party name                                C      an..70
+       4440  Free text                                 C      an..512
+       1229  Action code                               C      an..3
+
+----------------------------------------------------------------------
+
+       CNX  CONNECTION DETAILS
+
+       Function: To specify a connection location, the designated
+                 supplier, the associated times, and the travel
+                 venue sequence.
+
+010    E999 CONNECTION DETAILS                         C    9
+       3225  Location identifier                       C      an..35
+       3036  Party name                                C      an..70
+       2002  Time                                      C      n4
+       2002  Time                                      C      n4
+       3224  Location name                             C      an..256
+       3227  Location function code qualifier          C      an..3
+       3207  Country identifier                        C      an..3
+       1050  Sequence position identifier              C      an..10
+
+----------------------------------------------------------------------
+
+       CNY  COUNTRY INFORMATION
+
+       Function: To specify country and related information, i.e.
+                 date and time of summer or winter time
+                 transition and related time variation, currency
+                 and language(s).
+
+010    3207 COUNTRY IDENTIFIER                         M    1 an..3
+
+020    E013 DATE AND TIME INFORMATION                  C    2
+       2005  Date or time or period function code
+             qualifier                                 M      an..3
+       2380  Date or time or period text               M      an..35
+       2379  Date or time or period format code        C      an..3
+       4440  Free text                                 C      an..512
+
+030    2031 TIME VARIATION QUANTITY                    C    2 n..3
+
+040    6345 CURRENCY IDENTIFICATION CODE               C    1 an..3
+
+050    3453 LANGUAGE NAME CODE                         C    9 an..3
+
+----------------------------------------------------------------------
+
+       CON  CONTACT INFORMATION
+
+       Function: To specify contact communication numbers and
+                 names.
+
+010    E966 CONTACT INFORMATION                        C   20
+       3035  Party function code qualifier             M      an..3
+       3148  Communication address identifier          M      an..512
+       3153  Communication medium type code            C      an..3
+       3036  Party name                                C      an..70
+       1154  Reference identifier                      C      an..70
+
+----------------------------------------------------------------------
+
+       CRI  CONSUMER REFERENCE INFORMATION
+
+       Function: To specify consumer reference information.
+
+010    E967 CONSUMER REFERENCE IDENTIFICATION          M   20
+       1153  Reference code qualifier                  M      an..3
+       1154  Reference identifier                      C      an..70
+       3036  Party name                                C      an..70
+       1145  Traveller reference identifier            C      an..35
+
+----------------------------------------------------------------------
+
+       CUR  CURRENCIES
+
+       Function: To specify currencies used in the transaction
+                 and relevant details for the rate of exchange.
+
+010    E504 CURRENCY DETAILS                           C    1
+       6347  Currency usage code qualifier             M      an..3
+       6345  Currency identification code              C      an..3
+       6343  Currency type code qualifier              C      an..3
+       6348  Currency rate                             C      n..4
+
+020    E504 CURRENCY DETAILS                           C    1
+       6347  Currency usage code qualifier             M      an..3
+       6345  Currency identification code              C      an..3
+       6343  Currency type code qualifier              C      an..3
+       6348  Currency rate                             C      n..4
+
+030    5402 CURRENCY EXCHANGE RATE                     C    1 n..12
+
+040    6341 EXCHANGE RATE CURRENCY MARKET IDENTIFIER   C    1 an..3
+
+----------------------------------------------------------------------
+
+       DAV  DAILY AVAILABILITY
+
+       Function: To specify availability on a daily basis.
+
+010    7037 CHARACTERISTIC DESCRIPTION CODE            M    1 an..17
+
+020    E009 DAILY AVAILABILITY INFORMATION             M   31
+       2000  Date                                      M      an..14
+       4510  Requested information description         C      an..35
+
+----------------------------------------------------------------------
+
+       DIS  DISCOUNT INFORMATION
+
+       Function: To specify information about discounts.
+
+010    E998 DISCOUNT INFORMATION                       M   20
+       4465  Adjustment reason description code        M      an..3
+       5482  Percentage                                C      n..10
+       3036  Party name                                C      an..70
+       6350  Units quantity                            C      n..15
+
+----------------------------------------------------------------------
+
+       DNT  DENTAL INFORMATION
+
+       Function: To provide specific tooth and oral cavity
+                 information.
+
+010    7402 OBJECT IDENTIFIER                          C    1 an..35
+
+020    7383 SURFACE OR LAYER CODE                      C    5 an..3
+
+030    9647 CAVITY ZONE CODE                           C    5 an..3
+
+040    6060 QUANTITY                                   C    6 an..35
+
+050    4405 STATUS DESCRIPTION CODE                    C    1 an..3
+
+----------------------------------------------------------------------
+
+       DTI  DATE AND TIME INFORMATION
+
+       Function: To specify dates and times, related text and
+                 time references.
+
+010    E013 DATE AND TIME INFORMATION                  M    9
+       2005  Date or time or period function code
+             qualifier                                 M      an..3
+       2380  Date or time or period text               M      an..35
+       2379  Date or time or period format code        C      an..3
+       4440  Free text                                 C      an..512
+
+020    E014 TIME REFERENCE DETAILS                     C   99
+       1154  Reference identifier                      C      an..70
+       1153  Reference code qualifier                  C      an..3
+
+----------------------------------------------------------------------
+
+       ERI  APPLICATION ERROR INFORMATION
+
+       Function: To identify the type of application error within
+                 a message.
+
+010    E901 APPLICATION ERROR DETAILS                  M    1
+       9321  Application error code                    M      an..8
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+
+----------------------------------------------------------------------
+
+       FRM  FOLLOW-UP ACTION
+
+       Function: To identify a follow-up action that should
+                 occur.
+
+010    7402 OBJECT IDENTIFIER                          M    1 an..35
+
+020    9013 STATUS REASON DESCRIPTION CODE             M    7 an..3
+
+030    1229 ACTION CODE                                C    1 an..3
+
+----------------------------------------------------------------------
+
+       FRQ  FREQUENCY
+
+       Function: To specify a frequency and the time window in
+                 which it applies.
+
+010    E520 FREQUENCY                                  M   99
+       6072  Frequency rate                            M      n..9
+       6411  Measurement unit code                     C      an..8
+       2380  Date or time or period text               C      an..35
+       2379  Date or time or period format code        C      an..3
+
+----------------------------------------------------------------------
+
+       FTI  FREQUENT TRAVELLER INFORMATION
+
+       Function: To specify frequent traveller information.
+
+010    E970 FREQUENT TRAVELLER IDENTIFICATION          M    9
+       3036  Party name                                M      an..70
+       3459  Frequent traveller identifier             M      an..25
+       1145  Traveller reference identifier            C      an..35
+
+----------------------------------------------------------------------
+
+       HDI  HARDWARE DEVICE INFORMATION
+
+       Function: To specify a hardware device line number, level
+                 of access, type and characteristics of the
+                 device.
+
+010    3148 COMMUNICATION ADDRESS IDENTIFIER           C    1 an..512
+
+020    3413 CONTACT IDENTIFIER                         C    1 an..17
+
+030    1511 COMPUTER ENVIRONMENT NAME CODE             C    1 an..3
+
+040    E003 ATTRIBUTE INFORMATION                      C    9
+       9021  Attribute type description code           M      an..17
+       9018  Attribute description                     C      an..256
+
+----------------------------------------------------------------------
+
+       HDR  HEADER INFORMATION
+
+       Function: To specify header information applicable to the
+                 entire message.
+
+010    4405 STATUS DESCRIPTION CODE                    M    1 an..3
+
+020    E013 DATE AND TIME INFORMATION                  M    4
+       2005  Date or time or period function code
+             qualifier                                 M      an..3
+       2380  Date or time or period text               M      an..35
+       2379  Date or time or period format code        C      an..3
+       4440  Free text                                 C      an..512
+
+030    1154 REFERENCE IDENTIFIER                       C    1 an..70
+
+040    4440 FREE TEXT                                  C    1 an..512
+
+050    7135 PRODUCT IDENTIFIER                         C    2 an..35
+
+060    3453 LANGUAGE NAME CODE                         C    1 an..3
+
+----------------------------------------------------------------------
+
+       HDS  HEALTH DIAGNOSIS SERVICE AND DELIVERY
+
+       Function: A segment to provide specific information about
+                 covered benefit services, which is used to
+                 report a diagnosis to show necessity, the
+                 service or procedure being requested or
+                 provided, and service delivery instructions.
+
+010    E029 DIAGNOSIS                                  C    1
+       7135  Product identifier                        M      an..35
+       9623  Diagnosis type code                       C      an..3
+       1131  Code list identification code             C      an..17
+
+020    E021 SERVICE                                    C    1
+       7135  Product identifier                        M      an..35
+       1131  Code list identification code             C      an..17
+       9629  Procedure modification code               C      an..3
+       9629  Procedure modification code               C      an..3
+       9629  Procedure modification code               C      an..3
+       9629  Procedure modification code               C      an..3
+
+030    E083 DELIVERY PATTERN                           C    1
+       6063  Quantity type code qualifier              M      an..3
+       6060  Quantity                                  C      an..35
+       6411  Measurement unit code                     C      an..8
+       6060  Quantity                                  C      an..35
+       2151  Period type code                          C      an..3
+       2152  Period count quantity                     C      n..3
+       2015  Despatch pattern code                     C      an..3
+       2017  Despatch pattern timing code              C      an..3
+
+----------------------------------------------------------------------
+
+       ICI  INSURANCE COVER INFORMATION
+
+       Function: To specify a type of insurance, if it is
+                 required, and the coverage, limit, and
+                 deductible amounts.
+
+010    E016 INSURANCE COVER REQUIREMENT                M    1
+       4497  Insurance cover type code                 M      an..3
+       7299  Requirement designator code               C      an..3
+
+020    E017 MONETARY AMOUNT                            C    5
+       5025  Monetary amount type code qualifier       C      an..3
+       5004  Monetary amount                           C      n..35
+       6345  Currency identification code              C      an..3
+       6343  Currency type code qualifier              C      an..3
+       4405  Status description code                   C      an..3
+
+----------------------------------------------------------------------
+
+       IFT  INTERACTIVE FREE TEXT
+
+       Function: To provide free form information.
+
+010    E971 FREE TEXT QUALIFICATION                    C    1
+       4451  Text subject code qualifier               M      an..3
+       4473  Information type code                     C      an..4
+       4405  Status description code                   C      an..3
+       3036  Party name                                C      an..70
+       3453  Language name code                        C      an..3
+
+020    4440 FREE TEXT                                  C   99 an..512
+
+----------------------------------------------------------------------
+
+       ITC  INSTITUTIONAL CLAIM
+
+       Function: To provide specific claim information for
+                 services performed while admitted to an
+                 institution.
+
+010    E027 INVOICE TYPE                               M    1
+       9631  Invoice type code                         M      an..3
+       2013  Frequency code                            C      an..3
+
+020    6060 QUANTITY                                   M    4 an..35
+
+030    E026 ADMISSION                                  M    1
+       9445  Admission type description code           C      an..3
+       9627  Admission source code                     C      an..3
+
+040    9447 DISCHARGE TYPE DESCRIPTION CODE            M    1 an..3
+
+050    E025 BASIS OF SERVICE INFORMATION               C    9
+       9641  Service basis code qualifier              M      an..3
+       7135  Product identifier                        M      an..35
+       1131  Code list identification code             C      an..17
+       2380  Date or time or period text               C      an..35
+       2379  Date or time or period format code        C      an..3
+       5004  Monetary amount                           C      n..35
+
+----------------------------------------------------------------------
+
+       ITD  INFORMATION TYPE DATA
+
+       Function: To indicate the category of data, the language,
+                 and the format of the data.
+
+010    9601 INFORMATION CATEGORY CODE                  C    1 an..3
+
+020    3453 LANGUAGE NAME CODE                         C    1 an..3
+
+030    4405 STATUS DESCRIPTION CODE                    C   10 an..3
+
+040    1503 DATA FORMAT DESCRIPTION CODE               C    1 an..3
+
+----------------------------------------------------------------------
+
+       ITM  ITEM NUMBER
+
+       Function: To specify an item number.
+
+010    E212 ITEM NUMBER IDENTIFICATION                 C   99
+       7140  Item identifier                           C      an..35
+       7143  Item type identification code             C      an..3
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+
+----------------------------------------------------------------------
+
+       LKP  LEVEL INDICATION
+
+       Function: To indicate a level in a hierarchical structure.
+
+010    E778 POSITION IDENTIFICATION                    M    1
+       7164  Hierarchical structure level identifier   C      an..35
+       1050  Sequence position identifier              C      an..10
+
+----------------------------------------------------------------------
+
+       LNG  LANGUAGE
+
+       Function: To specify a language.
+
+010    3455 LANGUAGE CODE QUALIFIER                    M    1 an..3
+
+020    E033 LANGUAGE DETAILS                           C    1
+       3453  Language name code                        C      an..3
+       3452  Language name                             C      an..35
+
+----------------------------------------------------------------------
+
+       MAP  MESSAGE APPLICATION PRODUCT INFORMATION
+
+       Function: To indicate the instruction, the applicable
+                 supplier, and the message functions and
+                 applications affected.
+
+010    E022 INSTRUCTION INFORMATION                    C    1
+       4401  Instruction description code              M      an..3
+       4403  Instruction type code qualifier           C      an..3
+
+020    3036 PARTY NAME                                 C    1 an..70
+
+030    E031 MESSAGE APPLICATION PRODUCT SPECIFICATION  C    1
+       1225  Message function code                     C      an..3
+       7191  Process description code                  C      an..17
+       7191  Process description code                  C      an..17
+
+----------------------------------------------------------------------
+
+       MES  MEASUREMENTS
+
+       Function: To specify physical measurements.
+
+010    E175 MEASUREMENT VALUE AND DETAILS              M    9
+       6314  Measure                                   M      an..18
+       6411  Measurement unit code                     C      an..8
+       6313  Measured attribute code                   C      an..3
+       6321  Measurement significance code             C      an..3
+
+----------------------------------------------------------------------
+
+       MOV  CAR DELIVERY INSTRUCTION
+
+       Function: To specify delivery and chauffeur drive details,
+                 including number of passengers and language of
+                 passengers for a car.
+
+010    E995 MOVEMENT DETAILS                           C    1
+       7273  Service requirement code                  C      an..3
+       2000  Date                                      C      an..14
+       2002  Time                                      C      n4
+
+020    6350 UNITS QUANTITY                             C    1 n..15
+
+030    3453 LANGUAGE NAME CODE                         C    1 an..3
+
+----------------------------------------------------------------------
+
+       MSD  MESSAGE ACTION DETAILS
+
+       Function: To specify the message and business function and
+                 to provide a tracking mechanism.
+
+010    E972 MESSAGE PROCESSING DETAILS                 C    1
+       4025  Business function code                    C      an..3
+       1225  Message function code                     C      an..3
+       3055  Code list responsible agency code         C      an..3
+       1225  Message function code                     C      an..3
+       1225  Message function code                     C      an..3
+       1225  Message function code                     C      an..3
+       1225  Message function code                     C      an..3
+       1225  Message function code                     C      an..3
+       1225  Message function code                     C      an..3
+       1225  Message function code                     C      an..3
+       1225  Message function code                     C      an..3
+       1225  Message function code                     C      an..3
+
+020    4343 RESPONSE TYPE CODE                         C    5 an..3
+
+030    E206 OBJECT IDENTIFICATION                      C    5
+       7402  Object identifier                         M      an..35
+       7405  Object identification code qualifier      C      an..3
+       4405  Status description code                   C      an..3
+
+----------------------------------------------------------------------
+
+       NAA  NAME AND ADDRESS
+
+       Function: To specify the name/address and their related
+                 function, either by E082 only and/or
+                 unstructured by E058 or structured by E080
+                 through 3207.
+
+010    3035 PARTY FUNCTION CODE QUALIFIER              M    1 an..3
+
+020    E082 PARTY IDENTIFICATION DETAILS               C    1
+       3039  Party identifier                          M      an..35
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+
+030    3124 NAME AND ADDRESS DESCRIPTION               C    5 an..35
+
+040    E080 PARTY NAME                                 C    1
+       3036  Party name                                M      an..70
+       3036  Party name                                C      an..70
+       3036  Party name                                C      an..70
+       3036  Party name                                C      an..70
+       3036  Party name                                C      an..70
+       3045  Party name format code                    C      an..3
+
+050    3042 STREET AND NUMBER OR POST OFFICE BOX
+            IDENTIFIER                                 C    1 an..35
+
+060    3164 CITY NAME                                  C    1 an..35
+
+070    3229 COUNTRY SUBDIVISION IDENTIFIER             C    1 an..9
+
+080    3251 POSTAL IDENTIFICATION CODE                 C    1 an..17
+
+090    3207 COUNTRY IDENTIFIER                         C    1 an..3
+
+----------------------------------------------------------------------
+
+       NME  NAME
+
+       Function: To identify the name of a person or entity.
+
+010    E012 NAME INFORMATION                           M    9
+       3035  Party function code qualifier             M      an..3
+       3036  Party name                                C      an..70
+       3039  Party identifier                          C      an..35
+       3397  Name status code                          C      an..3
+
+----------------------------------------------------------------------
+
+       NUN  NUMBER OF UNITS
+
+       Function: To specify the number of units required.
+
+010    E523 NUMBER OF UNIT DETAILS                     M    9
+       6350  Units quantity                            C      n..15
+       6353  Unit type code qualifier                  C      an..3
+
+----------------------------------------------------------------------
+
+       ODI  ORIGIN AND DESTINATION DETAILS
+
+       Function: To convey first the origin and then final
+                 destination of a journey.
+
+010    3225 LOCATION IDENTIFIER                        C    2 an..35
+
+020    1050 SEQUENCE POSITION IDENTIFIER               C    2 an..10
+
+----------------------------------------------------------------------
+
+       ODS  ADDITIONAL PRODUCT DETAILS
+
+       Function: To specify additional details including the
+                 types of product data, the actual data, the
+                 number available, and the charges for usage.
+
+010    9605 DATA CODE QUALIFIER                        M    1 an..3
+
+020    E015 PRODUCT DATA INFORMATION                   M  999
+       7009  Item description code                     C      an..17
+       7008  Item description                          C      an..256
+       6060  Quantity                                  C      an..35
+       5004  Monetary amount                           C      n..35
+       2155  Charge period type code                   C      an..3
+       5261  Charge unit code                          C      an..3
+       6345  Currency identification code              C      an..3
+       4473  Information type code                     C      an..4
+       4440  Free text                                 C      an..512
+
+----------------------------------------------------------------------
+
+       ORG  ORIGINATOR OF REQUEST DETAILS
+
+       Function: To provide the originator of request details.
+
+010    E973 DELIVERING SYSTEM DETAILS                  C    1
+       3036  Party name                                C      an..70
+       3225  Location identifier                       C      an..35
+       3224  Location name                             C      an..256
+
+020    E974 ORIGINATOR IDENTIFICATION DETAILS          C    1
+       3197  Agent identifier                          C      an..9
+       3465  In-house identifier                       C      an..9
+       3197  Agent identifier                          C      an..9
+       3036  Party name                                C      an..70
+
+030    E975 LOCATION                                   C    1
+       3225  Location identifier                       C      an..35
+       3224  Location name                             C      an..256
+       3207  Country identifier                        C      an..3
+       3227  Location function code qualifier          C      an..3
+
+040    3036 PARTY NAME                                 C    1 an..70
+
+050    3457 ORIGINATOR TYPE CODE                       C    1 an..3
+
+060    E976 ORIGINATOR DETAILS                         C    1
+       3207  Country identifier                        C      an..3
+       6345  Currency identification code              C      an..3
+       3453  Language name code                        C      an..3
+
+070    3503 ACCESS AUTHORISATION IDENTIFIER            C    1 an..9
+
+----------------------------------------------------------------------
+
+       OTI  OTHER INSURANCE
+
+       Function: To provide payer, insured, and payment
+                 information when benefits are being coordinated
+                 between third party benefit carriers.
+
+010    E206 OBJECT IDENTIFICATION                      M    5
+       7402  Object identifier                         M      an..35
+       7405  Object identification code qualifier      C      an..3
+       4405  Status description code                   C      an..3
+
+020    9645 PAYER RESPONSIBILITY LEVEL CODE            M    1 an..3
+
+030    E507 DATE/TIME/PERIOD                           C    2
+       2005  Date or time or period function code
+             qualifier                                 M      an..3
+       2380  Date or time or period text               C      an..35
+       2379  Date or time or period format code        C      an..3
+
+040    5267 SERVICE TYPE CODE                          C   10 an..3
+
+050    5004 MONETARY AMOUNT                            C    4 n..35
+
+060    E030 ADJUSTMENT INFORMATION                     C   15
+       9619  Adjustment category code                  M      an..3
+       4465  Adjustment reason description code        M      an..3
+       5004  Monetary amount                           C      n..35
+
+070    4497 INSURANCE COVER TYPE CODE                  C    1 an..3
+
+080    9143 RELATIONSHIP DESCRIPTION CODE              C    1 an..3
+
+090    9607 YES OR NO INDICATOR CODE                   C    1 an..3
+
+----------------------------------------------------------------------
+
+       PDT  PRODUCT INFORMATION
+
+       Function: To specify details related to a product such as
+                 configuration and availability.
+
+010    7133 PRODUCT DETAILS TYPE CODE QUALIFIER        C    1 an..3
+
+020    E996 PRODUCT CLASS DETAILS                      C   26
+       7037  Characteristic description code           C      an..17
+       4510  Requested information description         C      an..35
+       7161  Special service description code          C      an..3
+       7009  Item description code                     C      an..17
+       7009  Item description code                     C      an..17
+       7009  Item description code                     C      an..17
+       7139  Product characteristic identification
+             code                                      C      an..3
+
+----------------------------------------------------------------------
+
+       PLI  PRODUCT LOCATION INFORMATION
+
+       Function: To specify product location information.
+
+010    E008 GEOGRAPHIC DETAILS                         M   99
+       3227  Location function code qualifier          M      an..3
+       3224  Location name                             M      an..256
+       5479  Relation code                             C      an..3
+       6060  Quantity                                  C      an..35
+       6063  Quantity type code qualifier              C      an..3
+       2002  Time                                      C      n4
+       8179  Transport means description code          C      an..8
+       8179  Transport means description code          C      an..8
+       8179  Transport means description code          C      an..8
+       8179  Transport means description code          C      an..8
+       8179  Transport means description code          C      an..8
+       6000  Latitude degree                           C      an..10
+       6002  Longitude degree                          C      an..11
+
+----------------------------------------------------------------------
+
+       PMT  PAYMENT INFORMATION
+
+       Function: To specify information concerning the payment.
+
+010    E977 PAYMENT DETAILS                            C   99
+       4467  Payment method code                       C      an..4
+       4469  Payment purpose code                      C      an..4
+       5267  Service type code                         C      an..3
+       5004  Monetary amount                           C      n..35
+       6345  Currency identification code              C      an..3
+       1154  Reference identifier                      C      an..70
+       2000  Date                                      C      an..14
+       3225  Location identifier                       C      an..35
+
+020    E978 CREDIT CARD INFORMATION                    C   99
+       3036  Party name                                M      an..70
+       1154  Reference identifier                      C      an..70
+       2000  Date                                      C      an..14
+       3449  Bank identifier                           C      an..17
+       1145  Traveller reference identifier            C      an..35
+
+----------------------------------------------------------------------
+
+       POP  PERIOD OF OPERATION
+
+       Function: To specify date or time period with days of
+                 operation.
+
+010    E013 DATE AND TIME INFORMATION                  M    1
+       2005  Date or time or period function code
+             qualifier                                 M      an..3
+       2380  Date or time or period text               M      an..35
+       2379  Date or time or period format code        C      an..3
+       4440  Free text                                 C      an..512
+
+020    2160 DAYS OF WEEK SET IDENTIFIER                C    1 an..7
+
+030    4405 STATUS DESCRIPTION CODE                    C    1 an..3
+
+----------------------------------------------------------------------
+
+       POR  LOCATION AND/OR RELATED TIME INFORMATION
+
+       Function: To provide information about a location, related
+                 times and sub-locations.
+
+010    E517 LOCATION IDENTIFICATION                    M    1
+       3225  Location identifier                       C      an..35
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+       3224  Location name                             C      an..256
+
+020    E362 RELATED TIME INFORMATION                   C    2
+       2002  Time                                      C      n4
+       2002  Time                                      C      n4
+       2116  Time zone difference quantity             C      n..4
+       2148  Date variation number                     C      n..5
+
+030    E992 POSITION                                   C    2
+       3223  First related location identifier         C      an..35
+       3233  Second related location identifier        C      an..35
+
+040    3227 LOCATION FUNCTION CODE QUALIFIER           C    1 an..3
+
+050    1050 SEQUENCE POSITION IDENTIFIER               C    1 an..10
+
+----------------------------------------------------------------------
+
+       POS  POINT OF SALE INFORMATION
+
+       Function: To specify point of sale information by party
+                 identification or location identification.
+
+010    E032 PARTY IDENTIFICATION                       C  999
+       3039  Party identifier                          C      an..35
+       3035  Party function code qualifier             C      an..3
+
+020    E975 LOCATION                                   C  999
+       3225  Location identifier                       C      an..35
+       3224  Location name                             C      an..256
+       3207  Country identifier                        C      an..3
+       3227  Location function code qualifier          C      an..3
+
+----------------------------------------------------------------------
+
+       PRD  PRODUCT IDENTIFICATION
+
+       Function: To identify a product.
+
+010    E989 PRODUCT IDENTIFICATION DETAILS             C    9
+       7135  Product identifier                        C      an..35
+       7037  Characteristic description code           C      an..17
+       7139  Product characteristic identification
+             code                                      C      an..3
+       7009  Item description code                     C      an..17
+       7009  Item description code                     C      an..17
+       7009  Item description code                     C      an..17
+       7134  Product name                              C      an..35
+
+020    3036 PARTY NAME                                 C    6 an..70
+
+----------------------------------------------------------------------
+
+       PRE  PRICE DETAILS
+
+       Function: To specify price information.
+
+010    E018 PRICE INFORMATION                          C   20
+       5125  Price code qualifier                      M      an..3
+       5118  Price amount                              C      n..15
+       5375  Price type code                           C      an..3
+
+020    5213 SUB-LINE ITEM PRICE CHANGE OPERATION CODE  C    1 an..3
+
+----------------------------------------------------------------------
+
+       PRO  PROMOTIONS
+
+       Function: To specify the promotion details.
+
+010    E019 PROMOTION DETAILS                          M   20
+       3036  Party name                                M      an..70
+       9607  Yes or no indicator code                  C      an..3
+       1154  Reference identifier                      C      an..70
+       4440  Free text                                 C      an..512
+       4440  Free text                                 C      an..512
+       4440  Free text                                 C      an..512
+       4440  Free text                                 C      an..512
+       4440  Free text                                 C      an..512
+
+----------------------------------------------------------------------
+
+       PRT  PARTY INFORMATION
+
+       Function: To provide specific identification number and
+                 demographic information regarding the identity
+                 of the participating parties.
+
+010    3035 PARTY FUNCTION CODE QUALIFIER              M    1 an..3
+
+020    E206 OBJECT IDENTIFICATION                      C    9
+       7402  Object identifier                         M      an..35
+       7405  Object identification code qualifier      C      an..3
+       4405  Status description code                   C      an..3
+
+030    2000 DATE                                       C    3 an..14
+
+040    E023 PARTY DEMOGRAPHIC INFORMATION              C    1
+       9143  Relationship description code             C      an..3
+       3499  Gender code                               C      an..3
+       9005  Employment category description code      C      an..3
+       3479  Marital status description code           C      an..3
+       4405  Status description code                   C      an..3
+       9607  Yes or no indicator code                  C      an..3
+
+----------------------------------------------------------------------
+
+       PSI  SERVICE INFORMATION
+
+       Function: To provide detail information about the service.
+
+010    7402 OBJECT IDENTIFIER                          M    4 an..35
+
+020    E507 DATE/TIME/PERIOD                           C    5
+       2005  Date or time or period function code
+             qualifier                                 M      an..3
+       2380  Date or time or period text               C      an..35
+       2379  Date or time or period format code        C      an..3
+
+030    E021 SERVICE                                    C    1
+       7135  Product identifier                        M      an..35
+       1131  Code list identification code             C      an..17
+       9629  Procedure modification code               C      an..3
+       9629  Procedure modification code               C      an..3
+       9629  Procedure modification code               C      an..3
+       9629  Procedure modification code               C      an..3
+
+040    6060 QUANTITY                                   C    2 an..35
+
+050    5004 MONETARY AMOUNT                            C    5 n..35
+
+060    5030 INDEX TEXT                                 C    4 an..35
+
+070    9039 FACILITY TYPE DESCRIPTION CODE             C    1 an..3
+
+080    5267 SERVICE TYPE CODE                          C    1 an..3
+
+090    4183 SPECIAL CONDITION CODE                     C    9 an..3
+
+100    E024 SUPPORTING EVIDENCE                        C    1
+       9643  Supporting evidence type code qualifier   M      an..3
+       1154  Reference identifier                      M      an..70
+       3153  Communication medium type code            C      an..3
+
+----------------------------------------------------------------------
+
+       QTI  QUANTITY
+
+       Function: To convey information about a quantity.
+
+010    E035 QUANTITY DETAILS                           M    9
+       6063  Quantity type code qualifier              M      an..3
+       6060  Quantity                                  M      an..35
+       6411  Measurement unit code                     C      an..8
+
+----------------------------------------------------------------------
+
+       RCI  RESERVATION CONTROL INFORMATION
+
+       Function: To specify a reference to a reservation.
+
+010    E979 RESERVATION CONTROL INFORMATION            C   99
+       3036  Party name                                C      an..70
+       9040  Reservation identifier                    C      an..20
+       9043  Reservation identifier code qualifier     C      an..3
+       2000  Date                                      C      an..14
+       2164  Millisecond time                          C      n9
+       1154  Reference identifier                      C      an..70
+       4465  Adjustment reason description code        C      an..3
+
+----------------------------------------------------------------------
+
+       RFR  REFERENCE
+
+       Function: To specify a reference.
+
+010    E506 REFERENCE                                  M    1
+       1153  Reference code qualifier                  M      an..3
+       1154  Reference identifier                      C      an..70
+       1156  Document line identifier                  C      an..6
+       3036  Party name                                C      an..70
+
+----------------------------------------------------------------------
+
+       RLS  RELATIONSHIP
+
+       Function: To identify relationships between objects.
+
+010    9141 RELATIONSHIP TYPE CODE QUALIFIER           M    1 an..3
+
+020    E941 RELATIONSHIP                               C    1
+       9143  Relationship description code             C      an..3
+       1131  Code list identification code             C      an..17
+       3055  Code list responsible agency code         C      an..3
+       9142  Relationship description                  C      an..35
+
+----------------------------------------------------------------------
+
+       RPI  QUANTITY AND ACTION DETAILS
+
+       Function: To indicate quantity and action required in
+                 relation to a product.
+
+010    E958 QUANTITY AND ACTION DETAILS                M    9
+       6060  Quantity                                  C      an..35
+       4405  Status description code                   C      an..3
+
+----------------------------------------------------------------------
+
+       RTC  RATE TYPES
+
+       Function: To specify the types of rates.
+
+010    5263 RATE TYPE IDENTIFIER                       M   99 an..20
+
+----------------------------------------------------------------------
+
+       RTI  RATE DETAILS
+
+       Function: To identify a rate and to indicate how it should
+                 be processed.
+
+010    E011 RATE CLASS DETAILS                         M   99
+       5243  Rate or tariff class description code     M      an..9
+       7365  Processing indicator description code     C      an..3
+
+----------------------------------------------------------------------
+
+       RUL  RULE INFORMATION
+
+       Function: To specify rule information and rule status.
+
+010    E004 RULE DETAILS                               C   99
+       4183  Special condition code                    M      an..3
+       6350  Units quantity                            C      n..15
+       6353  Unit type code qualifier                  C      an..3
+       5479  Relation code                             C      an..3
+       2160  Days of week set identifier               C      an..7
+       5004  Monetary amount                           C      n..35
+       5025  Monetary amount type code qualifier       C      an..3
+       6345  Currency identification code              C      an..3
+       4440  Free text                                 C      an..512
+       4440  Free text                                 C      an..512
+       4440  Free text                                 C      an..512
+       4440  Free text                                 C      an..512
+       4440  Free text                                 C      an..512
+       4440  Free text                                 C      an..512
+       4440  Free text                                 C      an..512
+       4440  Free text                                 C      an..512
+       4440  Free text                                 C      an..512
+
+020    E005 RULE TEXT                                  C    9
+       4183  Special condition code                    M      an..3
+       4473  Information type code                     C      an..4
+       4440  Free text                                 C      an..512
+
+030    E006 RULE STATUS                                C    9
+       4183  Special condition code                    M      an..3
+       7365  Processing indicator description code     C      an..3
+
+       Note: 
+            The component 4440 - Free text value - occurs 20
+            times in composite E005 - Rule text.
+
+----------------------------------------------------------------------
+
+       SDT  SELECTION DETAILS
+
+       Function: To specify the details for making a selection.
+
+010    E010 SELECTION DETAILS INFORMATION              M   99
+       4009  Option code                               M      an..3
+       4018  Related information description           C      an..35
+
+----------------------------------------------------------------------
+
+       SER  FACILITY INFORMATION
+
+       Function: To provide facility information, followed by the
+                 period and days of operation.
+
+010    E965 FACILITIES                                 C   99
+       9039  Facility type description code            C      an..3
+       9038  Facility type description                 C      an..70
+       7133  Product details type code qualifier       C      an..3
+       7037  Characteristic description code           C      an..17
+
+020    1229 ACTION CODE                                C    1 an..3
+
+030    6350 UNITS QUANTITY                             C    1 n..15
+
+040    E013 DATE AND TIME INFORMATION                  C   99
+       2005  Date or time or period function code
+             qualifier                                 M      an..3
+       2380  Date or time or period text               M      an..35
+       2379  Date or time or period format code        C      an..3
+       4440  Free text                                 C      an..512
+
+050    2160 DAYS OF WEEK SET IDENTIFIER                C    1 an..7
+
+----------------------------------------------------------------------
+
+       SSR  SPECIAL REQUIREMENT DETAILS
+
+       Function: To specify special requirements on services, the
+                 quantity required, action to be taken and where
+                 the requirement should be administered.
+
+010    E980 SPECIAL REQUIREMENT TYPE DETAILS           M    1
+       4187  Special requirement type code             M      an..4
+       4405  Status description code                   C      an..3
+       6060  Quantity                                  C      an..35
+       3036  Party name                                C      an..70
+       7365  Processing indicator description code     C      an..3
+       3225  Location identifier                       C      an..35
+       3225  Location identifier                       C      an..35
+       7037  Characteristic description code           C      an..17
+
+020    E981 SPECIAL REQUIREMENT DETAILS                C  999
+       4184  Special requirement description           C      an..17
+       6411  Measurement unit code                     C      an..8
+       6060  Quantity                                  C      an..35
+       1145  Traveller reference identifier            C      an..35
+       7111  Characteristic value description code     C      an..3
+       7111  Characteristic value description code     C      an..3
+       7111  Characteristic value description code     C      an..3
+       7111  Characteristic value description code     C      an..3
+       7111  Characteristic value description code     C      an..3
+
+----------------------------------------------------------------------
+
+       TCE  TIME AND CERTAINTY
+
+       Function: To specify the time and certainty of an event.
+
+010    2380 DATE OR TIME OR PERIOD TEXT                C    1 an..35
+
+020    E946 CERTAINTY                                  C    1
+       4049  Certainty description code                C      an..3
+       4048  Certainty description                     C      an..35
+       3453  Language name code                        C      an..3
+       3055  Code list responsible agency code         C      an..3
+
+----------------------------------------------------------------------
+
+       TDI  TRAVELLER DOCUMENT INFORMATION
+
+       Function: To specify document information related to a
+                 traveller.
+
+010    E968 DOCUMENT INFORMATION                       M    1
+       1001  Document name code                        M      an..3
+       1004  Document identifier                       C      an..70
+       7111  Characteristic value description code     C      an..3
+       3225  Location identifier                       C      an..35
+       3207  Country identifier                        C      an..3
+       3207  Country identifier                        C      an..3
+       3164  City name                                 C      an..35
+
+020    E969 VALIDITY DATES                             C    1
+       2000  Date                                      M      an..14
+       2000  Date                                      C      an..14
+
+030    3500 FAMILY NAME                                C    1 an..70
+
+040    3460 GIVEN NAME                                 C   99 an..70
+
+----------------------------------------------------------------------
+
+       TFF  TARIFF INFORMATION
+
+       Function: To specify tariff details relating to a service
+                 or product.
+
+010    E982 TARIFF INFORMATION                         C   99
+       5263  Rate type identifier                      C      an..20
+       5004  Monetary amount                           C      n..35
+       6345  Currency identification code              C      an..3
+       5501  Rate plan code                            C      an..3
+       5025  Monetary amount type code qualifier       C      an..3
+       2152  Period count quantity                     C      n..3
+       5377  Price change type code                    C      an..3
+       5160  Total monetary amount                     C      n..20
+       2000  Date                                      C      an..14
+       2000  Date                                      C      an..14
+       4183  Special condition code                    C      an..3
+       6060  Quantity                                  C      an..35
+       4405  Status description code                   C      an..3
+
+020    E983 RATE INFORMATION                           C   99
+       5243  Rate or tariff class description code     C      an..9
+       6162  Range minimum quantity                    C      n..18
+       6152  Range maximum quantity                    C      n..18
+       7365  Processing indicator description code     C      an..3
+       6345  Currency identification code              C      an..3
+
+030    E984 ASSOCIATED CHARGES INFORMATION             C   99
+       5261  Charge unit code                          C      an..3
+       5004  Monetary amount                           C      n..35
+       7008  Item description                          C      an..256
+       6060  Quantity                                  C      an..35
+       2155  Charge period type code                   C      an..3
+       6345  Currency identification code              C      an..3
+       3225  Location identifier                       C      an..35
+       4440  Free text                                 C      an..512
+       4513  Maintenance operation code                C      an..3
+       7299  Requirement designator code               C      an..3
+       2018  Age                                       C      n..3
+       5482  Percentage                                C      n..10
+
+----------------------------------------------------------------------
+
+       TIF  TRAVELLER INFORMATION
+
+       Function: To specify traveller(s) and personal details.
+
+010    E985 TRAVELLER SURNAME AND RELATED INFORMATION  M    1
+       3500  Family name                               M      an..70
+       3035  Party function code qualifier             C      an..3
+       6060  Quantity                                  C      an..35
+       4405  Status description code                   C      an..3
+       3453  Language name code                        C      an..3
+
+020    E986 TRAVELLER DETAILS                          C   99
+       3460  Given name                                C      an..70
+       3035  Party function code qualifier             C      an..3
+       1145  Traveller reference identifier            C      an..35
+       3504  Given name title description              C      an..9
+       8219  Traveller accompanied by infant indicator
+             code                                      C      an1
+       3453  Language name code                        C      an..3
+       3499  Gender code                               C      an..3
+       2018  Age                                       C      n..3
+
+----------------------------------------------------------------------
+
+       TIZ  TIME ZONE INFORMATION
+
+       Function: To provide information about a time zone.
+
+010    E034 TIME ZONE                                  M    1
+       2029  Time zone identifier                      M      an..3
+       2116  Time zone difference quantity             C      n..4
+
+----------------------------------------------------------------------
+
+       TRF  TRAFFIC RESTRICTION DETAILS
+
+       Function: To provide details which restrict traffic.
+
+010    E007 TRAFFIC RESTRICTION DETAILS                M    5
+       8015  Traffic restriction code                  C      an..3
+       8017  Traffic restriction application code      C      an..3
+       8035  Traffic restriction type code qualifier   C      an..3
+       4440  Free text                                 C      an..512
+
+----------------------------------------------------------------------
+
+       TVL  TRAVEL PRODUCT INFORMATION
+
+       Function: To specify details related to a travel product.
+
+010    E987 PRODUCT DATE AND TIME                      C    1
+       2000  Date                                      C      an..14
+       2002  Time                                      C      n4
+       2000  Date                                      C      an..14
+       2002  Time                                      C      n4
+       2148  Date variation number                     C      n..5
+
+020    E975 LOCATION                                   C    2
+       3225  Location identifier                       C      an..35
+       3224  Location name                             C      an..256
+       3207  Country identifier                        C      an..3
+       3227  Location function code qualifier          C      an..3
+
+030    E988 COMPANY IDENTIFICATION                     C    1
+       3036  Party name                                M      an..70
+       3036  Party name                                C      an..70
+       3036  Party name                                C      an..70
+
+040    E989 PRODUCT IDENTIFICATION DETAILS             C    1
+       7135  Product identifier                        C      an..35
+       7037  Characteristic description code           C      an..17
+       7139  Product characteristic identification
+             code                                      C      an..3
+       7009  Item description code                     C      an..17
+       7009  Item description code                     C      an..17
+       7009  Item description code                     C      an..17
+       7134  Product name                              C      an..35
+
+050    E990 SEQUENCE NUMBER DETAILS                    C    1
+       1050  Sequence position identifier              M      an..10
+       1050  Sequence position identifier              C      an..10
+       1050  Sequence position identifier              C      an..10
+       1050  Sequence position identifier              C      an..10
+       1050  Sequence position identifier              C      an..10
+       1050  Sequence position identifier              C      an..10
+       1050  Sequence position identifier              C      an..10
+       1050  Sequence position identifier              C      an..10
+       1050  Sequence position identifier              C      an..10
+
+060    1082 LINE ITEM IDENTIFIER                       C    1 an..6
+
+070    7365 PROCESSING INDICATOR DESCRIPTION CODE      C    1 an..3
+
+----------------------------------------------------------------------
+
+       TXS  TAXES
+
+       Function: To specify tax details.
+
+010    E020 TAX DETAILS                                M   99
+       5153  Duty or tax or fee type name code         M      an..3
+       5004  Monetary amount                           C      n..35
+       5278  Duty or tax or fee rate                   C      an..17
+
+----------------------------------------------------------------------
+
+       VEH  VEHICLE
+
+       Function: To convey information about a vehicle.
+
+010    8053 EQUIPMENT TYPE CODE QUALIFIER              C    1 an..3
+
+020    E991 VEHICLE INFORMATION                        C    1
+       8154  Equipment size and type description       C      an..35
+       7402  Object identifier                         C      an..35
+
+030    E211 DIMENSIONS                                 C    1
+       6411  Measurement unit code                     M      an..8
+       6168  Length measure                            C      n..15
+       6140  Width measure                             C      n..15
+       6008  Height measure                            C      n..15
+
+040    6314 MEASURE                                    C    1 an..18
+
+050    E992 POSITION                                   C    1
+       3223  First related location identifier         C      an..35
+       3233  Second related location identifier        C      an..35
+
+060    1145 TRAVELLER REFERENCE IDENTIFIER             C    1 an..35

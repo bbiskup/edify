@@ -1,0 +1,218 @@
+PART 5    UNITED NATIONS DIRECTORIES FOR ELECTRONIC DATA INTERCHANGE
+          FOR ADMINISTRATION, COMMERCE AND TRANSPORT
+
+CHAPTER 4 Composite data element directory EDCD
+
+1.   Indexes
+
+1.1  Index of composites by alphanumeric sequence by tag
+
+     Change indicators
+
+     a plus sign (+)    for an addition
+     an asterisk (*)    for an amendment to structure
+     a hash sign (#)    for changes to names
+     a vertical bar (|) for changes to text for descriptions or
+                        notes
+     a letter X (X)     for marked for deletion
+
+    Tag  Name
+
+    C001 Transport means
+    C002 Document/message name
+    C003 Power type
+    C004 Event category
+    C008 Monetary amount function detail
+    C009 Information category
+    C010 Information type
+    C011 Information detail
+    C012 Processing indicator
+    C019 Payment terms
+    C030 Event type
+    C040 Carrier
+    C042 Nationality details
+    C045 Bill level identification
+    C049 Remuneration type identification
+    C056 Contact details
+    C058 Name and address
+    C059 Street
+    C063 Event identification
+    C076 Communication contact
+    C077 File identification
+    C078 Account holder identification
+    C079 Computer environment identification
+    C080 Party name
+    C082 Party identification details
+    C085 Marital status details
+    C088 Institution identification
+    C090 Address details
+    C099 File details
+    C100 Terms of delivery or transport
+    C101 Religion details
+    C106 Document/message identification
+    C107 Text reference
+    C108 Text literal
+    C128 Rate details
+    C138 Price multiplier information
+    C174 Value/range
+    C186 Quantity details
+    C200 Charge
+    C202 Package type
+    C203 Rate/tariff class
+    C205 Hazard code
+    C206 Identification number
+    C208 Identity number range
+    C210 Marks & labels
+    C211 Dimensions
+    C212 Item number identification
+    C213 Number and type of packages
+    C214 Special services identification
+    C215 Seal issuer
+    C218 Hazardous material
+    C219 Movement type
+    C220 Mode of transport
+    C222 Transport identification
+    C223 Dangerous goods shipment flashpoint
+    C224 Equipment size and type
+    C229 Charge category
+    C231 Method of payment
+    C232 Government action
+    C233 Service
+    C234 UNDG information
+    C235 Hazard identification placard details
+    C236 Dangerous goods label
+    C237 Equipment identification
+    C239 Temperature setting
+    C240 Characteristic description
+    C241 Duty/tax/fee type
+    C242 Process type and description
+    C243 Duty/tax/fee detail
+    C244 Test method
+    C246 Customs identity codes
+    C270 Control
+    C272 Item characteristic
+    C273 Item description
+    C279 Quantity difference information
+    C280 Range
+    C286 Sequence information
+    C288 Product group
+    C289 Tunnel Restriction
+    C329 Pattern description
+    C330 Insurance cover type
+    C331 Insurance cover details
+    C332 Sales channel identification
+    C333 Information request
+    C401 Excess transportation information
+    C402 Package type identification
+    C501 Percentage details
+    C502 Measurement details
+    C503 Document/message details
+    C504 Currency details
+    C506 Reference
+    C507 Date/time/period
+    C508 Language details
+    C509 Price information
+    C512 Size details
+    C514 Sample location details
+    C515 Test reason
+    C516 Monetary amount
+    C517 Location identification
+    C519 Related location one identification
+    C521 Business function
+    C522 Instruction
+    C523 Number of unit details
+    C524 Handling instructions
+    C525 Purpose of conveyance call
+    C526 Frequency details
+    C527 Statistical details
+    C528 Commodity/rate detail
+    C531 Packaging details
+    C532 Returnable package details
+    C533 Duty/tax/fee account detail
+    C534 Payment instruction details
+    C536 Contract and carriage condition
+    C537 Transport priority
+    C543 Agreement type identification
+    C545 Index identification
+    C546 Index value
+    C549 Monetary amount function
+    C550 Requirement/condition identification
+    C551 Bank operation
+    C552 Allowance/charge information
+    C553 Related location two identification
+    C554 Rate/tariff class detail
+    C555 Status
+    C556 Status reason
+    C564 Physical or logical state information
+    C585 Priority details
+    C593 Account identification
+    C595 Accounting journal identification
+    C596 Accounting entry type details
+    C601 Status category
+    C701 Error point details
+    C702 Code set identification
+    C703 Nature of cargo
+    C709 Message identifier
+    C770 Array cell details
+    C778 Position identification
+    C779 Array structure identification
+    C780 Value list identification
+    C782 Data set identification
+    C783 Footnote set identification
+    C784 Footnote identification
+    C785 Statistical concept identification
+    C786 Structure component identification
+    C811 Question details
+    C812 Response details
+    C814 Safety section
+    C815 Additional safety information
+    C816 Name component details
+    C817 Address usage
+    C818 Person inherited characteristic details
+    C819 Country subdivision details
+    C820 Premium calculation component
+    C821 Type of damage
+    C822 Damage area
+    C823 Type of unit/component
+    C824 Component material
+    C825 Damage severity
+    C826 Action
+    C827 Type of marking
+    C828 Clinical intervention details
+    C829 Sub-line information
+    C830 Process identification details
+    C831 Result details
+    C836 Clinical information details
+    C837 Certainty details
+    C838 Dosage details
+    C839 Attendee category
+    C840 Attendance admission details
+    C841 Attendance discharge details
+    C844 Organisation classification detail
+    C848 Measurement unit details
+    C849 Parties to instruction
+    C850 Status of instruction
+    C851 Risk object type
+    C852 Risk object sub-type
+    C853 Error segment point details
+    C878 Charge/allowance account
+    C889 Characteristic value
+    C901 Application error detail
+    C941 Relationship
+    C942 Membership category
+    C944 Membership status
+    C945 Membership level
+    C948 Employment category
+    C950 Qualification classification
+    C951 Occupation
+    C953 Contribution type
+    C955 Attribute type
+    C956 Attribute detail
+    C960 Reason for change
+    C961 Formula complexity
+    C970 Clause name
+    C971 Proviso type
+    C972 Proviso calculation
+    C973 Applicability type
+    C974 Basis type
+    C977 Period detail

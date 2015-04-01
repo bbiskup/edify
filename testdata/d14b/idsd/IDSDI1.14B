@@ -1,0 +1,97 @@
+PART 5    UNITED NATIONS DIRECTORIES FOR ELECTRONIC DATA INTERCHANGE
+          FOR ADMINISTRATION, COMMERCE AND TRANSPORT
+
+CHAPTER 3 Segment directory IDSD
+
+1.   Indexes
+
+1.1  Index of segments by alphabetical sequence by tag
+
+     Change indicators
+
+     a plus sign (+)    for an addition
+     an asterisk (*)    for an amendment to structure
+     a hash sign (#)    for changes to names
+     a vertical bar (|) for changes to text for functional
+                        descriptions or notes
+     a letter X (X)     for marked for deletion
+
+    Tag  Name
+
+    AAI  Accommodation allocation information
+    ADI  Health care claim adjudication information
+    ADS  Address
+    ALS  Additional location information
+    APD  Additional transport details
+    ASD  Service details
+    ATI  Tour information
+    ATR  Attribute
+    BCD  Benefit and coverage detail
+    BLI  Billable information
+    CLT  Clear terminate information
+    CMN  Commission information
+    CNX  Connection details
+    CNY  Country information
+    CON  Contact information
+    CRI  Consumer reference information
+    CUR  Currencies
+    DAV  Daily availability
+    DIS  Discount information
+    DNT  Dental information
+    DTI  Date and time information
+    ERI  Application error information
+    FRM  Follow-up action
+    FRQ  Frequency
+    FTI  Frequent traveller information
+    HDI  Hardware device information
+    HDR  Header information
+    HDS  Health diagnosis service and delivery
+    ICI  Insurance cover information
+    IFT  Interactive free text
+    ITC  Institutional claim
+    ITD  Information type data
+    ITM  Item number
+    LKP  Level indication
+    LNG  Language
+    MAP  Message application product information
+    MES  Measurements
+    MOV  Car delivery instruction
+    MSD  Message action details
+    NAA  Name and address
+    NME  Name
+    NUN  Number of units
+    ODI  Origin and destination details
+    ODS  Additional product details
+    ORG  Originator of request details
+    OTI  Other insurance
+    PDT  Product information
+    PLI  Product location information
+    PMT  Payment information
+    POP  Period of operation
+    POR  Location and/or related time information
+    POS  Point of sale information
+    PRD  Product identification
+    PRE  Price details
+    PRO  Promotions
+    PRT  Party information
+    PSI  Service information
+    QTI  Quantity
+    RCI  Reservation control information
+    RFR  Reference
+    RLS  Relationship
+    RPI  Quantity and action details
+    RTC  Rate types
+    RTI  Rate details
+    RUL  Rule information
+    SDT  Selection details
+    SER  Facility information
+    SSR  Special requirement details
+    TCE  Time and certainty
+    TDI  Traveller document information
+    TFF  Tariff information
+    TIF  Traveller information
+    TIZ  Time zone information
+    TRF  Traffic restriction details
+    TVL  Travel product information
+    TXS  Taxes
+    VEH  Vehicle

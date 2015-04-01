@@ -1,0 +1,1241 @@
+2.   Composite specifications
+
+     Change indicators
+
+     a plus sign (+)    for an addition
+     an asterisk (*)    for an amendment to structure
+     a hash sign (#)    for changes to names
+     a vertical bar (|) for changes to text for descriptions or
+                        notes
+     a letter X (X)     for marked for deletion
+
+----------------------------------------------------------------------
+
+       E001 ADDRESS DETAILS
+
+       Desc: To specify the details of an address.
+
+010    3477  Address format code                       M      an..3
+020    3286  Address component description             M      an..70
+030    3286  Address component description             C      an..70
+040    3286  Address component description             C      an..70
+050    3286  Address component description             C      an..70
+060    3286  Address component description             C      an..70
+070    3286  Address component description             C      an..70
+
+----------------------------------------------------------------------
+
+       E002 COMMISSION DETAILS
+
+       Desc: To specify the commission conditions, amount,
+             currency, party paying, and any related free text.
+
+010    4439  Payment conditions code                   M      an..3
+020    5004  Monetary amount                           C      n..35
+030    6345  Currency identification code              C      an..3
+040    3036  Party name                                C      an..70
+050    4440  Free text                                 C      an..512
+060    1229  Action code                               C      an..3
+
+----------------------------------------------------------------------
+
+       E003 ATTRIBUTE INFORMATION
+
+       Desc: To identify the type of attribute and the attribute.
+
+010    9021  Attribute type description code           M      an..17
+020    9018  Attribute description                     C      an..256
+
+----------------------------------------------------------------------
+
+       E004 RULE DETAILS
+
+       Desc: To indicate the coded rule, a number and it's
+             relation to the rule, a start day of service, a
+             monetary amount associated to the rule, and
+             additional information associated with the rule.
+
+010    4183  Special condition code                    M      an..3
+020    6350  Units quantity                            C      n..15
+030    6353  Unit type code qualifier                  C      an..3
+040    5479  Relation code                             C      an..3
+050    2160  Days of week set identifier               C      an..7
+060    5004  Monetary amount                           C      n..35
+070    5025  Monetary amount type code qualifier       C      an..3
+080    6345  Currency identification code              C      an..3
+090    4440  Free text                                 C      an..512
+100    4440  Free text                                 C      an..512
+110    4440  Free text                                 C      an..512
+120    4440  Free text                                 C      an..512
+130    4440  Free text                                 C      an..512
+140    4440  Free text                                 C      an..512
+150    4440  Free text                                 C      an..512
+160    4440  Free text                                 C      an..512
+170    4440  Free text                                 C      an..512
+
+----------------------------------------------------------------------
+
+       E005 RULE TEXT
+
+       Desc: To specify the text rule.
+
+010    4183  Special condition code                    M      an..3
+020    4473  Information type code                     C      an..4
+030    4440  Free text                                 C      an..512
+
+       Note: 
+             The component 4440 - Free text value - occurs 20
+             times in the composite.
+
+----------------------------------------------------------------------
+
+       E006 RULE STATUS
+
+       Desc: To specify the status of the rule.
+
+010    4183  Special condition code                    M      an..3
+020    7365  Processing indicator description code     C      an..3
+
+----------------------------------------------------------------------
+
+       E007 TRAFFIC RESTRICTION DETAILS
+
+       Desc: To provide details which restrict traffic.
+
+010    8015  Traffic restriction code                  C      an..3
+020    8017  Traffic restriction application code      C      an..3
+030    8035  Traffic restriction type code qualifier   C      an..3
+040    4440  Free text                                 C      an..512
+
+----------------------------------------------------------------------
+
+       E008 GEOGRAPHIC DETAILS
+
+       Desc: To specify a type of location, the actual location,
+             the direction, distance, travel time and
+             transportation to the location.
+
+010    3227  Location function code qualifier          M      an..3
+020    3224  Location name                             M      an..256
+030    5479  Relation code                             C      an..3
+040    6060  Quantity                                  C      an..35
+050    6063  Quantity type code qualifier              C      an..3
+060    2002  Time                                      C      n4
+070    8179  Transport means description code          C      an..8
+080    8179  Transport means description code          C      an..8
+090    8179  Transport means description code          C      an..8
+100    8179  Transport means description code          C      an..8
+110    8179  Transport means description code          C      an..8
+120    6000  Latitude degree                           C      an..10
+130    6002  Longitude degree                          C      an..11
+
+----------------------------------------------------------------------
+
+       E009 DAILY AVAILABILITY INFORMATION
+
+       Desc: To specify availability on a daily basis.
+
+010    2000  Date                                      M      an..14
+020    4510  Requested information description         C      an..35
+
+----------------------------------------------------------------------
+
+       E010 SELECTION DETAILS INFORMATION
+
+       Desc: To specify a selected option and associated
+             information.
+
+010    4009  Option code                               M      an..3
+020    4018  Related information description           C      an..35
+
+----------------------------------------------------------------------
+
+       E011 RATE CLASS DETAILS
+
+       Desc: To identify rate classes and how they should be
+             processed.
+
+010    5243  Rate or tariff class description code     M      an..9
+020    7365  Processing indicator description code     C      an..3
+
+----------------------------------------------------------------------
+
+       E012 NAME INFORMATION
+
+       Desc: To identify the type of name, the actual name or a
+             code to identify the name, and the status of the
+             name.
+
+010    3035  Party function code qualifier             M      an..3
+020    3036  Party name                                C      an..70
+030    3039  Party identifier                          C      an..35
+040    3397  Name status code                          C      an..3
+
+----------------------------------------------------------------------
+
+       E013 DATE AND TIME INFORMATION
+
+       Desc: To specify a date and time, and related text.
+
+010    2005  Date or time or period function code
+             qualifier                                 M      an..3
+020    2380  Date or time or period text               M      an..35
+030    2379  Date or time or period format code        C      an..3
+040    4440  Free text                                 C      an..512
+
+----------------------------------------------------------------------
+
+       E014 TIME REFERENCE DETAILS
+
+       Desc: To specify a time reference to a corresponding time
+             indication.
+
+010    1154  Reference identifier                      C      an..70
+020    1153  Reference code qualifier                  C      an..3
+
+----------------------------------------------------------------------
+
+       E015 PRODUCT DATA INFORMATION
+
+       Desc: To specify the product data in coded or text form,
+             the number available, and the charge for usage.
+
+010    7009  Item description code                     C      an..17
+020    7008  Item description                          C      an..256
+030    6060  Quantity                                  C      an..35
+040    5004  Monetary amount                           C      n..35
+050    2155  Charge period type code                   C      an..3
+060    5261  Charge unit code                          C      an..3
+070    6345  Currency identification code              C      an..3
+080    4473  Information type code                     C      an..4
+090    4440  Free text                                 C      an..512
+
+----------------------------------------------------------------------
+
+       E016 INSURANCE COVER REQUIREMENT
+
+       Desc: To specify the type of and requirement for insurance
+             cover.
+
+010    4497  Insurance cover type code                 M      an..3
+020    7299  Requirement designator code               C      an..3
+
+----------------------------------------------------------------------
+
+       E017 MONETARY AMOUNT
+
+       Desc: Amount of goods or services stated as a monetary
+             amount in a specified currency.
+
+010    5025  Monetary amount type code qualifier       C      an..3
+020    5004  Monetary amount                           C      n..35
+030    6345  Currency identification code              C      an..3
+040    6343  Currency type code qualifier              C      an..3
+050    4405  Status description code                   C      an..3
+
+----------------------------------------------------------------------
+
+       E018 PRICE INFORMATION
+
+       Desc: Identification of price type, price and related
+             details.
+
+010    5125  Price code qualifier                      M      an..3
+020    5118  Price amount                              C      n..15
+030    5375  Price type code                           C      an..3
+
+----------------------------------------------------------------------
+
+       E019 PROMOTION DETAILS
+
+       Desc: To specify the provider of a promotion, the
+             promotion reference number, and associated text.
+
+010    3036  Party name                                M      an..70
+020    9607  Yes or no indicator code                  C      an..3
+030    1154  Reference identifier                      C      an..70
+040    4440  Free text                                 C      an..512
+050    4440  Free text                                 C      an..512
+060    4440  Free text                                 C      an..512
+070    4440  Free text                                 C      an..512
+080    4440  Free text                                 C      an..512
+
+----------------------------------------------------------------------
+
+       E020 TAX DETAILS
+
+       Desc: To specify the type of tax, the tax amount and the
+             rate.
+
+010    5153  Duty or tax or fee type name code         M      an..3
+020    5004  Monetary amount                           C      n..35
+030    5278  Duty or tax or fee rate                   C      an..17
+
+----------------------------------------------------------------------
+
+       E021 SERVICE
+
+       Desc: To identify a service and any modifications.
+
+010    7135  Product identifier                        M      an..35
+020    1131  Code list identification code             C      an..17
+030    9629  Procedure modification code               C      an..3
+040    9629  Procedure modification code               C      an..3
+050    9629  Procedure modification code               C      an..3
+060    9629  Procedure modification code               C      an..3
+
+----------------------------------------------------------------------
+
+       E022 INSTRUCTION INFORMATION
+
+       Desc: To specify an instruction.
+
+010    4401  Instruction description code              M      an..3
+020    4403  Instruction type code qualifier           C      an..3
+
+----------------------------------------------------------------------
+
+       E023 PARTY DEMOGRAPHIC INFORMATION
+
+       Desc: To provide demographic information about a party.
+
+010    9143  Relationship description code             C      an..3
+020    3499  Gender code                               C      an..3
+030    9005  Employment category description code      C      an..3
+040    3479  Marital status description code           C      an..3
+050    4405  Status description code                   C      an..3
+060    9607  Yes or no indicator code                  C      an..3
+
+----------------------------------------------------------------------
+
+       E024 SUPPORTING EVIDENCE
+
+       Desc: To identify the type of evidence, a unique reference
+             number and the communication method.
+
+010    9643  Supporting evidence type code qualifier   M      an..3
+020    1154  Reference identifier                      M      an..70
+030    3153  Communication medium type code            C      an..3
+
+----------------------------------------------------------------------
+
+       E025 BASIS OF SERVICE INFORMATION
+
+       Desc: To identify the basis of service including the type,
+             date and charge.
+
+010    9641  Service basis code qualifier              M      an..3
+020    7135  Product identifier                        M      an..35
+030    1131  Code list identification code             C      an..17
+040    2380  Date or time or period text               C      an..35
+050    2379  Date or time or period format code        C      an..3
+060    5004  Monetary amount                           C      n..35
+
+----------------------------------------------------------------------
+
+       E026 ADMISSION
+
+       Desc: To identify admission information.
+
+010    9445  Admission type description code           C      an..3
+020    9627  Admission source code                     C      an..3
+
+----------------------------------------------------------------------
+
+       E027 INVOICE TYPE
+
+       Desc: To identify the type of invoice and its frequency.
+
+010    9631  Invoice type code                         M      an..3
+020    2013  Frequency code                            C      an..3
+
+----------------------------------------------------------------------
+
+       E028 RELATED CAUSE
+
+       Desc: To identify a related cause and the date and
+             location.
+
+010    9625  Related cause code                        C      an..3
+020    2000  Date                                      C      an..14
+030    3229  Country subdivision identifier            C      an..9
+
+----------------------------------------------------------------------
+
+       E029 DIAGNOSIS
+
+       Desc: To identify the diagnosis and its type.
+
+010    7135  Product identifier                        M      an..35
+020    9623  Diagnosis type code                       C      an..3
+030    1131  Code list identification code             C      an..17
+
+----------------------------------------------------------------------
+
+       E030 ADJUSTMENT INFORMATION
+
+       Desc: To identify the adjustment category, reason and
+             related monetary amount.
+
+010    9619  Adjustment category code                  M      an..3
+020    4465  Adjustment reason description code        M      an..3
+030    5004  Monetary amount                           C      n..35
+
+----------------------------------------------------------------------
+
+       E031 MESSAGE APPLICATION PRODUCT SPECIFICATION
+
+       Desc: To specify a message function, a dialogue, or a
+             scenario.
+
+010    1225  Message function code                     C      an..3
+020    7191  Process description code                  C      an..17
+030    7191  Process description code                  C      an..17
+
+----------------------------------------------------------------------
+
+       E032 PARTY IDENTIFICATION
+
+       Desc: To specify a party identification.
+
+010    3039  Party identifier                          C      an..35
+020    3035  Party function code qualifier             C      an..3
+
+----------------------------------------------------------------------
+
+       E033 LANGUAGE DETAILS
+
+       Desc: To identify a language.
+
+010    3453  Language name code                        C      an..3
+020    3452  Language name                             C      an..35
+
+----------------------------------------------------------------------
+
+       E034 TIME ZONE
+
+       Desc: To specify a time zone.
+
+010    2029  Time zone identifier                      M      an..3
+020    2116  Time zone difference quantity             C      n..4
+
+----------------------------------------------------------------------
+
+       E035 QUANTITY DETAILS
+
+       Desc: To convey information about a quantity.
+
+010    6063  Quantity type code qualifier              M      an..3
+020    6060  Quantity                                  M      an..35
+030    6411  Measurement unit code                     C      an..8
+
+----------------------------------------------------------------------
+
+       E080 PARTY NAME
+
+       Desc: Identification of a transaction party by name.
+
+010    3036  Party name                                M      an..70
+020    3036  Party name                                C      an..70
+030    3036  Party name                                C      an..70
+040    3036  Party name                                C      an..70
+050    3036  Party name                                C      an..70
+060    3045  Party name format code                    C      an..3
+
+----------------------------------------------------------------------
+
+       E082 PARTY IDENTIFICATION DETAILS
+
+       Desc: Identification of a transaction party by code.
+
+010    3039  Party identifier                          M      an..35
+020    1131  Code list identification code             C      an..17
+030    3055  Code list responsible agency code         C      an..3
+
+----------------------------------------------------------------------
+
+       E083 DELIVERY PATTERN
+
+       Desc: To specify a delivery pattern that defines a
+             quantity, delivered over a period of time, at a
+             prescribed frequency.
+
+010    6063  Quantity type code qualifier              M      an..3
+020    6060  Quantity                                  C      an..35
+030    6411  Measurement unit code                     C      an..8
+040    6060  Quantity                                  C      an..35
+050    2151  Period type code                          C      an..3
+060    2152  Period count quantity                     C      n..3
+070    2015  Despatch pattern code                     C      an..3
+080    2017  Despatch pattern timing code              C      an..3
+
+----------------------------------------------------------------------
+
+       E175 MEASUREMENT VALUE AND DETAILS
+
+       Desc: Specification of a measurement value and
+             identification of its type.
+
+010    6314  Measure                                   M      an..18
+020    6411  Measurement unit code                     C      an..8
+030    6313  Measured attribute code                   C      an..3
+040    6321  Measurement significance code             C      an..3
+
+----------------------------------------------------------------------
+
+       E206 OBJECT IDENTIFICATION
+
+       Desc: The identification of an object.
+
+010    7402  Object identifier                         M      an..35
+020    7405  Object identification code qualifier      C      an..3
+030    4405  Status description code                   C      an..3
+
+----------------------------------------------------------------------
+
+       E211 DIMENSIONS
+
+       Desc: Specification of the dimensions of a transportable
+             unit.
+
+010    6411  Measurement unit code                     M      an..8
+020    6168  Length measure                            C      n..15
+030    6140  Width measure                             C      n..15
+040    6008  Height measure                            C      n..15
+
+----------------------------------------------------------------------
+
+       E212 ITEM NUMBER IDENTIFICATION
+
+       Desc: Goods identification for a specified source.
+
+010    7140  Item identifier                           C      an..35
+020    7143  Item type identification code             C      an..3
+030    1131  Code list identification code             C      an..17
+040    3055  Code list responsible agency code         C      an..3
+
+----------------------------------------------------------------------
+
+       E362 RELATED TIME INFORMATION
+
+       Desc: To specify information about related times and their
+             variation.
+
+010    2002  Time                                      C      n4
+020    2002  Time                                      C      n4
+030    2116  Time zone difference quantity             C      n..4
+040    2148  Date variation number                     C      n..5
+
+----------------------------------------------------------------------
+
+       E504 CURRENCY DETAILS
+
+       Desc: The usage to which a currency relates.
+
+010    6347  Currency usage code qualifier             M      an..3
+020    6345  Currency identification code              C      an..3
+030    6343  Currency type code qualifier              C      an..3
+040    6348  Currency rate                             C      n..4
+
+----------------------------------------------------------------------
+
+       E506 REFERENCE
+
+       Desc: Identification of a reference.
+
+010    1153  Reference code qualifier                  M      an..3
+020    1154  Reference identifier                      C      an..70
+030    1156  Document line identifier                  C      an..6
+050    3036  Party name                                C      an..70
+
+----------------------------------------------------------------------
+
+       E507 DATE/TIME/PERIOD
+
+       Desc: Date and/or time, or period relevant to the
+             specified date/time/period type.
+
+010    2005  Date or time or period function code
+             qualifier                                 M      an..3
+020    2380  Date or time or period text               C      an..35
+030    2379  Date or time or period format code        C      an..3
+
+----------------------------------------------------------------------
+
+       E517 LOCATION IDENTIFICATION
+
+       Desc: Identification of a location by code or name.
+
+010    3225  Location identifier                       C      an..35
+020    1131  Code list identification code             C      an..17
+030    3055  Code list responsible agency code         C      an..3
+040    3224  Location name                             C      an..256
+
+----------------------------------------------------------------------
+
+       E520 FREQUENCY
+
+       Desc: To specify a frequency and the time window in which
+             it applies.
+
+010    6072  Frequency rate                            M      n..9
+020    6411  Measurement unit code                     C      an..8
+030    2380  Date or time or period text               C      an..35
+040    2379  Date or time or period format code        C      an..3
+
+----------------------------------------------------------------------
+
+       E523 NUMBER OF UNIT DETAILS
+
+       Desc: Identification of number of units and its purpose.
+
+010    6350  Units quantity                            C      n..15
+020    6353  Unit type code qualifier                  C      an..3
+
+----------------------------------------------------------------------
+
+       E778 POSITION IDENTIFICATION
+
+       Desc: To identify the position of an object in a structure
+             containing the object.
+
+010    7164  Hierarchical structure level identifier   C      an..35
+020    1050  Sequence position identifier              C      an..10
+
+----------------------------------------------------------------------
+
+       E817 ADDRESS USAGE
+
+       Desc: To describe the usage of an address.
+
+010    3299  Address purpose code                      C      an..3
+020    3131  Address type code                         C      an..3
+030    3475  Address status code                       C      an..3
+
+----------------------------------------------------------------------
+
+       E819 COUNTRY SUB-ENTITY DETAILS
+
+       Desc: To specify a part of a country (eg county or part of
+             a city).
+
+010    3229  Country subdivision identifier            C      an..9
+020    1131  Code list identification code             C      an..17
+030    3055  Code list responsible agency code         C      an..3
+040    3228  Country subdivision name                  C      an..70
+
+----------------------------------------------------------------------
+
+       E901 APPLICATION ERROR DETAILS
+
+       Desc: Code assigned by the recipient of a message to
+             indicate a data validation error condition.
+
+010    9321  Application error code                    M      an..8
+020    1131  Code list identification code             C      an..17
+030    3055  Code list responsible agency code         C      an..3
+
+----------------------------------------------------------------------
+
+       E941 RELATIONSHIP
+
+       Desc: Specification of a relationship in coded and/or free
+             form.
+
+010    9143  Relationship description code             C      an..3
+020    1131  Code list identification code             C      an..17
+030    3055  Code list responsible agency code         C      an..3
+040    9142  Relationship description                  C      an..35
+
+----------------------------------------------------------------------
+
+       E946 CERTAINTY
+
+       Desc: To specify the certainty in coded and/or free form.
+
+010    4049  Certainty description code                C      an..3
+020    4048  Certainty description                     C      an..35
+030    3453  Language name code                        C      an..3
+040    3055  Code list responsible agency code         C      an..3
+
+----------------------------------------------------------------------
+
+       E958 QUANTITY AND ACTION DETAILS
+
+       Desc: To specify quantity and action required for a
+             product or service.
+
+010    6060  Quantity                                  C      an..35
+020    4405  Status description code                   C      an..3
+
+----------------------------------------------------------------------
+
+       E959 ADDITIONAL SERVICE DETAILS
+
+       Desc: To specify additional service details, such as the
+             reserved date, starting time, ending time and
+             location information.
+
+010    7161  Special service description code          M      an..3
+020    2002  Time                                      C      n4
+030    2002  Time                                      C      n4
+040    2000  Date                                      C      an..14
+050    3224  Location name                             C      an..256
+060    3225  Location identifier                       C      an..35
+070    3227  Location function code qualifier          C      an..3
+080    7037  Characteristic description code           C      an..17
+090    3223  First related location identifier         C      an..35
+100    3207  Country identifier                        C      an..3
+110    7160  Special service description               C      an..35
+120    7036  Characteristic description                C      an..35
+130    1229  Action code                               C      an..3
+140    3233  Second related location identifier        C      an..35
+150    3453  Language name code                        C      an..3
+160    6072  Frequency rate                            C      n..9
+170    6411  Measurement unit code                     C      an..8
+180    6060  Quantity                                  C      an..35
+190    3036  Party name                                C      an..70
+
+----------------------------------------------------------------------
+
+       E961 TRANSPORT DETAILS
+
+       Desc: Details describing a specific means of transport.
+
+010    8179  Transport means description code          C      an..8
+020    8216  Journey stops quantity                    C      n..3
+030    2162  Journey leg duration quantity             C      an..6
+040    5482  Percentage                                C      n..10
+050    2160  Days of week set identifier               C      an..7
+060    2380  Date or time or period text               C      an..35
+070    8215  Transport means change indicator code     C      an1
+080    3225  Location identifier                       C      an..35
+090    3225  Location identifier                       C      an..35
+100    3225  Location identifier                       C      an..35
+
+----------------------------------------------------------------------
+
+       E962 TERMINAL INFORMATION
+
+       Desc: To specify departure or arrival information relative
+             to a terminal.
+
+010    3463  Gate identifier                           C      an..6
+020    3223  First related location identifier         C      an..35
+030    3223  First related location identifier         C      an..35
+
+----------------------------------------------------------------------
+
+       E963 DISTANCE OR TIME DETAILS
+
+       Desc: Information about distance or duration.
+
+010    6314  Measure                                   C      an..18
+020    6411  Measurement unit code                     C      an..8
+030    2002  Time                                      C      n4
+
+----------------------------------------------------------------------
+
+       E964 TRAVELLER TIME DETAILS
+
+       Desc: Gate departure time, gate arrival time, and check-in
+             date and time, in this sequence relevant to a
+             traveller.
+
+010    2002  Time                                      C      n4
+020    2002  Time                                      C      n4
+030    2156  Check-in time                             C      an..10
+
+----------------------------------------------------------------------
+
+       E965 FACILITIES
+
+       Desc: To convey information about the facilities of a
+             service.
+
+010    9039  Facility type description code            C      an..3
+020    9038  Facility type description                 C      an..70
+030    7133  Product details type code qualifier       C      an..3
+040    7037  Characteristic description code           C      an..17
+
+----------------------------------------------------------------------
+
+       E966 CONTACT INFORMATION
+
+       Desc: To specify communication number, type of number, to
+             whom the number belongs and a related reference
+             number.
+
+010    3035  Party function code qualifier             M      an..3
+020    3148  Communication address identifier          M      an..512
+030    3153  Communication medium type code            C      an..3
+040    3036  Party name                                C      an..70
+050    1154  Reference identifier                      C      an..70
+
+----------------------------------------------------------------------
+
+       E967 CONSUMER REFERENCE IDENTIFICATION
+
+       Desc: Identification of consumer references by type,
+             company, number and reference to a traveller.
+
+010    1153  Reference code qualifier                  M      an..3
+020    1154  Reference identifier                      C      an..70
+030    3036  Party name                                C      an..70
+040    1145  Traveller reference identifier            C      an..35
+
+----------------------------------------------------------------------
+
+       E968 DOCUMENT INFORMATION
+
+       Desc: Identification of a document by coded name, number,
+             classification and place of issue.
+
+010    1001  Document name code                        M      an..3
+020    1004  Document identifier                       C      an..70
+030    7111  Characteristic value description code     C      an..3
+040    3225  Location identifier                       C      an..35
+050    3207  Country identifier                        C      an..3
+060    3207  Country identifier                        C      an..3
+070    3164  City name                                 C      an..35
+
+----------------------------------------------------------------------
+
+       E969 VALIDITY DATES
+
+       Desc: Identification of the effective and expiration
+             dates, effective date first.
+
+010    2000  Date                                      M      an..14
+020    2000  Date                                      C      an..14
+
+----------------------------------------------------------------------
+
+       E970 FREQUENT TRAVELLER IDENTIFICATION
+
+       Desc: Identification of the frequent traveller by company
+             with the capability to reference to a specific
+             traveller.
+
+010    3036  Party name                                M      an..70
+020    3459  Frequent traveller identifier             M      an..25
+030    1145  Traveller reference identifier            C      an..35
+
+----------------------------------------------------------------------
+
+       E971 FREE TEXT QUALIFICATION
+
+       Desc: To specify the type, purpose, status, and language
+             of free text.
+
+010    4451  Text subject code qualifier               M      an..3
+020    4473  Information type code                     C      an..4
+030    4405  Status description code                   C      an..3
+040    3036  Party name                                C      an..70
+050    3453  Language name code                        C      an..3
+
+----------------------------------------------------------------------
+
+       E972 MESSAGE PROCESSING DETAILS
+
+       Desc: To indicate message processing information.
+
+010    4025  Business function code                    C      an..3
+020    1225  Message function code                     C      an..3
+030    3055  Code list responsible agency code         C      an..3
+040    1225  Message function code                     C      an..3
+050    1225  Message function code                     C      an..3
+060    1225  Message function code                     C      an..3
+070    1225  Message function code                     C      an..3
+080    1225  Message function code                     C      an..3
+090    1225  Message function code                     C      an..3
+100    1225  Message function code                     C      an..3
+110    1225  Message function code                     C      an..3
+120    1225  Message function code                     C      an..3
+
+----------------------------------------------------------------------
+
+       E973 DELIVERING SYSTEM DETAILS
+
+       Desc: To specify the system and its location that
+             originates or delivers the message for a third
+             party.
+
+010    3036  Party name                                C      an..70
+020    3225  Location identifier                       C      an..35
+030    3224  Location name                             C      an..256
+
+----------------------------------------------------------------------
+
+       E974 ORIGINATOR IDENTIFICATION DETAILS
+
+       Desc: To identify the assigned agent identification code,
+             the originating system identification, booking
+             source and agent name, in that sequence.
+
+010    3197  Agent identifier                          C      an..9
+020    3465  In-house identifier                       C      an..9
+030    3197  Agent identifier                          C      an..9
+040    3036  Party name                                C      an..70
+
+----------------------------------------------------------------------
+
+       E975 LOCATION
+
+       Desc: To identify a location.
+
+010    3225  Location identifier                       C      an..35
+020    3224  Location name                             C      an..256
+030    3207  Country identifier                        C      an..3
+040    3227  Location function code qualifier          C      an..3
+
+----------------------------------------------------------------------
+
+       E976 ORIGINATOR DETAILS
+
+       Desc: To specify details about the originator.
+
+010    3207  Country identifier                        C      an..3
+020    6345  Currency identification code              C      an..3
+030    3453  Language name code                        C      an..3
+
+----------------------------------------------------------------------
+
+       E977 PAYMENT DETAILS
+
+       Desc: To identify the method, type, amount, currency and
+             due date of payment.
+
+010    4467  Payment method code                       C      an..4
+020    4469  Payment purpose code                      C      an..4
+030    5267  Service type code                         C      an..3
+040    5004  Monetary amount                           C      n..35
+050    6345  Currency identification code              C      an..3
+060    1154  Reference identifier                      C      an..70
+070    2000  Date                                      C      an..14
+080    3225  Location identifier                       C      an..35
+
+----------------------------------------------------------------------
+
+       E978 CREDIT CARD INFORMATION
+
+       Desc: To identify the relevant information of a credit
+             card and relate it to a traveller.
+
+010    3036  Party name                                M      an..70
+020    1154  Reference identifier                      C      an..70
+030    2000  Date                                      C      an..14
+040    3449  Bank identifier                           C      an..17
+050    1145  Traveller reference identifier            C      an..35
+
+----------------------------------------------------------------------
+
+       E979 RESERVATION CONTROL INFORMATION
+
+       Desc: To specify information about a reservation such as
+             identification, date and time, and reasons of
+             modifications.
+
+010    3036  Party name                                C      an..70
+020    9040  Reservation identifier                    C      an..20
+030    9043  Reservation identifier code qualifier     C      an..3
+040    2000  Date                                      C      an..14
+050    2164  Millisecond time                          C      n9
+060    1154  Reference identifier                      C      an..70
+070    4465  Adjustment reason description code        C      an..3
+
+----------------------------------------------------------------------
+
+       E980 SPECIAL REQUIREMENT TYPE DETAILS
+
+       Desc: To specify special requirements on services, the
+             quantity required, action to be taken and where the
+             requirement should be administered.
+
+010    4187  Special requirement type code             M      an..4
+020    4405  Status description code                   C      an..3
+030    6060  Quantity                                  C      an..35
+040    3036  Party name                                C      an..70
+050    7365  Processing indicator description code     C      an..3
+060    3225  Location identifier                       C      an..35
+070    3225  Location identifier                       C      an..35
+080    7037  Characteristic description code           C      an..17
+
+----------------------------------------------------------------------
+
+       E981 SPECIAL REQUIREMENT DETAILS
+
+       Desc: To specify requirements concerning a special request
+             or requirement and to reference to a traveller.
+
+010    4184  Special requirement description           C      an..17
+020    6411  Measurement unit code                     C      an..8
+030    6060  Quantity                                  C      an..35
+040    1145  Traveller reference identifier            C      an..35
+050    7111  Characteristic value description code     C      an..3
+060    7111  Characteristic value description code     C      an..3
+070    7111  Characteristic value description code     C      an..3
+080    7111  Characteristic value description code     C      an..3
+090    7111  Characteristic value description code     C      an..3
+
+----------------------------------------------------------------------
+
+       E982 TARIFF INFORMATION
+
+       Desc: To identify the rates or tariff details.
+
+010    5263  Rate type identifier                      C      an..20
+020    5004  Monetary amount                           C      n..35
+030    6345  Currency identification code              C      an..3
+040    5501  Rate plan code                            C      an..3
+050    5025  Monetary amount type code qualifier       C      an..3
+060    2152  Period count quantity                     C      n..3
+070    5377  Price change type code                    C      an..3
+080    5160  Total monetary amount                     C      n..20
+090    2000  Date                                      C      an..14
+100    2000  Date                                      C      an..14
+110    4183  Special condition code                    C      an..3
+120    6060  Quantity                                  C      an..35
+130    4405  Status description code                   C      an..3
+
+----------------------------------------------------------------------
+
+       E983 RATE INFORMATION
+
+       Desc: To identify the rate or tariff categories, rate or
+             tariff range, processing information, and currency
+             code.
+
+010    5243  Rate or tariff class description code     C      an..9
+020    6162  Range minimum quantity                    C      n..18
+030    6152  Range maximum quantity                    C      n..18
+040    7365  Processing indicator description code     C      an..3
+050    6345  Currency identification code              C      an..3
+
+----------------------------------------------------------------------
+
+       E984 ASSOCIATED CHARGES INFORMATION
+
+       Desc: Identification of the additional charges that are
+             associated to a product or service.
+
+010    5261  Charge unit code                          C      an..3
+020    5004  Monetary amount                           C      n..35
+030    7008  Item description                          C      an..256
+040    6060  Quantity                                  C      an..35
+050    2155  Charge period type code                   C      an..3
+060    6345  Currency identification code              C      an..3
+070    3225  Location identifier                       C      an..35
+080    4440  Free text                                 C      an..512
+090    4513  Maintenance operation code                C      an..3
+100    7299  Requirement designator code               C      an..3
+110    2018  Age                                       C      n..3
+120    5482  Percentage                                C      n..10
+
+----------------------------------------------------------------------
+
+       E985 TRAVELLER SURNAME AND RELATED INFORMATION
+
+       Desc: Identification of the surname of traveller, the type
+             of traveller, number of travellers per surname, 
+             status of the surname, and surname language.
+
+010    3500  Family name                               M      an..70
+020    3035  Party function code qualifier             C      an..3
+030    6060  Quantity                                  C      an..35
+040    4405  Status description code                   C      an..3
+050    3453  Language name code                        C      an..3
+
+----------------------------------------------------------------------
+
+       E986 TRAVELLER DETAILS
+
+       Desc: To identify the given or first name and title of a
+             traveller, the traveller type, the traveller
+             language, and the sex and age of the traveller.
+
+010    3460  Given name                                C      an..70
+020    3035  Party function code qualifier             C      an..3
+030    1145  Traveller reference identifier            C      an..35
+040    3504  Given name title description              C      an..9
+050    8219  Traveller accompanied by infant indicator
+             code                                      C      an1
+060    3453  Language name code                        C      an..3
+070    3499  Gender code                               C      an..3
+080    2018  Age                                       C      n..3
+
+----------------------------------------------------------------------
+
+       E987 PRODUCT DATE AND TIME
+
+       Desc: To specify first the beginning date and time
+             followed by the ending date and time associated with
+             a product or service.
+
+010    2000  Date                                      C      an..14
+020    2002  Time                                      C      n4
+030    2000  Date                                      C      an..14
+040    2002  Time                                      C      n4
+050    2148  Date variation number                     C      n..5
+
+----------------------------------------------------------------------
+
+       E988 COMPANY IDENTIFICATION
+
+       Desc: To identify the company and any associated
+             companies.
+
+010    3036  Party name                                M      an..70
+020    3036  Party name                                C      an..70
+030    3036  Party name                                C      an..70
+
+----------------------------------------------------------------------
+
+       E989 PRODUCT IDENTIFICATION DETAILS
+
+       Desc: Code, number or name to identify a specific product
+             or service and a code to identify the level or type
+             of product or service.
+
+010    7135  Product identifier                        C      an..35
+020    7037  Characteristic description code           C      an..17
+030    7139  Product characteristic identification
+             code                                      C      an..3
+040    7009  Item description code                     C      an..17
+050    7009  Item description code                     C      an..17
+060    7009  Item description code                     C      an..17
+070    7134  Product name                              C      an..35
+
+----------------------------------------------------------------------
+
+       E990 SEQUENCE NUMBER DETAILS
+
+       Desc: To specify sequence number information about a
+             product or service.
+
+010    1050  Sequence position identifier              M      an..10
+020    1050  Sequence position identifier              C      an..10
+030    1050  Sequence position identifier              C      an..10
+040    1050  Sequence position identifier              C      an..10
+050    1050  Sequence position identifier              C      an..10
+060    1050  Sequence position identifier              C      an..10
+070    1050  Sequence position identifier              C      an..10
+080    1050  Sequence position identifier              C      an..10
+090    1050  Sequence position identifier              C      an..10
+
+----------------------------------------------------------------------
+
+       E991 VEHICLE INFORMATION
+
+       Desc: To identify a vehicle by make or model and vehicle
+             identification number.
+
+010    8154  Equipment size and type description       C      an..35
+020    7402  Object identifier                         C      an..35
+
+----------------------------------------------------------------------
+
+       E992 POSITION
+
+       Desc: To identify the position of an item.
+
+010    3223  First related location identifier         C      an..35
+020    3233  Second related location identifier        C      an..35
+
+----------------------------------------------------------------------
+
+       E993 TOUR DETAILS
+
+       Desc: To provide details of a tour by code, name of the
+             tour provider, length, number of stops, room
+             occupancy and number of rooms.
+
+010    7135  Product identifier                        C      an..35
+020    3036  Party name                                C      an..70
+030    6168  Length measure                            C      n..15
+040    8216  Journey stops quantity                    C      n..3
+050    2160  Days of week set identifier               C      an..7
+060    6350  Units quantity                            C      n..15
+070    6060  Quantity                                  C      an..35
+
+----------------------------------------------------------------------
+
+       E994 STOPOVER INFORMATION
+
+       Desc: To specify location of and number of nights at a
+             stopover.
+
+010    3225  Location identifier                       C      an..35
+020    6350  Units quantity                            C      n..15
+
+----------------------------------------------------------------------
+
+       E995 MOVEMENT DETAILS
+
+       Desc: To specify information concerning delivery.
+
+010    7273  Service requirement code                  C      an..3
+020    2000  Date                                      C      an..14
+030    2002  Time                                      C      n4
+
+----------------------------------------------------------------------
+
+       E996 PRODUCT CLASS DETAILS
+
+       Desc: To specify details for a product class.
+
+010    7037  Characteristic description code           C      an..17
+020    4510  Requested information description         C      an..35
+030    7161  Special service description code          C      an..3
+040    7009  Item description code                     C      an..17
+050    7009  Item description code                     C      an..17
+060    7009  Item description code                     C      an..17
+070    7139  Product characteristic identification
+             code                                      C      an..3
+
+----------------------------------------------------------------------
+
+       E997 ACCOMMODATION ALLOCATION INFORMATION
+
+       Desc: To specify references, type and characteristics of
+             accommodations allocated.
+
+010    1154  Reference identifier                      M      an..70
+020    9143  Relationship description code             C      an..3
+030    4187  Special requirement type code             C      an..4
+040    7111  Characteristic value description code     C      an..3
+050    4184  Special requirement description           C      an..17
+
+       Note: 
+             The component 4184 - Special requirement description
+             - occurs 99 times in the composite.
+
+----------------------------------------------------------------------
+
+       E998 DISCOUNT INFORMATION
+
+       Desc: To specify the reason for, amount, the company
+             granting, and a number related to the reason for a
+             discount.
+
+010    4465  Adjustment reason description code        M      an..3
+020    5482  Percentage                                C      n..10
+030    3036  Party name                                C      an..70
+040    6350  Units quantity                            C      n..15
+
+----------------------------------------------------------------------
+
+       E999 CONNECTION DETAILS
+
+       Desc: To specify a location for connections and stopovers,
+             the designated supplier, associated times, and
+             travel sequence.
+
+010    3225  Location identifier                       C      an..35
+020    3036  Party name                                C      an..70
+030    2002  Time                                      C      n4
+040    2002  Time                                      C      n4
+050    3224  Location name                             C      an..256
+060    3227  Location function code qualifier          C      an..3
+070    3207  Country identifier                        C      an..3
+080    1050  Sequence position identifier              C      an..10

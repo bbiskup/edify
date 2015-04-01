@@ -1,0 +1,1125 @@
+                                UN/EDIFACT
+
+                  UNITED NATIONS STANDARD MESSAGE (UNSM)
+
+  Travel, tourism and leisure information inquiry response - interactive
+                                  message
+
+
+      This message can only be used with ISO 9735 Version 4 or later.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                           Message Type : TIQRSP
+                                           Version      : D
+                                           Release      : 14B
+                                           Contr. Agency: UN
+
+                                           Revision     : 2
+                                           Date         : 2014-11-17
+
+
+
+
+
+
+SOURCE: TBG9 Travel, Tourism and Leisure
+
+
+
+                                  CONTENTS
+
+  Travel, tourism and leisure information inquiry response - interactive
+                                  message
+0.     INTRODUCTION
+
+1.     SCOPE
+
+       1.1   Functional definition
+
+       1.2   Field of application
+
+       1.3   Principles
+
+2.     REFERENCES
+
+3.     TERMS AND DEFINITIONS
+
+       3.1   Standard terms and definitions
+
+4.     MESSAGE DEFINITION
+
+       4.1   Segment clarification
+
+       4.2   Segment index (alphabetical sequence by tag)
+
+       4.3   Message structure
+             4.3.1 Segment table
+
+
+
+
+
+
+
+
+
+
+
+
+
+---------------------------------------------------------------------------
+For general information on UN standard message types see UN Trade Data
+Interchange Directory, UNTDID, Part 4, Section 2.3, UN/ECE UNSM
+General Introduction
+---------------------------------------------------------------------------
+
+
+
+0.     INTRODUCTION
+
+       This specification provides the definition of the Travel, tourism
+       and leisure information inquiry response - interactive message
+       (TIQRSP) to be used in Electronic Data Interchange (EDI) between
+       trading partners involved in administration, commerce and transport.
+
+1.     SCOPE
+
+1.1    Functional definition
+
+       An interactive Travel, tourism and leisure inquiry response is sent
+       by a service provider in response to an information request for a
+       product or service.
+
+1.2    Field of application
+
+       The Travel, tourism and leisure information inquiry response -
+       interactive message may be used for both national and international
+       applications. It is based on universal practice related to
+       administration, commerce and transport, and is not dependent on the
+       type of business or industry.
+
+1.3    Principles
+
+       The request message, TIQREQ, for which TIQRSP is the response may be
+       used to request lists of information or very detailed information.
+       An initial request might request a list of hotel properties in a
+       city. Based on the information returned, the next request in the
+       scenario might ask for detailed information by specifying the item
+       number for a specific property returned in the initial response. The
+       next request might then ask for rule details from a list of rules
+       specified in the previous response.
+       
+       TIQRSP may be used for the following functions within the
+       interactive scenario for Travel, Tourism and Leisure (TT&L):
+       
+       (1) to respond to a request for a travel product or service in a
+       specific city or geographical region. The response may include a
+       list of products, such as a list of hotel properties in a city, a
+       list of rental car locations, or schedule of trains.
+       
+       (2) to respond to a request for detailed information for a specific
+       travel product. The response for information for hotel might include
+       a description of the property, all the room types, recreation
+       facilities at the hotel, transportation to the property, and points
+       of interest close to the hotel.
+       
+       (3) to respond to a request for a specific type of information for a
+       particular travel product. The response might be a list of the
+       special equipment available for a car type, a list of facilities at
+       a train station, or the rules concerning insurance coverage.
+       
+       (4) to respond to a request for corporate information for the
+       supplier of a product or service. The response might include the
+       promotions available to the traveller, the supplier's guarantee and
+       deposit requirements, or the contact information for the vendor
+       code.
+
+2.     REFERENCES
+
+       See UNTDID, Part 4, Chapter 2.3 UN/ECE UNSM - General Introduction,
+       Section 1.
+
+3.     TERMS AND DEFINITIONS
+
+3.1    Standard terms and definitions
+
+       See UNTDID, Part 4, Chapter 2.3 UN/ECE UNSM - General Introduction,
+       Section 2.
+
+4.     MESSAGE DEFINITION
+
+4.1    Segment clarification
+
+       This section should be read in conjunction with the segment table
+       which indicates mandatory, conditional and repeating requirements.
+
+00010   UIH, Interactive message header
+        A service segment starting and uniquely identifying a message. The
+        message type code for the Travel, tourism and leisure information
+        inquiry response - interactive message is TIQRSP.
+
+        Note: Travel, tourism and leisure information inquiry response -
+        interactive messages conforming to this document must contain the
+        following data in segment UIH, composite S306:
+
+        Data element  0065 TIQRSP
+                      0052 D
+                      0054 14B
+                      0051 UN
+
+00020   MSD, Message action details
+        A segment identifying the industry type (e.g., air, car, train,
+        accommodations, etc.) and business function of the message.
+
+00030   ERI, Application error information
+        Error data pertaining to the entire message.
+
+00040   TFF, Tariff information
+        A segment to specify rates, prices, and associated charges that
+        apply to the entire message.
+
+00050   CON, Contact information
+        Phone numbers, fax numbers, and e-mail numbers that apply to the
+        entire message.
+
+00060   NUN, Number of units
+        A segment to specify the number and type of travellers who will be
+        using the product or service.
+
+00070   ALS, Additional location information
+        A segment to identify the terminal or station for which the
+        information applies.
+
+00080   ADS, Address
+        The address of the product.
+
+00090   DTI, Date and time information
+        A segment to specify hours of operation, dates of operation, and
+        days of the week a service is open.
+
+00100   IFT, Interactive free text
+        Free or coded text that applies to all the products or services.
+
+
+00110   Segment group 1:  ORG-LKP-ADS-CON
+        A group of segments to provide information concerning the
+        provider(s) of the information in the message.
+
+00120      ORG, Originator of request details
+           A segment to specify the party identification, type, and name of
+           the provider of the information.
+
+00130      LKP, Level indication
+           A segment to indicate the level of the provider information
+           within the party hierarchy.
+
+00140      ADS, Address
+           A segment to specify the provider's address.
+
+00150      CON, Contact information
+           Contact information, such as, phone number or fax number for
+           this provider.
+
+
+00160   Segment group 2:  ITD-RUL-DTI-IFT-SG3-SG4-SG5-SG6-SG7-SG8-SG9-SG10-
+                          SG11-SG13-SG15-SG16-SG20-SG30
+        A group of segments that contain all of the information based on
+        the type of information and the format requested.
+
+00170      ITD, Information type data
+           A segment to specify the type and format of the information
+           being returned. The repeat of this group allows for multiple
+           types of information to be returned.
+
+00180      RUL, Rule information
+           A segment to specify rules that apply to all of the information.
+
+00190      DTI, Date and time information
+           A segment to return date and time information concerning hours
+           of operation, dates of operation, and days of the week open.
+
+00200      IFT, Interactive free text
+           A segment to return free text information.
+
+
+00210      Segment group 3:  PMT-RUL
+           A group of segments to provide form of payment and the
+           associated rules.
+
+00220         PMT, Payment information
+              A segment to specify forms of payment and guarantee and
+              acceptable credit cards.
+
+00230         RUL, Rule information
+              A segment to specify rules associated with the forms of
+              payment and guarantee.
+
+
+00240      Segment group 4:  PLI-IFT
+           A group of segments to identify reference points for a product
+           or service.
+
+00250         PLI, Product location information
+              A segment to identify reference points and the distance and
+              direction from the product or service.
+
+00260         IFT, Interactive free text
+              Driving directions in free text to a reference point.
+
+
+00270      Segment group 5:  RTI-IFT
+           A group of segments to specify rate categories and related
+           information.
+
+00280         RTI, Rate details
+              The rate categories applicable to the product or service
+              information.
+
+00290         IFT, Interactive free text
+              Free text information related to a rate type(s).
+
+
+00300      Segment group 6:  SSR-PDT-TFF-RUL
+           A group of segments to describe special equipment associated
+           with a product, such as a rental car.
+
+00310         SSR, Special requirement details
+              A segment to identify what special equipment is available.
+
+00320         PDT, Product information
+              A segment to identify for which product types the special
+              equipment is available and how many the provider has.
+
+00330         TFF, Tariff information
+              A segment to specify the charges associated with the special
+              equipment.
+
+00340         RUL, Rule information
+              A segment to list the rules for the special equipment.
+
+
+00350      Segment group 7:  ODS-DTI-PLI-CON-IFT
+           A group of segments to describe the transportation and
+           facilities for a product or service.
+
+00360         ODS, Additional product details
+              A segment to identify facilities and transportation for a
+              product.
+
+00370         DTI, Date and time information
+              A segment to give the hours of operation for the related
+              facilities and transportation.
+
+00380         PLI, Product location information
+              A segment to identify the location of the facilities.
+
+00390         CON, Contact information
+              A segment to list the telephone and fax numbers for a
+              facility.
+
+00400         IFT, Interactive free text
+              A segment to give free text information about the
+              transportation and facilities.
+
+
+00410      Segment group 8:  PRO-NUN-RUL
+           A group of segments to describe the promotions associated with
+           product or service.
+
+00420         PRO, Promotions
+              A segment to identify the promotion, the name of the supplier
+              offering the promotion, and the corporate number identifying
+              the promotion.
+
+00430         NUN, Number of units
+              A segment to identify the number of bonus miles or points
+              associated with a promotion.
+
+00440         RUL, Rule information
+              A segment to list the rules associated with a promotion.
+
+
+00450      Segment group 9:  CRI-DIS-NUN
+           A group of segments to identify passenger information, such as
+           age, travel frequency, and the related discounts.
+
+00460         CRI, Consumer reference information
+              A segment to identify traveller information, such as age,
+              which would qualify a traveller for a discount.
+
+00470         DIS, Discount information
+              The discounts which are available based on the traveller
+              information.
+
+00480         NUN, Number of units
+              The number of travellers for whom the above information
+              applies and the required travel frequency.
+
+
+00490      Segment group 10: ICI-TFF-PDT
+           A group of segments to describe the insurance coverage available
+           for a product or service.
+
+00500         ICI, Insurance cover information
+              A segment describing insurance available and whether optional
+              or mandatory and the coverage amounts and deductibles.
+
+00510         TFF, Tariff information
+              The charges associated with the insurance coverage.
+
+00520         PDT, Product information
+              The types of products for which the insurance applies.
+
+
+00530      Segment group 11: RTC-SG12
+           A group of segments describing the guarantees and deposits
+           required for a rate type.
+
+00540         RTC, Rate types
+              Rate codes available from a supplier for their products.
+
+
+00550         Segment group 12: PMT-RUL
+              A group of segments listing the guarantees and deposits
+              required and the rules associated with each.
+
+00560            PMT, Payment information
+                 A segment to identify the guarantees and deposits required
+                 for a rate code.
+
+00570            RUL, Rule information
+                 The rules associated with a guarantee or deposit.
+
+
+00580      Segment group 13: ALS-ADS-CON-SG14
+           A group of segments detailing station and terminal locations and
+           the services available.
+
+00590         ALS, Additional location information
+              A segment to identify stations and terminals.
+
+00600         ADS, Address
+              The address for a station or terminal.
+
+00610         CON, Contact information
+              Telephone and fax numbers for a station or terminal.
+
+
+00620         Segment group 14: ODS-CON-DTI
+              A group of segments to specify the services available for a
+              station or terminal, the contact information, and hours of
+              operation.
+
+00630            ODS, Additional product details
+                 A segment to specify the services or facilities at a
+                 station or terminal and the charges, if any, associated
+                 with the service.
+
+00640            CON, Contact information
+                 Telephone and fax numbers for a facility.
+
+00650            DTI, Date and time information
+                 Hours of operation and days open for a facility.
+
+
+00660      Segment group 15: NME-ALS-ORG-LKP-ADS-CON
+           A group of segments to provide information concerning the
+           supplier(s) of the travel service or product.
+
+00670         NME, Name
+              A segment to specify the name of the supplier of the travel
+              service or product.
+
+00680         ALS, Additional location information
+              A segment to specify the location information of the
+              supplier.
+
+00690         ORG, Originator of request details
+              To specify the type of supplier, the country of origin, and
+              the language.
+
+00700         LKP, Level indication
+              A segment to indicate the level of the supplier information
+              within the party hierarchy.
+
+00710         ADS, Address
+              A segment to specify the supplier's address.
+
+00720         CON, Contact information
+              Contact information, such as, phone number or fax number for
+              this provider.
+
+
+00730      Segment group 16: PRD-SSR-IFT-SG17-SG18-SG19
+           A group of segments that details the services, policies,
+           facilities, and special equipment that apply to a particular
+           product or service. The guarantees and deposits and insurance
+           coverage are also given for a particular product.
+
+00740         PRD, Product identification
+              A segment to identify a particular product without the
+              association of dates and times.
+
+00750         SSR, Special requirement details
+              Special equipment that is available for a specific product.
+
+00760         IFT, Interactive free text
+              Free text to give additional information about a specific
+              product or service.
+
+
+00770         Segment group 17: ODS-IFT
+              A group of segments that detail the services, policies, and
+              facilities and the related free text.
+
+00780            ODS, Additional product details
+                 Services, policies, and facilities available for a
+                 particular product.
+
+00790            IFT, Interactive free text
+                 To specify the free text for services, facilities, and
+                 policies.
+
+
+00800         Segment group 18: PMT-RUL
+              A group of segments listing the guarantees and deposits
+              required and the rules associated with each for a specific
+              product.
+
+00810            PMT, Payment information
+                 A segment to identify the guarantees and deposits required
+                 for a particular product.
+
+00820            RUL, Rule information
+                 The rules associated with a guarantee or deposit.
+
+
+00830         Segment group 19: ICI-TFF
+              A group of segments to describe the insurance coverage
+              available for a specific product or service.
+
+00840            ICI, Insurance cover information
+                 A segment describing insurance available and whether
+                 optional or mandatory and the coverage amounts and
+                 deductibles.
+
+00850            TFF, Tariff information
+                 The charges associated with the insurance coverage.
+
+
+00860      Segment group 20: TVL-MSD-LKP-PLI-CMN-SDT-DTI-PRD-ADS-ASD-PMT-
+                             DIS-PDT-ATR-CNX-RUL-IFT-SG21-SG22-SG23-SG24-
+                             SG26-SG27-SG28
+           A group of segments to identify a specific product by date and
+           time and to give all the information related to that product.
+
+00870         TVL, Travel product information
+              Information identifying the product or service by the service
+              provider, service location, date and time of service, and an
+              actual number, such as flight number or hotel property
+              identification.
+
+00880         MSD, Message action details
+              A segment to identify the industry type for this product or
+              service.
+
+00890         LKP, Level indication
+              A segment to indicate the level of the information within the
+              product hierarchy.
+
+00900         PLI, Product location information
+              A segment to indicate the location by geographic area,
+              reference point, or direction.
+
+00910         CMN, Commission information
+              Information concerning the amount of commission that will be
+              paid if a service or product is booked.
+
+00920         SDT, Selection details
+              A segment to specify details concerning the selection of this
+              product.
+
+00930         DTI, Date and time information
+              Hours of operation of a product or service, such as the hours
+              a rental car location is open.
+
+00940         PRD, Product identification
+              A segment to further identify a product or service, such as a
+              train number.
+
+00950         ADS, Address
+              A segment to give the address of the product, such as a hotel
+              or rental car location address.
+
+00960         ASD, Service details
+              A segment to specify rate conditions for this product.
+
+00970         PMT, Payment information
+              A segment to specify form of payment information and
+              guarantee and deposit information.
+
+00980         DIS, Discount information
+              Discounts that are applicable to a product or service.
+
+00990         PDT, Product information
+              The classes of service that are applicable for a product or
+              service.
+
+01000         ATR, Attribute
+              A segment to specify attributes of a service, such as one way
+              or round trip.
+
+01010         CNX, Connection details
+              A segment to identify the connection cities on the flight or
+              train routing.
+
+01020         RUL, Rule information
+              Rules that may apply to the reserving or booking of a product
+              or service.
+
+01030         IFT, Interactive free text
+              Free text information about a product or service.
+
+
+01040         Segment group 21: ODS-IFT
+              A group of segments to specify services, policies, and
+              facilities and the related free text.
+
+01050            ODS, Additional product details
+                 A segment to give the details of other types of
+                 information, such as service, policies, and facilities,
+                 that are applicable to a product.
+
+01060            IFT, Interactive free text
+                 Free text information related to the services, policies,
+                 and facilities.
+
+
+01070         Segment group 22: ALS-ODS
+              A group of segments detailing station and terminal locations
+              and the services available.
+
+01080            ALS, Additional location information
+                 A segment to identify stations and terminals for a product
+                 or service.
+
+01090            ODS, Additional product details
+                 To identify the services and facilities at a terminal or
+                 station.
+
+
+01100         Segment group 23: NME-ALS-ORG-LKP-ADS-CON
+              A group of segments to provide information concerning the
+              provider of the product or service.
+
+01110            NME, Name
+                 A segment to specify the name of the provider of the
+                 service.
+
+01120            ALS, Additional location information
+                 A segment to specify the location of the supplier.
+
+01130            ORG, Originator of request details
+                 A segment to specify the supplier type, the country of
+                 origin and the language.
+
+01140            LKP, Level indication
+                 A segment to indicate the level of the product provider
+                 within the party hierarchy.
+
+01150            ADS, Address
+                 A segment to specify the provider's address.
+
+01160            CON, Contact information
+                 Contact information, such as, phone number or fax number
+                 for this provider.
+
+
+01170         Segment group 24: APD-IFT-SG25
+              A group of segments to identify additional information for a
+              product, such as number of stops, type of train, and various
+              dates and times relating to the service.
+
+01180            APD, Additional transport details
+                 A segment providing additional data relating to the
+                 preceding product or service (e.g., train type, number of
+                 stops, gate descriptions, etc).
+
+01190            IFT, Interactive free text
+                 Additional free text information about the product or
+                 service.
+
+
+01200            Segment group 25: DTI-IFT
+                 A group of segments to detail various dates and times
+                 relating to the service or product.
+
+01210               DTI, Date and time information
+                    Various dates and times, such as beginning date for
+                    operation of a train, for the product or service.
+
+01220               IFT, Interactive free text
+                    Free text relating to the date and time information.
+
+
+01230         Segment group 26: SSR-LKP-IFT
+              A group of segments to specify the amenities and special
+              equipment associated with the product.
+
+01240            SSR, Special requirement details
+                 To specify the amenities and special equipment for a
+                 product.
+
+01250            LKP, Level indication
+                 A segment to allow referencing to level within the product
+                 or service to which the above SSR applies.
+
+01260            IFT, Interactive free text
+                 Additional information in free text form to describe the
+                 amenities or special equipment.
+
+
+01270         Segment group 27: PRE-TXS
+              A group of segments to list the price and tax information for
+              the product or service.
+
+01280            PRE, Price details
+                 A segment to specify the price for the product or service.
+
+01290            TXS, Taxes
+                 A segment to specify the taxes associated with a price.
+
+
+01300         Segment group 28: TFF-IFT-SG29
+              A group of segments to specify rates and the associated rules
+              and discounts that are applicable.
+
+01310            TFF, Tariff information
+                 A segment to specify rate codes and the associated rate.
+
+01320            IFT, Interactive free text
+                 A segment to specify textual information related to a
+                 tariff.
+
+
+01330            Segment group 29: RUL-DIS
+                 A group of segments to specify the rules applicable for a
+                 discount and the associated discount.
+
+01340               RUL, Rule information
+                    A segment to specify rules related to a product or
+                    service.
+
+01350               DIS, Discount information
+                    A segment to indicate the discounts associated to a
+                    rule.
+
+
+01360      Segment group 30: ODI-SG31
+           A group of segments to describe a product or service based on
+           the origin and destination of a journey.
+
+01370         ODI, Origin and destination details
+              The origin of the beginning of a journey and the final
+              destination.
+
+
+01380         Segment group 31: TVL-MSD-LKP-CNX-ASD-PDT-TRF-IFT-SG32-SG33-
+                                SG34-SG36
+              A group of segments to describe a particular product or
+              service that is included within the origin and destination.
+
+01390            TVL, Travel product information
+                 Information identifying the product or service by the
+                 service provider, service location, date and time of
+                 service, and an actual number, such as flight number or
+                 hotel property identification.
+
+01400            MSD, Message action details
+                 A segment to identify the industry type for this product
+                 or service.
+
+01410            LKP, Level indication
+                 A segment to indicate the level of the information within
+                 the product hierarchy.
+
+01420            CNX, Connection details
+                 A segment to identify the connection cities on the flight
+                 or train routing.
+
+01430            ASD, Service details
+                 A segment to specify rate conditions for this product.
+
+01440            PDT, Product information
+                 The classes of service that are applicable for the product
+                 or service.
+
+01450            TRF, Traffic restriction details
+                 Restrictions that apply to this service concerning the
+                 boarding and disembarkation of passengers.
+
+01460            IFT, Interactive free text
+                 Additional information in free text format about this
+                 product or service.
+
+
+01470            Segment group 32: ERI-IFT
+                 A group of segments to specify application errors for this
+                 product.
+
+01480               ERI, Application error information
+                    An error pertaining to this product or service.
+
+01490               IFT, Interactive free text
+                    Free text information concerning the error.
+
+
+01500            Segment group 33: NME-ALS-ORG-LKP-ADS-CON
+                 A group of segments to provide information concerning the
+                 provider of the product or service.
+
+01510               NME, Name
+                    A segment to specify the name of the provider of the
+                    service.
+
+01520               ALS, Additional location information
+                    A segment to specify location information for the
+                    provider of the service.
+
+01530               ORG, Originator of request details
+                    A segment to specify supplier type, country of origin
+                    and language.
+
+01540               LKP, Level indication
+                    A segment to indicate the level of the product provider
+                    within the party hierarchy.
+
+01550               ADS, Address
+                    A segment to specify the provider's address.
+
+01560               CON, Contact information
+                    Contact information, such as, phone number or fax
+                    number for this provider.
+
+
+01570            Segment group 34: APD-IFT-SG35
+                 A group of segments to specify additional information
+                 about the means of transport and dates and times
+                 associated with this information.
+
+01580               APD, Additional transport details
+                    Additional information concerning the means of
+                    transport such as number of stops, on time percentages,
+                    and type of equipment.
+
+01590               IFT, Interactive free text
+                    Additional information in free text format for the
+                    means of transport.
+
+
+01600               Segment group 35: DTI-IFT
+                    A group of segments detailing dates and times for the
+                    means of transport.
+
+01610                  DTI, Date and time information
+                       Dates and times related to the means of transport.
+
+01620                  IFT, Interactive free text
+                       Additional information in free text format for the
+                       dates and times.
+
+
+01630            Segment group 36: SSR-LKP-IFT
+                 A group of segments to specify the amenities and special
+                 equipment associated with the product.
+
+01640               SSR, Special requirement details
+                    To specify the amenities and special equipment for a
+                    product.
+
+01650               LKP, Level indication
+                    A segment to allow referencing to level within the
+                    product or service to which the above SSR applies.
+
+01660               IFT, Interactive free text
+                    Additional information in free text form to describe
+                    the amenities or special equipment.
+
+01670   UIT, Interactive message trailer
+        A service segment ending a message, giving the total number of
+        segments in the message (including the UIH & UIT) and the control
+        reference number of the message.
+
+4.2    Segment index (alphabetical sequence by tag)
+
+          ADS Address
+          ALS Additional location information
+          APD Additional transport details
+          ASD Service details
+          ATR Attribute
+          CMN Commission information
+          CNX Connection details
+          CON Contact information
+          CRI Consumer reference information
+          DIS Discount information
+          DTI Date and time information
+          ERI Application error information
+          ICI Insurance cover information
+          IFT Interactive free text
+          ITD Information type data
+          LKP Level indication
+          MSD Message action details
+          NME Name
+          NUN Number of units
+          ODI Origin and destination details
+          ODS Additional product details
+          ORG Originator of request details
+          PDT Product information
+          PLI Product location information
+          PMT Payment information
+          PRD Product identification
+          PRE Price details
+          PRO Promotions
+          RTC Rate types
+          RTI Rate details
+          RUL Rule information
+          SDT Selection details
+          SSR Special requirement details
+          TFF Tariff information
+          TRF Traffic restriction details
+          TVL Travel product information
+          TXS Taxes
+          UIH Interactive message header
+          UIT Interactive message trailer
+
+4.3    Message structure
+
+4.3.1  Segment table
+
+Pos     Tag Name                                     S   R
+
+00010   UIH Interactive message header               M   1     
+00020   MSD Message action details                   C   1     
+00030   ERI Application error information            C   1     
+00040   TFF Tariff information                       C   1     
+00050   CON Contact information                      C   1     
+00060   NUN Number of units                          C   1     
+00070   ALS Additional location information          C   1     
+00080   ADS Address                                  C   1     
+00090   DTI Date and time information                C   1     
+00100   IFT Interactive free text                    C   9     
+
+00110       ---- Segment group 1  ------------------ C   99---------------+
+00120   ORG Originator of request details            M   1                |
+00130   LKP Level indication                         C   1                |
+00140   ADS Address                                  C   1                |
+00150   CON Contact information                      C   9----------------+
+
+00160       ---- Segment group 2  ------------------ C   99---------------+
+00170   ITD Information type data                    M   1                |
+00180   RUL Rule information                         C   1                |
+00190   DTI Date and time information                C   99               |
+00200   IFT Interactive free text                    C   1                |
+                                                                          |
+00210       ---- Segment group 3  ------------------ C   99--------------+|
+00220   PMT Payment information                      M   1               ||
+00230   RUL Rule information                         C   1---------------+|
+                                                                          |
+00240       ---- Segment group 4  ------------------ C   99--------------+|
+00250   PLI Product location information             M   1               ||
+00260   IFT Interactive free text                    C   1---------------+|
+                                                                          |
+00270       ---- Segment group 5  ------------------ C   99--------------+|
+00280   RTI Rate details                             M   1               ||
+00290   IFT Interactive free text                    C   1---------------+|
+                                                                          |
+00300       ---- Segment group 6  ------------------ C   99--------------+|
+00310   SSR Special requirement details              M   1               ||
+00320   PDT Product information                      C   1               ||
+00330   TFF Tariff information                       C   1               ||
+00340   RUL Rule information                         C   9---------------+|
+                                                                          |
+00350       ---- Segment group 7  ------------------ C   99--------------+|
+00360   ODS Additional product details               M   1               ||
+00370   DTI Date and time information                C   99              ||
+00380   PLI Product location information             C   1               ||
+00390   CON Contact information                      C   1               ||
+00400   IFT Interactive free text                    C   99--------------+|
+                                                                          |
+00410       ---- Segment group 8  ------------------ C   99--------------+|
+00420   PRO Promotions                               M   1               ||
+00430   NUN Number of units                          C   1               ||
+00440   RUL Rule information                         C   1---------------+|
+                                                                          |
+00450       ---- Segment group 9  ------------------ C   99--------------+|
+00460   CRI Consumer reference information           M   1               ||
+00470   DIS Discount information                     C   1               ||
+00480   NUN Number of units                          C   1---------------+|
+                                                                          |
+00490       ---- Segment group 10 ------------------ C   99--------------+|
+00500   ICI Insurance cover information              M   1               ||
+00510   TFF Tariff information                       C   1               ||
+00520   PDT Product information                      C   1---------------+|
+                                                                          |
+00530       ---- Segment group 11 ------------------ C   99--------------+|
+00540   RTC Rate types                               M   1               ||
+                                                                         ||
+00550       ---- Segment group 12 ------------------ C   99-------------+||
+00560   PMT Payment information                      M   1              |||
+00570   RUL Rule information                         C   9--------------++|
+                                                                          |
+00580       ---- Segment group 13 ------------------ C   99--------------+|
+00590   ALS Additional location information          M   1               ||
+00600   ADS Address                                  C   1               ||
+00610   CON Contact information                      C   1               ||
+                                                                         ||
+00620       ---- Segment group 14 ------------------ C   5--------------+||
+00630   ODS Additional product details               M   1              |||
+00640   CON Contact information                      C   1              |||
+00650   DTI Date and time information                C   1--------------++|
+                                                                          |
+00660       ---- Segment group 15 ------------------ C   99--------------+|
+00670   NME Name                                     M   1               ||
+00680   ALS Additional location information          C   1               ||
+00690   ORG Originator of request details            C   1               ||
+00700   LKP Level indication                         C   1               ||
+00710   ADS Address                                  C   1               ||
+00720   CON Contact information                      C   9---------------+|
+                                                                          |
+00730       ---- Segment group 16 ------------------ C   99--------------+|
+00740   PRD Product identification                   M   1               ||
+00750   SSR Special requirement details              C   1               ||
+00760   IFT Interactive free text                    C   1               ||
+                                                                         ||
+00770       ---- Segment group 17 ------------------ C   99-------------+||
+00780   ODS Additional product details               M   1              |||
+00790   IFT Interactive free text                    C   1--------------+||
+                                                                         ||
+00800       ---- Segment group 18 ------------------ C   9--------------+||
+00810   PMT Payment information                      M   1              |||
+00820   RUL Rule information                         C   9--------------+||
+                                                                         ||
+00830       ---- Segment group 19 ------------------ C   99-------------+||
+00840   ICI Insurance cover information              M   1              |||
+00850   TFF Tariff information                       C   1--------------++|
+                                                                          |
+00860       ---- Segment group 20 ------------------ C   999-------------+|
+00870   TVL Travel product information               M   1               ||
+00880   MSD Message action details                   C   1               ||
+00890   LKP Level indication                         C   1               ||
+00900   PLI Product location information             C   1               ||
+00910   CMN Commission information                   C   1               ||
+00920   SDT Selection details                        C   1               ||
+00930   DTI Date and time information                C   99              ||
+00940   PRD Product identification                   C   1               ||
+00950   ADS Address                                  C   1               ||
+00960   ASD Service details                          C   1               ||
+00970   PMT Payment information                      C   1               ||
+00980   DIS Discount information                     C   1               ||
+00990   PDT Product information                      C   1               ||
+01000   ATR Attribute                                C   1               ||
+01010   CNX Connection details                       C   1               ||
+01020   RUL Rule information                         C   99              ||
+01030   IFT Interactive free text                    C   99              ||
+                                                                         ||
+01040       ---- Segment group 21 ------------------ C   5--------------+||
+01050   ODS Additional product details               M   1              |||
+01060   IFT Interactive free text                    C   1--------------+||
+                                                                         ||
+01070       ---- Segment group 22 ------------------ C   5--------------+||
+01080   ALS Additional location information          M   1              |||
+01090   ODS Additional product details               C   1--------------+||
+                                                                         ||
+01100       ---- Segment group 23 ------------------ C   99-------------+||
+01110   NME Name                                     M   1              |||
+01120   ALS Additional location information          C   1              |||
+01130   ORG Originator of request details            C   1              |||
+01140   LKP Level indication                         C   1              |||
+01150   ADS Address                                  C   1              |||
+01160   CON Contact information                      C   1--------------+||
+                                                                         ||
+01170       ---- Segment group 24 ------------------ C   1--------------+||
+01180   APD Additional transport details             M   1              |||
+01190   IFT Interactive free text                    C   1              |||
+                                                                        |||
+01200       ---- Segment group 25 ------------------ C   99------------+|||
+01210   DTI Date and time information                M   1             ||||
+01220   IFT Interactive free text                    C   1-------------++||
+                                                                         ||
+01230       ---- Segment group 26 ------------------ C   99-------------+||
+01240   SSR Special requirement details              M   1              |||
+01250   LKP Level indication                         C   1              |||
+01260   IFT Interactive free text                    C   1--------------+||
+                                                                         ||
+01270       ---- Segment group 27 ------------------ C   99-------------+||
+01280   PRE Price details                            M   1              |||
+01290   TXS Taxes                                    C   1--------------+||
+                                                                         ||
+01300       ---- Segment group 28 ------------------ C   999------------+||
+01310   TFF Tariff information                       M   1              |||
+01320   IFT Interactive free text                    C   1              |||
+                                                                        |||
+01330       ---- Segment group 29 ------------------ C   9-------------+|||
+01340   RUL Rule information                         M   1             ||||
+01350   DIS Discount information                     C   1-------------+++|
+                                                                          |
+01360       ---- Segment group 30 ------------------ C   99--------------+|
+01370   ODI Origin and destination details           M   1               ||
+                                                                         ||
+01380       ---- Segment group 31 ------------------ C   999------------+||
+01390   TVL Travel product information               M   1              |||
+01400   MSD Message action details                   C   1              |||
+01410   LKP Level indication                         C   1              |||
+01420   CNX Connection details                       C   1              |||
+01430   ASD Service details                          C   1              |||
+01440   PDT Product information                      C   1              |||
+01450   TRF Traffic restriction details              C   1              |||
+01460   IFT Interactive free text                    C   99             |||
+                                                                        |||
+01470       ---- Segment group 32 ------------------ C   1-------------+|||
+01480   ERI Application error information            M   1             ||||
+01490   IFT Interactive free text                    C   1-------------+|||
+                                                                        |||
+01500       ---- Segment group 33 ------------------ C   99------------+|||
+01510   NME Name                                     M   1             ||||
+01520   ALS Additional location information          C   1             ||||
+01530   ORG Originator of request details            C   1             ||||
+01540   LKP Level indication                         C   1             ||||
+01550   ADS Address                                  C   1             ||||
+01560   CON Contact information                      C   1-------------+|||
+                                                                        |||
+01570       ---- Segment group 34 ------------------ C   1-------------+|||
+01580   APD Additional transport details             M   1             ||||
+01590   IFT Interactive free text                    C   1             ||||
+                                                                       ||||
+01600       ---- Segment group 35 ------------------ C   99-----------+||||
+01610   DTI Date and time information                M   1            |||||
+01620   IFT Interactive free text                    C   1------------++|||
+                                                                        |||
+01630       ---- Segment group 36 ------------------ C   99------------+|||
+01640   SSR Special requirement details              M   1             ||||
+01650   LKP Level indication                         C   1             ||||
+01660   IFT Interactive free text                    C   1-------------++++
+01670   UIT Interactive message trailer              M   1     

@@ -1,0 +1,5435 @@
+2.   Data element specifications
+
+     Change indicators
+
+     a plus sign (+)    for an addition
+     an asterisk (*)    for an amendment to structure
+     a hash sign (#)    for changes to names
+     a vertical bar (|) for changes to text for descriptions and
+                        notes
+     a minus sign (-)   for marked for deletion (within either
+                        batch or interactive messages)
+     a letter X (X)     for marked for deletion (within both batch
+                        and interactive messages)
+
+     Usage indicators
+
+     [B] = used in batch messages only
+     [I] = used in interactive messages only
+     [C] = common usage in both batch and interactive messages
+
+----------------------------------------------------------------------
+
+     1000  Document name                                           [B]
+
+     Desc: Name of a document.
+
+     Repr: an..35
+
+----------------------------------------------------------------------
+
+     1001  Document name code                                      [C]
+
+     Desc: Code specifying the document name.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     1003  Message type code                                       [B]
+
+     Desc: Code specifying a type of message.
+
+     Repr: an..6
+
+----------------------------------------------------------------------
+
+     1004  Document identifier                                     [C]
+
+     Desc: To identify a document.
+
+     Repr: an..70
+
+----------------------------------------------------------------------
+
+     1049  Message section code                                    [B]
+
+     Desc: Code specifying a section of a message.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     1050  Sequence position identifier                            [C]
+
+     Desc: To identify a position in a sequence.
+
+     Repr: an..10
+
+----------------------------------------------------------------------
+
+     1052  Message item identifier                                 [B]
+
+     Desc: To identify an item within a message.
+
+     Repr: an..35
+
+----------------------------------------------------------------------
+
+     1054  Message sub-item identifier                             [B]
+
+     Desc: To identify a sub-item within a message.
+
+     Repr: n..6
+
+----------------------------------------------------------------------
+
+     1056  Version identifier                                      [B]
+
+     Desc: To identify a version.
+
+     Repr: an..9
+
+----------------------------------------------------------------------
+
+     1058  Release identifier                                      [B]
+
+     Desc: To identify a release.
+
+     Repr: an..9
+
+----------------------------------------------------------------------
+
+     1060  Revision identifier                                     [B]
+
+     Desc: To identify a revision.
+
+     Repr: an..6
+
+----------------------------------------------------------------------
+
+     1073  Document line action code                               [B]
+
+     Desc: Code indicating an action associated with a line of a
+           document.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     1082  Line item identifier                                    [C]
+
+     Desc: To identify a line item.
+
+     Repr: an..6
+
+----------------------------------------------------------------------
+
+     1131  Code list identification code                           [C]
+
+     Desc: Code identifying a user or association maintained code
+           list.
+
+     Repr: an..17
+
+     Note: 
+           1 The codes for this data element are provided by the
+           code list responsible agency defined in data element
+           3055.
+
+----------------------------------------------------------------------
+
+     1145  Traveller reference identifier                          [I]
+
+     Desc: To identify a reference to a traveller.
+
+     Repr: an..35
+
+----------------------------------------------------------------------
+
+     1146  Account name                                            [B]
+
+     Desc: Name of an account.
+
+     Repr: an..35
+
+----------------------------------------------------------------------
+
+     1147  Account identifier                                      [B]
+
+     Desc: To identify an account.
+
+     Repr: an..35
+
+----------------------------------------------------------------------
+
+     1148  Account abbreviated name                                [B]
+
+     Desc: Abbreviated name of an account.
+
+     Repr: an..17
+
+----------------------------------------------------------------------
+
+     1153  Reference code qualifier                                [C]
+
+     Desc: Code qualifying a reference.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     1154  Reference identifier                                    [C]
+
+     Desc: Identifies a reference.
+
+     Repr: an..70
+
+----------------------------------------------------------------------
+
+     1156  Document line identifier                                [C]
+
+     Desc: To identify a line of a document.
+
+     Repr: an..6
+
+----------------------------------------------------------------------
+
+     1159  Sequence identifier source code                         [B]
+
+     Desc: Code specifying the source of a sequence identifier.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     1170  Accounting journal name                                 [B]
+
+     Desc: Name of an accounting journal.
+
+     Repr: an..35
+
+----------------------------------------------------------------------
+
+     1171  Accounting journal identifier                           [B]
+
+     Desc: To identify an accounting journal.
+
+     Repr: an..17
+
+----------------------------------------------------------------------
+
+     1218  Document originals required quantity                    [B]
+
+     Desc: Quantity of document originals required.
+
+     Repr: n..2
+
+----------------------------------------------------------------------
+
+     1220  Document copies required quantity                       [B]
+
+     Desc: Quantity of document copies required.
+
+     Repr: n..2
+
+----------------------------------------------------------------------
+
+     1222  Configuration level number                              [B]
+
+     Desc: To specify a level within a configuration.
+
+     Repr: n..2
+
+----------------------------------------------------------------------
+
+     1225  Message function code                                   [C]
+
+     Desc: Code indicating the function of the message.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     1227  Calculation sequence code                               [B]
+
+     Desc: Code specifying a calculation sequence.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     1228  Action description                                      [B]
+
+     Desc: Free form description of the action to be taken or
+           already taken.
+
+     Repr: an..35
+
+----------------------------------------------------------------------
+
+     1229  Action code                                             [C]
+
+     Desc: Code specifying the action to be taken or already
+           taken.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     1230  Allowance or charge identifier                          [B]
+
+     Desc: To identify an allowance or charge.
+
+     Repr: an..35
+
+----------------------------------------------------------------------
+
+     1312  Consignment load sequence identifier                    [B]
+
+     Desc: To identify the loading sequence of a consignment or
+           consignments.
+
+     Repr: n..4
+
+----------------------------------------------------------------------
+
+     1366  Document source description                             [B]
+
+     Desc: Free form description of the source of a document.
+
+     Repr: an..70
+
+----------------------------------------------------------------------
+
+     1373  Document status code                                    [B]
+
+     Desc: Code specifying the status of a document.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     1476  Controlling agency identifier                           [B]
+
+     Desc: To identify a controlling agency.
+
+     Repr: an..2
+
+----------------------------------------------------------------------
+
+     1490  Consolidation item number                               [B]
+
+     Desc: To specify a consignment within a consolidation.
+
+     Repr: n..5
+
+----------------------------------------------------------------------
+
+     1496  Goods item number                                       [B]
+
+     Desc: To specify a goods item within a consignment.
+
+     Repr: an..6
+
+----------------------------------------------------------------------
+
+     1501  Computer environment details code qualifier             [B]
+
+     Desc: Code qualifying computer environment details.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     1502  Data format description                                 [B]
+
+     Desc: Free form description of the data format.
+
+     Repr: an..35
+
+----------------------------------------------------------------------
+
+     1503  Data format description code                            [C]
+
+     Desc: Code specifying the data format.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     1505  Value list type code                                    [B]
+
+     Desc: Code specifying a type of value list.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     1507  Designated class code                                   [B]
+
+     Desc: Code specifying a designated class.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     1508  File name                                               [B]
+
+     Desc: Name of a file.
+
+     Repr: an..35
+
+----------------------------------------------------------------------
+
+     1510  Computer environment name                               [B]
+
+     Desc: Name of a computer environment.
+
+     Repr: an..35
+
+----------------------------------------------------------------------
+
+     1511  Computer environment name code                          [C]
+
+     Desc: Code specifying a computer environment.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     1514  Value list name                                         [B]
+
+     Desc: Name of a coded or non-coded list of values.
+
+     Repr: an..70
+
+----------------------------------------------------------------------
+
+     1516  File format name                                        [B]
+
+     Desc: Name of a file format.
+
+     Repr: an..17
+
+----------------------------------------------------------------------
+
+     1518  Value list identifier                                   [B]
+
+     Desc: To identify a coded or non-coded list of values.
+
+     Repr: an..35
+
+----------------------------------------------------------------------
+
+     1520  Data set identifier                                     [B]
+
+     Desc: To identify a data set.
+
+     Repr: an..35
+
+----------------------------------------------------------------------
+
+     1523  Message implementation identification code              [B]
+
+     Desc: Code identifying an implementation of a message.
+
+     Repr: an..6
+
+----------------------------------------------------------------------
+
+     2000  Date                                                    [I]
+
+     Desc: To specify a date.
+
+     Repr: an..14
+
+----------------------------------------------------------------------
+
+     2002  Time                                                    [I]
+
+     Desc: To specify a time.
+
+     Repr: n4
+
+----------------------------------------------------------------------
+
+     2005  Date or time or period function code qualifier          [C]
+
+     Desc: Code qualifying the function of a date, time or
+           period.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     2009  Terms time relation code                                [B]
+
+     Desc: Code relating terms to a reference date, time or
+           period.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     2013  Frequency code                                          [C]
+
+     Desc: Code specifying the rate of recurrence.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     2015  Despatch pattern code                                   [C]
+
+     Desc: Code specifying a despatch pattern.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     2017  Despatch pattern timing code                            [C]
+
+     Desc: Code specifying a set of dates/times within a despatch
+           pattern.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     2018  Age                                                     [I]
+
+     Desc: To specify the length of time that a person or thing
+           has existed.
+
+     Repr: n..3
+
+----------------------------------------------------------------------
+
+     2023  Period type code qualifier                              [B]
+
+     Desc: Code qualifying the type of the period.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     2029  Time zone identifier                                    [I]
+
+     Desc: To identify a time zone.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     2031  Time variation quantity                                 [I]
+
+     Desc: To specify a time variation.
+
+     Repr: n..3
+
+----------------------------------------------------------------------
+
+     2116  Time zone difference quantity                           [I]
+
+     Desc: The difference between two defined time zones.
+
+     Repr: n..4
+
+----------------------------------------------------------------------
+
+     2118  Period detail description                               [B]
+
+     Desc: Free form description of the period detail.
+
+     Repr: an..35
+
+----------------------------------------------------------------------
+
+     2119  Period detail description code                          [B]
+
+     Desc: Code specifying the period detail.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     2148  Date variation number                                   [I]
+
+     Desc: A number to indicate the difference between two dates.
+
+     Repr: n..5
+
+----------------------------------------------------------------------
+
+     2151  Period type code                                        [C]
+
+     Desc: Code specifying the type of period.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     2152  Period count quantity                                   [C]
+
+     Desc: Count of the number of periods.
+
+     Repr: n..3
+
+----------------------------------------------------------------------
+
+     2155  Charge period type code                                 [I]
+
+     Desc: Code specifying a type of a charge period.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     2156  Check-in time                                           [I]
+
+     Desc: To specifiy a check-in date and time.
+
+     Repr: an..10
+
+----------------------------------------------------------------------
+
+     2160  Days of week set identifier                             [I]
+
+     Desc: String data representation of days of the week (Monday
+           = 1).
+
+     Repr: an..7
+
+----------------------------------------------------------------------
+
+     2162  Journey leg duration quantity                           [I]
+
+     Desc: To specify the elapsed time between departure and
+           arrival for a leg of a journey.
+
+     Repr: an..6
+
+----------------------------------------------------------------------
+
+     2164  Millisecond time                                        [I]
+
+     Desc: To specify a time including milliseconds.
+
+     Repr: n9
+
+----------------------------------------------------------------------
+
+     2379  Date or time or period format code                      [C]
+
+     Desc: Code specifying the representation of a date, time or
+           period.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     2380  Date or time or period text                             [C]
+
+     Desc: The value of a date, a date and time, a time or of a
+           period in a specified representation.
+
+     Repr: an..35
+
+----------------------------------------------------------------------
+
+     2475  Event time reference code                               [B]
+
+     Desc: Code specifying a time that references an event that
+           will or has occurred.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     3005  Maintenance operation operator code                     [B]
+
+     Desc: A code identifying the type of party being responsible
+           for a maintenance operation.
+
+     Repr: an..3
+
+     Note: 
+           1 Use code list for data element 3035.
+
+----------------------------------------------------------------------
+
+     3009  Maintenance operation payer code                        [B]
+
+     Desc: A code identifying  the type of party paying for a
+           maintenance operation.
+
+     Repr: an..3
+
+     Note: 
+           1 Use code list for data element 3035.
+
+----------------------------------------------------------------------
+
+     3035  Party function code qualifier                           [C]
+
+     Desc: Code giving specific meaning to a party.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     3036  Party name                                              [C]
+
+     Desc: Name of a party.
+
+     Repr: an..70
+
+----------------------------------------------------------------------
+
+     3039  Party identifier                                        [C]
+
+     Desc: Code specifying the identity of a party.
+
+     Repr: an..35
+
+----------------------------------------------------------------------
+
+     3042  Street and number or post office box identifier         [C]
+
+     Desc: To identify a street and number and/or Post Office box
+           number.
+
+     Repr: an..35
+
+----------------------------------------------------------------------
+
+     3045  Party name format code                                  [C]
+
+     Desc: Code specifying the representation of a party name.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     3055  Code list responsible agency code                       [C]
+
+     Desc: Code specifying the agency responsible for a code
+           list.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     3077  Test medium code                                        [B]
+
+     Desc: Code specifying the medium on which a test was or is
+           to be applied.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     3079  Organisation classification code                        [B]
+
+     Desc: Code specifying the classification of an organisation.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     3082  Organisational class name                               [B]
+
+     Desc: Name of a class of organisation.
+
+     Repr: an..70
+
+----------------------------------------------------------------------
+
+     3083  Organisational class name code                          [B]
+
+     Desc: Code specifying a class of organisation.
+
+     Repr: an..17
+
+----------------------------------------------------------------------
+
+     3124  Name and address description                            [C]
+
+     Desc: Free form description of a name and address line.
+
+     Repr: an..35
+
+----------------------------------------------------------------------
+
+     3126  Carrier name                                            [B]
+
+     Desc: Name of a carrier.
+
+     Repr: an..35
+
+----------------------------------------------------------------------
+
+     3127  Carrier identifier                                      [B]
+
+     Desc: To identify a carrier.
+
+     Repr: an..17
+
+----------------------------------------------------------------------
+
+     3131  Address type code                                       [C]
+
+     Desc: Code specifying the type of an address.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     3139  Contact function code                                   [B]
+
+     Desc: Code specifying the function of a contact (e.g.
+           department or person).
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     3148  Communication address identifier                        [C]
+
+     Desc: To identify a communication address.
+
+     Repr: an..512
+
+----------------------------------------------------------------------
+
+     3153  Communication medium type code                          [C]
+
+     Desc: Code specifying the type of communication medium.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     3155  Communication means type code                           [B]
+
+     Desc: Code specifying the type of communication address.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     3164  City name                                               [C]
+
+     Desc: Name of a city.
+
+     Repr: an..35
+
+----------------------------------------------------------------------
+
+     3192  Account holder name                                     [B]
+
+     Desc: Name of the holder of an account.
+
+     Repr: an..35
+
+----------------------------------------------------------------------
+
+     3194  Account holder identifier                               [B]
+
+     Desc: To identify the holder of an account.
+
+     Repr: an..35
+
+----------------------------------------------------------------------
+
+     3197  Agent identifier                                        [I]
+
+     Desc: To identify an agent.
+
+     Repr: an..9
+
+----------------------------------------------------------------------
+
+     3207  Country identifier                                      [C]
+
+     Desc: Identification of the name of the country or other
+           geographical entity as defined in ISO 3166-1 and
+           UN/ECE Recommendation 3.
+
+     Repr: an..3
+
+     Note: 
+           1 Use ISO 3166-1 two alpha country code.
+
+----------------------------------------------------------------------
+
+     3222  First related location name                             [B]
+
+     Desc: Name of first related location.
+
+     Repr: an..70
+
+----------------------------------------------------------------------
+
+     3223  First related location identifier                       [C]
+
+     Desc: To identify a first related location.
+
+     Repr: an..35
+
+     Note: 
+           1 Recommend use UN/ECE Recommendation No. 16:
+           UN/LOCODE. If not applicable, use appropriate code set
+           in combination with 1131/3055.
+
+----------------------------------------------------------------------
+
+     3224  Location name                                           [C]
+
+     Desc: Name of the location.
+
+     Repr: an..256
+
+----------------------------------------------------------------------
+
+     3225  Location identifier                                     [C]
+
+     Desc: To identify a location.
+
+     Repr: an..35
+
+     Note: 
+           1 Recommend use UN/ECE Recommendation No. 16:
+           UN/LOCODE. If not applicable, use appropriate code set
+           in combination with 1131/3055.
+
+----------------------------------------------------------------------
+
+     3227  Location function code qualifier                        [C]
+
+     Desc: Code identifying the function of a location.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     3228  Country subdivision name                                [C]
+
+     Desc: Name of a country subdivision, such as state, canton,
+           county, prefecture.
+
+     Repr: an..70
+
+----------------------------------------------------------------------
+
+     3229  Country subdivision identifier                          [C]
+
+     Desc: To identify a country subdivision, such as state,
+           canton, county, prefecture.
+
+     Repr: an..9
+
+     Note: 
+           1 Recommended use ISO 3166-2. If not applicable, use
+           appropriate code set defined by appropriate national
+           authority.
+
+----------------------------------------------------------------------
+
+     3232  Second related location name                            [B]
+
+     Desc: Name of the second related location.
+
+     Repr: an..70
+
+----------------------------------------------------------------------
+
+     3233  Second related location identifier                      [C]
+
+     Desc: To identify a second related location.
+
+     Repr: an..35
+
+     Note: 
+           1 Recommend use UN/ECE Recommendation No. 16:
+           UN/LOCODE. If not applicable, use appropriate code set
+           in combination with 1131/3055.
+
+----------------------------------------------------------------------
+
+     3236  Sample location description                             [B]
+
+     Desc: Free form description of the sample location.
+
+     Repr: an..35
+
+----------------------------------------------------------------------
+
+     3237  Sample location description code                        [B]
+
+     Desc: Code specifying the sample location.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     3239  Country of origin identifier                            [B]
+
+     Desc: To identify the country in which the goods have been
+           produced or manufactured, according to criteria laid
+           down for the application of the Customs tariff or
+           quantitative restrictions, or any measure related to
+           trade.
+
+     Repr: an..3
+
+     Note: 
+           1 Use ISO 3166-1 two alpha country code.
+
+----------------------------------------------------------------------
+
+     3251  Postal identification code                              [C]
+
+     Desc: Code specifying the postal zone or address.
+
+     Repr: an..17
+
+     Note: 
+           1 Use code defined by appropriate national authority.
+
+----------------------------------------------------------------------
+
+     3279  Geographic area code                                    [B]
+
+     Desc: Code specifying a geographical area.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     3285  Instruction receiving party identifier                  [B]
+
+     Desc: Code specifying the party to receive an instruction.
+
+     Repr: an..35
+
+----------------------------------------------------------------------
+
+     3286  Address component description                           [C]
+
+     Desc: Free form description of the component of an address.
+
+     Repr: an..70
+
+----------------------------------------------------------------------
+
+     3289  Person characteristic code qualifier                    [B]
+
+     Desc: Code qualifying a type of characteristic of a person.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     3292  Nationality name                                        [B]
+
+     Desc: Name of a nationality.
+
+     Repr: a..35
+
+----------------------------------------------------------------------
+
+     3293  Nationality name code                                   [B]
+
+     Desc: Code specifying the name of a nationality.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     3295  Name original alphabet code                             [B]
+
+     Desc: Code specifying the alphabet originally used to
+           represent a name.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     3299  Address purpose code                                    [C]
+
+     Desc: Code specifying the purpose of an address.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     3301  Enacting party identifier                               [B]
+
+     Desc: To identify the party enacting an instruction.
+
+     Repr: an..35
+
+----------------------------------------------------------------------
+
+     3310  Inherited characteristic description                    [B]
+
+     Desc: Free form description of an inherited characteristic.
+
+     Repr: an..70
+
+----------------------------------------------------------------------
+
+     3311  Inherited characteristic description code               [B]
+
+     Desc: Code specifying an inherited characteristic.
+
+     Repr: an..8
+
+----------------------------------------------------------------------
+
+     3397  Name status code                                        [C]
+
+     Desc: Code specifying the status of a name.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     3398  Name component description                              [B]
+
+     Desc: Free form description of a name component.
+
+     Repr: an..256
+
+----------------------------------------------------------------------
+
+     3401  Name component usage code                               [B]
+
+     Desc: Code specifying the usage of a name component.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     3403  Name type code                                          [B]
+
+     Desc: Code specifying the type of name.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     3405  Name component type code qualifier                      [B]
+
+     Desc: Code qualifying the type of a name component.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     3412  Contact name                                            [B]
+
+     Desc: Name of a contact, such as a department or employee.
+
+     Repr: an..256
+
+----------------------------------------------------------------------
+
+     3413  Contact identifier                                      [C]
+
+     Desc: To identify a contact, such as a department or
+           employee.
+
+     Repr: an..17
+
+----------------------------------------------------------------------
+
+     3432  Institution name                                        [B]
+
+     Desc: Name of an institution.
+
+     Repr: an..70
+
+----------------------------------------------------------------------
+
+     3433  Institution name code                                   [B]
+
+     Desc: Code specifying the name of an institution.
+
+     Repr: an..11
+
+----------------------------------------------------------------------
+
+     3434  Institution branch identifier                           [B]
+
+     Desc: To identify a branch of an institution.
+
+     Repr: an..17
+
+----------------------------------------------------------------------
+
+     3436  Institution branch location name                        [B]
+
+     Desc: Name of the location of a branch of an institution.
+
+     Repr: an..70
+
+----------------------------------------------------------------------
+
+     3446  Party tax identifier                                    [B]
+
+     Desc: To identify a number assigned to a party by a tax
+           authority.
+
+     Repr: an..20
+
+----------------------------------------------------------------------
+
+     3449  Bank identifier                                         [I]
+
+     Desc: To identify a bank.
+
+     Repr: an..17
+
+----------------------------------------------------------------------
+
+     3452  Language name                                           [C]
+
+     Desc: Name of language.
+
+     Repr: an..35
+
+----------------------------------------------------------------------
+
+     3453  Language name code                                      [C]
+
+     Desc: Code specifying the language name.
+
+     Repr: an..3
+
+     Note: 
+           1 Use ISO 639-1.
+
+----------------------------------------------------------------------
+
+     3455  Language code qualifier                                 [C]
+
+     Desc: Code qualifying a language.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     3457  Originator type code                                    [I]
+
+     Desc: Code specifying the type of originator.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     3459  Frequent traveller identifier                           [I]
+
+     Desc: To identify a frequent traveller.
+
+     Repr: an..25
+
+----------------------------------------------------------------------
+
+     3460  Given name                                              [I]
+
+     Desc: An individual's given name.
+
+     Repr: an..70
+
+----------------------------------------------------------------------
+
+     3463  Gate identifier                                         [I]
+
+     Desc: To identify a gate.
+
+     Repr: an..6
+
+----------------------------------------------------------------------
+
+     3465  In-house identifier                                     [I]
+
+     Desc: A unique locally assigned identification.
+
+     Repr: an..9
+
+----------------------------------------------------------------------
+
+     3475  Address status code                                     [C]
+
+     Desc: Code specifying the status of an address.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     3477  Address format code                                     [C]
+
+     Desc: Code specifying the format of an address.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     3478  Marital status description                              [B]
+
+     Desc: Free form description of the marital status of a
+           person.
+
+     Repr: an..35
+
+----------------------------------------------------------------------
+
+     3479  Marital status description code                         [C]
+
+     Desc: Code specifying the marital status of a person.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     3480  Person job title                                        [B]
+
+     Desc: Name of a job title such as rank or rating of crew
+           member.
+
+     Repr: an..35
+
+----------------------------------------------------------------------
+
+     3482  Religion name                                           [B]
+
+     Desc: Name of a religion.
+
+     Repr: an..35
+
+----------------------------------------------------------------------
+
+     3483  Religion name code                                      [B]
+
+     Desc: Code specifying the name of a religion.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     3493  Nationality code qualifier                              [B]
+
+     Desc: Code qualifying a nationality.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     3496  Sales channel identifier                                [B]
+
+     Desc: To identify a sales channel.
+
+     Repr: an..17
+
+----------------------------------------------------------------------
+
+     3499  Gender code                                             [C]
+
+     Desc: Code giving the gender of a person, animal or plant.
+
+     Repr: an..3
+
+     Note: 
+           1 Use ISO 5218 Representation of human sexes
+
+----------------------------------------------------------------------
+
+     3500  Family name                                             [I]
+
+     Desc: Family name (synonym surname).
+
+     Repr: an..70
+
+----------------------------------------------------------------------
+
+     3503  Access authorisation identifier                         [I]
+
+     Desc: To identify an authorisation to access.
+
+     Repr: an..9
+
+----------------------------------------------------------------------
+
+     3504  Given name title description                            [I]
+
+     Desc: Free form description of a title.
+
+     Repr: an..9
+
+----------------------------------------------------------------------
+
+     3507  Benefit coverage constituents code                      [I]
+
+     Desc: Code used to identify who is included in the benefit
+           coverage.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     4009  Option code                                             [I]
+
+     Desc: Code specifying an option.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     4017  Delivery plan commitment level code                     [B]
+
+     Desc: Code specifying the level of commitment to a delivery
+           plan.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     4018  Related information description                         [I]
+
+     Desc: Free form description of the related information.
+
+     Repr: an..35
+
+----------------------------------------------------------------------
+
+     4022  Business description                                    [B]
+
+     Desc: Free form description of a business.
+
+     Repr: an..70
+
+----------------------------------------------------------------------
+
+     4025  Business function code                                  [C]
+
+     Desc: Code describing the specific business function.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     4027  Business function type code qualifier                   [B]
+
+     Desc: Code qualifying the type of business function.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     4035  Priority type code qualifier                            [B]
+
+     Desc: Code qualifying the type of priority.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     4036  Priority description                                    [B]
+
+     Desc: Free form description of a priority.
+
+     Repr: an..35
+
+----------------------------------------------------------------------
+
+     4037  Priority description code                               [B]
+
+     Desc: Code specifying a priority.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     4038  Additional safety information description               [B]
+
+     Desc: Free form description of information relating to
+           additional safety.
+
+     Repr: an..35
+
+----------------------------------------------------------------------
+
+     4039  Additional safety information description code          [B]
+
+     Desc: Code specifying information relating to additional
+           safety.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     4043  Trade class code                                        [B]
+
+     Desc: Code identifying the class of trade.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     4044  Safety section name                                     [B]
+
+     Desc: Name of a safety section.
+
+     Repr: an..70
+
+----------------------------------------------------------------------
+
+     4046  Safety section number                                   [B]
+
+     Desc: To specify a safety section by number.
+
+     Repr: n..2
+
+----------------------------------------------------------------------
+
+     4048  Certainty description                                   [C]
+
+     Desc: Free form description of a certainty.
+
+     Repr: an..35
+
+----------------------------------------------------------------------
+
+     4049  Certainty description code                              [C]
+
+     Desc: Code specifying a certainty.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     4051  Characteristic relevance code                           [B]
+
+     Desc: Code specifying the relevance of a characteristic.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     4052  Delivery or transport terms description                 [B]
+
+     Desc: Free form description of delivery or transport terms.
+
+     Repr: an..70
+
+----------------------------------------------------------------------
+
+     4053  Delivery or transport terms description code            [B]
+
+     Desc: Code specifying the delivery or transport terms.
+
+     Repr: an..3
+
+     Note: 
+           1 Recommend use UN/ECE Recommendation No. 5. Use
+           appropriate code set in combination with 1131/3055.
+
+----------------------------------------------------------------------
+
+     4055  Delivery or transport terms function code               [B]
+
+     Desc: Code specifying the function of delivery or transport
+           terms.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     4056  Question description                                    [B]
+
+     Desc: Free form description of a question.
+
+     Repr: an..256
+
+----------------------------------------------------------------------
+
+     4057  Question description code                               [B]
+
+     Desc: Code specifying a question.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     4059  Clause code qualifier                                   [B]
+
+     Desc: Code qualifying the nature of the clause.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     4065  Contract and carriage condition code                    [B]
+
+     Desc: Code to identify the conditions of contract and
+           carriage.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     4068  Clause name                                             [B]
+
+     Desc: Name of the clause.
+
+     Repr: an..70
+
+----------------------------------------------------------------------
+
+     4069  Clause name code                                        [B]
+
+     Desc: Code identification of the clause.
+
+     Repr: an..17
+
+----------------------------------------------------------------------
+
+     4071  Proviso code qualifier                                  [B]
+
+     Desc: Code qualifying the proviso.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     4072  Proviso type description                                [B]
+
+     Desc: Free form description of the type of proviso.
+
+     Repr: an..35
+
+----------------------------------------------------------------------
+
+     4073  Proviso type description code                           [B]
+
+     Desc: Code specifying the type of proviso.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     4074  Proviso calculation description                         [B]
+
+     Desc: Free form description of the proviso calculation.
+
+     Repr: an..35
+
+----------------------------------------------------------------------
+
+     4075  Proviso calculation description code                    [B]
+
+     Desc: Code specifying the proviso calculation.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     4078  Handling instruction description                        [B]
+
+     Desc: Free form description of a handling instruction.
+
+     Repr: an..512
+
+----------------------------------------------------------------------
+
+     4079  Handling instruction description code                   [B]
+
+     Desc: Code specifying a handling instruction.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     4148  Information category description                        [B]
+
+     Desc: Free form description of the category of information.
+
+     Repr: an..70
+
+----------------------------------------------------------------------
+
+     4149  Information category description code                   [B]
+
+     Desc: Code specifying the information category.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     4150  Information detail description                          [B]
+
+     Desc: Free form description of the information detail.
+
+     Repr: an..256
+
+----------------------------------------------------------------------
+
+     4151  Information detail description code                     [B]
+
+     Desc: Code specifying the information detail.
+
+     Repr: an..17
+
+----------------------------------------------------------------------
+
+     4153  Information details code qualifier                      [B]
+
+     Desc: Code qualifying the information details.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     4183  Special condition code                                  [C]
+
+     Desc: Code specifying a special condition.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     4184  Special requirement description                         [I]
+
+     Desc: Free form description of a special requirement.
+
+     Repr: an..17
+
+----------------------------------------------------------------------
+
+     4187  Special requirement type code                           [I]
+
+     Desc: Code specifying a type of special requirement.
+
+     Repr: an..4
+
+----------------------------------------------------------------------
+
+     4215  Transport charges payment method code                   [B]
+
+     Desc: Code specifying the payment method for transport
+           charges.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     4219  Transport service priority code                         [B]
+
+     Desc: Code specifying the priority of a transport service.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     4221  Discrepancy nature identification code                  [B]
+
+     Desc: Code specifying the identification used to define the
+           nature of a discrepancy.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     4233  Marking instructions code                               [B]
+
+     Desc: Code specifying instructions for marking.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     4237  Payment arrangement code                                [B]
+
+     Desc: Code specifying the arrangements for a payment.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     4276  Payment terms description                               [B]
+
+     Desc: Free form description of the conditions of payment
+           between the parties to a transaction.
+
+     Repr: an..35
+
+----------------------------------------------------------------------
+
+     4277  Payment terms description identifier                    [B]
+
+     Desc: Identification of the terms of payment between the
+           parties to a transaction (generic term).
+
+     Repr: an..17
+
+     Note: 
+           1 Recommend use UN/ECE Recommendation No. 17 Payterms.
+
+----------------------------------------------------------------------
+
+     4279  Payment terms type code qualifier                       [B]
+
+     Desc: Code qualifying the type of payment terms.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     4294  Change reason description                               [B]
+
+     Desc: Free form description of the reason for change.
+
+     Repr: an..35
+
+----------------------------------------------------------------------
+
+     4295  Change reason description code                          [B]
+
+     Desc: Code specifying the reason for a change.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     4343  Response type code                                      [C]
+
+     Desc: Code specifying the type of acknowledgment required or
+           transmitted.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     4344  Response description                                    [B]
+
+     Desc: Free form description of a response.
+
+     Repr: an..256
+
+----------------------------------------------------------------------
+
+     4345  Response description code                               [B]
+
+     Desc: Code specifying a response.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     4347  Product identifier code qualifier                       [B]
+
+     Desc: Code qualifying the product identifier.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     4383  Bank operation code                                     [B]
+
+     Desc: Code specifying a bank operation.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     4400  Instruction description                                 [B]
+
+     Desc: Free form description of an instruction.
+
+     Repr: an..35
+
+----------------------------------------------------------------------
+
+     4401  Instruction description code                            [C]
+
+     Desc: Code specifying an instruction.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     4403  Instruction type code qualifier                         [C]
+
+     Desc: Code qualifying the type of instruction.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     4404  Status description                                      [B]
+
+     Desc: Free form description of a status.
+
+     Repr: an..35
+
+----------------------------------------------------------------------
+
+     4405  Status description code                                 [C]
+
+     Desc: Code specifying a status.
+
+     Repr: an..3
+
+     Note: 
+           1 For transport status, use UN/ECE Recommendation 24.
+
+----------------------------------------------------------------------
+
+     4407  Sample process step code                                [B]
+
+     Desc: Code specifying the step in the sample process.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     4415  Test method identifier                                  [B]
+
+     Desc: To identify a method of testing.
+
+     Repr: an..17
+
+----------------------------------------------------------------------
+
+     4416  Test description                                        [B]
+
+     Desc: Free form description of the test.
+
+     Repr: an..70
+
+----------------------------------------------------------------------
+
+     4419  Test administration method code                         [B]
+
+     Desc: Code specifying the method of the administration of a
+           test.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     4424  Test reason name                                        [B]
+
+     Desc: Name of the reason for performing a test.
+
+     Repr: an..35
+
+----------------------------------------------------------------------
+
+     4425  Test reason name code                                   [B]
+
+     Desc: Code specifying the name of the reason for performing
+           a test.
+
+     Repr: an..17
+
+----------------------------------------------------------------------
+
+     4431  Payment guarantee means code                            [B]
+
+     Desc: Code specifying the means of payment guarantee.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     4435  Payment channel code                                    [B]
+
+     Desc: Code specifying the payment channel.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     4437  Account type code qualifier                             [B]
+
+     Desc: Code qualifying the type of account.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     4439  Payment conditions code                                 [C]
+
+     Desc: Code specifying the payment conditions.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     4440  Free text                                               [C]
+
+     Desc: Free form text.
+
+     Repr: an..512
+
+----------------------------------------------------------------------
+
+     4441  Free text description code                              [B]
+
+     Desc: Code specifying free form text.
+
+     Repr: an..17
+
+----------------------------------------------------------------------
+
+     4447  Free text format code                                   [B]
+
+     Desc: Code specifying the format of free text.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     4451  Text subject code qualifier                             [C]
+
+     Desc: Code qualifying the subject of the text.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     4453  Free text function code                                 [B]
+
+     Desc: Code specifying the function of free text.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     4455  Back order arrangement type code                        [B]
+
+     Desc: Code specifying a type of back order arrangement.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     4457  Substitution condition code                             [B]
+
+     Desc: Code specifying the conditions under which
+           substitution may take place.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     4461  Payment means code                                      [B]
+
+     Desc: Code identifying a means of payment.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     4463  Intra-company payment indicator code                    [B]
+
+     Desc: Code indicating an intra-company payment.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     4465  Adjustment reason description code                      [C]
+
+     Desc: Code specifying the adjustment reason.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     4467  Payment method code                                     [I]
+
+     Desc: Code specifying a method of payment.
+
+     Repr: an..4
+
+----------------------------------------------------------------------
+
+     4469  Payment purpose code                                    [I]
+
+     Desc: Code identifying the purpose of a payment.
+
+     Repr: an..4
+
+----------------------------------------------------------------------
+
+     4471  Settlement means code                                   [B]
+
+     Desc: Code specifying the means of settlement.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     4472  Information type                                        [B]
+
+     Desc: Text representation of a type of information.
+
+     Repr: an..35
+
+----------------------------------------------------------------------
+
+     4473  Information type code                                   [C]
+
+     Desc: Code specifying a type of information.
+
+     Repr: an..4
+
+----------------------------------------------------------------------
+
+     4474  Accounting entry type name                              [B]
+
+     Desc: Name of a type of accounting entry.
+
+     Repr: an..35
+
+----------------------------------------------------------------------
+
+     4475  Accounting entry type name code                         [B]
+
+     Desc: Code specifying a type of accounting entry.
+
+     Repr: an..17
+
+----------------------------------------------------------------------
+
+     4487  Financial transaction type code                         [B]
+
+     Desc: Code specifying a type of financial transaction.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     4493  Delivery instruction code                               [B]
+
+     Desc: Code specifying a delivery instruction.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     4494  Insurance cover description                             [B]
+
+     Desc: Free form description of the insurance cover.
+
+     Repr: an..35
+
+----------------------------------------------------------------------
+
+     4495  Insurance cover description code                        [B]
+
+     Desc: Code specifying the insurance cover.
+
+     Repr: an..17
+
+----------------------------------------------------------------------
+
+     4497  Insurance cover type code                               [C]
+
+     Desc: Code specifying the meaning of the insurance cover.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     4499  Inventory movement reason code                          [B]
+
+     Desc: Code specifying the reason for an inventory movement.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     4501  Inventory movement direction code                       [B]
+
+     Desc: Code specifying the direction of an inventory
+           movement.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     4503  Inventory balance method code                           [B]
+
+     Desc: Code specifying the method used to establish an
+           inventory balance.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     4505  Credit cover request type code                          [B]
+
+     Desc: Code specifying the type of request for credit cover.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     4507  Credit cover response type code                         [B]
+
+     Desc: Code specifying the type of response to a request for
+           credit cover.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     4509  Credit cover response reason code                       [B]
+
+     Desc: Code specifying the reason for a response to a request
+           for credit cover.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     4510  Requested information description                       [C]
+
+     Desc: Free form description of the response information
+           requested.
+
+     Repr: an..35
+
+----------------------------------------------------------------------
+
+     4511  Requested information description code                  [B]
+
+     Desc: Code specifying the response information requested.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     4513  Maintenance operation code                              [C]
+
+     Desc: Code specifying a maintenance operation.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     4517  Seal condition code                                     [B]
+
+     Desc: Code specifying the condition of a seal.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     4519  Definition identifier                                   [B]
+
+     Desc: To identify a definition.
+
+     Repr: an..35
+
+----------------------------------------------------------------------
+
+     4521  Premium calculation component identifier                [B]
+
+     Desc: To identify a component affecting premium calculation.
+
+     Repr: an..17
+
+----------------------------------------------------------------------
+
+     4522  Premium calculation component value category identifier [B]
+
+     Desc: To identify the value category of a premium
+           calculation component.
+
+     Repr: an..35
+
+----------------------------------------------------------------------
+
+     4525  Seal type code                                          [B]
+
+     Desc: To specify a type of seal.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     5004  Monetary amount                                         [C]
+
+     Desc: To specify a monetary amount.
+
+     Repr: n..35
+
+----------------------------------------------------------------------
+
+     5006  Monetary amount function description                    [B]
+
+     Desc: Free form description of the monetary amount function.
+
+     Repr: an..70
+
+----------------------------------------------------------------------
+
+     5007  Monetary amount function description code               [B]
+
+     Desc: Code specifying the monetary amount function.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     5013  Index code qualifier                                    [B]
+
+     Desc: Code qualifying an index.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     5025  Monetary amount type code qualifier                     [C]
+
+     Desc: Code qualifying the type of monetary amount.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     5027  Index type identifier                                   [B]
+
+     Desc: To identify a type of index.
+
+     Repr: an..17
+
+----------------------------------------------------------------------
+
+     5030  Index text                                              [C]
+
+     Desc: To specify the value of an index.
+
+     Repr: an..35
+
+----------------------------------------------------------------------
+
+     5039  Index representation code                               [B]
+
+     Desc: Code specifying the representation of an index value.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     5047  Contribution code qualifier                             [B]
+
+     Desc: Code qualifying a contribution.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     5048  Contribution type description                           [B]
+
+     Desc: Free form description of a type of contribution
+           scheme.
+
+     Repr: an..35
+
+----------------------------------------------------------------------
+
+     5049  Contribution type description code                      [B]
+
+     Desc: Code specifying a type of contribution scheme.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     5104  Monetary amount function detail description             [B]
+
+     Desc: Free form description of the detail of a monetary
+           amount function.
+
+     Repr: an..70
+
+----------------------------------------------------------------------
+
+     5105  Monetary amount function detail description code        [B]
+
+     Desc: Code specifying the detail of a monetary amount
+           function.
+
+     Repr: an..17
+
+----------------------------------------------------------------------
+
+     5118  Price amount                                            [C]
+
+     Desc: To specify a price.
+
+     Repr: n..15
+
+----------------------------------------------------------------------
+
+     5125  Price code qualifier                                    [C]
+
+     Desc: Code qualifying a price.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     5152  Duty or tax or fee type name                            [B]
+
+     Desc: Name of a type of duty, tax or fee.
+
+     Repr: an..35
+
+----------------------------------------------------------------------
+
+     5153  Duty or tax or fee type name code                       [C]
+
+     Desc: Code specifying a type of duty, tax or fee.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     5160  Total monetary amount                                   [I]
+
+     Desc: To specify a total monetary amount.
+
+     Repr: n..20
+
+----------------------------------------------------------------------
+
+     5189  Allowance or charge identification code                 [B]
+
+     Desc: Code specifying the identification of an allowance or
+           charge.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     5213  Sub-line item price change operation code               [C]
+
+     Desc: Code specifying the price change operation for a sub-
+           line item.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     5237  Charge category code                                    [B]
+
+     Desc: Code specifying the category of charges.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     5242  Rate or tariff class description                        [B]
+
+     Desc: Free form description of an applicable rate or tariff
+           class.
+
+     Repr: an..35
+
+----------------------------------------------------------------------
+
+     5243  Rate or tariff class description code                   [C]
+
+     Desc: Code specifying an applicable rate or tariff class.
+
+     Repr: an..9
+
+----------------------------------------------------------------------
+
+     5245  Percentage type code qualifier                          [B]
+
+     Desc: Code qualifying the type of percentage.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     5249  Percentage basis identification code                    [B]
+
+     Desc: Code specifying the basis on which a percentage is
+           calculated.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     5261  Charge unit code                                        [I]
+
+     Desc: Code specifying a charge unit.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     5263  Rate type identifier                                    [I]
+
+     Desc: To identify a type of rate.
+
+     Repr: an..20
+
+----------------------------------------------------------------------
+
+     5267  Service type code                                       [I]
+
+     Desc: Code specifying the type of service.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     5273  Duty or tax or fee rate basis code                      [B]
+
+     Desc: Code specifying the basis for a duty or tax or fee
+           rate.
+
+     Repr: an..12
+
+----------------------------------------------------------------------
+
+     5275  Supplementary rate or tariff code                       [B]
+
+     Desc: Code specifying a supplementary rate or tariff.
+
+     Repr: an..6
+
+----------------------------------------------------------------------
+
+     5278  Duty or tax or fee rate                                 [C]
+
+     Desc: Rate of a duty or tax or fee.
+
+     Repr: an..17
+
+----------------------------------------------------------------------
+
+     5279  Duty or tax or fee rate code                            [B]
+
+     Desc: Code specifying a rate of a duty or tax or fee.
+
+     Repr: an..7
+
+----------------------------------------------------------------------
+
+     5283  Duty or tax or fee function code qualifier              [B]
+
+     Desc: Code qualifying the function of a duty or tax or fee.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     5284  Unit price basis quantity                               [B]
+
+     Desc: To specify the basis for a unit price.
+
+     Repr: n..9
+
+----------------------------------------------------------------------
+
+     5286  Duty or tax or fee assessment basis quantity            [B]
+
+     Desc: To specify the basis on which a duty or tax or fee
+           will be assessed.
+
+     Repr: an..15
+
+----------------------------------------------------------------------
+
+     5289  Duty or tax or fee account code                         [B]
+
+     Desc: Code specifying a duty or tax or fee account.
+
+     Repr: an..6
+
+----------------------------------------------------------------------
+
+     5305  Duty or tax or fee category code                        [B]
+
+     Desc: Code specifying a duty or tax or fee category.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     5307  Tax or duty or fee payment due date code                [B]
+
+     Desc: A code indicating when the duty, tax, or fee payment
+           will be due.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     5314  Remuneration type name                                  [B]
+
+     Desc: Name of a type of remuneration.
+
+     Repr: an..35
+
+----------------------------------------------------------------------
+
+     5315  Remuneration type name code                             [B]
+
+     Desc: Code specifying the name of a type of remuneration.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     5375  Price type code                                         [C]
+
+     Desc: Code specifying the type of price.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     5377  Price change type code                                  [I]
+
+     Desc: Code specifying the type of price change.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     5379  Product group type code                                 [B]
+
+     Desc: Code specifying the type of product group.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     5387  Price specification code                                [B]
+
+     Desc: Code identifying pricing specification.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     5388  Product group name                                      [B]
+
+     Desc: Name of a product code.
+
+     Repr: an..35
+
+----------------------------------------------------------------------
+
+     5389  Product group name code                                 [C]
+
+     Desc: Code specifying the name of a product group.
+
+     Repr: an..25
+
+----------------------------------------------------------------------
+
+     5393  Price multiplier type code qualifier                    [B]
+
+     Desc: Code qualifying the type of price multiplier.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     5394  Price multiplier rate                                   [B]
+
+     Desc: To specify the rate of a price multiplier.
+
+     Repr: n..12
+
+----------------------------------------------------------------------
+
+     5402  Currency exchange rate                                  [C]
+
+     Desc: To specify the rate at which one specified currency is
+           expressed in another specified currency.
+
+     Repr: n..12
+
+----------------------------------------------------------------------
+
+     5419  Rate type code qualifier                                [B]
+
+     Desc: Code qualifying the type of rate.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     5420  Unit price basis rate                                   [B]
+
+     Desc: To specify the rate per unit specified in the unit
+           price basis.
+
+     Repr: n..15
+
+----------------------------------------------------------------------
+
+     5463  Allowance or charge code qualifier                      [B]
+
+     Desc: Code qualifying an allowance or charge.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     5479  Relation code                                           [C]
+
+     Desc: Code specifying a relation.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     5482  Percentage                                              [C]
+
+     Desc: To specify a percentage.
+
+     Repr: n..10
+
+----------------------------------------------------------------------
+
+     5495  Sub-line indicator code                                 [B]
+
+     Desc: Code indicating a sub-line item.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     5501  Rate plan code                                          [I]
+
+     Desc: Code specifying a rate plan.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     6000  Latitude degree                                         [C]
+
+     Desc: To specify  the angular distance, measured in degrees,
+           minutes, and seconds, north or south from the equator.
+
+     Repr: an..10
+
+----------------------------------------------------------------------
+
+     6002  Longitude degree                                        [C]
+
+     Desc: To specify the value of longitude i.e. the angular
+           distance east or west on the earth's surface, measured
+           by the angle and expressed in degrees, minutes, and
+           seconds, which the meridian passing through a
+           particular place makes with a standard or prime
+           meridian.
+
+     Repr: an..11
+
+----------------------------------------------------------------------
+
+     6008  Height measure                                          [C]
+
+     Desc: To specify the value of a height dimension.
+
+     Repr: n..15
+
+----------------------------------------------------------------------
+
+     6029  Geographical position code qualifier                    [B]
+
+     Desc: Code identifying the type of a geographical position.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     6060  Quantity                                                [C]
+
+     Desc: Alphanumeric representation of a quantity.
+
+     Repr: an..35
+
+----------------------------------------------------------------------
+
+     6063  Quantity type code qualifier                            [C]
+
+     Desc: Code qualifying the type of quantity.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     6064  Variance quantity                                       [B]
+
+     Desc: To specify the value of a quantity variance.
+
+     Repr: n..15
+
+----------------------------------------------------------------------
+
+     6066  Control total quantity                                  [B]
+
+     Desc: To specify the value of a control quantity.
+
+     Repr: n..18
+
+----------------------------------------------------------------------
+
+     6069  Control total type code qualifier                       [B]
+
+     Desc: Code qualifying the type of control of hash total.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     6071  Frequency code qualifier                                [B]
+
+     Desc: Code qualifying the frequency.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     6072  Frequency rate                                          [C]
+
+     Desc: The number of repetitions in a given time.
+
+     Repr: n..9
+
+----------------------------------------------------------------------
+
+     6074  Confidence percent                                      [B]
+
+     Desc: To specify the confidence that a true value falls
+           within a certain confidence interval expressed as a
+           percentage.
+
+     Repr: n..6
+
+----------------------------------------------------------------------
+
+     6077  Result representation code                              [B]
+
+     Desc: Code specifying the representation of a result.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     6079  Result normalcy code                                    [B]
+
+     Desc: Code specifying the degree of conformance to a
+           standard.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     6082  Dosage description                                      [B]
+
+     Desc: Free form description of a dosage.
+
+     Repr: an..70
+
+----------------------------------------------------------------------
+
+     6083  Dosage description identifier                           [B]
+
+     Desc: Code identifying a dosage.
+
+     Repr: an..8
+
+----------------------------------------------------------------------
+
+     6085  Dosage administration code qualifier                    [B]
+
+     Desc: Code qualifying the administration of a dosage.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     6087  Result value type code qualifier                        [B]
+
+     Desc: Code qualifying the type of a result value.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     6096  Altitude                                                [B]
+
+     Desc: The height of an object above sea level.
+
+     Repr: n..18
+
+----------------------------------------------------------------------
+
+     6113  Length type code                                        [B]
+
+     Desc: Code specifying the type of length.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     6140  Width measure                                           [C]
+
+     Desc: To specify the value of a width dimension.
+
+     Repr: n..15
+
+----------------------------------------------------------------------
+
+     6145  Dimension type code qualifier                           [B]
+
+     Desc: Code qualifying the type of the dimension.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     6152  Range maximum quantity                                  [C]
+
+     Desc: To specify the maximum value of a range.
+
+     Repr: n..18
+
+----------------------------------------------------------------------
+
+     6154  Non-discrete measurement name                           [B]
+
+     Desc: Name of a non-discrete measurement.
+
+     Repr: an..70
+
+----------------------------------------------------------------------
+
+     6155  Non-discrete measurement name code                      [B]
+
+     Desc: Code specifying the name of a non-discrete
+           measurement.
+
+     Repr: an..17
+
+----------------------------------------------------------------------
+
+     6162  Range minimum quantity                                  [C]
+
+     Desc: To specify the minimum value of a range.
+
+     Repr: n..18
+
+----------------------------------------------------------------------
+
+     6167  Range type code qualifier                               [B]
+
+     Desc: Code qualifying a type of range.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     6168  Length measure                                          [C]
+
+     Desc: To specify the value of a length dimension.
+
+     Repr: n..15
+
+----------------------------------------------------------------------
+
+     6173  Size type code qualifier                                [B]
+
+     Desc: Code qualifying a type of size.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     6174  Size measure                                            [B]
+
+     Desc: To specify a magnitude.
+
+     Repr: n..15
+
+----------------------------------------------------------------------
+
+     6176  Occurrences maximum number                              [B]
+
+     Desc: To specify the maximum number of occurrences.
+
+     Repr: n..7
+
+----------------------------------------------------------------------
+
+     6178  Edit field length measure                               [B]
+
+     Desc: To specify the length of a field for editing.
+
+     Repr: n..3
+
+----------------------------------------------------------------------
+
+     6182  Diameter measure                                        [B]
+
+     Desc: To specify the value of a diameter dimension.
+
+     Repr: n..15
+
+----------------------------------------------------------------------
+
+     6245  Temperature type code qualifier                         [B]
+
+     Desc: Code qualifying the type of a temperature.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     6246  Temperature degree                                      [B]
+
+     Desc: To specify the value of a temperature.
+
+     Repr: n..15
+
+----------------------------------------------------------------------
+
+     6311  Measurement purpose code qualifier                      [B]
+
+     Desc: Code qualifying the purpose of the measurement.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     6313  Measured attribute code                                 [C]
+
+     Desc: Code specifying the attribute measured.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     6314  Measure                                                 [C]
+
+     Desc: To specify the value of a measurement.
+
+     Repr: an..18
+
+----------------------------------------------------------------------
+
+     6321  Measurement significance code                           [C]
+
+     Desc: Code specifying the significance of a measurement.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     6331  Statistic type code qualifier                           [B]
+
+     Desc: Code qualifying the type of a statistic.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     6341  Exchange rate currency market identifier                [C]
+
+     Desc: To identify an exchange rate currency market.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     6343  Currency type code qualifier                            [C]
+
+     Desc: Code qualifying the type of currency.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     6345  Currency identification code                            [C]
+
+     Desc: Code specifying a monetary unit.
+
+     Repr: an..3
+
+     Note: 
+           1 Use ISO 4217 three alpha code.
+
+----------------------------------------------------------------------
+
+     6347  Currency usage code qualifier                           [C]
+
+     Desc: Code qualifying the usage of a currency.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     6348  Currency rate                                           [C]
+
+     Desc: To specify the value of the multiplication factor used
+           in expressing currency units.
+
+     Repr: n..4
+
+----------------------------------------------------------------------
+
+     6350  Units quantity                                          [C]
+
+     Desc: To specify the number of units.
+
+     Repr: n..15
+
+----------------------------------------------------------------------
+
+     6353  Unit type code qualifier                                [C]
+
+     Desc: Code qualifying the type of unit.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     6410  Measurement unit name                                   [B]
+
+     Desc: Name of a measurement unit.
+
+     Repr: an..35
+
+----------------------------------------------------------------------
+
+     6411  Measurement unit code                                   [C]
+
+     Desc: Code specifying the unit of measurement.
+
+     Repr: an..8
+
+     Note: 
+           1 Recommend use UN/ECE Recommendation 20, Common code.
+
+----------------------------------------------------------------------
+
+     6412  Clinical information description                        [B]
+
+     Desc: Free form description of an item of clinical
+           information.
+
+     Repr: an..70
+
+----------------------------------------------------------------------
+
+     6413  Clinical information description identifier             [B]
+
+     Desc: Code identifying an item of clinical information.
+
+     Repr: an..17
+
+----------------------------------------------------------------------
+
+     6415  Clinical information type code qualifier                [B]
+
+     Desc: Code qualifying the type of clinical information.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     6426  Process stages quantity                                 [B]
+
+     Desc: Count of the number of process stages.
+
+     Repr: n..2
+
+----------------------------------------------------------------------
+
+     6428  Process stages actual quantity                          [B]
+
+     Desc: Count of  the actual number of process stages.
+
+     Repr: n..2
+
+----------------------------------------------------------------------
+
+     6432  Significant digits quantity                             [B]
+
+     Desc: Count of the number of significant digits.
+
+     Repr: n..2
+
+----------------------------------------------------------------------
+
+     6434  Statistical concept identifier                          [B]
+
+     Desc: Free form identification of a statistical concept.
+
+     Repr: an..35
+
+----------------------------------------------------------------------
+
+     7001  Physical or logical state type code qualifier           [B]
+
+     Desc: Code qualifying the type of physical or logical state.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     7006  Physical or logical state description                   [B]
+
+     Desc: Free form description of a physical or logical state.
+
+     Repr: an..70
+
+----------------------------------------------------------------------
+
+     7007  Physical or logical state description code              [B]
+
+     Desc: Code specifying a physical or logical state.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     7008  Item description                                        [C]
+
+     Desc: Free form description of an item.
+
+     Repr: an..256
+
+----------------------------------------------------------------------
+
+     7009  Item description code                                   [C]
+
+     Desc: Code specifying an item.
+
+     Repr: an..17
+
+----------------------------------------------------------------------
+
+     7011  Item availability code                                  [B]
+
+     Desc: Code specifying the availability of an item.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     7036  Characteristic description                              [C]
+
+     Desc: Free form description of a characteristic.
+
+     Repr: an..35
+
+----------------------------------------------------------------------
+
+     7037  Characteristic description code                         [C]
+
+     Desc: A code specifying a characteristic.
+
+     Repr: an..17
+
+----------------------------------------------------------------------
+
+     7039  Sample selection method code                            [B]
+
+     Desc: Code specifying the selection method for a sample.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     7040  Power type description                                  [B]
+
+     Desc: Description of the type of power.
+
+     Repr: an..17
+
+----------------------------------------------------------------------
+
+     7041  Power type code                                         [B]
+
+     Desc: Code indicating the type of power.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     7045  Sample state code                                       [B]
+
+     Desc: Code specifying the state of a sample.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     7047  Sample direction code                                   [B]
+
+     Desc: Code specifying the direction in which a sample was
+           taken.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     7059  Class type code                                         [B]
+
+     Desc: Code specifying the type of class.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     7064  Type of packages                                        [B]
+
+     Desc: Description of the form in which goods are presented.
+
+     Repr: an..35
+
+----------------------------------------------------------------------
+
+     7065  Package type description code                           [B]
+
+     Desc: Code specifying the type of package.
+
+     Repr: an..17
+
+     Note: 
+           1 Recommend use of UN/ECE Recommendation 21, Annex V,
+           alphabetic code
+
+----------------------------------------------------------------------
+
+     7073  Packaging terms and conditions code                     [B]
+
+     Desc: Code specifying the packaging terms and conditions.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     7075  Packaging level code                                    [B]
+
+     Desc: Code specifying a level of packaging.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     7077  Description format code                                 [B]
+
+     Desc: Code specifying the format of a description.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     7081  Item characteristic code                                [B]
+
+     Desc: Code specifying the characteristic of an item.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     7083  Configuration operation code                            [B]
+
+     Desc: Code specifying the configuration operation.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     7085  Cargo type classification code                          [B]
+
+     Desc: Code specifying the classification of a type of cargo.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+|    7088  Dangerous goods flashpoint description                  [B]
+
+|    Desc: To describe the flashpoint of dangerous goods.
+
+     Repr: an..8
+
+----------------------------------------------------------------------
+
+     7102  Shipping marks description                              [B]
+
+     Desc: Free form description of the shipping marks.
+
+     Repr: an..35
+
+----------------------------------------------------------------------
+
+     7106  Shipment flashpoint degree                              [B]
+
+     Desc: To specify the value of the flashpoint of a shipment.
+
+     Repr: n3
+
+----------------------------------------------------------------------
+
+     7110  Characteristic value description                        [B]
+
+     Desc: Free form description of the value of a
+           characteristic.
+
+     Repr: an..35
+
+----------------------------------------------------------------------
+
+     7111  Characteristic value description code                   [C]
+
+     Desc: Code specifying the value of a characteristic.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     7124  United Nations Dangerous Goods (UNDG) identifier        [B]
+
+     Desc: The unique serial number assigned within the United
+           Nations to substances and articles contained in a list
+           of the dangerous goods most commonly carried.
+
+     Repr: n4
+
+----------------------------------------------------------------------
+
+     7130  Customer shipment authorisation identifier              [B]
+
+     Desc: To identify the authorisation to ship issued by the
+           customer.
+
+     Repr: an..17
+
+----------------------------------------------------------------------
+
+     7133  Product details type code qualifier                     [I]
+
+     Desc: Code qualifying a type of product details.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     7134  Product name                                            [I]
+
+     Desc: Name identifying a product.
+
+     Repr: an..35
+
+----------------------------------------------------------------------
+
+     7135  Product identifier                                      [I]
+
+     Desc: To identify a product.
+
+     Repr: an..35
+
+----------------------------------------------------------------------
+
+     7139  Product characteristic identification code              [I]
+
+     Desc: Code specifying the identification of a product
+           characteristic.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     7140  Item identifier                                         [C]
+
+     Desc: To identify an item.
+
+     Repr: an..35
+
+----------------------------------------------------------------------
+
+     7143  Item type identification code                           [C]
+
+     Desc: Coded identification of an item type.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     7160  Special service description                             [C]
+
+     Desc: Free form description of a special service.
+
+     Repr: an..35
+
+----------------------------------------------------------------------
+
+     7161  Special service description code                        [C]
+
+     Desc: Code specifying a special service.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     7164  Hierarchical structure level identifier                 [C]
+
+     Desc: To identify a level within a hierarchical structure.
+
+     Repr: an..35
+
+----------------------------------------------------------------------
+
+     7166  Hierarchical structure parent identifier                [B]
+
+     Desc: To identify the next higher level in a hierarchical
+           structure.
+
+     Repr: an..35
+
+----------------------------------------------------------------------
+
+     7168  Level number                                            [B]
+
+     Desc: Number identifying a level.
+
+     Repr: n..3
+
+----------------------------------------------------------------------
+
+     7171  Hierarchical structure relationship code                [B]
+
+     Desc: Code specifying the relationship between the
+           hierarchical object and an identified object.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     7173  Hierarchy object code qualifier                         [B]
+
+     Desc: Code qualifying an object in a hierarchy.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     7175  Rule part identifier                                    [B]
+
+     Desc: To identify a part of a rule.
+
+     Repr: an..7
+
+----------------------------------------------------------------------
+
+     7176  Risk object sub-type description                        [B]
+
+     Desc: Free form description of the object sub-type of a
+           risk.
+
+     Repr: an..70
+
+----------------------------------------------------------------------
+
+     7177  Risk object sub-type description identifier             [B]
+
+     Desc: Code identifying the object sub-type of a risk.
+
+     Repr: an..17
+
+----------------------------------------------------------------------
+
+     7179  Risk object type identifier                             [B]
+
+     Desc: Code identifying a type of risk object.
+
+     Repr: an..17
+
+----------------------------------------------------------------------
+
+     7186  Process type description                                [B]
+
+     Desc: Free form description of a type of process.
+
+     Repr: an..35
+
+----------------------------------------------------------------------
+
+     7187  Process type description code                           [B]
+
+     Desc: Code specifying a type of process.
+
+     Repr: an..17
+
+----------------------------------------------------------------------
+
+     7188  Test method revision identifier                         [B]
+
+     Desc: To identify the revision of a test method.
+
+     Repr: an..30
+
+----------------------------------------------------------------------
+
+     7190  Process description                                     [B]
+
+     Desc: Free form description of a process.
+
+     Repr: an..70
+
+----------------------------------------------------------------------
+
+     7191  Process description code                                [C]
+
+     Desc: Code specifying a process.
+
+     Repr: an..17
+
+----------------------------------------------------------------------
+
+     7224  Package quantity                                        [B]
+
+     Desc: To specify the number of packages.
+
+     Repr: n..8
+
+----------------------------------------------------------------------
+
+     7233  Packaging related description code                      [B]
+
+     Desc: Code specifying information related to packaging.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     7240  Item total quantity                                     [B]
+
+     Desc: Count of the total number of items.
+
+     Repr: n..15
+
+----------------------------------------------------------------------
+
+     7273  Service requirement code                                [C]
+
+     Desc: Code specifying a service requirement.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     7293  Sector area identification code qualifier               [B]
+
+     Desc: Code qualifying identification of a subject area.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     7294  Requirement or condition description                    [B]
+
+     Desc: Free form description of a requirement or condition.
+
+     Repr: an..35
+
+----------------------------------------------------------------------
+
+     7295  Requirement or condition description identifier         [B]
+
+     Desc: Code specifying a requirement or condition.
+
+     Repr: an..17
+
+----------------------------------------------------------------------
+
+     7297  Set type code qualifier                                 [B]
+
+     Desc: Code qualifying the type of set.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     7299  Requirement designator code                             [C]
+
+     Desc: Code specifying the requirement designator.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     7357  Commodity identification code                           [B]
+
+     Desc: Code identifying a commodity for Customs, transport or
+           statistical purposes (generic term).
+
+     Repr: an..18
+
+----------------------------------------------------------------------
+
+     7361  Customs goods identifier                                [B]
+
+     Desc: Code identifying the goods for customs.
+
+     Repr: an..18
+
+----------------------------------------------------------------------
+
+     7364  Processing indicator description                        [B]
+
+     Desc: Free form description of a processing indicator.
+
+     Repr: an..35
+
+----------------------------------------------------------------------
+
+     7365  Processing indicator description code                   [C]
+
+     Desc: Code specifying a processing indicator.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     7383  Surface or layer code                                   [C]
+
+     Desc: Code specifying the surface or layer of an object.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     7402  Object identifier                                       [C]
+
+     Desc: Code specifying the unique identity of an object.
+
+     Repr: an..35
+
+----------------------------------------------------------------------
+
+     7405  Object identification code qualifier                    [C]
+
+     Desc: Code qualifying the identification of an object.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     7418  Hazardous material category name                        [B]
+
+     Desc: Name of a kind of hazard for a material.
+
+     Repr: an..35
+
+----------------------------------------------------------------------
+
+     7419  Hazardous material category name code                   [B]
+
+     Desc: Code specifying a kind of hazard for a material.
+
+     Repr: an..7
+
+----------------------------------------------------------------------
+
+     7429  Indexing structure code qualifier                       [B]
+
+     Desc: Code qualifying an indexing structure.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     7431  Agreement type code qualifier                           [B]
+
+     Desc: Code qualifying the type of agreement.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     7433  Agreement type description code                         [B]
+
+     Desc: Code specifying the type of agreement.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     7434  Agreement type description                              [B]
+
+     Desc: Free form description of the type of agreement.
+
+     Repr: an..70
+
+----------------------------------------------------------------------
+
+     7436  Level one identifier                                    [B]
+
+     Desc: To identify the first facet of a sequencing mechanism
+           used to position an item within an indexing structure.
+
+     Repr: an..17
+
+----------------------------------------------------------------------
+
+     7438  Level two identifier                                    [B]
+
+     Desc: To identify the second facet of a sequencing mechanism
+           used to position an item within an indexing structure.
+
+     Repr: an..17
+
+----------------------------------------------------------------------
+
+     7440  Level three identifier                                  [B]
+
+     Desc: To identify the third facet of a sequencing mechanism
+           used to position an item within an indexing structure.
+
+     Repr: an..17
+
+----------------------------------------------------------------------
+
+     7442  Level four identifier                                   [B]
+
+     Desc: To identify the fourth facet of a sequencing mechanism
+           used to position an item within an indexing structure.
+
+     Repr: an..17
+
+----------------------------------------------------------------------
+
+     7444  Level five identifier                                   [B]
+
+     Desc: To identify the fifth facet of a sequencing mechanism
+           used to position an item within an indexing structure.
+
+     Repr: an..17
+
+----------------------------------------------------------------------
+
+     7446  Level six identifier                                    [B]
+
+     Desc: To identify the sixth facet of a sequencing mechanism
+           used to position an item within an indexing structure.
+
+     Repr: an..17
+
+----------------------------------------------------------------------
+
+     7449  Membership type code qualifier                          [B]
+
+     Desc: Code qualifying the type of membership.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     7450  Membership category description                         [B]
+
+     Desc: Free form description of a membership category.
+
+     Repr: an..35
+
+----------------------------------------------------------------------
+
+     7451  Membership category description code                    [B]
+
+     Desc: Code specifying a membership category.
+
+     Repr: an..4
+
+----------------------------------------------------------------------
+
+     7452  Membership status description                           [B]
+
+     Desc: Free form description of a membership status.
+
+     Repr: an..35
+
+----------------------------------------------------------------------
+
+     7453  Membership status description code                      [B]
+
+     Desc: Code specifying a membership status.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     7455  Membership level code qualifier                         [B]
+
+     Desc: Code qualifying the level of membership.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     7456  Membership level description                            [B]
+
+     Desc: Free form description of a level of membership.
+
+     Repr: an..35
+
+----------------------------------------------------------------------
+
+     7457  Membership level description code                       [B]
+
+     Desc: Code specifying a level of membership.
+
+     Repr: an..9
+
+----------------------------------------------------------------------
+
+     7458  Attendee category description                           [B]
+
+     Desc: Free form description of a category attendee.
+
+     Repr: an..35
+
+----------------------------------------------------------------------
+
+     7459  Attendee category description code                      [B]
+
+     Desc: Code specifying a category of attendee.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     7491  Inventory type code                                     [B]
+
+     Desc: Code specifying a type of inventory.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     7493  Damage details code qualifier                           [B]
+
+     Desc: Code qualifying the damage details.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     7495  Object type code qualifier                              [B]
+
+     Desc: Code qualifying a type of object.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     7497  Structure component function code qualifier             [B]
+
+     Desc: Code qualifying the function of a structure component.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     7500  Damage type description                                 [B]
+
+     Desc: Free form description of the type of damage to an
+           object.
+
+     Repr: an..35
+
+----------------------------------------------------------------------
+
+     7501  Damage type description code                            [B]
+
+     Desc: Code specifying the type of damage to an object.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     7502  Damage area description                                 [B]
+
+     Desc: Free form description of where the damage is on an
+           object.
+
+     Repr: an..35
+
+----------------------------------------------------------------------
+
+     7503  Damage area description code                            [B]
+
+     Desc: Code specifying where the damage is on an object.
+
+     Repr: an..4
+
+----------------------------------------------------------------------
+
+     7504  Unit or component type description                      [B]
+
+     Desc: Free form description of a type of unit or component.
+
+     Repr: an..35
+
+----------------------------------------------------------------------
+
+     7505  Unit or component type description code                 [B]
+
+     Desc: Code specifying a type of unit or component.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     7506  Component material description                          [B]
+
+     Desc: Free form description of a component material.
+
+     Repr: an..35
+
+----------------------------------------------------------------------
+
+     7507  Component material description code                     [B]
+
+     Desc: Code specifying a component material.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     7508  Damage severity description                             [B]
+
+     Desc: Free form description of the severity of damage.
+
+     Repr: an..35
+
+----------------------------------------------------------------------
+
+     7509  Damage severity description code                        [B]
+
+     Desc: Code specifying the severity of damage.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     7511  Marking type code                                       [B]
+
+     Desc: Code specifying the type of marking.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     7512  Structure component identifier                          [B]
+
+     Desc: To identify a component of a structure.
+
+     Repr: an..35
+
+----------------------------------------------------------------------
+
+     7515  Structure type code                                     [B]
+
+     Desc: Code specifying a type of structure.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     7517  Benefit and coverage code                               [I]
+
+     Desc: Code used to identify the benefit and coverage.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+X    7519  Usage Qualification Code                                [B]
+
+     Desc: Code qualifying the type of usage.
+
+     Repr: an..3
+
+     Note: 
+           1 This data element will be removed effective with
+           directory D.16A.
+
+----------------------------------------------------------------------
+
+     8015  Traffic restriction code                                [I]
+
+     Desc: Code specifying a traffic restriction.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     8017  Traffic restriction application code                    [I]
+
+     Desc: Code specifying the application of a restriction to
+           traffic.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     8022  Freight and other charges description                   [B]
+
+     Desc: Free form description of freight and other charges.
+
+     Repr: an..26
+
+----------------------------------------------------------------------
+
+     8023  Freight and other charges description identifier        [B]
+
+     Desc: Code identifying freight and other charges.
+
+     Repr: an..17
+
+     Note: 
+           1 Use UN/ECE Recommendation No. 23: Freight costs and
+           charges. If not applicable, use appropriate code in
+           combination with 1131/3055.
+
+----------------------------------------------------------------------
+
+     8024  Conveyance call purpose description                     [B]
+
+     Desc: Free form description of the purpose of the conveyance
+           call.
+
+     Repr: an..35
+
+----------------------------------------------------------------------
+
+     8025  Conveyance call purpose description code                [B]
+
+     Desc: Code specifying the purpose of the conveyance call.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     8028  Means of transport journey identifier                   [B]
+
+     Desc: To identify a journey of a means of transport.
+
+     Repr: an..17
+
+----------------------------------------------------------------------
+
+     8035  Traffic restriction type code qualifier                 [I]
+
+     Desc: Code qualifying a type of traffic restriction.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     8051  Transport stage code qualifier                          [B]
+
+     Desc: Code qualifying a specific stage of transport.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     8053  Equipment type code qualifier                           [C]
+
+     Desc: Code qualifying a type of equipment.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     8066  Transport mode name                                     [B]
+
+     Desc: Name of a mode of transport.
+
+     Repr: an..17
+
+----------------------------------------------------------------------
+
+     8067  Transport mode name code                                [B]
+
+     Desc: Code specifying the name of a mode of transport.
+
+     Repr: an..3
+
+     Note: 
+           1 Use UN/ECE Recommendation No 19.
+
+----------------------------------------------------------------------
+
+     8077  Equipment supplier code                                 [B]
+
+     Desc: Code specifying the party that is the supplier of the
+           equipment.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     8078  Additional hazard classification identifier             [B]
+
+     Desc: To identify an additional hazard classification.
+
+     Repr: an..7
+
+----------------------------------------------------------------------
+
+     8092  Hazard code version identifier                          [B]
+
+     Desc: To identify the version number of a hazard code.
+
+     Repr: an..10
+
+----------------------------------------------------------------------
+
+     8101  Transit direction indicator code                        [B]
+
+     Desc: Code specifying the direction of transport.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     8126  Transport emergency card identifier                     [B]
+
+     Desc: To identify a transport emergency (TREM) card.
+
+     Repr: an..10
+
+----------------------------------------------------------------------
+
+     8154  Equipment size and type description                     [C]
+
+     Desc: Free form description of the size and type of
+           equipment.
+
+     Repr: an..35
+
+----------------------------------------------------------------------
+
+     8155  Equipment size and type description code                [B]
+
+     Desc: Code specifying the size and type of equipment.
+
+     Repr: an..10
+
+     Note: 
+           1 May use codes specified in ISO 6346 for seagoing
+           containers.
+
+----------------------------------------------------------------------
+
+     8158  Orange hazard placard upper part identifier             [B]
+
+     Desc: To specify the identity number for the upper part of
+           the orange hazard placard required on the means of
+           transport.
+
+     Repr: an..4
+
+----------------------------------------------------------------------
+
+     8169  Full or empty indicator code                            [B]
+
+     Desc: Code indicating whether an object is full or empty.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     8178  Transport means description                             [B]
+
+     Desc: Free form description of the means of transport.
+
+     Repr: an..17
+
+----------------------------------------------------------------------
+
+     8179  Transport means description code                        [C]
+
+     Desc: Code specifying the means of transport.
+
+     Repr: an..8
+
+     Note: 
+           1 Use UN/ECE recommendation 28.
+
+----------------------------------------------------------------------
+
+     8186  Orange hazard placard lower part identifier             [B]
+
+     Desc: To specify the identity number for the lower part of
+           the orange hazard placard required on the means of
+           transport.
+
+     Repr: an4
+
+----------------------------------------------------------------------
+
+     8211  Hazardous cargo transport authorisation code            [B]
+
+     Desc: Code specifying the authorisation for the
+           transportation of hazardous cargo.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     8212  Transport means identification name                     [B]
+
+     Desc: Name identifying a means of transport.
+
+     Repr: an..70
+
+----------------------------------------------------------------------
+
+     8213  Transport means identification name identifier          [B]
+
+     Desc: Identifies the name of the transport means.
+
+     Repr: an..35
+
+----------------------------------------------------------------------
+
+     8215  Transport means change indicator code                   [I]
+
+     Desc: Code indicating a change of means of transport.
+
+     Repr: an1
+
+----------------------------------------------------------------------
+
+     8216  Journey stops quantity                                  [I]
+
+     Desc: To specify the number of stops in a journey.
+
+     Repr: n..3
+
+----------------------------------------------------------------------
+
+     8219  Traveller accompanied by infant indicator code          [I]
+
+     Desc: Code indicating whether a traveller is accompanied by
+           an infant.
+
+     Repr: an1
+
+----------------------------------------------------------------------
+
+     8246  Dangerous goods marking identifier                      [B]
+
+     Desc: To identify the marking of dangerous goods.
+
+     Repr: an..4
+
+----------------------------------------------------------------------
+
+     8249  Equipment status code                                   [B]
+
+     Desc: Code specifying the status of equipment.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     8255  Packing instruction type code                           [B]
+
+     Desc: Code specifying a type of packing instruction.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     8260  Equipment identifier                                    [B]
+
+     Desc: To identify equipment.
+
+     Repr: an..17
+
+----------------------------------------------------------------------
+
+     8273  Dangerous goods regulations code                        [B]
+
+     Desc: Code specifying a dangerous goods regulation.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     8275  Container or package contents indicator code            [B]
+
+     Desc: Code indicating the contents of container or package.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     8281  Transport means ownership indicator code                [B]
+
+     Desc: Code indicating the ownership of a means of transport.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     8323  Transport movement code                                 [B]
+
+     Desc: Code specifying the transport movement.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     8332  Equipment plan description                              [B]
+
+     Desc: Free form description of the equipment plan.
+
+     Repr: an..26
+
+----------------------------------------------------------------------
+
+     8334  Movement type description                               [B]
+
+     Desc: Free form description of a type of movement.
+
+     Repr: an..35
+
+----------------------------------------------------------------------
+
+     8335  Movement type description code                          [B]
+
+     Desc: Code specifying a type of movement.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     8339  Packaging danger level code                             [B]
+
+     Desc: Code specifying the level of danger for which the
+           packaging must cater.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     8341  Haulage arrangements code                               [B]
+
+     Desc: Code specifying the arrangement for the haulage of
+           goods.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     8351  Hazard identification code                              [B]
+
+     Desc: Code identifying a hazard.
+
+     Repr: an..7
+
+----------------------------------------------------------------------
+
+     8364  Emergency procedure for ships identifier                [B]
+
+     Desc: To identify the emergency procedure number for ships
+           transporting dangerous goods. Synonym: EMS Number.
+
+     Repr: an..8
+
+----------------------------------------------------------------------
+
+     8393  Returnable package load contents code                   [B]
+
+     Desc: Code specifying the load contents for a returnable
+           package.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     8395  Returnable package freight payment responsibility code  [B]
+
+     Desc: Code specifying the responsibility for the freight
+           payment for a returnable package.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     8410  Hazard medical first aid guide identifier               [B]
+
+     Desc: To identify a Medical First Aid Guide (MFAG) for
+           hazardous goods.
+
+     Repr: an..4
+
+----------------------------------------------------------------------
+
+     8453  Transport means nationality code                        [B]
+
+     Desc: Code specifying the nationality of a means of
+           transport.
+
+     Repr: an..3
+
+     Note: 
+           1 Use ISO 3166-1 two alpha country code.
+
+----------------------------------------------------------------------
+
+     8457  Excess transportation reason code                       [B]
+
+     Desc: Code specifying the reason for excess transportation.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     8459  Excess transportation responsibility code               [B]
+
+     Desc: Code specifying the responsibility for excess
+           transportation.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     8461  Tunnel Restriction Code                                 [B]
+
+     Desc: A code indicating a restriction for transport through
+           tunnels.
+
+     Repr: an..6
+
+----------------------------------------------------------------------
+
+     9003  Employment details code qualifier                       [B]
+
+     Desc: Code qualifying the employment details.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     9004  Employment category description                         [B]
+
+     Desc: Free form description of the employment category.
+
+     Repr: an..35
+
+----------------------------------------------------------------------
+
+     9005  Employment category description code                    [C]
+
+     Desc: Code specifying the employment category.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     9006  Qualification classification description                [B]
+
+     Desc: Free form description of a qualification
+           classification.
+
+     Repr: an..35
+
+----------------------------------------------------------------------
+
+     9007  Qualification classification description code           [B]
+
+     Desc: Code specifying a qualification classification.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     9008  Occupation description                                  [B]
+
+     Desc: Free form description of an occupation.
+
+     Repr: an..35
+
+----------------------------------------------------------------------
+
+     9009  Occupation description code                             [B]
+
+     Desc: Code specifying an occupation.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     9012  Status reason description                               [B]
+
+     Desc: Free form description of the status reason.
+
+     Repr: an..256
+
+----------------------------------------------------------------------
+
+     9013  Status reason description code                          [C]
+
+     Desc: Code specifying the reason for a status.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     9015  Status category code                                    [B]
+
+     Desc: Code specifying the category of a status.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     9017  Attribute function code qualifier                       [C]
+
+     Desc: Code qualifying an attribute function.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     9018  Attribute description                                   [C]
+
+     Desc: Free form description of an attribute.
+
+     Repr: an..256
+
+----------------------------------------------------------------------
+
+     9019  Attribute description code                              [B]
+
+     Desc: Code specifying an attribute.
+
+     Repr: an..17
+
+----------------------------------------------------------------------
+
+     9020  Attribute type description                              [B]
+
+     Desc: Free form description of an attribute type.
+
+     Repr: an..70
+
+----------------------------------------------------------------------
+
+     9021  Attribute type description code                         [C]
+
+     Desc: Coded specifying an attribute type.
+
+     Repr: an..17
+
+----------------------------------------------------------------------
+
+     9023  Definition function code                                [B]
+
+     Desc: Code specifying the function of a definition.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     9025  Definition extent code                                  [B]
+
+     Desc: Code specifying the extent of a definition.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     9026  Edit mask format identifier                             [B]
+
+     Desc: To identify the format of an edit mask.
+
+     Repr: an..35
+
+----------------------------------------------------------------------
+
+     9029  Value definition code qualifier                         [B]
+
+     Desc: Code qualifying a value definition.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     9031  Edit mask representation code                           [B]
+
+     Desc: Code specifying the representation of the edit mask.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     9035  Qualification application area code                     [B]
+
+     Desc: Code specifying the application area of a
+           qualification.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     9037  Qualification type code qualifier                       [B]
+
+     Desc: Code qualifying a type of qualification.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     9038  Facility type description                               [I]
+
+     Desc: Free form description of the facility type.
+
+     Repr: an..70
+
+----------------------------------------------------------------------
+
+     9039  Facility type description code                          [I]
+
+     Desc: Code specifying the facility type.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     9040  Reservation identifier                                  [I]
+
+     Desc: To identify a reservation.
+
+     Repr: an..20
+
+----------------------------------------------------------------------
+
+     9043  Reservation identifier code qualifier                   [I]
+
+     Desc: Code qualifying the reservation identifier.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     9045  Basis code qualifier                                    [B]
+
+     Desc: Code qualifying the basis.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     9046  Basis type description                                  [B]
+
+     Desc: Free form description of the basis type.
+
+     Repr: an..35
+
+----------------------------------------------------------------------
+
+     9047  Basis type description code                             [B]
+
+     Desc: Code specifying the type of basis.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     9048  Applicability type description                          [B]
+
+     Desc: Free form description of the type of applicability.
+
+     Repr: an..35
+
+----------------------------------------------------------------------
+
+     9049  Applicability type description code                     [B]
+
+     Desc: Code specifying the type of applicability.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     9051  Applicability code qualifier                            [B]
+
+     Desc: Code qualifying the applicability.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     9141  Relationship type code qualifier                        [C]
+
+     Desc: Code qualifying a type of relationship.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     9142  Relationship description                                [C]
+
+     Desc: Free form description of a relationship.
+
+     Repr: an..35
+
+----------------------------------------------------------------------
+
+     9143  Relationship description code                           [C]
+
+     Desc: Code specifying a relationship.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     9146  Composite data element tag identifier                   [B]
+
+     Desc: To identify the tag of a composite data element.
+
+     Repr: an..4
+
+----------------------------------------------------------------------
+
+     9148  Directory status identifier                             [B]
+
+     Desc: To identify the status of a directory set.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     9150  Simple data element tag identifier                      [B]
+
+     Desc: To identify the tag of a simple data element.
+
+     Repr: an..4
+
+----------------------------------------------------------------------
+
+     9153  Simple data element character representation code       [B]
+
+     Desc: Code specifying the character representation of a
+           simple data element.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     9156  Simple data element maximum length measure              [B]
+
+     Desc: To specify the value of the maximum length of a simple
+           data element.
+
+     Repr: n..3
+
+----------------------------------------------------------------------
+
+     9158  Simple data element minimum length measure              [B]
+
+     Desc: To specify the value of the minimum length of a simple
+           data element.
+
+     Repr: n..3
+
+----------------------------------------------------------------------
+
+     9161  Code set indicator code                                 [B]
+
+     Desc: Code indicating whether a data element has an
+           associated code set.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     9162  Data element tag identifier                             [B]
+
+     Desc: To identify the tag of a data element.
+
+     Repr: an..4
+
+----------------------------------------------------------------------
+
+     9164  Group identifier                                        [B]
+
+     Desc: To identify a group.
+
+     Repr: an..4
+
+----------------------------------------------------------------------
+
+     9166  Segment tag identifier                                  [B]
+
+     Desc: To identify the tag of a segment.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     9169  Data representation type code                           [B]
+
+     Desc: Code specifying a type of data representation.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     9170  Event type description                                  [B]
+
+     Desc: Free form description of the event type.
+
+     Repr: an..70
+
+----------------------------------------------------------------------
+
+     9171  Event type description code                             [B]
+
+     Desc: Code specifying an event type.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     9172  Event                                                   [B]
+
+     Desc: Free form description of the event.
+
+     Repr: an..256
+
+----------------------------------------------------------------------
+
+     9173  Event description code                                  [B]
+
+     Desc: Code specifying an event.
+
+     Repr: an..35
+
+----------------------------------------------------------------------
+
+     9175  Data element usage type code                            [B]
+
+     Desc: Code specifying the usage type of a data element.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     9213  Duty regime type code                                   [B]
+
+     Desc: Code specifying a type of duty regime.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     9280  Validation result text                                  [B]
+
+     Desc: To specify the value of a validation result.
+
+     Repr: an..35
+
+----------------------------------------------------------------------
+
+     9282  Validation key identifier                               [B]
+
+     Desc: To identify the cryptographic key used for the
+           calculation of the validation.
+
+     Repr: an..35
+
+----------------------------------------------------------------------
+
+     9285  Validation criteria code                                [B]
+
+     Desc: Code specifying the validation criteria to be applied.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     9302  Sealing party name                                      [B]
+
+     Desc: Name of the sealing party.
+
+     Repr: an..35
+
+----------------------------------------------------------------------
+
+     9303  Sealing party name code                                 [B]
+
+     Desc: Code specifying the name of the sealing party.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     9308  Transport unit seal identifier                          [B]
+
+     Desc: The identification number of a seal affixed to a 
+           transport unit.
+
+     Repr: an..35
+
+----------------------------------------------------------------------
+
+     9321  Application error code                                  [C]
+
+     Desc: Code specifying an application error.
+
+     Repr: an..8
+
+----------------------------------------------------------------------
+
+X    9352  Government procedure                                    [B]
+
+     Desc: Textual description of a government procedure.
+
+     Repr: an..256
+
+     Note: 
+           1 This data element will be removed effective with
+           directory D.15B.
+
+----------------------------------------------------------------------
+
+     9353  Government procedure code                               [B]
+
+     Desc: Code specifying a government procedure.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     9411  Government involvement code                             [B]
+
+     Desc: Code indicating the requirement and status of
+           governmental involvement.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     9415  Government agency identification code                   [B]
+
+     Desc: Code identifying a government agency.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+X    9416  Government action                                       [B]
+
+     Desc: Textual description of a government action.
+
+     Repr: an..256
+
+     Note: 
+           1 This data element will be removed effective with
+           directory D.15B.
+
+----------------------------------------------------------------------
+
+     9417  Government action code                                  [B]
+
+     Desc: Code specifying a type of government action such as
+           inspection, detention, fumigation, security.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     9419  Service layer code                                      [B]
+
+     Desc: Code specifying a service layer.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     9421  Process stage code qualifier                            [B]
+
+     Desc: Code qualifying a stage in a process.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     9422  Value text                                              [B]
+
+     Desc: To specify a value.
+
+     Repr: an..512
+
+----------------------------------------------------------------------
+
+     9424  Array cell data description                             [B]
+
+     Desc: Free form description of the content of an array cell.
+
+     Repr: an..512
+
+----------------------------------------------------------------------
+
+     9426  Code value text                                         [B]
+
+     Desc: To specify a code value.
+
+     Repr: an..35
+
+----------------------------------------------------------------------
+
+     9428  Array cell structure identifier                         [B]
+
+     Desc: To identify an array cell structure.
+
+     Repr: an..35
+
+----------------------------------------------------------------------
+
+     9430  Footnote set identifier                                 [B]
+
+     Desc: To identify a footnote set.
+
+     Repr: an..35
+
+----------------------------------------------------------------------
+
+     9432  Footnote identifier                                     [B]
+
+     Desc: To identify a footnote.
+
+     Repr: an..35
+
+----------------------------------------------------------------------
+
+     9434  Code name                                               [B]
+
+     Desc: Name of a code.
+
+     Repr: an..70
+
+----------------------------------------------------------------------
+
+     9436  Clinical intervention description                       [B]
+
+     Desc: Free form description of a clinical intervention.
+
+     Repr: an..70
+
+----------------------------------------------------------------------
+
+     9437  Clinical intervention description code                  [B]
+
+     Desc: Code specifying a clinical intervention.
+
+     Repr: an..17
+
+----------------------------------------------------------------------
+
+     9441  Clinical intervention type code qualifier               [B]
+
+     Desc: Code qualifying a type of clinical intervention.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     9443  Attendance type code qualifier                          [B]
+
+     Desc: Code qualifying a type of attendance.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     9444  Admission type description                              [B]
+
+     Desc: Free form of the type of admission.
+
+     Repr: an..35
+
+----------------------------------------------------------------------
+
+     9445  Admission type description code                         [C]
+
+     Desc: Code specifying the type of admission.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     9446  Discharge type description                              [B]
+
+     Desc: Free form description of the type of discharge.
+
+     Repr: an..35
+
+----------------------------------------------------------------------
+
+     9447  Discharge type description code                         [C]
+
+     Desc: Code specifying the type of discharge.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     9448  File generation command name                            [B]
+
+     Desc: Name of a file generation command.
+
+     Repr: an..35
+
+----------------------------------------------------------------------
+
+     9450  File compression technique name                         [B]
+
+     Desc: Name of a file compression technique.
+
+     Repr: an..35
+
+----------------------------------------------------------------------
+
+     9453  Code value source code                                  [B]
+
+     Desc: Code specifying the source of a code value.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     9501  Formula type code qualifier                             [B]
+
+     Desc: Code qualifying the type of formula.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     9502  Formula name                                            [B]
+
+     Desc: Name identifying a formula.
+
+     Repr: an..35
+
+----------------------------------------------------------------------
+
+     9505  Formula complexity code                                 [B]
+
+     Desc: Code specifying the complexity of a formula.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     9507  Formula sequence code qualifier                         [B]
+
+     Desc: Code giving specific meaning to a formula sequence.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     9509  Formula sequence operand code                           [B]
+
+     Desc: Code specifying a specific type of operand within a
+           formula sequence.
+
+     Repr: an..17
+
+----------------------------------------------------------------------
+
+     9510  Formula sequence name                                   [B]
+
+     Desc: Name identifying a formula sequence.
+
+     Repr: an..35
+
+----------------------------------------------------------------------
+
+     9601  Information category code                               [I]
+
+     Desc: Code specifying the category of the information.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     9605  Data code qualifier                                     [I]
+
+     Desc: Code qualifying the data.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     9607  Yes or no indicator code                                [I]
+
+     Desc: Code specifying either a yes or no.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     9619  Adjustment category code                                [I]
+
+     Desc: Code specifying the general category of adjustment.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     9620  Policy limitation identifier                            [I]
+
+     Desc: Code specifying a policy limitation.
+
+     Repr: an..10
+
+----------------------------------------------------------------------
+
+     9623  Diagnosis type code                                     [I]
+
+     Desc: Code specifying the type of diagnosis.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     9625  Related cause code                                      [I]
+
+     Desc: Code specifying a related cause.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     9627  Admission source code                                   [I]
+
+     Desc: Code specifying the source of admission.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     9629  Procedure modification code                             [I]
+
+     Desc: Code specifying the procedure modification.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     9631  Invoice type code                                       [I]
+
+     Desc: Code specifying the type of invoice.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     9635  Event details code qualifier                            [B]
+
+     Desc: Code qualifying the event details.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     9636  Event category description                              [B]
+
+     Desc: Free form description of the event category.
+
+     Repr: an..70
+
+----------------------------------------------------------------------
+
+     9637  Event category description code                         [B]
+
+     Desc: Code specifying the event category.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     9639  Diagnosis category code                                 [I]
+
+     Desc: Code specifying a diagnosis category.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     9641  Service basis code qualifier                            [I]
+
+     Desc: Code qualifying the basis on which a service is
+           performed.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     9643  Supporting evidence type code qualifier                 [I]
+
+     Desc: Code qualifying the type of supporting evidence.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     9645  Payer responsibility level code                         [I]
+
+     Desc: Code specifying the level of responsibility of a
+           payer.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     9647  Cavity zone code                                        [I]
+
+     Desc: Code specifying the zone of the cavity.
+
+     Repr: an..3
+
+----------------------------------------------------------------------
+
+     9649  Processing information code qualifier                   [B]
+
+     Desc: Code qualifying the processing information.
+
+     Repr: an..3
+

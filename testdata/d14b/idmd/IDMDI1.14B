@@ -1,0 +1,46 @@
+PART 5    UNITED NATIONS DIRECTORIES FOR ELECTRONIC DATA INTERCHANGE
+          FOR ADMINISTRATION, COMMERCE AND TRANSPORT
+
+CHAPTER 2 Message type directory IDMD
+
+1.   Indexes
+
+1.1  Index of message types by code
+
+     Change indicators
+
+     a plus sign (+)    for an addition
+     an asterisk (*)    for an amendment to structure
+     a vertical bar (|) for changes to text for descriptions,
+                        notes and functions
+     a letter X (X)     for marked for deletion
+     a letter R (R)     for a message whose structure has been
+                        completely recast. No other change symbols
+                        shall be used with these messages
+
+   Code   Name                                             Rev Recast
+
+   AVLREQ Availability request - interactive message       5      
+   AVLRSP Availability response - interactive message      6      
+   IHCEBI Interactive health insurance eligibility and
+          benefits inquiry and response                    1      
+   IHCLME Health care claim or encounter request and
+          response - interactive message                   1      
+   PASREQ Travel, tourism and leisure product application
+          status request - interactive message             2      
+   PASRSP Travel, tourism and leisure product application
+          status response - interactive message            2      
+   RESREQ Reservation request - interactive message        7      
+   RESRSP Reservation response - interactive message       6      
+   SKDREQ Schedule request - interactive message           1      
+   SKDUPD Schedule update - interactive message            4      
+   TIQREQ Travel, tourism and leisure information inquiry
+          request - interactive message                    3      
+   TIQRSP Travel, tourism and leisure information inquiry
+          response - interactive message                   2      
+   TSDUPD Timetable static data update - interactive
+          message                                          4      
+   TUPREQ Travel, tourism and leisure data update request
+          - interactive message                            2      
+   TUPRSP Travel, tourism and leisure data update response
+          - interactive message                            1      

@@ -1,0 +1,196 @@
+
+UN/EDIFACT STANDARD DIRECTORY
+
+PART 1  INTRODUCTION
+
+Presentation of the UN/EDIFACT Standard Directory.
+
+0.   The UN/EDIFACT Standard is an electronic data interchange
+     standard maintained by users under the auspices of the United
+     Nations. The standard documents UN/EDIFACT messages and 
+     supporting information, which are used for the exchange of
+     business information between disparate information system, often
+     in an inter-company environment. The use of electronic messaging 
+     in this area has proven to be cost reducing. The wide deployment
+     of UN/EDIFACT has enabled the users to further reduce cost
+     through consolidation of investments and improved quality and 
+     standardized representation business information in the messages.
+
+1.   The UN/EDIFACT Standard Directory contains the documentation of
+     UN/EDIFACT messages and their supporting directories (segment,
+     composite data element, data element, and code documentation).
+     It includes the approved UNSM specifications in the message type
+     directories (EDMD, IDMD) and its supporting directories, the
+     segments (EDSD, IDSD), the composite data elements (EDCD, IDCD),
+     the data elements (EDED) and the code list (UNCL).
+
+2.   The UN/EDIFACT Standard Directory is intended for both national
+     and international electronic data interchange applications. The
+     development work is undertaken by experts in the UN/EDIFACT
+     Working Group (EWG), and the EWG is responsible for the
+     registration and maintenance of UNSMs and their supporting
+     material.
+
+3.   As agreed by the UNECE, the syntax to be applied to messages
+     based upon the UN/EDIFACT Standard Directory is the joint UN-ISO
+     EDIFACT Syntax standard, published as ISO 9735. This standard is
+     maintained by the Joint ISO/TC 154-UN/CEFACT Syntax Working Group
+     (JSWG) which is comprised of a group of experts from ISO/TC 154
+     and UN/CEFACT. ISO 9735 may be used in any application, but a
+     message using the rules may be referred to as an UN/EDIFACT
+     message only if it is a valid subset of the referenced UNSM.
+
+4.   More information about UN/CEFACT (http://www.unece.org/cefact/),
+     the EWG (http://www.edifact-wg.org/) and the ISO/TC154-UN/CEFACT
+     Joint Syntax Working Group (http://www.gefeg.com/jswg/) can be
+     found on the web sites for those organizations or by contacting
+     the UNECE Secretariat (Palais des Nations, CH-1211 Geneva 10,
+     Switzerland)(mailto:uncefact@unece.org).
+
+5.   Documentation that is relevant to the development and maintenance
+     of the UN/EDIFACT standard. 
+
+ 5.1 EWG OPERATING DOCUMENTS obtainable from
+     http://www.edifact-wg.org/
+
+  a. Data Maintenance Request Processing Procedures - This document 
+     specifies how requests for changes to the UN/EDIFACT Standard 
+     Directory, a.k.a. Date Maintenance Requests (DMR), are processed
+     by the maintaining body (UN/EDIFACT Working Group).
+  b. Entry Point Requirements and Interface Responsibilities - This 
+     document specifies the requirements and responsibilities of the
+     Entry Points to which change requests against the UN/EDIFACT
+     Standard Directory may be submitted.
+  c. EWG Procedures - This document describes the overall operating 
+     procedures for the UN/EDIFACT Standard Directory maintenance body 
+     (UN/EDIFACT Working Group).
+  d. UN/EDIFACT Working Group Operating Procedures for Document
+     Management - This document describes the procedures for the
+     maintenance and publication of non-directory related documents by
+     the UN/EDIFACT Working Group.
+
+ 5.2 DOCUMENTS FOR DEVELOPERS OF UNSMs obtainable from
+     http://www.edifact-wg.org/ 
+
+  a. UN/EDIFACT Message Design Rules for EDI (MDR) - This document 
+     describes the rules that govern the design of UNSMs.
+  b. Message and Code Handbook (MACH) - This document contains
+     guidelines and recommendations, based on best practices, for the
+     design of UNSMs, segments, elements and codes.
+  c. Rules for Presentation of Standardized Message and Directories    
+     Documentation - This document specifies the layout that used for
+     the text presentation of the UN/EDIFACT Standard Directory as
+     published by UN/CEFACT.
+  d. DMRDEF/DMSTAT MIG - These documents describe how the UN/EDIFACT
+     DMRDEF and DMSTAT messages are implemented when used to
+     communicate change requests and their statuses between the Entry
+     Points, the EWG and the UN Secretariat.
+  e. UN/EDIFACT Working Group Technical Assessment Checklist - This 
+     document serves as the primary source for assessing Date
+     Maintenance Requests (DMR) from a technical perspective.
+  f. UN/CEFACT Modelling Methodology - This document describes the 
+     methodology that should be used to model business process and 
+     information models.
+  g. UN/EDIFACT Working Group Technical Assessment Checklist for
+     models - This document serves as the primary source for assessing
+     business process and information models supporting Date
+     Maintenance Requests (DMR) from a technical perspective.
+
+ 5.3 EDIFACT SYNTAX obtainable from http://www.gefeg.com/jswg/
+
+  a. ISO 9735, Version 3
+  b. ISO 9735, Version 4
+
+6.   Documentation that is relevant for the implementation and use of
+     UN/EDIFACT messages obtainable from http://www.edifact-wg.org/ 
+
+  a. Uniform Rules of Conduct for Interchange of Trade Data by 
+     Teletransmission (UNCID) - This document specifies how users
+     should act when interchanging trade data electronically.
+  b. The commercial use of interchange agreements for Electronic Data 
+     Interchange (UNECE Recommendation No. 26) - This document
+     describes how interchange agreements should be used when
+     employing EDI in commercial environments.
+  c. Rules for Presentation of Standardized Message and Directories    
+     Documentation - This document specifies the layout that used for
+     the text presentation of the UN/EDIFACT Standard Directory as
+     published by UN/CEFACT.
+  d. DIRDEF MIG - This document describes how the UN/EDIFACT DIRDEF
+     message is implemented when used to publish the UN/EDIFACT
+     Standard Directory.
+
+7.   Part 2 provides terms and definitions used in the context of
+     these directories. 
+
+8.   Part 3 constitutes the UN/EDIFACT directory of messages,
+     segments, composites, elements and codes. A short introduction to
+     each of the files follows below. There are two sets of messages,
+     one for batch use, and one for interactive use. While having the
+     same basic design philosophy, the sets differ in the way they
+     represent concepts. This is due to the fact that interactive
+     messages have been developed for systems that require synchronous
+     responses, while batch messaging is normally done asynchronously.
+     For a full overview of the layout of the directory, please refer
+     to Rules for Presentation of Standardized Message and Directories
+     Documentation identified above.
+
+ 8.1 The following interdependent files together define the UN/EDIFACT
+     Standard Directory.
+
+  a. UNCL - UN/EDIFACT Consolidated Code List, a list of all code sets 
+     associated with coded data elements. The UNCL is organized by
+     data element, which is identified by its tag, name, description,
+     representation and an indicator whether the element is used in
+     batch, interactive or both directories, sorted by tag. The codes
+     for each element are then described with value, name and
+     description, sorted by value.
+  b. EDED - UN/EDIFACT Data Elements Directory, a list of all data
+     elements. The EDED is organized as a list of elements with tag,
+     name, description, representation and an indicator whether the
+     element is used in batch, interactive or both directories. Two 
+     index files with just the tag, name and usage indicator are
+     available as well, one ordered by tag, the other by name.
+
+     For batch messages:
+
+  c. EDCD - UN/EDIFACT Composite Data Elements Directory, with their 
+     component data elements. The EDCD is organized as a list of
+     composites with tag, name and description, sorted by tag. For
+     each composite, the list of component data elements is given with
+     position, tag, name, mandatory indicator and representation for
+     each element in the structure. Two indexes with just the
+     composite element tag and name are available as well, one sorted
+     by tag, the other by name.
+  d. EDSD - UN/EDIFACT Standard Segments Directory, which contains as
+     full description of all standard segments used in UNSMs. The EDSD
+     is organized as a list of segments with tag, name and function,
+     sorted by tag. For each segment, the list of composite and
+     standalone data elements is given with position, tag, name,
+     mandatory indicator, cardinality and representation (for
+     standalone elements) or substructure (for composites). Two
+     indexes with just the segment tag and name are available as
+     well, one sorted by tag, the other by name.
+  e. EDMD - UN/EDIFACT Directory of UNSMs, which contains a full
+     description of all United Nations Standard Message Types. The
+     EDMD is organized as a set of files, one for each message, where
+     the message is described by a general introduction (introduction/
+     scope/references/terms and definitions), and the message
+     definition. The message definition starts with the segment
+     clarification which introduces each segment used in the message,
+     as well as the segment groups used. The message structure gives a
+     more graphical representation of the structure of the message. In
+     addition to a file for each UNSM, the EDSD contains two indexes
+     with the message code and name, one sorted by code, the other by
+     name.
+
+     For interactive messages:
+
+  f. IDCD - UN/EDIFACT Interactive Composite Data Elements Directory, 
+     with their component data elements. The IDCD is organized in the
+     same way as the EDCD.
+  g. IDSD - UN/EDIFACT Interactive Standard Segments Directory, which 
+     contains a full description of all standard segments used in
+     UNSMs. The IDSD is organized in the same way as the EDSD.
+  h. IDMD - UN/EDIFACT Interactive Directory of UNSMs, which contains
+     a full description of all United Nations Interactive Standard
+     Message Types. The IDMD is organized in the same way as the EDMD.

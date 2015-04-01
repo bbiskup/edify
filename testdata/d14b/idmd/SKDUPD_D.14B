@@ -1,0 +1,469 @@
+                                UN/EDIFACT
+
+                  UNITED NATIONS STANDARD MESSAGE (UNSM)
+
+                   Schedule update - interactive message
+
+
+
+      This message can only be used with ISO 9735 Version 4 or later.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                           Message Type : SKDUPD
+                                           Version      : D
+                                           Release      : 14B
+                                           Contr. Agency: UN
+
+                                           Revision     : 4
+                                           Date         : 2014-11-17
+
+
+
+
+
+
+SOURCE: TBG9 Travel, Tourism and Leisure
+
+
+
+                                  CONTENTS
+
+                   Schedule update - interactive message
+
+0.     INTRODUCTION
+
+1.     SCOPE
+
+       1.1   Functional definition
+
+       1.2   Field of application
+
+       1.3   Principles
+
+2.     REFERENCES
+
+3.     TERMS AND DEFINITIONS
+
+       3.1   Standard terms and definitions
+
+4.     MESSAGE DEFINITION
+
+       4.1   Segment clarification
+
+       4.2   Segment index (alphabetical sequence by tag)
+
+       4.3   Message structure
+             4.3.1 Segment table
+
+
+
+
+
+
+
+
+
+
+
+
+
+---------------------------------------------------------------------------
+For general information on UN standard message types see UN Trade Data
+Interchange Directory, UNTDID, Part 4, Section 2.3, UN/ECE UNSM
+General Introduction
+---------------------------------------------------------------------------
+
+
+
+0.     INTRODUCTION
+
+       This specification provides the definition of the Schedule update -
+       interactive message (SKDUPD) to be used in Electronic Data
+       Interchange (EDI) between trading partners involved in
+       administration, commerce and transport.
+
+1.     SCOPE
+
+1.1    Functional definition
+
+       A message containing information about travel service schedules.
+       This message is sent by a travel service provider to other service
+       providers or to agencies such as government departments, traffic
+       authorities, and timetable publishing companies.
+
+1.2    Field of application
+
+       The Schedule update - interactive message may be used for both
+       national and international applications. It is based on universal
+       practice related to administration, commerce and transport, and is
+       not dependent on the type of business or industry.
+
+1.3    Principles
+
+       - The message is designed to transmit new or changed schedule
+       information in order to update the recipient's system.
+       
+       - The message can contain either a complete set of schedule
+       information data, either updates to a former delivery.
+       
+       - The message may also be used to formulate a request for re-
+       transmission of the data in case of error. The message may be sent
+       spontaneously, when the travel service provider has new information
+       available, or as a response to a SKDREQ - Schedule request -
+       interactive message.
+
+2.     REFERENCES
+
+       See UNTDID, Part 4, Chapter 2.3 UN/ECE UNSM - General Introduction,
+       Section 1.
+
+3.     TERMS AND DEFINITIONS
+
+3.1    Standard terms and definitions
+
+       See UNTDID, Part 4, Chapter 2.3 UN/ECE UNSM - General Introduction,
+       Section 2.
+
+4.     MESSAGE DEFINITION
+
+4.1    Segment clarification
+
+       This section should be read in conjunction with the segment table
+       which indicates mandatory, conditional and repeating requirements.
+
+00010   UIH, Interactive message header
+        A service segment starting and uniquely identifying a message. The
+        message type code for the Schedule update - interactive message is
+        SKDUPD.
+
+        Note: Schedule update - interactive messages conforming to this
+        document must contain the following data in segment UIH, composite
+        S306:
+
+        Data element  0065 SKDUPD
+                      0052 D
+                      0054 14B
+                      0051 UN
+
+00020   MSD, Message action details
+        A segment to specify the type and business function of the message.
+
+00030   ORG, Originator of request details
+        A segment to specify details related to the originator of the
+        schedule update.
+
+00040   HDR, Header information
+        A segment to specify information applicable to the entire message.
+
+00050   IFT, Interactive free text
+        A segment to provide free text information relating to the entire
+        message.
+
+00060   RFR, Reference
+        A segment to specify a reference relating to the entire message.
+
+
+00070   Segment group 1:  ERI-RFR-IFT
+        A group of segments to specify an error condition.
+
+00080      ERI, Application error information
+           A segment to specify the type of application error.
+
+00090      RFR, Reference
+           A segment to reference the erroneus element.
+
+00100      IFT, Interactive free text
+           A segment to provide text related to the error.
+
+
+00110   Segment group 2:  PRD-PDT-IFT-TRF-ASD-MSD-RFR-SG3-SG4
+        A group of segments to provide complete service information.
+
+00120      PRD, Product identification
+           A segment to specify a transport service.
+
+00130      PDT, Product information
+           A segment to provide detail information about the service.
+
+00140      IFT, Interactive free text
+           A segment to provide free text information relating to the
+           service.
+
+00150      TRF, Traffic restriction details
+           A segment identifying restrictions applicable to the service.
+
+00160      ASD, Service details
+           A segment to provide information about extra services included
+           in the service
+
+00170      MSD, Message action details
+           To specify the action to be applied on the associated service.
+
+00180      RFR, Reference
+           A segment used to specify a travel service number which is
+           published to the customer
+
+
+00190      Segment group 3:  SER-ASD
+           A group of segments to provide additional service information.
+
+00200         SER, Facility information
+              A segment specifying additional service information.
+
+00210         ASD, Service details
+              A segment to provide information about extra services
+              included in the facility.
+
+
+00220      Segment group 4:  POP-PDT-IFT-TRF-ASD-FRQ-SG5-SG6-SG7-SG9
+           A group of segments to provide period and frequency information.
+
+00230         POP, Period of operation
+              A segment to specify a period of operation of the service.
+
+00240         PDT, Product information
+              A segment to provide detail information about the service.
+
+00250         IFT, Interactive free text
+              A segment to provide free text information relating to the
+              service.
+
+00260         TRF, Traffic restriction details
+              A segment identifying restrictions applicable to the service.
+
+00270         ASD, Service details
+              A segment to provide information about extra services
+              included in the service.
+
+00280         FRQ, Frequency
+              A segment to specify details about the frequency of the
+              service.
+
+
+00290         Segment group 5:  SER-ASD
+              A group of segments to provide additional service
+              information.
+
+00300            SER, Facility information
+                 A segment specifying additional service information.
+
+00310            ASD, Service details
+                 A segment to provide information about extra services
+                 included in the service.
+
+
+00320         Segment group 6:  DTI-IFT
+              A group of segments specifying days or periods to be included
+              in or excluded from the period of operation of the service.
+
+00330            DTI, Date and time information
+                 To identify a day or period to be included in or excluded
+                 from the period of operation of the service.
+
+00340            IFT, Interactive free text
+                 To specify a free text description of the day or period.
+
+
+00350         Segment group 7:  POR-MES-ASD-SER-TRF-SG8
+              A group of segments to provide information relating to a
+              location.
+
+00360            POR, Location and/or related time information
+                 A segment specifying a location and the service times
+                 related to this location.
+
+00370            MES, Measurements
+                 A segment to specify measurement values relating to the
+                 service at the given location.
+
+00380            ASD, Service details
+                 A segment to provide information about extra services
+                 included in the service and relating to the location.
+
+00390            SER, Facility information
+                 A segment specifying additional service information
+                 relating to the location.
+
+00400            TRF, Traffic restriction details
+                 A segment identifying restrictions applicable to the
+                 service at the given location.
+
+
+00410            Segment group 8:  RFR-RLS-TCE
+                 A group of segments to specify special connection
+                 conditions in relation to another service.
+
+00420               RFR, Reference
+                    A segment to specify a reference to another service.
+
+00430               RLS, Relationship
+                    A segment to specify the type of relation.
+
+00440               TCE, Time and certainty
+                    A segment to specify details about the connection
+                    conditions to another service.
+
+
+00450         Segment group 9:  ODI-PDT-IFT-TRF-TFF-ASD-SG10
+              A group of segments to provide service leg or segment
+              information.
+
+00460            ODI, Origin and destination details
+                 A segment to specify the origin and destination locations
+                 of a service leg or segment.
+
+00470            PDT, Product information
+                 A segment to provide detail information about the service
+                 leg or segment.
+
+00480            IFT, Interactive free text
+                 A segment to provide free text information relating to the
+                 service leg or segment.
+
+00490            TRF, Traffic restriction details
+                 A segment identifying restrictions applicable to the
+                 service leg or segment.
+
+00500            TFF, Tariff information
+                 A segment to specify tariff information related to the
+                 service leg or segment.
+
+00510            ASD, Service details
+                 A segment to provide information about extra services
+                 included in the service.
+
+
+00520            Segment group 10: SER-ASD
+                 A group of segments to provide additional service
+                 information relating to the service leg or segment.
+
+00530               SER, Facility information
+                    A segment specifying additional service information.
+
+00540               ASD, Service details
+                    A segment to provide information about extra services
+                    included in the service.
+
+00550   UIT, Interactive message trailer
+        A service segment ending a message, giving the total number of
+        segments in the message (including the UIH & UIT) and the control
+        reference number of the message.
+
+4.2    Segment index (alphabetical sequence by tag)
+
+          ASD Service details
+          DTI Date and time information
+          ERI Application error information
+          FRQ Frequency
+          HDR Header information
+          IFT Interactive free text
+          MES Measurements
+          MSD Message action details
+          ODI Origin and destination details
+          ORG Originator of request details
+          PDT Product information
+          POP Period of operation
+          POR Location and/or related time information
+          PRD Product identification
+          RFR Reference
+          RLS Relationship
+          SER Facility information
+          TCE Time and certainty
+          TFF Tariff information
+          TRF Traffic restriction details
+          UIH Interactive message header
+          UIT Interactive message trailer
+
+4.3    Message structure
+
+4.3.1  Segment table
+
+Pos     Tag Name                                     S   R
+
+00010   UIH Interactive message header               M   1     
+00020   MSD Message action details                   M   1     
+00030   ORG Originator of request details            M   1     
+00040   HDR Header information                       M   1     
+00050   IFT Interactive free text                    C   1     
+00060   RFR Reference                                C   9     
+
+00070       ---- Segment group 1  ------------------ C   99---------------+
+00080   ERI Application error information            M   1                |
+00090   RFR Reference                                C   1                |
+00100   IFT Interactive free text                    C   1----------------+
+
+00110       ---- Segment group 2  ------------------ M   99999------------+
+00120   PRD Product identification                   M   1                |
+00130   PDT Product information                      C   3                |
+00140   IFT Interactive free text                    C   9                |
+00150   TRF Traffic restriction details              C   9                |
+00160   ASD Service details                          C   99               |
+00170   MSD Message action details                   C   1                |
+00180   RFR Reference                                C   9                |
+                                                                          |
+00190       ---- Segment group 3  ------------------ C   99--------------+|
+00200   SER Facility information                     M   1               ||
+00210   ASD Service details                          C   1---------------+|
+                                                                          |
+00220       ---- Segment group 4  ------------------ C   999-------------+|
+00230   POP Period of operation                      M   1               ||
+00240   PDT Product information                      C   3               ||
+00250   IFT Interactive free text                    C   1               ||
+00260   TRF Traffic restriction details              C   9               ||
+00270   ASD Service details                          C   99              ||
+00280   FRQ Frequency                                C   9               ||
+                                                                         ||
+00290       ---- Segment group 5  ------------------ C   99-------------+||
+00300   SER Facility information                     M   1              |||
+00310   ASD Service details                          C   1--------------+||
+                                                                         ||
+00320       ---- Segment group 6  ------------------ C   99-------------+||
+00330   DTI Date and time information                M   1              |||
+00340   IFT Interactive free text                    C   9--------------+||
+                                                                         ||
+00350       ---- Segment group 7  ------------------ C   999------------+||
+00360   POR Location and/or related time information M   1              |||
+00370   MES Measurements                             C   1              |||
+00380   ASD Service details                          C   9              |||
+00390   SER Facility information                     C   9              |||
+00400   TRF Traffic restriction details              C   1              |||
+                                                                        |||
+00410       ---- Segment group 8  ------------------ C   99------------+|||
+00420   RFR Reference                                M   1             ||||
+00430   RLS Relationship                             C   1             ||||
+00440   TCE Time and certainty                       C   9-------------++||
+                                                                         ||
+00450       ---- Segment group 9  ------------------ C   999------------+||
+00460   ODI Origin and destination details           M   1              |||
+00470   PDT Product information                      C   3              |||
+00480   IFT Interactive free text                    C   1              |||
+00490   TRF Traffic restriction details              C   9              |||
+00500   TFF Tariff information                       C   1              |||
+00510   ASD Service details                          C   99             |||
+                                                                        |||
+00520       ---- Segment group 10 ------------------ C   99------------+|||
+00530   SER Facility information                     M   1             ||||
+00540   ASD Service details                          C   1-------------++++
+00550   UIT Interactive message trailer              M   1     

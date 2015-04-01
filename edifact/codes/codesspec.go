@@ -14,6 +14,8 @@ type CodesSpec struct {
 	CodeSpecs   []*CodeSpec
 }
 
+type CodesSpecMap map[int32]*CodesSpec
+
 func (s *CodesSpec) String() string {
 	specsStrs := []string{}
 	for _, spec := range s.CodeSpecs {
@@ -24,6 +26,14 @@ func (s *CodesSpec) String() string {
 	descriptionStr := util.Ellipsis(s.Description, maxDescrDisplayLen)
 
 	return fmt.Sprintf("%d %s %s\n%s", s.Id, s.Name, descriptionStr, codeSpecsStr)
+}
+
+func (s *CodesSpec) Len() int {
+	if s.CodeSpecs == nil {
+		return 0
+	} else {
+		return len(s.CodeSpecs)
+	}
 }
 
 func NewCodesSpec(id int32, name string, description string, codeSpecs []*CodeSpec) *CodesSpec {

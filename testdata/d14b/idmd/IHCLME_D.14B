@@ -1,0 +1,370 @@
+                                UN/EDIFACT
+
+                  UNITED NATIONS STANDARD MESSAGE (UNSM)
+
+ Health care claim or encounter request and response - interactive message
+
+
+
+      This message can only be used with ISO 9735 Version 4 or later.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                           Message Type : IHCLME
+                                           Version      : D
+                                           Release      : 14B
+                                           Contr. Agency: UN
+
+                                           Revision     : 1
+                                           Date         : 2014-11-17
+
+
+
+
+
+
+SOURCE: TBG10 Healthcare
+
+
+
+                                  CONTENTS
+
+ Health care claim or encounter request and response - interactive message
+
+0.     INTRODUCTION
+
+1.     SCOPE
+
+       1.1   Functional definition
+
+       1.2   Field of application
+
+       1.3   Principles
+
+2.     REFERENCES
+
+3.     TERMS AND DEFINITIONS
+
+       3.1   Standard terms and definitions
+
+4.     MESSAGE DEFINITION
+
+       4.1   Segment clarification
+
+       4.2   Segment index (alphabetical sequence by tag)
+
+       4.3   Message structure
+             4.3.1 Segment table
+
+
+
+
+
+
+
+
+
+
+
+
+
+---------------------------------------------------------------------------
+For general information on UN standard message types see UN Trade Data
+Interchange Directory, UNTDID, Part 4, Section 2.3, UN/ECE UNSM
+General Introduction
+---------------------------------------------------------------------------
+
+
+
+0.     INTRODUCTION
+
+       This specification provides the definition of the Health care claim
+       or encounter request and response - interactive message (IHCLME) to
+       be used in Electronic Data Interchange (EDI) between trading
+       partners involved in administration, commerce and transport.
+
+1.     SCOPE
+
+1.1    Functional definition
+
+       This message is to support interactive submittal and response of
+       health care claims or encounters for the point of sale environment.
+       It will be used in health care information scenarios when immediate
+       response is appropriate.
+
+1.2    Field of application
+
+       The Health care claim or encounter request and response -
+       interactive message may be used for both national and international
+       applications. It is based on universal practice related to
+       administration, commerce and transport, and is not dependent on the
+       type of business or industry.
+
+1.3    Principles
+
+       This message establishes the data contents of the IHCLME. 
+       This can be used to create interactive communications between health
+       care providers (e.g., physicians, hospitals, other medical
+       facilities, dentists, etc.), health care information processors,
+       health care payers, and/or their agents. The information includes,
+       but is not limited to, billing information (for full or partial
+       adjudication), encounter reporting, additional service information
+       (denial reasons, errors, pending data, etc.), and coordination of
+       benefits.
+       
+       IHCLME may be used for the following functions within the claim or
+       encounter scenario for health care:
+       
+       (1) To request and respond to a request for processing a claim or
+       encounter episode.
+       (2) To request and respond to a request to modify or cancel a
+       previously submitted claim or encounter.
+       (3) To request and respond to a pre-determination of benefits as it
+       relates to a covered life.
+       (4) To request and respond to a need for additional information as
+       it relates to a claim or encounter episode.
+       
+       An example of health care processors or their agents includes:
+       
+       - Insurance Companies
+       - Health Maintenance Organizations (HMOs)
+       - Preferred Provider Organizations (PPOs)
+       - Health Care Purchasers (e.g., employers)
+       - Professional Review Organizations (PROs)
+       - Social Worker Organizations
+       - Health Care Providers (e.g., physicians, hospitals, laboratories)
+       - Third Party Administrators (TPAs)
+       - Health Care Vendors (e.g., practice management vendors, billing
+       services)
+       - Service Bureaus (value added networks or value added banks)
+       - Government agencies such as Medicare, Medicaid and Civilian 
+       Health and Medical Program of the Uniformed Services 
+       (CHAMPUS).
+
+2.     REFERENCES
+
+       See UNTDID, Part 4, Chapter 2.3 UN/ECE UNSM - General Introduction,
+       Section 1.
+
+3.     TERMS AND DEFINITIONS
+
+3.1    Standard terms and definitions
+
+       See UNTDID, Part 4, Chapter 2.3 UN/ECE UNSM - General Introduction,
+       Section 2.
+
+4.     MESSAGE DEFINITION
+
+4.1    Segment clarification
+
+       This section should be read in conjunction with the segment table
+       which indicates mandatory, conditional and repeating requirements.
+
+00010   UIH, Interactive message header
+        A service segment starting and uniquely identifying a message. The
+        message type code for the Health care claim or encounter request
+        and response - interactive message is IHCLME.
+
+        Note: Health care claim or encounter request and response -
+        interactive messages conforming to this document must contain the
+        following data in segment UIH, composite S306:
+
+        Data element  0065 IHCLME
+                      0052 D
+                      0054 14B
+                      0051 UN
+
+00020   MSD, Message action details
+        To specify the message processing requirements, response type, and
+        to provide a tracking mechanism. The reference number in this
+        segment will provide for a different tracking number than what is
+        generated in the message envelope, for application level tracking.
+
+00030   PRT, Party information
+        To provide specific identification numbers and demographic 
+        information regarding the identity of the participating parties.
+        Date of birth, eligibility date, and date of death may be specified
+        as well as relationship between the patient and the insured, sex,
+        employment category, marital status, student status, and a yes or
+        no indication of whether the patient is pregnant.
+
+00040   NAA, Name and address
+        To specify a party identity, and, when necessary, the name and/or
+        the address in either a structured or unstructured format. For use
+        in health care, it is recommended to use only the identification,
+        but if the name or address are needed, to use only the structured
+        method of submittal.
+
+00050   CON, Contact information
+        To provide electronic message routing information for additional
+        recipients of this message. The reference number will provide  a
+        unique reference number to be used by the contact entity when
+        referring to this message.
+
+00060   BLI, Billable information
+        To provide summarized information about all services covered under 
+        one health care claim or encounter. This segment allows detail
+        relating to monetary amounts for the total amount being charged for
+        the claim, total amount that the patient has paid, and the total
+        amount paid by other benefit carriers. Multiple diagnoses that
+        apply to the entire claim, and multiple dates may be conveyed. The
+        plan sponsor can receive the reference of any pre-authorization
+        information associated with the claim and through a series of yes
+        and no indications will know whether the provider accepts the
+        insurance payment as payment in full, and whether the patient has
+        signed documents releasing the medical information to the insurance
+        carrier and authorizing the payment directly to the provider. The
+        presence, nature, date, and state or province of a cause related to
+        this claim, such as an accident, may also be indicated.
+
+00070   ITC, Institutional claim
+        To provide specific claim information only needed when processing
+        claims for services performed while admitted to a health care
+        institution. When the claim is generated from a health care 
+        institution, additional information such as the type (e.g. first,
+        intermediate, last) and frequency of invoicing during an extended
+        admission, the number of days covered and non covered by insurance,
+        the type (e.g. emergency, scheduled) and source of admission, the
+        discharge type (e.g. ambulatory, transfer, dead), and information
+        about other products and services related to the institutional
+        admission may be needed.
+
+00080   ADI, Health care claim adjudication information
+        To provide adjudication information for all services, supplies or
+        products in the health care claim. The internal control number
+        assigned by the payer, the specific service trace or sequence
+        number  designated for this service in the original claim, the
+        payment or  draft control number, the health care service being
+        paid, the health case service originally billed, the health care
+        service institutional "revenue" code, the notification of the
+        adjudication action taken by the payer, the total amount paid,
+        other informational amounts (e.g negotiated discount), the number
+        of services adjudicated, the number  of services originally billed,
+        the importance given to the diagnosis related group in calculating
+        the payment, the financial adjustments (e.g. deductible, agreed fee
+        limit) made in the adjudication,  identification of health care
+        policy limitations, the insurance product group (e.g. indemnity,
+        managed care, federal program), the anticipated date of payment,
+        the diagnosis category from a diagnosis related grouping program,
+        and the percentage known as "discharge fraction" may all be sent in
+        this segment.
+
+00090   FRM, Follow-up action
+        To identify specific corrective actions that should occur before
+        the adjudication process can complete. The identity number in this
+        segment must be one of the identity number given in an ADI segment.
+        The follow-up actions may be for the entire claim or may be service
+        specific.
+
+
+00100   Segment group 1:  OTI-NAA
+        A group of segments to identify all parties by code and name  that
+        may provide insurance coverage for the patient being treated.
+
+00110      OTI, Other insurance
+           To provide payer, insured and payment information when benefits 
+           are being coordinated between third party benefit carriers. A
+           major source of concern in health care is being able to
+           coordinate benefits between multiple insurance carriers. This
+           segment will be used to reference other payers that may need to
+           be kept abreast of the health care transaction and what monetary
+           amounts are being paid by the respective carrier. Even though
+           three different carriers may be identified, there is a yes or no
+           indicator that will allow the indication of additional carriers
+           beyond what is being sent.
+
+00120      NAA, Name and address
+           To specify identification numbers, name and address information
+           relating to the other insurance parties. If available, the 
+           identification number of the insurance carrier should be used.
+           When the identification number is not available, or the
+           insurance carrier operates out of multiple offices, the name
+           and/or address should be used.
+
+
+00130   Segment group 2:  PSI-DNT
+        To identify the specific service information for the claim or
+        encounter.
+
+00140      PSI, Service information
+           To provide detail information about the service, product, or
+           procedure. This segment allows the payer of a health care
+           transaction to indicate line item detail about all services
+           performed. All charges can be broken down, several of the
+           diagnosis codes from the claim can be references with an index
+           identifier, and any supporting evidence and out of band
+           additional information needed for the claim can be referenced.
+
+00150      DNT, Dental information
+           To provide specific a complete description of each tooth in
+           relation to the service. Only in a dental claim, would the payer
+           need to know specific tooth and additional information on the
+           surface, gum depth or status.
+
+00160   UIT, Interactive message trailer
+        A service segment ending a message, giving the total number of
+        segments in the message (including the UIH & UIT) and the control
+        reference number of the message.
+
+4.2    Segment index (alphabetical sequence by tag)
+
+          ADI Health care claim adjudication information
+          BLI Billable information
+          CON Contact information
+          DNT Dental information
+          FRM Follow-up action
+          ITC Institutional claim
+          MSD Message action details
+          NAA Name and address
+          OTI Other insurance
+          PRT Party information
+          PSI Service information
+          UIH Interactive message header
+          UIT Interactive message trailer
+
+4.3    Message structure
+
+4.3.1  Segment table
+
+Pos     Tag Name                                     S   R
+
+00010   UIH Interactive message header               M   1     
+00020   MSD Message action details                   C   1     
+00030   PRT Party information                        C   9     
+00040   NAA Name and address                         C   9     
+00050   CON Contact information                      C   9     
+00060   BLI Billable information                     C   1     
+00070   ITC Institutional claim                      C   1     
+00080   ADI Health care claim adjudication                                 
+               information                           C   99    
+00090   FRM Follow-up action                         C   99    
+
+00100       ---- Segment group 1  ------------------ C   3----------------+
+00110   OTI Other insurance                          M   1                |
+00120   NAA Name and address                         C   2----------------+
+
+00130       ---- Segment group 2  ------------------ C   99---------------+
+00140   PSI Service information                      M   1                |
+00150   DNT Dental information                       C   35---------------+
+00160   UIT Interactive message trailer              M   1     

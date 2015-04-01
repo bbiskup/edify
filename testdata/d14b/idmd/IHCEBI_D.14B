@@ -1,0 +1,442 @@
+                                UN/EDIFACT
+
+                  UNITED NATIONS STANDARD MESSAGE (UNSM)
+
+Interactive health insurance eligibility and benefits inquiry and response
+
+
+
+      This message can only be used with ISO 9735 Version 4 or later.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                           Message Type : IHCEBI
+                                           Version      : D
+                                           Release      : 14B
+                                           Contr. Agency: UN
+
+                                           Revision     : 1
+                                           Date         : 2014-11-17
+
+
+
+
+
+
+SOURCE: TBG10 Healthcare
+
+
+
+                                  CONTENTS
+
+Interactive health insurance eligibility and benefits inquiry and response
+
+0.     INTRODUCTION
+
+1.     SCOPE
+
+       1.1   Functional definition
+
+       1.2   Field of application
+
+       1.3   Principles
+
+2.     REFERENCES
+
+3.     TERMS AND DEFINITIONS
+
+       3.1   Standard terms and definitions
+
+       3.2   Message terms and definitions
+
+4.     MESSAGE DEFINITION
+
+       4.1   Segment clarification
+
+       4.2   Segment index (alphabetical sequence by tag)
+
+       4.3   Message structure
+             4.3.1 Segment table
+
+
+
+
+
+
+
+
+
+
+
+---------------------------------------------------------------------------
+For general information on UN standard message types see UN Trade Data
+Interchange Directory, UNTDID, Part 4, Section 2.3, UN/ECE UNSM
+General Introduction
+---------------------------------------------------------------------------
+
+
+
+0.     INTRODUCTION
+
+       This specification provides the definition of the Interactive health
+       insurance eligibility and benefits inquiry and response (IHCEBI) to
+       be used in Electronic Data Interchange (EDI) between trading
+       partners involved in administration, commerce and transport.
+
+1.     SCOPE
+
+       The Interactive health insurance eligibility benefit inquiry and
+       response message may be used for both national and international
+       applications.  It is based on universal practices related to
+       administration, commerce and transport, and is not dependent on the
+       type of business or industry.
+       
+       In particular, IHCEBI can be applied to all types of health care
+       service providers, funding institutions and health care delivery
+       systems.
+
+1.1    Functional definition
+
+       The IHCEBI message is sent from institutional or individual health
+       care providers or those providing related administrative services to
+       a funding institution to obtain health insurance information from a
+       patient’s health plan prior to or at the time of admission or
+       treatment.
+       
+       This inquiry message will allow a health care provider to give their
+       patient an estimate of cost for certain treatments, or assess their
+       own financial risk associated with certain treatments, and provide
+       the patient with informed financial choices regarding their health
+       care options.
+       
+       Each inquiry can provide information to the health plan about a
+       service being considered, (e.g., actual or expected service dates,
+       actual or expected duration of hospital stay, and planned services).
+        An inquiry can also contain information about the treating and
+       referring practitioner, if they are not the health care party making
+       the inquiry.
+       
+       The response message will provide information regarding what
+       benefits are available to the patient based on their health plan
+       contract and the information provided with the inquiry. This can
+       include financial information, such as, co-pay amounts, deductible
+       amounts, limitations, and exclusions.
+       
+       Each response can also provide information regarding administrative
+       issues concerning a covered benefit, such as, indicate who is the
+       primary provider for a service, contact information for the health
+       plan and patient, and policy rules, such as, certain screening exams
+       can only be done once every two years.
+
+1.2    Field of application
+
+       The Interactive health insurance eligibility and benefits inquiry
+       and response may be used for both national and international
+       applications. It is based on universal practice related to
+       administration, commerce and transport, and is not dependent on the
+       type of business or industry.
+
+1.3    Principles
+
+       The IHCEBI message can carry either an initial inquiry,
+       modifications to an inquiry made in a previous eligibility request
+       and response message from the funding institution.
+       
+       An inquiry can only concern one patient or health plan subscriber,
+       but may concern one or more services or procedures regarding an
+       individual patient or subscriber.  A response is limited to
+       providing an answer to the questions asked about a patient or health
+       plan subscriber, but may report benefits for multiple family
+       members.
+
+2.     REFERENCES
+
+       See UNTDID, Part 4, Chapter 2.3 UN/ECE UNSM - General Introduction,
+       Section 1.
+
+3.     TERMS AND DEFINITIONS
+
+3.1    Standard terms and definitions
+
+       See UNTDID, Part 4, Chapter 2.3 UN/ECE UNSM - General Introduction,
+       Section 2.
+
+3.2    Message terms and definitions
+
+       Capitated provider - is a term that describes a provider who is
+       under contract with a health plan and the provider agrees to receive
+       a monthly capitation payment amount per patient each month in lieu
+       of fee for service payment or charges.  Under this arrangement a
+       provider cannot charge for services rendered that are described in
+       their contract, for example, routine well visits or sick visits.
+
+4.     MESSAGE DEFINITION
+
+4.1    Segment clarification
+
+       This section should be read in conjunction with the segment table
+       which indicates mandatory, conditional and repeating requirements.
+
+00010   UIH, Interactive message header
+        A service segment starting and uniquely identifying a message. The
+        message type code for the Interactive health insurance eligibility
+        and benefits inquiry and response is IHCEBI.
+
+        Note: Interactive health insurance eligibility and benefits inquiry
+        and responses conforming to this document must contain the
+        following data in segment UIH, composite S306:
+
+        Data element  0065 IHCEBI
+                      0052 D
+                      0054 14B
+                      0051 UN
+
+00020   MSD, Message action details
+        Use to specify the message and processing requirements, for
+        example, the type of health care insurance verification to be done
+        and to provide a tracking mechanism for the submitter of 
+        the message.  The reference number in this segment will provide an
+        application level tracking number, which is different from what is
+        generated in the message envelope.
+
+
+00030   Segment group 1:  PRT-NAA-CON-FRM
+        Associated Parties Group:
+        A group of segments that will be repeated once for each party
+        involved with this eligibility message, used to identify and
+        provide information about each party by code and name.  Parties may
+        include and a loop would be present for: 
+        1) Submitter - when serving as an agent for the provider,
+        2) Requester - either a provider, payer, or employer making a
+        request,
+        3) Responder - either a payer or a third party administrator when
+        serving as an agent for the payer,
+        4) Subscriber - will always be present, and
+        5) Patient - present only when patient is not the subscriber.
+        
+        In the response message the responder may optionally add one or
+        more entries to this loop to identify a patient's primary care
+        physician (PCP)  or specialist, if the provider making the inquiry
+        is not the patient's PCP or specialist.  Other parties may also be
+        added to identify other capitated providers associated with the
+        patient care and health plan.
+
+00040      PRT, Party information
+           To provide specific entity identifiers or demographic
+           information regarding the identity of the participating parties.
+            For individuals identifiers will include date of birth, or a
+           health plan insurance card date of issue as shown on the card
+           may be specified in this segment, when the segment is
+           identifying a health plan subscriber.
+
+00050      NAA, Name and address
+           Use to specify a party identity, and when necessary, the name
+           and address of an entity and their related function in either a
+           structured or unstructured format.  For use in health care, it
+           is recommended to use only the name and identifier, but when
+           name and address are required use only the structured method of
+           submittal.  This segment is providing the name and address of
+           the party identified in the Associated Parties Group.
+
+00060      CON, Contact information
+           Use to specify contact communication numbers, names, and
+           electronic message routing information.  Use to provide
+           information about contacts within an organization or associated
+           with the party identified in the Associated Parties Loop who can
+           be called upon for further or clarifying information.  The
+           reference number may be used to provide a unique number for the
+           contact entity to use when referring to this message.
+
+00070      FRM, Follow-up action
+           Used only with the response message, this will identify specific
+           corrective actions or follow-up that should occur before another
+           inquiry is made about this entity.  Errors reported here related
+           to the parties identified in the Associated Parties Group.  For
+           example, provider is not authorised to inquire against this
+           payer's files.
+
+
+00080   Segment group 2:  DTI-ICI-FRM-SG3
+        Global Benefit Service Details Group:
+        This group of segments will occur only once for an eligibility
+        request or response.  It provides coverage or service information
+        that is common for each health insurance benefit and service
+        coverage reported.
+
+00090      DTI, Date and time information
+           Use to specify dates that will common to each benefit or covered
+           service.
+           
+           On the request message, this segment will be used to specify the
+           service or planned service dates for the benefits in question.
+           
+           On the response message, this segment will specify the effective
+           dates of benefit coverage for all listed benefits.  The
+           information in this segment can be overridden for a specific
+           benefit, when effective or termination dates are different from
+           the overall plan.  This is done in the Health Insurance Benefit
+           Details Group for each reported benefit where it applies.
+
+00100      ICI, Insurance cover information
+           Use to specify a type of insurance, this will apply to all
+           information that follows.
+
+00110      FRM, Follow-up action
+           To identify specific corrective actions or follow-up that should
+           occur before another inquiry is made about the patient in the
+           request message.  This segment is only sent with the response
+           message when there are errors to report related to the benefit
+           information request message within the Global Benefit and
+           Service Coverage Group.  For example, an invalid service date or
+           insurance type was specified.
+
+
+00120      Segment group 3:  BCD-HDS-DTI-PRT-FRM
+           Health Insurance Benefit Details Group:
+           This segment group provides health insurance coverage and
+           benefit information about a particular person’s health insurance
+           plan.  This segment group can be repeated to describe each
+           benefit or covered service in question.  Each benefit or covered
+           service will require a separate repetition.
+           
+           When this message is sent as a request for health insurance
+           available benefits and coverage, it will specify the type of
+           health benefit information that is required.
+           
+           When this message is sent in response to a request, this segment
+           group will provide the requested health insurance coverage and
+           benefit information as requested by the inquiry.
+
+00130         BCD, Benefit and coverage detail
+              Use to specify specific benefits and associated coverage.
+              
+              When used on the request message, it will specify a specific
+              benefit or covered service in question.
+              
+              When used on the response, it will provide information about
+              the requested health insurance benefits and coverage
+              available, plus any additional administrative information
+              that may have a business or patient care impact to the party
+              making the inquiry.
+
+00140         HDS, Health diagnosis service and delivery
+              Use to specify diagnosis information and procedure or therapy
+              services and details about how and when these services can be
+              delivered, based on the diagnosis or procedure or contract
+              terms or all of these.
+              
+              When this information is sent on the request, it is
+              describing the diagnosis of the patient and asking about
+              benefit coverage for a specific procedure or therapy.
+              
+              When the information is sent on the response, it is providing
+              information from the health insurance plan about what benefit
+              coverage is available, for certain procedures based on the
+              diagnosis and what service delivery requirements exist, which
+              can vary based on diagnosis, procedure, and health plan
+              contract.
+
+00150         DTI, Date and time information
+              Use to specify eligibility dates related to the benefit or
+              service described in the current iteration of the Health
+              Insurance Benefit Details Group.
+              
+              When used at this level on the request message, it is to
+              specify service dates from the provider that are outside of
+              the service dates specified in the Global Benefit Service
+              Details Group.
+              
+              When used at this level on the response message it identifies
+              eligibility start or termination dates assigned by the
+              responder that override the overall eligibility dates
+              identified in the earlier Global Benefit Service Details
+              Group.
+
+00160         PRT, Party information
+              Use to reference a specific payer or provider for the benefit
+              or service identified in the current Health Insurance Benefit
+              Details Group.  The payer or provider should be in the list
+              of parties identified within the Associated Parties Group,
+              where full details of the entity should be provided,
+              including name, address, and contact information.  The payer
+              is most likely used for third party liability for
+              coordination of benefits.  Identified providers would be
+              those restricted to providing services for the identified
+              benefit, for example, a capitated provider.
+
+00170         FRM, Follow-up action
+              Use to identify specific corrective actions or follow-up that
+              should occur before another inquiry is made about this
+              subject entity, that is, the patient or health plan
+              subscriber.  Errors reported at this level of the message are
+              benefit specific, reporting processing errors from the
+              responding application associated with the benefit inquiry
+              request.
+
+00180   UIT, Interactive message trailer
+        A service segment ending a message, giving the total number of
+        segments in the message (including the UIH & UIT) and the control
+        reference number of the message.
+
+4.2    Segment index (alphabetical sequence by tag)
+
+          BCD Benefit and coverage detail
+          CON Contact information
+          DTI Date and time information
+          FRM Follow-up action
+          HDS Health diagnosis service and delivery
+          ICI Insurance cover information
+          MSD Message action details
+          NAA Name and address
+          PRT Party information
+          UIH Interactive message header
+          UIT Interactive message trailer
+
+4.3    Message structure
+
+4.3.1  Segment table
+
+Pos     Tag Name                                     S   R
+
+00010   UIH Interactive message header               M   1     
+00020   MSD Message action details                   M   1     
+
+00030       ---- Segment group 1  ------------------ C   9----------------+
+00040   PRT Party information                        M   1                |
+00050   NAA Name and address                         C   9                |
+00060   CON Contact information                      C   9                |
+00070   FRM Follow-up action                         C   9----------------+
+
+00080       ---- Segment group 2  ------------------ C   1----------------+
+00090   DTI Date and time information                M   1                |
+00100   ICI Insurance cover information              C   1                |
+00110   FRM Follow-up action                         C   9                |
+                                                                          |
+00120       ---- Segment group 3  ------------------ C   999-------------+|
+00130   BCD Benefit and coverage detail              M   1               ||
+00140   HDS Health diagnosis service and delivery    C   9               ||
+00150   DTI Date and time information                C   1               ||
+00160   PRT Party information                        C   9               ||
+00170   FRM Follow-up action                         C   9---------------++
+00180   UIT Interactive message trailer              M   1     

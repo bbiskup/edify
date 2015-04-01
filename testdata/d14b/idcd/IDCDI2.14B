@@ -1,0 +1,109 @@
+1.2  Index of composites by alphabetic sequence by name
+
+     Change indicators
+
+     a plus sign (+)    for an addition
+     an asterisk (*)    for an amendment to structure
+     a hash sign (#)    for changes to names
+     a vertical bar (|) for changes to text for descriptions or
+                        notes
+     a letter X (X)     for marked for deletion
+
+    Tag  Name
+
+    E997 Accommodation allocation information
+    E959 Additional service details
+    E001 Address details
+    E817 Address usage
+    E030 Adjustment information
+    E026 Admission
+    E901 Application error details
+    E984 Associated charges information
+    E003 Attribute information
+    E025 Basis of service information
+    E946 Certainty
+    E002 Commission details
+    E988 Company identification
+    E999 Connection details
+    E967 Consumer reference identification
+    E966 Contact information
+    E819 Country sub-entity details
+    E978 Credit card information
+    E504 Currency details
+    E009 Daily availability information
+    E013 Date and time information
+    E507 Date/time/period
+    E973 Delivering system details
+    E083 Delivery pattern
+    E029 Diagnosis
+    E211 Dimensions
+    E998 Discount information
+    E963 Distance or time details
+    E968 Document information
+    E965 Facilities
+    E971 Free text qualification
+    E520 Frequency
+    E970 Frequent traveller identification
+    E008 Geographic details
+    E022 Instruction information
+    E016 Insurance cover requirement
+    E027 Invoice type
+    E212 Item number identification
+    E033 Language details
+    E975 Location
+    E517 Location identification
+    E175 Measurement value and details
+    E031 Message application product specification
+    E972 Message processing details
+    E017 Monetary amount
+    E995 Movement details
+    E012 Name information
+    E523 Number of unit details
+    E206 Object identification
+    E976 Originator details
+    E974 Originator identification details
+    E023 Party demographic information
+    E032 Party identification
+    E082 Party identification details
+    E080 Party name
+    E977 Payment details
+    E992 Position
+    E778 Position identification
+    E018 Price information
+    E996 Product class details
+    E015 Product data information
+    E987 Product date and time
+    E989 Product identification details
+    E019 Promotion details
+    E958 Quantity and action details
+    E035 Quantity details
+    E011 Rate class details
+    E983 Rate information
+    E506 Reference
+    E028 Related cause
+    E362 Related time information
+    E941 Relationship
+    E979 Reservation control information
+    E004 Rule details
+    E006 Rule status
+    E005 Rule text
+    E010 Selection details information
+    E990 Sequence number details
+    E021 Service
+    E981 Special requirement details
+    E980 Special requirement type details
+    E994 Stopover information
+    E024 Supporting evidence
+    E982 Tariff information
+    E020 Tax details
+    E962 Terminal information
+    E014 Time reference details
+    E034 Time zone
+    E993 Tour details
+    E007 Traffic restriction details
+    E961 Transport details
+    E986 Traveller details
+    E985 Traveller surname and related information
+    E964 Traveller time details
+    E969 Validity dates
+    E991 Vehicle information

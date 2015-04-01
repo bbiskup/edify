@@ -1,0 +1,2287 @@
+2.   Composite specifications
+
+     Change indicators
+
+     a plus sign (+)    for an addition
+     an asterisk (*)    for an amendment to structure
+     a hash sign (#)    for changes to names
+     a vertical bar (|) for changes to text for descriptions or
+                        notes
+     a letter X (X)     for marked for deletion
+
+----------------------------------------------------------------------
+
+       C001 TRANSPORT MEANS
+
+       Desc: Code and/or name identifying the type of means of
+             transport.
+
+010    8179  Transport means description code          C      an..8
+020    1131  Code list identification code             C      an..17
+030    3055  Code list responsible agency code         C      an..3
+040    8178  Transport means description               C      an..17
+
+----------------------------------------------------------------------
+
+       C002 DOCUMENT/MESSAGE NAME
+
+       Desc: Identification of a type of document/message by code
+             or name. Code preferred.
+
+010    1001  Document name code                        C      an..3
+020    1131  Code list identification code             C      an..17
+030    3055  Code list responsible agency code         C      an..3
+040    1000  Document name                             C      an..35
+
+----------------------------------------------------------------------
+
+       C003 POWER TYPE
+
+       Desc: To specify the type of power.
+
+010    7041  Power type code                           C      an..3
+020    1131  Code list identification code             C      an..17
+030    3055  Code list responsible agency code         C      an..3
+040    7040  Power type description                    C      an..17
+
+----------------------------------------------------------------------
+
+       C004 EVENT CATEGORY
+
+       Desc: To specify the event category.
+
+010    9637  Event category description code           C      an..3
+020    1131  Code list identification code             C      an..17
+030    3055  Code list responsible agency code         C      an..3
+040    9636  Event category description                C      an..70
+
+----------------------------------------------------------------------
+
+       C008 MONETARY AMOUNT FUNCTION DETAIL
+
+       Desc: To provide the detail of a monetary amount function.
+
+010    5105  Monetary amount function detail
+             description code                          C      an..17
+020    1131  Code list identification code             C      an..17
+030    3055  Code list responsible agency code         C      an..3
+040    5104  Monetary amount function detail
+             description                               C      an..70
+
+----------------------------------------------------------------------
+
+       C009 INFORMATION CATEGORY
+
+       Desc: To specify the category of information.
+
+010    4149  Information category description code     C      an..3
+020    1131  Code list identification code             C      an..17
+030    3055  Code list responsible agency code         C      an..3
+040    4148  Information category description          C      an..70
+
+----------------------------------------------------------------------
+
+       C010 INFORMATION TYPE
+
+       Desc: To specify the type of information.
+
+010    4473  Information type code                     C      an..4
+020    1131  Code list identification code             C      an..17
+030    3055  Code list responsible agency code         C      an..3
+040    4472  Information type                          C      an..35
+
+----------------------------------------------------------------------
+
+       C011 INFORMATION DETAIL
+
+       Desc: To provide the information details.
+
+010    4151  Information detail description code       C      an..17
+020    1131  Code list identification code             C      an..17
+030    3055  Code list responsible agency code         C      an..3
+040    4150  Information detail description            C      an..256
+
+----------------------------------------------------------------------
+
+       C012 PROCESSING INDICATOR
+
+       Desc: Identification of the processing indicator.
+
+010    7365  Processing indicator description code     C      an..3
+020    1131  Code list identification code             C      an..17
+030    3055  Code list responsible agency code         C      an..3
+040    7364  Processing indicator description          C      an..35
+
+----------------------------------------------------------------------
+
+       C019 PAYMENT TERMS
+
+       Desc: Terms of payment information.
+
+010    4277  Payment terms description identifier      C      an..17
+020    1131  Code list identification code             C      an..17
+030    3055  Code list responsible agency code         C      an..3
+040    4276  Payment terms description                 C      an..35
+
+----------------------------------------------------------------------
+
+       C030 EVENT TYPE
+
+       Desc: To specify the type of event.
+
+010    9171  Event type description code               C      an..3
+020    1131  Code list identification code             C      an..17
+030    3055  Code list responsible agency code         C      an..3
+040    9170  Event type description                    C      an..70
+
+----------------------------------------------------------------------
+
+       C040 CARRIER
+
+       Desc: Identification of a carrier by code and/or by name.
+             Code preferred.
+
+010    3127  Carrier identifier                        C      an..17
+020    1131  Code list identification code             C      an..17
+030    3055  Code list responsible agency code         C      an..3
+040    3126  Carrier name                              C      an..35
+
+----------------------------------------------------------------------
+
+       C042 NATIONALITY DETAILS
+
+       Desc: To specify a nationality.
+
+010    3293  Nationality name code                     C      an..3
+020    1131  Code list identification code             C      an..17
+030    3055  Code list responsible agency code         C      an..3
+040    3292  Nationality name                          C      a..35
+
+----------------------------------------------------------------------
+
+       C045 BILL LEVEL IDENTIFICATION
+
+       Desc: A sequenced collection of facetted codes used for
+             multiple indexing purposes.
+
+010    7436  Level one identifier                      C      an..17
+020    7438  Level two identifier                      C      an..17
+030    7440  Level three identifier                    C      an..17
+040    7442  Level four identifier                     C      an..17
+050    7444  Level five identifier                     C      an..17
+060    7446  Level six identifier                      C      an..17
+
+----------------------------------------------------------------------
+
+       C049 REMUNERATION TYPE IDENTIFICATION
+
+       Desc: Identification of the type of a remuneration.
+
+010    5315  Remuneration type name code               C      an..3
+020    1131  Code list identification code             C      an..17
+030    3055  Code list responsible agency code         C      an..3
+040    5314  Remuneration type name                    C      an..35
+050    5314  Remuneration type name                    C      an..35
+
+----------------------------------------------------------------------
+
+       C056 CONTACT DETAILS
+
+       Desc: Code and/or name of a contact such as a department
+             or employee. Code preferred.
+
+010    3413  Contact identifier                        C      an..17
+020    3412  Contact name                              C      an..256
+
+----------------------------------------------------------------------
+
+       C058 NAME AND ADDRESS
+
+       Desc: Unstructured name and address: one to five lines.
+
+010    3124  Name and address description              M      an..35
+020    3124  Name and address description              C      an..35
+030    3124  Name and address description              C      an..35
+040    3124  Name and address description              C      an..35
+050    3124  Name and address description              C      an..35
+
+----------------------------------------------------------------------
+
+       C059 STREET
+
+       Desc: Street address and/or PO Box number in a structured
+             address: one to four lines.
+
+010    3042  Street and number or post office box
+             identifier                                M      an..35
+020    3042  Street and number or post office box
+             identifier                                C      an..35
+030    3042  Street and number or post office box
+             identifier                                C      an..35
+040    3042  Street and number or post office box
+             identifier                                C      an..35
+
+----------------------------------------------------------------------
+
+       C063 EVENT IDENTIFICATION
+
+       Desc: To identify an event.
+
+010    9173  Event description code                    C      an..35
+020    1131  Code list identification code             C      an..17
+030    3055  Code list responsible agency code         C      an..3
+040    9172  Event                                     C      an..256
+
+----------------------------------------------------------------------
+
+       C076 COMMUNICATION CONTACT
+
+       Desc: Communication number of a department or employee in
+             a specified channel.
+
+010    3148  Communication address identifier          M      an..512
+020    3155  Communication means type code             M      an..3
+
+----------------------------------------------------------------------
+
+       C077 FILE IDENTIFICATION
+
+       Desc: To identify a file.
+
+010    1508  File name                                 C      an..35
+020    7008  Item description                          C      an..256
+
+----------------------------------------------------------------------
+
+       C078 ACCOUNT HOLDER IDENTIFICATION
+
+       Desc: Identification of an account holder by account
+             number and/or account holder name in one or two
+             lines. Number preferred.
+
+010    3194  Account holder identifier                 C      an..35
+020    3192  Account holder name                       C      an..35
+030    3192  Account holder name                       C      an..35
+040    6345  Currency identification code              C      an..3
+
+----------------------------------------------------------------------
+
+       C079 COMPUTER ENVIRONMENT IDENTIFICATION
+
+       Desc: To identify parts of a computer environment.
+
+010    1511  Computer environment name code            C      an..3
+020    1131  Code list identification code             C      an..17
+030    3055  Code list responsible agency code         C      an..3
+040    1510  Computer environment name                 C      an..35
+050    1056  Version identifier                        C      an..9
+060    1058  Release identifier                        C      an..9
+070    7402  Object identifier                         C      an..35
+
+----------------------------------------------------------------------
+
+       C080 PARTY NAME
+
+       Desc: Identification of a transaction party by name, one
+             to five lines. Party name may be formatted.
+
+010    3036  Party name                                M      an..70
+020    3036  Party name                                C      an..70
+030    3036  Party name                                C      an..70
+040    3036  Party name                                C      an..70
+050    3036  Party name                                C      an..70
+060    3045  Party name format code                    C      an..3
+
+----------------------------------------------------------------------
+
+       C082 PARTY IDENTIFICATION DETAILS
+
+       Desc: Identification of a transaction party by code.
+
+010    3039  Party identifier                          M      an..35
+020    1131  Code list identification code             C      an..17
+030    3055  Code list responsible agency code         C      an..3
+
+----------------------------------------------------------------------
+
+       C085 MARITAL STATUS DETAILS
+
+       Desc: To specify the marital status of a person.
+
+010    3479  Marital status description code           C      an..3
+020    1131  Code list identification code             C      an..17
+030    3055  Code list responsible agency code         C      an..3
+040    3478  Marital status description                C      an..35
+
+----------------------------------------------------------------------
+
+       C088 INSTITUTION IDENTIFICATION
+
+       Desc: Identification of a financial institution by code
+             branch number, or name and name of place. Code or
+             branch number preferred.
+
+010    3433  Institution name code                     C      an..11
+020    1131  Code list identification code             C      an..17
+030    3055  Code list responsible agency code         C      an..3
+040    3434  Institution branch identifier             C      an..17
+050    1131  Code list identification code             C      an..17
+060    3055  Code list responsible agency code         C      an..3
+070    3432  Institution name                          C      an..70
+080    3436  Institution branch location name          C      an..70
+
+----------------------------------------------------------------------
+
+       C090 ADDRESS DETAILS
+
+       Desc: To specify the details of an address.
+
+010    3477  Address format code                       M      an..3
+020    3286  Address component description             M      an..70
+030    3286  Address component description             C      an..70
+040    3286  Address component description             C      an..70
+050    3286  Address component description             C      an..70
+060    3286  Address component description             C      an..70
+
+----------------------------------------------------------------------
+
+       C099 FILE DETAILS
+
+       Desc: To define details relevant to a file.
+
+010    1516  File format name                          M      an..17
+020    1056  Version identifier                        C      an..9
+030    1503  Data format description code              C      an..3
+040    1502  Data format description                   C      an..35
+
+----------------------------------------------------------------------
+
+       C100 TERMS OF DELIVERY OR TRANSPORT
+
+       Desc: Terms of delivery or transport code from a specified
+             source.
+
+010    4053  Delivery or transport terms description
+             code                                      C      an..3
+020    1131  Code list identification code             C      an..17
+030    3055  Code list responsible agency code         C      an..3
+040    4052  Delivery or transport terms description   C      an..70
+050    4052  Delivery or transport terms description   C      an..70
+
+----------------------------------------------------------------------
+
+       C101 RELIGION DETAILS
+
+       Desc: To specify the religion of a person.
+
+010    3483  Religion name code                        C      an..3
+020    1131  Code list identification code             C      an..17
+030    3055  Code list responsible agency code         C      an..3
+040    3482  Religion name                             C      an..35
+
+----------------------------------------------------------------------
+
+       C106 DOCUMENT/MESSAGE IDENTIFICATION
+
+       Desc: Identification of a document/message by its number
+             and eventually its version or revision.
+
+010    1004  Document identifier                       C      an..70
+020    1056  Version identifier                        C      an..9
+030    1060  Revision identifier                       C      an..6
+
+----------------------------------------------------------------------
+
+       C107 TEXT REFERENCE
+
+       Desc: Coded reference to a standard text and its source.
+
+010    4441  Free text description code                M      an..17
+020    1131  Code list identification code             C      an..17
+030    3055  Code list responsible agency code         C      an..3
+
+----------------------------------------------------------------------
+
+       C108 TEXT LITERAL
+
+       Desc: Free text; one to five lines.
+
+010    4440  Free text                                 M      an..512
+020    4440  Free text                                 C      an..512
+030    4440  Free text                                 C      an..512
+040    4440  Free text                                 C      an..512
+050    4440  Free text                                 C      an..512
+
+----------------------------------------------------------------------
+
+       C128 RATE DETAILS
+
+       Desc: Rate per unit and rate basis.
+
+010    5419  Rate type code qualifier                  M      an..3
+020    5420  Unit price basis rate                     M      n..15
+030    5284  Unit price basis quantity                 C      n..9
+040    6411  Measurement unit code                     C      an..8
+
+----------------------------------------------------------------------
+
+       C138 PRICE MULTIPLIER INFORMATION
+
+       Desc: Price multiplier and its identification.
+
+010    5394  Price multiplier rate                     M      n..12
+020    5393  Price multiplier type code qualifier      C      an..3
+
+----------------------------------------------------------------------
+
+       C174 VALUE/RANGE
+
+       Desc: Measurement value and relevant minimum and maximum
+             values of the measurement range.
+
+010    6411  Measurement unit code                     M      an..8
+020    6314  Measure                                   C      an..18
+030    6162  Range minimum quantity                    C      n..18
+040    6152  Range maximum quantity                    C      n..18
+050    6432  Significant digits quantity               C      n..2
+
+----------------------------------------------------------------------
+
+       C186 QUANTITY DETAILS
+
+       Desc: Quantity information in a transaction, qualified
+             when relevant.
+
+010    6063  Quantity type code qualifier              M      an..3
+020    6060  Quantity                                  M      an..35
+030    6411  Measurement unit code                     C      an..8
+
+----------------------------------------------------------------------
+
+       C200 CHARGE
+
+       Desc: Identification of a charge by code and/or by name.
+
+010    8023  Freight and other charges description
+             identifier                                C      an..17
+020    1131  Code list identification code             C      an..17
+030    3055  Code list responsible agency code         C      an..3
+040    8022  Freight and other charges description     C      an..26
+050    4237  Payment arrangement code                  C      an..3
+060    7140  Item identifier                           C      an..35
+
+----------------------------------------------------------------------
+
+       C202 PACKAGE TYPE
+
+       Desc: Type of package by name or by code from a specified
+             source.
+
+010    7065  Package type description code             C      an..17
+020    1131  Code list identification code             C      an..17
+030    3055  Code list responsible agency code         C      an..3
+040    7064  Type of packages                          C      an..35
+
+----------------------------------------------------------------------
+
+       C203 RATE/TARIFF CLASS
+
+       Desc: Identification of the applicable rate/tariff class.
+
+010    5243  Rate or tariff class description code     M      an..9
+020    1131  Code list identification code             C      an..17
+030    3055  Code list responsible agency code         C      an..3
+040    5242  Rate or tariff class description          C      an..35
+050    5275  Supplementary rate or tariff code         C      an..6
+060    1131  Code list identification code             C      an..17
+070    3055  Code list responsible agency code         C      an..3
+080    5275  Supplementary rate or tariff code         C      an..6
+090    1131  Code list identification code             C      an..17
+100    3055  Code list responsible agency code         C      an..3
+
+----------------------------------------------------------------------
+
+       C205 HAZARD CODE
+
+       Desc: The identification of the dangerous goods in code.
+
+010    8351  Hazard identification code                M      an..7
+020    8078  Additional hazard classification
+             identifier                                C      an..7
+030    8092  Hazard code version identifier            C      an..10
+
+----------------------------------------------------------------------
+
+       C206 IDENTIFICATION NUMBER
+
+       Desc: The identification of an object.
+
+010    7402  Object identifier                         M      an..35
+020    7405  Object identification code qualifier      C      an..3
+030    4405  Status description code                   C      an..3
+
+----------------------------------------------------------------------
+
+       C208 IDENTITY NUMBER RANGE
+
+       Desc: Goods item identification numbers, start and end of
+             consecutively numbered range.
+
+010    7402  Object identifier                         M      an..35
+020    7402  Object identifier                         C      an..35
+
+----------------------------------------------------------------------
+
+       C210 MARKS & LABELS
+
+       Desc: Shipping marks on packages in free text; one to ten
+             lines.
+
+010    7102  Shipping marks description                M      an..35
+020    7102  Shipping marks description                C      an..35
+030    7102  Shipping marks description                C      an..35
+040    7102  Shipping marks description                C      an..35
+050    7102  Shipping marks description                C      an..35
+060    7102  Shipping marks description                C      an..35
+070    7102  Shipping marks description                C      an..35
+080    7102  Shipping marks description                C      an..35
+090    7102  Shipping marks description                C      an..35
+100    7102  Shipping marks description                C      an..35
+
+----------------------------------------------------------------------
+
+       C211 DIMENSIONS
+
+       Desc: Specification of the dimensions of a transportable
+             unit.
+
+010    6411  Measurement unit code                     M      an..8
+020    6168  Length measure                            C      n..15
+030    6140  Width measure                             C      n..15
+040    6008  Height measure                            C      n..15
+050    6182  Diameter measure                          C      n..15
+
+----------------------------------------------------------------------
+
+       C212 ITEM NUMBER IDENTIFICATION
+
+       Desc: Goods identification for a specified source.
+
+010    7140  Item identifier                           C      an..35
+020    7143  Item type identification code             C      an..3
+030    1131  Code list identification code             C      an..17
+040    3055  Code list responsible agency code         C      an..3
+
+----------------------------------------------------------------------
+
+       C213 NUMBER AND TYPE OF PACKAGES
+
+       Desc: Number and type of individual parts of a shipment.
+
+010    7224  Package quantity                          C      n..8
+020    7065  Package type description code             C      an..17
+030    1131  Code list identification code             C      an..17
+040    3055  Code list responsible agency code         C      an..3
+050    7064  Type of packages                          C      an..35
+060    7233  Packaging related description code        C      an..3
+
+----------------------------------------------------------------------
+
+       C214 SPECIAL SERVICES IDENTIFICATION
+
+       Desc: Identification of a special service by a code from a
+             specified source or by description.
+
+010    7161  Special service description code          C      an..3
+020    1131  Code list identification code             C      an..17
+030    3055  Code list responsible agency code         C      an..3
+040    7160  Special service description               C      an..35
+050    7160  Special service description               C      an..35
+
+----------------------------------------------------------------------
+
+       C215 SEAL ISSUER
+
+       Desc: Identification of the issuer of a seal on equipment
+             either by code or by name.
+
+010    9303  Sealing party name code                   C      an..3
+020    1131  Code list identification code             C      an..17
+030    3055  Code list responsible agency code         C      an..3
+040    9302  Sealing party name                        C      an..35
+
+----------------------------------------------------------------------
+
+       C218 HAZARDOUS MATERIAL
+
+       Desc: To specify a hazardous material.
+
+010    7419  Hazardous material category name code     C      an..7
+020    1131  Code list identification code             C      an..17
+030    3055  Code list responsible agency code         C      an..3
+040    7418  Hazardous material category name          C      an..35
+
+----------------------------------------------------------------------
+
+       C219 MOVEMENT TYPE
+
+       Desc: Description of type of service for movement of
+             cargo.
+
+010    8335  Movement type description code            C      an..3
+020    8334  Movement type description                 C      an..35
+
+----------------------------------------------------------------------
+
+       C220 MODE OF TRANSPORT
+
+       Desc: Method of transport code or name. Code preferred.
+
+010    8067  Transport mode name code                  C      an..3
+020    8066  Transport mode name                       C      an..17
+
+----------------------------------------------------------------------
+
+       C222 TRANSPORT IDENTIFICATION
+
+       Desc: Code and/or name identifying the means of transport.
+
+010    8213  Transport means identification name
+             identifier                                C      an..35
+020    1131  Code list identification code             C      an..17
+030    3055  Code list responsible agency code         C      an..3
+040    8212  Transport means identification name       C      an..70
+050    8453  Transport means nationality code          C      an..3
+
+----------------------------------------------------------------------
+
+       C223 DANGEROUS GOODS SHIPMENT FLASHPOINT
+
+       Desc: Temperature at which a vapor can be ignited as per
+             ISO 1523/73.
+
+010    7106  Shipment flashpoint degree                C      n3
+020    6411  Measurement unit code                     C      an..8
+
+----------------------------------------------------------------------
+
+       C224 EQUIPMENT SIZE AND TYPE
+
+       Desc: Code and or name identifying size and type of
+             equipment. Code preferred.
+
+010    8155  Equipment size and type description code  C      an..10
+020    1131  Code list identification code             C      an..17
+030    3055  Code list responsible agency code         C      an..3
+040    8154  Equipment size and type description       C      an..35
+
+----------------------------------------------------------------------
+
+       C229 CHARGE CATEGORY
+
+       Desc: Identification of a category or a zone of charges.
+
+010    5237  Charge category code                      M      an..3
+020    1131  Code list identification code             C      an..17
+030    3055  Code list responsible agency code         C      an..3
+
+----------------------------------------------------------------------
+
+       C231 METHOD OF PAYMENT
+
+       Desc: Code identifying the method of payment.
+
+010    4215  Transport charges payment method code     M      an..3
+020    1131  Code list identification code             C      an..17
+030    3055  Code list responsible agency code         C      an..3
+
+----------------------------------------------------------------------
+
+       C232 GOVERNMENT ACTION
+
+       Desc: Function: To indicate the requirement for a specific
+             governmental action and/or procedure or which
+             specific procedure is valid for a specific part of
+             the transport and cross-border transactions. (Note
+             the red portion as change in the segment
+             description.).
+
+010    9415  Government agency identification code     C      an..3
+020    9411  Government involvement code               C      an..3
+030    9417  Government action code                    C      an..3
+040    9353  Government procedure code                 C      an..3
+
+----------------------------------------------------------------------
+
+       C233 SERVICE
+
+       Desc: To identify a service (which may constitute an
+             additional component to a basic contract).
+
+010    7273  Service requirement code                  M      an..3
+020    1131  Code list identification code             C      an..17
+030    3055  Code list responsible agency code         C      an..3
+040    7273  Service requirement code                  C      an..3
+050    1131  Code list identification code             C      an..17
+060    3055  Code list responsible agency code         C      an..3
+
+----------------------------------------------------------------------
+
+       C234 UNDG INFORMATION
+
+       Desc: Information on dangerous goods, taken from the
+             United Nations Dangerous Goods classification.
+
+010    7124  United Nations Dangerous Goods (UNDG)
+             identifier                                C      n4
+020    7088  Dangerous goods flashpoint description    C      an..8
+
+----------------------------------------------------------------------
+
+       C235 HAZARD IDENTIFICATION PLACARD DETAILS
+
+       Desc: These numbers appear on the hazard identification
+             placard required on the means of transport.
+
+010    8158  Orange hazard placard upper part
+             identifier                                C      an..4
+020    8186  Orange hazard placard lower part
+             identifier                                C      an4
+
+----------------------------------------------------------------------
+
+       C236 DANGEROUS GOODS LABEL
+
+       Desc: Markings identifying the type of hazardous goods and
+             similar information.
+
+010    8246  Dangerous goods marking identifier        C      an..4
+020    8246  Dangerous goods marking identifier        C      an..4
+030    8246  Dangerous goods marking identifier        C      an..4
+040    8246  Dangerous goods marking identifier        C      an..4
+
+----------------------------------------------------------------------
+
+       C237 EQUIPMENT IDENTIFICATION
+
+       Desc: Marks (letters/numbers) identifying equipment.
+
+010    8260  Equipment identifier                      C      an..17
+020    1131  Code list identification code             C      an..17
+030    3055  Code list responsible agency code         C      an..3
+040    3207  Country identifier                        C      an..3
+
+----------------------------------------------------------------------
+
+       C239 TEMPERATURE SETTING
+
+       Desc: The temperature under which the goods are (to be)
+             stored or shipped.
+
+010    6246  Temperature degree                        C      n..15
+020    6411  Measurement unit code                     C      an..8
+
+----------------------------------------------------------------------
+
+       C240 CHARACTERISTIC DESCRIPTION
+
+       Desc: To provide a description of a characteristic.
+
+010    7037  Characteristic description code           M      an..17
+020    1131  Code list identification code             C      an..17
+030    3055  Code list responsible agency code         C      an..3
+040    7036  Characteristic description                C      an..35
+050    7036  Characteristic description                C      an..35
+
+----------------------------------------------------------------------
+
+       C241 DUTY/TAX/FEE TYPE
+
+       Desc: Code and/or name identifying duty, tax or fee.
+
+010    5153  Duty or tax or fee type name code         C      an..3
+020    1131  Code list identification code             C      an..17
+030    3055  Code list responsible agency code         C      an..3
+040    5152  Duty or tax or fee type name              C      an..35
+
+----------------------------------------------------------------------
+
+       C242 PROCESS TYPE AND DESCRIPTION
+
+       Desc: Identification of process type and description.
+
+010    7187  Process type description code             M      an..17
+020    1131  Code list identification code             C      an..17
+030    3055  Code list responsible agency code         C      an..3
+040    7186  Process type description                  C      an..35
+050    7186  Process type description                  C      an..35
+
+----------------------------------------------------------------------
+
+       C243 DUTY/TAX/FEE DETAIL
+
+       Desc: Rate of duty/tax/fee applicable to commodities or of
+             tax applicable to services.
+
+010    5279  Duty or tax or fee rate code              C      an..7
+020    1131  Code list identification code             C      an..17
+030    3055  Code list responsible agency code         C      an..3
+040    5278  Duty or tax or fee rate                   C      an..17
+050    5273  Duty or tax or fee rate basis code        C      an..12
+060    1131  Code list identification code             C      an..17
+070    3055  Code list responsible agency code         C      an..3
+
+----------------------------------------------------------------------
+
+       C244 TEST METHOD
+
+       Desc: Specification of the test method employed.
+
+010    4415  Test method identifier                    C      an..17
+020    1131  Code list identification code             C      an..17
+030    3055  Code list responsible agency code         C      an..3
+040    4416  Test description                          C      an..70
+
+----------------------------------------------------------------------
+
+       C246 CUSTOMS IDENTITY CODES
+
+       Desc: Specification of goods in terms of customs identity.
+
+010    7361  Customs goods identifier                  M      an..18
+020    1131  Code list identification code             C      an..17
+030    3055  Code list responsible agency code         C      an..3
+
+----------------------------------------------------------------------
+
+       C270 CONTROL
+
+       Desc: Control total for checking integrity of a message or
+             part of a message.
+
+010    6069  Control total type code qualifier         M      an..3
+020    6066  Control total quantity                    M      n..18
+030    6411  Measurement unit code                     C      an..8
+
+----------------------------------------------------------------------
+
+       C272 ITEM CHARACTERISTIC
+
+       Desc: To provide the characteristic of the item being
+             described.
+
+010    7081  Item characteristic code                  C      an..3
+020    1131  Code list identification code             C      an..17
+030    3055  Code list responsible agency code         C      an..3
+
+----------------------------------------------------------------------
+
+       C273 ITEM DESCRIPTION
+
+       Desc: Description of an item.
+
+010    7009  Item description code                     C      an..17
+020    1131  Code list identification code             C      an..17
+030    3055  Code list responsible agency code         C      an..3
+040    7008  Item description                          C      an..256
+050    7008  Item description                          C      an..256
+060    3453  Language name code                        C      an..3
+
+----------------------------------------------------------------------
+
+       C279 QUANTITY DIFFERENCE INFORMATION
+
+       Desc: Information on quantity difference.
+
+010    6064  Variance quantity                         M      n..15
+020    6063  Quantity type code qualifier              C      an..3
+
+----------------------------------------------------------------------
+
+       C280 RANGE
+
+       Desc: Range minimum and maximum limits.
+
+010    6411  Measurement unit code                     M      an..8
+020    6162  Range minimum quantity                    C      n..18
+030    6152  Range maximum quantity                    C      n..18
+
+----------------------------------------------------------------------
+
+       C286 SEQUENCE INFORMATION
+
+       Desc: Identification of a sequence and source for
+             sequencing.
+
+010    1050  Sequence position identifier              M      an..10
+020    1159  Sequence identifier source code           C      an..3
+030    1131  Code list identification code             C      an..17
+040    3055  Code list responsible agency code         C      an..3
+
+----------------------------------------------------------------------
+
+       C288 PRODUCT GROUP
+
+       Desc: To give product group information.
+
+010    5389  Product group name code                   C      an..25
+020    1131  Code list identification code             C      an..17
+030    3055  Code list responsible agency code         C      an..3
+040    5388  Product group name                        C      an..35
+
+----------------------------------------------------------------------
+
+       C289 TUNNEL RESTRICTION
+
+       Desc: To specify a restriction for transport through
+             tunnels.
+
+010    8461  Tunnel Restriction Code                   C      an..6
+020    1131  Code list identification code             C      an..17
+030    3055  Code list responsible agency code         C      an..3
+
+----------------------------------------------------------------------
+
+       C329 PATTERN DESCRIPTION
+
+       Desc: Shipment, delivery or production interval pattern
+             and timing.
+
+010    2013  Frequency code                            C      an..3
+020    2015  Despatch pattern code                     C      an..3
+030    2017  Despatch pattern timing code              C      an..3
+
+----------------------------------------------------------------------
+
+       C330 INSURANCE COVER TYPE
+
+       Desc: To provide the insurance cover type.
+
+010    4497  Insurance cover type code                 M      an..3
+020    1131  Code list identification code             C      an..17
+030    3055  Code list responsible agency code         C      an..3
+
+----------------------------------------------------------------------
+
+       C331 INSURANCE COVER DETAILS
+
+       Desc: To provide the insurance cover details.
+
+010    4495  Insurance cover description code          C      an..17
+020    1131  Code list identification code             C      an..17
+030    3055  Code list responsible agency code         C      an..3
+040    4494  Insurance cover description               C      an..35
+050    4494  Insurance cover description               C      an..35
+
+----------------------------------------------------------------------
+
+       C332 SALES CHANNEL IDENTIFICATION
+
+       Desc: Identification of sales channel for marketing data,
+             sales, forecast, planning...
+
+010    3496  Sales channel identifier                  M      an..17
+020    1131  Code list identification code             C      an..17
+030    3055  Code list responsible agency code         C      an..3
+
+----------------------------------------------------------------------
+
+       C333 INFORMATION REQUEST
+
+       Desc: To specify the information requested in a responding
+             message.
+
+010    4511  Requested information description code    C      an..3
+020    1131  Code list identification code             C      an..17
+030    3055  Code list responsible agency code         C      an..3
+040    4510  Requested information description         C      an..35
+
+----------------------------------------------------------------------
+
+       C401 EXCESS TRANSPORTATION INFORMATION
+
+       Desc: To provide details of reason for, and responsibility
+             for, use of transportation other than normally
+             utilized.
+
+010    8457  Excess transportation reason code         M      an..3
+020    8459  Excess transportation responsibility code M      an..3
+030    7130  Customer shipment authorisation
+             identifier                                C      an..17
+
+----------------------------------------------------------------------
+
+       C402 PACKAGE TYPE IDENTIFICATION
+
+       Desc: Identification of the form in which goods are
+             described.
+
+010    7077  Description format code                   M      an..3
+020    7064  Type of packages                          M      an..35
+030    7143  Item type identification code             C      an..3
+040    7064  Type of packages                          C      an..35
+050    7143  Item type identification code             C      an..3
+
+----------------------------------------------------------------------
+
+       C501 PERCENTAGE DETAILS
+
+       Desc: Percentage relating to a specified basis.
+
+010    5245  Percentage type code qualifier            M      an..3
+020    5482  Percentage                                C      n..10
+030    5249  Percentage basis identification code      C      an..3
+040    1131  Code list identification code             C      an..17
+050    3055  Code list responsible agency code         C      an..3
+
+----------------------------------------------------------------------
+
+       C502 MEASUREMENT DETAILS
+
+       Desc: Identification of measurement type.
+
+010    6313  Measured attribute code                   C      an..3
+020    6321  Measurement significance code             C      an..3
+030    6155  Non-discrete measurement name code        C      an..17
+040    6154  Non-discrete measurement name             C      an..70
+
+----------------------------------------------------------------------
+
+       C503 DOCUMENT/MESSAGE DETAILS
+
+       Desc: Identification of document/message by number,
+             status, source and/or language.
+
+010    1004  Document identifier                       C      an..70
+020    1373  Document status code                      C      an..3
+030    1366  Document source description               C      an..70
+040    3453  Language name code                        C      an..3
+050    1056  Version identifier                        C      an..9
+060    1060  Revision identifier                       C      an..6
+
+----------------------------------------------------------------------
+
+       C504 CURRENCY DETAILS
+
+       Desc: The usage to which a currency relates.
+
+010    6347  Currency usage code qualifier             M      an..3
+020    6345  Currency identification code              C      an..3
+030    6343  Currency type code qualifier              C      an..3
+040    6348  Currency rate                             C      n..4
+
+----------------------------------------------------------------------
+
+       C506 REFERENCE
+
+       Desc: Identification of a reference.
+
+010    1153  Reference code qualifier                  M      an..3
+020    1154  Reference identifier                      C      an..70
+030    1156  Document line identifier                  C      an..6
+040    1056  Version identifier                        C      an..9
+050    1060  Revision identifier                       C      an..6
+
+----------------------------------------------------------------------
+
+       C507 DATE/TIME/PERIOD
+
+       Desc: Date and/or time, or period relevant to the
+             specified date/time/period type.
+
+010    2005  Date or time or period function code
+             qualifier                                 M      an..3
+020    2380  Date or time or period text               C      an..35
+030    2379  Date or time or period format code        C      an..3
+
+----------------------------------------------------------------------
+
+       C508 LANGUAGE DETAILS
+
+       Desc: To identify a language.
+
+010    3453  Language name code                        C      an..3
+020    3452  Language name                             C      an..35
+
+----------------------------------------------------------------------
+
+       C509 PRICE INFORMATION
+
+       Desc: Identification of price type, price and related
+             details.
+
+010    5125  Price code qualifier                      M      an..3
+020    5118  Price amount                              C      n..15
+030    5375  Price type code                           C      an..3
+040    5387  Price specification code                  C      an..3
+050    5284  Unit price basis quantity                 C      n..9
+060    6411  Measurement unit code                     C      an..8
+
+----------------------------------------------------------------------
+
+       C512 SIZE DETAILS
+
+       Desc: Information about the number of observations.
+
+010    6173  Size type code qualifier                  C      an..3
+020    6174  Size measure                              C      n..15
+
+----------------------------------------------------------------------
+
+       C514 SAMPLE LOCATION DETAILS
+
+       Desc: Identification of location within the specimen, from
+             which the sample was taken.
+
+010    3237  Sample location description code          C      an..3
+020    3236  Sample location description               C      an..35
+
+----------------------------------------------------------------------
+
+       C515 TEST REASON
+
+       Desc: To identify the reason for the test as specified.
+
+010    4425  Test reason name code                     C      an..17
+020    1131  Code list identification code             C      an..17
+030    3055  Code list responsible agency code         C      an..3
+040    4424  Test reason name                          C      an..35
+
+----------------------------------------------------------------------
+
+       C516 MONETARY AMOUNT
+
+       Desc: Amount of goods or services stated as a monetary
+             amount in a specified currency.
+
+010    5025  Monetary amount type code qualifier       M      an..3
+020    5004  Monetary amount                           C      n..35
+030    6345  Currency identification code              C      an..3
+040    6343  Currency type code qualifier              C      an..3
+050    4405  Status description code                   C      an..3
+
+----------------------------------------------------------------------
+
+       C517 LOCATION IDENTIFICATION
+
+       Desc: Identification of a location by code or name.
+
+010    3225  Location identifier                       C      an..35
+020    1131  Code list identification code             C      an..17
+030    3055  Code list responsible agency code         C      an..3
+040    3224  Location name                             C      an..256
+
+----------------------------------------------------------------------
+
+       C519 RELATED LOCATION ONE IDENTIFICATION
+
+       Desc: Identification the first related location by code or
+             name.
+
+010    3223  First related location identifier         C      an..35
+020    1131  Code list identification code             C      an..17
+030    3055  Code list responsible agency code         C      an..3
+040    3222  First related location name               C      an..70
+
+----------------------------------------------------------------------
+
+       C521 BUSINESS FUNCTION
+
+       Desc: To specify a business reason.
+
+010    4027  Business function type code qualifier     M      an..3
+020    4025  Business function code                    M      an..3
+030    1131  Code list identification code             C      an..17
+040    3055  Code list responsible agency code         C      an..3
+050    4022  Business description                      C      an..70
+
+----------------------------------------------------------------------
+
+       C522 INSTRUCTION
+
+       Desc: To specify an instruction.
+
+010    4403  Instruction type code qualifier           M      an..3
+020    4401  Instruction description code              C      an..3
+030    1131  Code list identification code             C      an..17
+040    3055  Code list responsible agency code         C      an..3
+050    4400  Instruction description                   C      an..35
+
+----------------------------------------------------------------------
+
+       C523 NUMBER OF UNIT DETAILS
+
+       Desc: Identification of number of units and its purpose.
+
+010    6350  Units quantity                            C      n..15
+020    6353  Unit type code qualifier                  C      an..3
+
+----------------------------------------------------------------------
+
+       C524 HANDLING INSTRUCTIONS
+
+       Desc: Instruction for the handling of goods, products or
+             articles in shipment, storage etc.
+
+010    4079  Handling instruction description code     C      an..3
+020    1131  Code list identification code             C      an..17
+030    3055  Code list responsible agency code         C      an..3
+040    4078  Handling instruction description          C      an..512
+
+----------------------------------------------------------------------
+
+       C525 PURPOSE OF CONVEYANCE CALL
+
+       Desc: Description of the purpose of the call of the
+             conveyance.
+
+010    8025  Conveyance call purpose description code  C      an..3
+020    1131  Code list identification code             C      an..17
+030    3055  Code list responsible agency code         C      an..3
+040    8024  Conveyance call purpose description       C      an..35
+
+----------------------------------------------------------------------
+
+       C526 FREQUENCY DETAILS
+
+       Desc: Number of samples collected per specified unit of
+             measure.
+
+010    6071  Frequency code qualifier                  M      an..3
+020    6072  Frequency rate                            C      n..9
+030    6411  Measurement unit code                     C      an..8
+
+----------------------------------------------------------------------
+
+       C527 STATISTICAL DETAILS
+
+       Desc: Specifications related to statistical measurements.
+
+010    6314  Measure                                   C      an..18
+020    6411  Measurement unit code                     C      an..8
+030    6313  Measured attribute code                   C      an..3
+040    6321  Measurement significance code             C      an..3
+
+----------------------------------------------------------------------
+
+       C528 COMMODITY/RATE DETAIL
+
+       Desc: Identification of commodity/rates.
+
+010    7357  Commodity identification code             C      an..18
+020    1131  Code list identification code             C      an..17
+030    3055  Code list responsible agency code         C      an..3
+
+----------------------------------------------------------------------
+
+       C531 PACKAGING DETAILS
+
+       Desc: Packaging level and details, terms and conditions.
+
+010    7075  Packaging level code                      C      an..3
+020    7233  Packaging related description code        C      an..3
+030    7073  Packaging terms and conditions code       C      an..3
+
+----------------------------------------------------------------------
+
+       C532 RETURNABLE PACKAGE DETAILS
+
+       Desc: Indication of responsibility for payment and load
+             contents of returnable packages.
+
+010    8395  Returnable package freight payment
+             responsibility code                       C      an..3
+020    8393  Returnable package load contents code     C      an..3
+
+----------------------------------------------------------------------
+
+       C533 DUTY/TAX/FEE ACCOUNT DETAIL
+
+       Desc: Indication of account reference for duties, taxes
+             and/or fees.
+
+010    5289  Duty or tax or fee account code           M      an..6
+020    1131  Code list identification code             C      an..17
+030    3055  Code list responsible agency code         C      an..3
+
+----------------------------------------------------------------------
+
+       C534 PAYMENT INSTRUCTION DETAILS
+
+       Desc: Indication of method of payment employed or to be
+             employed.
+
+010    4439  Payment conditions code                   C      an..3
+020    4431  Payment guarantee means code              C      an..3
+030    4461  Payment means code                        C      an..3
+040    1131  Code list identification code             C      an..17
+050    3055  Code list responsible agency code         C      an..3
+060    4435  Payment channel code                      C      an..3
+
+----------------------------------------------------------------------
+
+       C536 CONTRACT AND CARRIAGE CONDITION
+
+       Desc: To identify a contract and carriage condition.
+
+010    4065  Contract and carriage condition code      M      an..3
+020    1131  Code list identification code             C      an..17
+030    3055  Code list responsible agency code         C      an..3
+
+----------------------------------------------------------------------
+
+       C537 TRANSPORT PRIORITY
+
+       Desc: To indicate the priority of requested transport
+             service.
+
+010    4219  Transport service priority code           M      an..3
+020    1131  Code list identification code             C      an..17
+030    3055  Code list responsible agency code         C      an..3
+
+----------------------------------------------------------------------
+
+       C543 AGREEMENT TYPE IDENTIFICATION
+
+       Desc: Identification of specific agreement type by code or
+             name.
+
+010    7431  Agreement type code qualifier             M      an..3
+020    7433  Agreement type description code           C      an..3
+030    1131  Code list identification code             C      an..17
+040    3055  Code list responsible agency code         C      an..3
+050    7434  Agreement type description                C      an..70
+
+----------------------------------------------------------------------
+
+       C545 INDEX IDENTIFICATION
+
+       Desc: To identify an index.
+
+010    5013  Index code qualifier                      M      an..3
+020    5027  Index type identifier                     C      an..17
+030    1131  Code list identification code             C      an..17
+040    3055  Code list responsible agency code         C      an..3
+
+----------------------------------------------------------------------
+
+       C546 INDEX VALUE
+
+       Desc: To identify the value of an index.
+
+010    5030  Index text                                M      an..35
+020    5039  Index representation code                 C      an..3
+
+----------------------------------------------------------------------
+
+       C549 MONETARY AMOUNT FUNCTION
+
+       Desc: To identify the function of a monetary amount.
+
+010    5007  Monetary amount function description code C      an..3
+020    1131  Code list identification code             C      an..17
+030    3055  Code list responsible agency code         C      an..3
+040    5006  Monetary amount function description      C      an..70
+
+----------------------------------------------------------------------
+
+       C550 REQUIREMENT/CONDITION IDENTIFICATION
+
+       Desc: To identify the specific rule/condition requirement.
+
+010    7295  Requirement or condition description
+             identifier                                M      an..17
+020    1131  Code list identification code             C      an..17
+030    3055  Code list responsible agency code         C      an..3
+040    7294  Requirement or condition description      C      an..35
+
+----------------------------------------------------------------------
+
+       C551 BANK OPERATION
+
+       Desc: Identification of a bank operation by code.
+
+010    4383  Bank operation code                       M      an..3
+020    1131  Code list identification code             C      an..17
+030    3055  Code list responsible agency code         C      an..3
+
+----------------------------------------------------------------------
+
+       C552 ALLOWANCE/CHARGE INFORMATION
+
+       Desc: Identification of allowance/charge information by
+             number and/or code.
+
+010    1230  Allowance or charge identifier            C      an..35
+020    5189  Allowance or charge identification code   C      an..3
+
+----------------------------------------------------------------------
+
+       C553 RELATED LOCATION TWO IDENTIFICATION
+
+       Desc: Identification of second related location by code or
+             name.
+
+010    3233  Second related location identifier        C      an..35
+020    1131  Code list identification code             C      an..17
+030    3055  Code list responsible agency code         C      an..3
+040    3232  Second related location name              C      an..70
+
+----------------------------------------------------------------------
+
+       C554 RATE/TARIFF CLASS DETAIL
+
+       Desc: Identification of the applicable rate/tariff class.
+
+010    5243  Rate or tariff class description code     C      an..9
+020    1131  Code list identification code             C      an..17
+030    3055  Code list responsible agency code         C      an..3
+
+----------------------------------------------------------------------
+
+       C555 STATUS
+
+       Desc: To specify a status.
+
+010    4405  Status description code                   M      an..3
+020    1131  Code list identification code             C      an..17
+030    3055  Code list responsible agency code         C      an..3
+040    4404  Status description                        C      an..35
+
+----------------------------------------------------------------------
+
+       C556 STATUS REASON
+
+       Desc: To specify the reason for a status.
+
+010    9013  Status reason description code            M      an..3
+020    1131  Code list identification code             C      an..17
+030    3055  Code list responsible agency code         C      an..3
+040    9012  Status reason description                 C      an..256
+
+----------------------------------------------------------------------
+
+       C564 PHYSICAL OR LOGICAL STATE INFORMATION
+
+       Desc: To give information in coded or clear text form on
+             the physical or logical state.
+
+010    7007  Physical or logical state description
+             code                                      C      an..3
+020    1131  Code list identification code             C      an..17
+030    3055  Code list responsible agency code         C      an..3
+040    7006  Physical or logical state description     C      an..70
+
+----------------------------------------------------------------------
+
+       C585 PRIORITY DETAILS
+
+       Desc: To indicate a priority.
+
+010    4037  Priority description code                 C      an..3
+020    1131  Code list identification code             C      an..17
+030    3055  Code list responsible agency code         C      an..3
+040    4036  Priority description                      C      an..35
+
+----------------------------------------------------------------------
+
+       C593 ACCOUNT IDENTIFICATION
+
+       Desc: Identification of an account.
+
+010    1147  Account identifier                        M      an..35
+020    1131  Code list identification code             C      an..17
+030    3055  Code list responsible agency code         C      an..3
+040    1148  Account abbreviated name                  C      an..17
+050    1146  Account name                              C      an..35
+060    1146  Account name                              C      an..35
+070    6345  Currency identification code              C      an..3
+
+----------------------------------------------------------------------
+
+       C595 ACCOUNTING JOURNAL IDENTIFICATION
+
+       Desc: Identification of an accounting journal.
+
+010    1171  Accounting journal identifier             M      an..17
+020    1131  Code list identification code             C      an..17
+030    3055  Code list responsible agency code         C      an..3
+040    1170  Accounting journal name                   C      an..35
+
+----------------------------------------------------------------------
+
+       C596 ACCOUNTING ENTRY TYPE DETAILS
+
+       Desc: Identification of the type of entry included in an
+             accounting journal.
+
+010    4475  Accounting entry type name code           M      an..17
+020    1131  Code list identification code             C      an..17
+030    3055  Code list responsible agency code         C      an..3
+040    4474  Accounting entry type name                C      an..35
+
+----------------------------------------------------------------------
+
+       C601 STATUS CATEGORY
+
+       Desc: To specify the category of the status.
+
+010    9015  Status category code                      M      an..3
+020    1131  Code list identification code             C      an..17
+030    3055  Code list responsible agency code         C      an..3
+
+----------------------------------------------------------------------
+
+       C701 ERROR POINT DETAILS
+
+       Desc: Indication of the point of error in a message.
+
+010    1049  Message section code                      C      an..3
+020    1052  Message item identifier                   C      an..35
+030    1054  Message sub-item identifier               C      n..6
+
+----------------------------------------------------------------------
+
+       C702 CODE SET IDENTIFICATION
+
+       Desc: To identify a code set.
+
+010    9150  Simple data element tag identifier        C      an..4
+020    1131  Code list identification code             C      an..17
+030    3055  Code list responsible agency code         C      an..3
+
+----------------------------------------------------------------------
+
+       C703 NATURE OF CARGO
+
+       Desc: Rough classification of a type of cargo.
+
+010    7085  Cargo type classification code            M      an..3
+020    1131  Code list identification code             C      an..17
+030    3055  Code list responsible agency code         C      an..3
+
+----------------------------------------------------------------------
+
+       C709 MESSAGE IDENTIFIER
+
+       Desc: Identification of the message.
+
+010    1003  Message type code                         M      an..6
+020    1056  Version identifier                        C      an..9
+030    1058  Release identifier                        C      an..9
+040    1476  Controlling agency identifier             C      an..2
+050    1523  Message implementation identification
+             code                                      C      an..6
+060    1060  Revision identifier                       C      an..6
+070    1373  Document status code                      C      an..3
+
+----------------------------------------------------------------------
+
+       C770 ARRAY CELL DETAILS
+
+       Desc: To contain the data for a contiguous set of cells in
+             an array.
+
+010    9424  Array cell data description               C      an..512
+
+       Note: 
+             The composite C770 - array cell details - occurs
+             9999 times in the segment. The use of the ARR
+             segment is restricted to be used only with Version 3
+             of ISO-9735.
+             The component 9424 - array cell information - occurs
+             100 times in the composite C770. The use of C770 is
+             restricted to be used only with the ARR segment
+             within Version 3 of ISO-9735.
+
+----------------------------------------------------------------------
+
+       C778 POSITION IDENTIFICATION
+
+       Desc: To identify the position of an object in a structure
+             containing the object.
+
+010    7164  Hierarchical structure level identifier   C      an..35
+020    1050  Sequence position identifier              C      an..10
+
+----------------------------------------------------------------------
+
+       C779 ARRAY STRUCTURE IDENTIFICATION
+
+       Desc: The identification of an array structure.
+
+010    9428  Array cell structure identifier           M      an..35
+020    7405  Object identification code qualifier      C      an..3
+
+----------------------------------------------------------------------
+
+       C780 VALUE LIST IDENTIFICATION
+
+       Desc: The identification of a coded or non coded value
+             list.
+
+010    1518  Value list identifier                     M      an..35
+020    7405  Object identification code qualifier      C      an..3
+
+----------------------------------------------------------------------
+
+       C782 DATA SET IDENTIFICATION
+
+       Desc: The identification of a data set.
+
+010    1520  Data set identifier                       M      an..35
+020    7405  Object identification code qualifier      C      an..3
+
+----------------------------------------------------------------------
+
+       C783 FOOTNOTE SET IDENTIFICATION
+
+       Desc: The identification of a set of footnotes.
+
+010    9430  Footnote set identifier                   M      an..35
+020    7405  Object identification code qualifier      C      an..3
+
+----------------------------------------------------------------------
+
+       C784 FOOTNOTE IDENTIFICATION
+
+       Desc: The identification of a footnote.
+
+010    9432  Footnote identifier                       M      an..35
+020    7405  Object identification code qualifier      C      an..3
+
+----------------------------------------------------------------------
+
+       C785 STATISTICAL CONCEPT IDENTIFICATION
+
+       Desc: The identification of a statistical concept.
+
+010    6434  Statistical concept identifier            M      an..35
+020    7405  Object identification code qualifier      C      an..3
+
+----------------------------------------------------------------------
+
+       C786 STRUCTURE COMPONENT IDENTIFICATION
+
+       Desc: The identification of a structure component.
+
+010    7512  Structure component identifier            M      an..35
+020    7405  Object identification code qualifier      C      an..3
+
+----------------------------------------------------------------------
+
+       C811 QUESTION DETAILS
+
+       Desc: To specify a question.
+
+010    4057  Question description code                 C      an..3
+020    1131  Code list identification code             C      an..17
+030    3055  Code list responsible agency code         C      an..3
+040    4056  Question description                      C      an..256
+
+----------------------------------------------------------------------
+
+       C812 RESPONSE DETAILS
+
+       Desc: To specify a response to a question, in code or
+             text.
+
+010    4345  Response description code                 C      an..3
+020    1131  Code list identification code             C      an..17
+030    3055  Code list responsible agency code         C      an..3
+040    4344  Response description                      C      an..256
+
+----------------------------------------------------------------------
+
+       C814 SAFETY SECTION
+
+       Desc: To identify the safety section to which information
+             relates.
+
+010    4046  Safety section number                     M      n..2
+020    4044  Safety section name                       C      an..70
+
+----------------------------------------------------------------------
+
+       C815 ADDITIONAL SAFETY INFORMATION
+
+       Desc: To identify additional safety information.
+
+010    4039  Additional safety information description
+             code                                      M      an..3
+020    1131  Code list identification code             C      an..17
+030    3055  Code list responsible agency code         C      an..3
+040    4038  Additional safety information description C      an..35
+
+----------------------------------------------------------------------
+
+       C816 NAME COMPONENT DETAILS
+
+       Desc: To specify a name component.
+
+010    3405  Name component type code qualifier        M      an..3
+020    3398  Name component description                C      an..256
+030    3401  Name component usage code                 C      an..3
+040    3295  Name original alphabet code               C      an..3
+
+----------------------------------------------------------------------
+
+       C817 ADDRESS USAGE
+
+       Desc: To describe the usage of an address.
+
+010    3299  Address purpose code                      C      an..3
+020    3131  Address type code                         C      an..3
+030    3475  Address status code                       C      an..3
+
+----------------------------------------------------------------------
+
+       C818 PERSON INHERITED CHARACTERISTIC DETAILS
+
+       Desc: To specify an inherited characteristic of a person.
+
+010    3311  Inherited characteristic description code C      an..8
+020    1131  Code list identification code             C      an..17
+030    3055  Code list responsible agency code         C      an..3
+040    3310  Inherited characteristic description      C      an..70
+
+----------------------------------------------------------------------
+
+       C819 COUNTRY SUBDIVISION DETAILS
+
+       Desc: To specify a country subdivision, such as state,
+             canton, county, prefecture.
+
+010    3229  Country subdivision identifier            C      an..9
+020    1131  Code list identification code             C      an..17
+030    3055  Code list responsible agency code         C      an..3
+040    3228  Country subdivision name                  C      an..70
+
+----------------------------------------------------------------------
+
+       C820 PREMIUM CALCULATION COMPONENT
+
+       Desc: To identify the component affecting premium
+             calculation.
+
+010    4521  Premium calculation component identifier  C      an..17
+020    1131  Code list identification code             C      an..17
+030    3055  Code list responsible agency code         C      an..3
+
+----------------------------------------------------------------------
+
+       C821 TYPE OF DAMAGE
+
+       Desc: To specify the type of damage to an object.
+
+010    7501  Damage type description code              C      an..3
+020    1131  Code list identification code             C      an..17
+030    3055  Code list responsible agency code         C      an..3
+040    7500  Damage type description                   C      an..35
+
+----------------------------------------------------------------------
+
+       C822 DAMAGE AREA
+
+       Desc: To specify where the damage is on an object.
+
+010    7503  Damage area description code              C      an..4
+020    1131  Code list identification code             C      an..17
+030    3055  Code list responsible agency code         C      an..3
+040    7502  Damage area description                   C      an..35
+
+----------------------------------------------------------------------
+
+       C823 TYPE OF UNIT/COMPONENT
+
+       Desc: To identify the type of unit/component of an object
+             (e.g. lock, door, tyre).
+
+010    7505  Unit or component type description code   C      an..3
+020    1131  Code list identification code             C      an..17
+030    3055  Code list responsible agency code         C      an..3
+040    7504  Unit or component type description        C      an..35
+
+----------------------------------------------------------------------
+
+       C824 COMPONENT MATERIAL
+
+       Desc: To identify the material of which a component is
+             composed (e.g. steel, plastics).
+
+010    7507  Component material description code       C      an..3
+020    1131  Code list identification code             C      an..17
+030    3055  Code list responsible agency code         C      an..3
+040    7506  Component material description            C      an..35
+
+----------------------------------------------------------------------
+
+       C825 DAMAGE SEVERITY
+
+       Desc: To specify the severity of damage to an object.
+
+010    7509  Damage severity description code          C      an..3
+020    1131  Code list identification code             C      an..17
+030    3055  Code list responsible agency code         C      an..3
+040    7508  Damage severity description               C      an..35
+
+----------------------------------------------------------------------
+
+       C826 ACTION
+
+       Desc: To indicate an action which has been taken or is to
+             be taken (e.g. in relation to a certain object).
+
+010    1229  Action code                               C      an..3
+020    1131  Code list identification code             C      an..17
+030    3055  Code list responsible agency code         C      an..3
+040    1228  Action description                        C      an..35
+
+----------------------------------------------------------------------
+
+       C827 TYPE OF MARKING
+
+       Desc: Specification of the type of marking that reflects
+             the method that was used and the conventions adhered
+             to for marking (e.g. of packages).
+
+010    7511  Marking type code                         M      an..3
+020    1131  Code list identification code             C      an..17
+030    3055  Code list responsible agency code         C      an..3
+
+----------------------------------------------------------------------
+
+       C828 CLINICAL INTERVENTION DETAILS
+
+       Desc: To specify a clinical intervention.
+
+010    9437  Clinical intervention description code    C      an..17
+020    1131  Code list identification code             C      an..17
+030    3055  Code list responsible agency code         C      an..3
+040    9436  Clinical intervention description         C      an..70
+
+----------------------------------------------------------------------
+
+       C829 SUB-LINE INFORMATION
+
+       Desc: To provide an indication that a segment or segment
+             group is used to contain sub-line or sub-line item
+             information and to optionally enable the sub-line to
+             be identified.
+
+010    5495  Sub-line indicator code                   C      an..3
+020    1082  Line item identifier                      C      an..6
+
+----------------------------------------------------------------------
+
+       C830 PROCESS IDENTIFICATION DETAILS
+
+       Desc: To identify the details of a specific process.
+
+010    7191  Process description code                  C      an..17
+020    1131  Code list identification code             C      an..17
+030    3055  Code list responsible agency code         C      an..3
+040    7190  Process description                       C      an..70
+
+----------------------------------------------------------------------
+
+       C831 RESULT DETAILS
+
+       Desc: To specify a value.
+
+010    6314  Measure                                   C      an..18
+020    6321  Measurement significance code             C      an..3
+030    6155  Non-discrete measurement name code        C      an..17
+040    1131  Code list identification code             C      an..17
+050    3055  Code list responsible agency code         C      an..3
+060    6154  Non-discrete measurement name             C      an..70
+
+----------------------------------------------------------------------
+
+       C836 CLINICAL INFORMATION DETAILS
+
+       Desc: To specify an item of clinical information.
+
+010    6413  Clinical information description
+             identifier                                C      an..17
+020    1131  Code list identification code             C      an..17
+030    3055  Code list responsible agency code         C      an..3
+040    6412  Clinical information description          C      an..70
+
+----------------------------------------------------------------------
+
+       C837 CERTAINTY DETAILS
+
+       Desc: To specify the certainty.
+
+010    4049  Certainty description code                C      an..3
+020    1131  Code list identification code             C      an..17
+030    3055  Code list responsible agency code         C      an..3
+040    4048  Certainty description                     C      an..35
+
+----------------------------------------------------------------------
+
+       C838 DOSAGE DETAILS
+
+       Desc: To specify a dosage.
+
+010    6083  Dosage description identifier             C      an..8
+020    1131  Code list identification code             C      an..17
+030    3055  Code list responsible agency code         C      an..3
+040    6082  Dosage description                        C      an..70
+
+----------------------------------------------------------------------
+
+       C839 ATTENDEE CATEGORY
+
+       Desc: To specify the category of the attendee.
+
+010    7459  Attendee category description code        C      an..3
+020    1131  Code list identification code             C      an..17
+030    3055  Code list responsible agency code         C      an..3
+040    7458  Attendee category description             C      an..35
+
+----------------------------------------------------------------------
+
+       C840 ATTENDANCE ADMISSION DETAILS
+
+       Desc: To specify type of admission.
+
+010    9445  Admission type description code           C      an..3
+020    1131  Code list identification code             C      an..17
+030    3055  Code list responsible agency code         C      an..3
+040    9444  Admission type description                C      an..35
+
+----------------------------------------------------------------------
+
+       C841 ATTENDANCE DISCHARGE DETAILS
+
+       Desc: To specify type of discharge.
+
+010    9447  Discharge type description code           C      an..3
+020    1131  Code list identification code             C      an..17
+030    3055  Code list responsible agency code         C      an..3
+040    9446  Discharge type description                C      an..35
+
+----------------------------------------------------------------------
+
+       C844 ORGANISATION CLASSIFICATION DETAIL
+
+       Desc: To specify details regarding the class of an
+             organisation.
+
+010    3083  Organisational class name code            C      an..17
+020    1131  Code list identification code             C      an..17
+030    3055  Code list responsible agency code         C      an..3
+040    3082  Organisational class name                 C      an..70
+
+----------------------------------------------------------------------
+
+       C848 MEASUREMENT UNIT DETAILS
+
+       Desc: To specify a measurement unit.
+
+010    6411  Measurement unit code                     C      an..8
+020    1131  Code list identification code             C      an..17
+030    3055  Code list responsible agency code         C      an..3
+040    6410  Measurement unit name                     C      an..35
+
+----------------------------------------------------------------------
+
+       C849 PARTIES TO INSTRUCTION
+
+       Desc: Identify the sending and receiving parties of the
+             instruction.
+
+010    3301  Enacting party identifier                 M      an..35
+020    3285  Instruction receiving party identifier    C      an..35
+
+----------------------------------------------------------------------
+
+       C850 STATUS OF INSTRUCTION
+
+       Desc: Provides information regarding the status of an
+             instruction.
+
+010    4405  Status description code                   M      an..3
+020    3036  Party name                                C      an..70
+
+----------------------------------------------------------------------
+
+       C851 RISK OBJECT TYPE
+
+       Desc: Specification of a type of risk object.
+
+010    7179  Risk object type identifier               C      an..17
+020    1131  Code list identification code             C      an..17
+030    3055  Code list responsible agency code         C      an..3
+
+----------------------------------------------------------------------
+
+       C852 RISK OBJECT SUB-TYPE
+
+       Desc: To provide identification details for a risk object
+             sub-type.
+
+010    7177  Risk object sub-type description
+             identifier                                C      an..17
+020    1131  Code list identification code             C      an..17
+030    3055  Code list responsible agency code         C      an..3
+040    7176  Risk object sub-type description          C      an..70
+
+----------------------------------------------------------------------
+
+       C853 ERROR SEGMENT POINT DETAILS
+
+       Desc: To indicate the exact segment location of an
+             application error within a message.
+
+010    9166  Segment tag identifier                    C      an..3
+020    1050  Sequence position identifier              C      an..10
+030    1159  Sequence identifier source code           C      an..3
+
+----------------------------------------------------------------------
+
+       C878 CHARGE/ALLOWANCE ACCOUNT
+
+       Desc: Identification of the account for charge or
+             allowance.
+
+010    3434  Institution branch identifier             M      an..17
+020    1131  Code list identification code             C      an..17
+030    3055  Code list responsible agency code         C      an..3
+040    3194  Account holder identifier                 C      an..35
+050    6345  Currency identification code              C      an..3
+
+----------------------------------------------------------------------
+
+       C889 CHARACTERISTIC VALUE
+
+       Desc: To provide the value of a characteristic.
+
+010    7111  Characteristic value description code     C      an..3
+020    1131  Code list identification code             C      an..17
+030    3055  Code list responsible agency code         C      an..3
+040    7110  Characteristic value description          C      an..35
+050    7110  Characteristic value description          C      an..35
+
+----------------------------------------------------------------------
+
+       C901 APPLICATION ERROR DETAIL
+
+       Desc: Code assigned by the recipient of a message to
+             indicate a data validation error condition.
+
+010    9321  Application error code                    M      an..8
+020    1131  Code list identification code             C      an..17
+030    3055  Code list responsible agency code         C      an..3
+
+----------------------------------------------------------------------
+
+       C941 RELATIONSHIP
+
+       Desc: Identification and/or description of a relationship.
+
+010    9143  Relationship description code             C      an..3
+020    1131  Code list identification code             C      an..17
+030    3055  Code list responsible agency code         C      an..3
+040    9142  Relationship description                  C      an..35
+
+----------------------------------------------------------------------
+
+       C942 MEMBERSHIP CATEGORY
+
+       Desc: Identification and/or description of a membership
+             category for a member of a scheme or group.
+
+010    7451  Membership category description code      M      an..4
+020    1131  Code list identification code             C      an..17
+030    3055  Code list responsible agency code         C      an..3
+040    7450  Membership category description           C      an..35
+
+----------------------------------------------------------------------
+
+       C944 MEMBERSHIP STATUS
+
+       Desc: Code and/or description of membership status.
+
+010    7453  Membership status description code        C      an..3
+020    1131  Code list identification code             C      an..17
+030    3055  Code list responsible agency code         C      an..3
+040    7452  Membership status description             C      an..35
+
+----------------------------------------------------------------------
+
+       C945 MEMBERSHIP LEVEL
+
+       Desc: Identification of a membership level.
+
+010    7455  Membership level code qualifier           M      an..3
+020    7457  Membership level description code         C      an..9
+030    1131  Code list identification code             C      an..17
+040    3055  Code list responsible agency code         C      an..3
+050    7456  Membership level description              C      an..35
+
+----------------------------------------------------------------------
+
+       C948 EMPLOYMENT CATEGORY
+
+       Desc: Code and/or description of an employment category.
+
+010    9005  Employment category description code      C      an..3
+020    1131  Code list identification code             C      an..17
+030    3055  Code list responsible agency code         C      an..3
+040    9004  Employment category description           C      an..35
+
+----------------------------------------------------------------------
+
+       C950 QUALIFICATION CLASSIFICATION
+
+       Desc: Qualification classification description and/or
+             code. This specifies the trade, skill, professional
+             or similar qualification category.
+
+010    9007  Qualification classification description
+             code                                      C      an..3
+020    1131  Code list identification code             C      an..17
+030    3055  Code list responsible agency code         C      an..3
+040    9006  Qualification classification description  C      an..35
+050    9006  Qualification classification description  C      an..35
+
+----------------------------------------------------------------------
+
+       C951 OCCUPATION
+
+       Desc: Description of an occupation.
+
+010    9009  Occupation description code               C      an..3
+020    1131  Code list identification code             C      an..17
+030    3055  Code list responsible agency code         C      an..3
+040    9008  Occupation description                    C      an..35
+050    9008  Occupation description                    C      an..35
+
+----------------------------------------------------------------------
+
+       C953 CONTRIBUTION TYPE
+
+       Desc: Identification of the type of a contribution to a
+             scheme or group.
+
+010    5049  Contribution type description code        M      an..3
+020    1131  Code list identification code             C      an..17
+030    3055  Code list responsible agency code         C      an..3
+040    5048  Contribution type description             C      an..35
+
+----------------------------------------------------------------------
+
+       C955 ATTRIBUTE TYPE
+
+       Desc: Identification of the type of attribute.
+
+010    9021  Attribute type description code           C      an..17
+020    1131  Code list identification code             C      an..17
+030    3055  Code list responsible agency code         C      an..3
+040    9020  Attribute type description                C      an..70
+
+----------------------------------------------------------------------
+
+       C956 ATTRIBUTE DETAIL
+
+       Desc: Identification of the attribute related to an
+             entity.
+
+010    9019  Attribute description code                C      an..17
+020    1131  Code list identification code             C      an..17
+030    3055  Code list responsible agency code         C      an..3
+040    9018  Attribute description                     C      an..256
+
+----------------------------------------------------------------------
+
+       C960 REASON FOR CHANGE
+
+       Desc: Code and/or description of the reason for a change.
+
+010    4295  Change reason description code            C      an..3
+020    1131  Code list identification code             C      an..17
+030    3055  Code list responsible agency code         C      an..3
+040    4294  Change reason description                 C      an..35
+
+----------------------------------------------------------------------
+
+       C961 FORMULA COMPLEXITY
+
+       Desc: Identification of the complexity of a formula.
+
+010    9505  Formula complexity code                   C      an..3
+020    1131  Code list identification code             C      an..17
+030    3055  Code list responsible agency code         C      an..3
+
+----------------------------------------------------------------------
+
+       C970 CLAUSE NAME
+
+       Desc: Identification of a clause in coded or clear form.
+
+010    4069  Clause name code                          C      an..17
+020    1131  Code list identification code             C      an..17
+030    3055  Code list responsible agency code         C      an..3
+040    4068  Clause name                               C      an..70
+
+----------------------------------------------------------------------
+
+       C971 PROVISO TYPE
+
+       Desc: Specification of the proviso type in coded or clear
+             form.
+
+010    4073  Proviso type description code             C      an..3
+020    1131  Code list identification code             C      an..17
+030    3055  Code list responsible agency code         C      an..3
+040    4072  Proviso type description                  C      an..35
+
+----------------------------------------------------------------------
+
+       C972 PROVISO CALCULATION
+
+       Desc: Specification of the proviso calculation in coded or
+             clear form.
+
+010    4075  Proviso calculation description code      C      an..3
+020    1131  Code list identification code             C      an..17
+030    3055  Code list responsible agency code         C      an..3
+040    4074  Proviso calculation description           C      an..35
+
+----------------------------------------------------------------------
+
+       C973 APPLICABILITY TYPE
+
+       Desc: Specification of the applicability type in coded or
+             clear form.
+
+010    9049  Applicability type description code       C      an..3
+020    1131  Code list identification code             C      an..17
+030    3055  Code list responsible agency code         C      an..3
+040    9048  Applicability type description            C      an..35
+
+----------------------------------------------------------------------
+
+       C974 BASIS TYPE
+
+       Desc: Specification of the basis in coded or clear form.
+
+010    9047  Basis type description code               C      an..3
+020    1131  Code list identification code             C      an..17
+030    3055  Code list responsible agency code         C      an..3
+040    9046  Basis type description                    C      an..35
+
+----------------------------------------------------------------------
+
+       C977 PERIOD DETAIL
+
+       Desc: Specification of the period detail in coded or clear
+             form.
+
+010    2119  Period detail description code            C      an..3
+020    1131  Code list identification code             C      an..17
+030    3055  Code list responsible agency code         C      an..3
+040    2118  Period detail description                 C      an..35

@@ -1,0 +1,211 @@
+1.2  Index of composites by alphabetic sequence by name
+
+     Change indicators
+
+     a plus sign (+)    for an addition
+     an asterisk (*)    for an amendment to structure
+     a hash sign (#)    for changes to names
+     a vertical bar (|) for changes to text for descriptions or
+                        notes
+     a letter X (X)     for marked for deletion
+
+    Tag  Name
+
+    C078 Account holder identification
+    C593 Account identification
+    C596 Accounting entry type details
+    C595 Accounting journal identification
+    C826 Action
+    C815 Additional safety information
+    C090 Address details
+    C817 Address usage
+    C543 Agreement type identification
+    C552 Allowance/charge information
+    C973 Applicability type
+    C901 Application error detail
+    C770 Array cell details
+    C779 Array structure identification
+    C840 Attendance admission details
+    C841 Attendance discharge details
+    C839 Attendee category
+    C956 Attribute detail
+    C955 Attribute type
+    C551 Bank operation
+    C974 Basis type
+    C045 Bill level identification
+    C521 Business function
+    C040 Carrier
+    C837 Certainty details
+    C240 Characteristic description
+    C889 Characteristic value
+    C200 Charge
+    C229 Charge category
+    C878 Charge/allowance account
+    C970 Clause name
+    C836 Clinical information details
+    C828 Clinical intervention details
+    C702 Code set identification
+    C528 Commodity/rate detail
+    C076 Communication contact
+    C824 Component material
+    C079 Computer environment identification
+    C056 Contact details
+    C536 Contract and carriage condition
+    C953 Contribution type
+    C270 Control
+    C819 Country subdivision details
+    C504 Currency details
+    C246 Customs identity codes
+    C822 Damage area
+    C825 Damage severity
+    C236 Dangerous goods label
+    C223 Dangerous goods shipment flashpoint
+    C782 Data set identification
+    C507 Date/time/period
+    C211 Dimensions
+    C503 Document/message details
+    C106 Document/message identification
+    C002 Document/message name
+    C838 Dosage details
+    C533 Duty/tax/fee account detail
+    C243 Duty/tax/fee detail
+    C241 Duty/tax/fee type
+    C948 Employment category
+    C237 Equipment identification
+    C224 Equipment size and type
+    C701 Error point details
+    C853 Error segment point details
+    C004 Event category
+    C063 Event identification
+    C030 Event type
+    C401 Excess transportation information
+    C099 File details
+    C077 File identification
+    C784 Footnote identification
+    C783 Footnote set identification
+    C961 Formula complexity
+    C526 Frequency details
+    C232 Government action
+    C524 Handling instructions
+    C205 Hazard code
+    C235 Hazard identification placard details
+    C218 Hazardous material
+    C206 Identification number
+    C208 Identity number range
+    C545 Index identification
+    C546 Index value
+    C009 Information category
+    C011 Information detail
+    C333 Information request
+    C010 Information type
+    C088 Institution identification
+    C522 Instruction
+    C331 Insurance cover details
+    C330 Insurance cover type
+    C272 Item characteristic
+    C273 Item description
+    C212 Item number identification
+    C508 Language details
+    C517 Location identification
+    C085 Marital status details
+    C210 Marks & labels
+    C502 Measurement details
+    C848 Measurement unit details
+    C942 Membership category
+    C945 Membership level
+    C944 Membership status
+    C709 Message identifier
+    C231 Method of payment
+    C220 Mode of transport
+    C516 Monetary amount
+    C549 Monetary amount function
+    C008 Monetary amount function detail
+    C219 Movement type
+    C058 Name and address
+    C816 Name component details
+    C042 Nationality details
+    C703 Nature of cargo
+    C213 Number and type of packages
+    C523 Number of unit details
+    C951 Occupation
+    C844 Organisation classification detail
+    C202 Package type
+    C402 Package type identification
+    C531 Packaging details
+    C849 Parties to instruction
+    C082 Party identification details
+    C080 Party name
+    C329 Pattern description
+    C534 Payment instruction details
+    C019 Payment terms
+    C501 Percentage details
+    C977 Period detail
+    C818 Person inherited characteristic details
+    C564 Physical or logical state information
+    C778 Position identification
+    C003 Power type
+    C820 Premium calculation component
+    C509 Price information
+    C138 Price multiplier information
+    C585 Priority details
+    C830 Process identification details
+    C242 Process type and description
+    C012 Processing indicator
+    C288 Product group
+    C972 Proviso calculation
+    C971 Proviso type
+    C525 Purpose of conveyance call
+    C950 Qualification classification
+    C186 Quantity details
+    C279 Quantity difference information
+    C811 Question details
+    C280 Range
+    C128 Rate details
+    C203 Rate/tariff class
+    C554 Rate/tariff class detail
+    C960 Reason for change
+    C506 Reference
+    C519 Related location one identification
+    C553 Related location two identification
+    C941 Relationship
+    C101 Religion details
+    C049 Remuneration type identification
+    C550 Requirement/condition identification
+    C812 Response details
+    C831 Result details
+    C532 Returnable package details
+    C852 Risk object sub-type
+    C851 Risk object type
+    C814 Safety section
+    C332 Sales channel identification
+    C514 Sample location details
+    C215 Seal issuer
+    C286 Sequence information
+    C233 Service
+    C512 Size details
+    C214 Special services identification
+    C785 Statistical concept identification
+    C527 Statistical details
+    C555 Status
+    C601 Status category
+    C850 Status of instruction
+    C556 Status reason
+    C059 Street
+    C786 Structure component identification
+    C829 Sub-line information
+    C239 Temperature setting
+    C100 Terms of delivery or transport
+    C244 Test method
+    C515 Test reason
+    C108 Text literal
+    C107 Text reference
+    C222 Transport identification
+    C001 Transport means
+    C537 Transport priority
+    C289 Tunnel Restriction
+    C821 Type of damage
+    C827 Type of marking
+    C823 Type of unit/component
+    C234 UNDG information
+    C780 Value list identification
+    C174 Value/range

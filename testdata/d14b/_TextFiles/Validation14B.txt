@@ -1,0 +1,32 @@
+Official validation statement for the UN/EDIFACT Directory D.14B
+    
+This directory set is the official approved version of UN/EDIFACT 
+Directory D.14B.
+     
+Following the preparation of the directory by the UN/Secretariat, 
+it was examined by the UN/CEFACT Bureau Programme Support (BPS) Validation 
+Team which has confirmed in a report to the UN/CEFACT Bureau that the content was 
+prepared in accordance with approved procedures and is considered 
+satisfactory for implementation.
+     
+A copy of the full audit report is available from the UNECE, 
+ e-mail: <uncefact@unece.org>. 
+     
+The directory is the final version of D.14B for user 
+implementation. Under no circumstances will any corrigenda, 
+addenda or revisions be issued.
+     
+If during implementation a user identifies what is considered to 
+be an error, this should be notified in a Data Maintenance 
+Request (DMR) to allow possible amendments in a subsequent official
+approved version of UN/EDIFACT Directory.
+     
+A DMR form can be obtained from the UN/EDIFACT Entry 
+Point website at http://www.unece.org/tradewelcome/areas-of-work/un-centre-for-trade-
+facilitation-and-e-business-uncefact/outputs/standards/unedifact/data-maintenance-requests-dmr/dmrforms.html
+
+Name: Dr. Hidekazu Enjo
+Position: Chair, BPS Validation Team
+Date: Nov 19, 2014
+
+

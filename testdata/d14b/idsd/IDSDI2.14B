@@ -1,0 +1,90 @@
+1.2  Index of segments by alphabetical sequence by name
+
+     Change indicators
+
+     a plus sign (+)    for an addition
+     an asterisk (*)    for an amendment to structure
+     a hash sign (#)    for changes to names
+     a vertical bar (|) for changes to text for functional
+                        descriptions or notes
+     a letter X (X)     for marked for deletion
+
+    Tag  Name
+
+    AAI  Accommodation allocation information
+    ALS  Additional location information
+    ODS  Additional product details
+    APD  Additional transport details
+    ADS  Address
+    ERI  Application error information
+    ATR  Attribute
+    BCD  Benefit and coverage detail
+    BLI  Billable information
+    MOV  Car delivery instruction
+    CLT  Clear terminate information
+    CMN  Commission information
+    CNX  Connection details
+    CRI  Consumer reference information
+    CON  Contact information
+    CNY  Country information
+    CUR  Currencies
+    DAV  Daily availability
+    DTI  Date and time information
+    DNT  Dental information
+    DIS  Discount information
+    SER  Facility information
+    FRM  Follow-up action
+    FRQ  Frequency
+    FTI  Frequent traveller information
+    HDI  Hardware device information
+    HDR  Header information
+    ADI  Health care claim adjudication information
+    HDS  Health diagnosis service and delivery
+    ITD  Information type data
+    ITC  Institutional claim
+    ICI  Insurance cover information
+    IFT  Interactive free text
+    ITM  Item number
+    LNG  Language
+    LKP  Level indication
+    POR  Location and/or related time information
+    MES  Measurements
+    MSD  Message action details
+    MAP  Message application product information
+    NME  Name
+    NAA  Name and address
+    NUN  Number of units
+    ODI  Origin and destination details
+    ORG  Originator of request details
+    OTI  Other insurance
+    PRT  Party information
+    PMT  Payment information
+    POP  Period of operation
+    POS  Point of sale information
+    PRE  Price details
+    PRD  Product identification
+    PDT  Product information
+    PLI  Product location information
+    PRO  Promotions
+    QTI  Quantity
+    RPI  Quantity and action details
+    RTI  Rate details
+    RTC  Rate types
+    RFR  Reference
+    RLS  Relationship
+    RCI  Reservation control information
+    RUL  Rule information
+    SDT  Selection details
+    ASD  Service details
+    PSI  Service information
+    SSR  Special requirement details
+    TFF  Tariff information
+    TXS  Taxes
+    TCE  Time and certainty
+    TIZ  Time zone information
+    ATI  Tour information
+    TRF  Traffic restriction details
+    TVL  Travel product information
+    TDI  Traveller document information
+    TIF  Traveller information
+    VEH  Vehicle

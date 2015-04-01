@@ -87,7 +87,7 @@ Parse single code spec of the form
 */
 func (p *CodesSpecParser) ParseCodeSpec(specLines []string) (*CodeSpec, error) {
 	if len(specLines) < 2 {
-		return nil, errors.New("Missing spec header and/or description")
+		return nil, errors.New(fmt.Sprintf("Missing spec header and/or description; specLines: %s", specLines))
 	}
 	id, name, err := p.ParseCodeSpecHeader(specLines[0])
 	if err != nil {
@@ -115,17 +115,22 @@ func (p *CodesSpecParser) ParseCodeSpec(specLines []string) (*CodeSpec, error) {
             hierarchical levels in a structure.
 
 */
-func (p *CodesSpecParser) ParseCodeSpecs(lines []string) ([]*CodeSpec, error) {
+func (p *CodesSpecParser) ParseCodeSpecs(lines [][]string) ([]*CodeSpec, error) {
 	result := []*CodeSpec{}
-	groups := util.SplitByHangingIndent(lines, 5)
+	groups := lines //util.SplitByHangingIndent(lines, 5)
+	// log.Printf("#### lines: %#v, groups: %#v", lines, groups)
 
 	for _, group := range groups {
+		if len(group) == 0 {
+			continue
+		}
 		spec, err := p.ParseCodeSpec(group)
 		if err != nil {
 			return nil, err
 		}
 		result = append(result, spec)
 	}
+	// log.Printf("###### parsed %d code specs from %d groups", len(result), len(groups))
 	return result, nil
 }
 
@@ -163,15 +168,13 @@ func (p *CodesSpecParser) ParseCodesSpec(specLines []string) (spec *CodesSpec, e
 		}
 	}
 
-	codeSpecs, err := p.ParseCodeSpecs(groups[3])
+	codeSpecs, err := p.ParseCodeSpecs(groups[3:])
 	if err != nil {
 		return
 	}
 
 	return NewCodesSpec(id, name, descr, codeSpecs), nil
 }
-
-type CodesSpecMap map[int32]*CodesSpec
 
 func (p *CodesSpecParser) ParseSpecFile(fileName string) (specs CodesSpecMap, err error) {
 	result := CodesSpecMap{}
@@ -214,7 +217,7 @@ func (p *CodesSpecParser) ParseSpecFile(fileName string) (specs CodesSpecMap, er
 
 func NewCodesSpecParser() *CodesSpecParser {
 	return &CodesSpecParser{
-		codeHeaderRE:  regexp.MustCompile(`^[ ]{5}(.{1,3})[ ]+(.*) *$`),
+		codeHeaderRE:  regexp.MustCompile(`^.[ ]{4}(.{1,3})[ ]+(.*) *$`),
 		codesHeaderRE: regexp.MustCompile(`^([0-9]{4})  (.+) (\[[BIC]\]) *$`),
 	}
 }
