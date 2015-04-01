@@ -160,7 +160,6 @@ func (p *CompositeDataElementSpecParser) ParseComponentSpecs(componentGroup []st
 	componentSpecs := []*ComponentDataElementSpec{}
 
 	joinedSpecs := util.JoinByHangingIndent(componentGroup, 0, true)
-	log.Printf("Joined specs: %#v", joinedSpecs)
 
 	numComponents := len(joinedSpecs)
 
@@ -180,7 +179,7 @@ func (p *CompositeDataElementSpecParser) ParseComponentSpecs(componentGroup []st
 		componentSpecs = append(componentSpecs, elemSpec)
 	}
 
-	log.Printf("Found %d component specs", len(componentSpecs))
+	// log.Printf("Found %d component specs", len(componentSpecs))
 	return componentSpecs, nil
 }
 
@@ -228,10 +227,10 @@ func (p *CompositeDataElementSpecParser) ParseSpec(specLines []string) (spec *Co
 		return nil, errors.New("Missing composite spec header")
 	}
 
-	log.Printf("specLines: \n%s\n", specLines)
+	// log.Printf("specLines: \n%s\n", specLines)
 	specLines = util.RemoveLeadingAndTrailingEmptyLines(specLines)
 	groups := util.SplitMultipleLinesByEmptyLines(specLines)
-	log.Printf("Groups: \n%s\n", groups)
+	// log.Printf("Groups: \n%s\n", groups)
 
 	if len(groups) < 3 {
 		return nil, errors.New(fmt.Sprintf("Not enough groups for spec %s", groups))
@@ -311,7 +310,7 @@ func (p *CompositeDataElementSpecParser) ParseSpecFile(fileName string) (specs C
 			continue
 		}
 
-		log.Printf("#### specLines: \n%s\n", specLines)
+		// log.Printf("specLines: \n%s\n", specLines)
 		spec, err := p.ParseSpec(specLines)
 		if err != nil {
 			return nil, err

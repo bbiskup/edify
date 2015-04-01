@@ -1,7 +1,6 @@
 package util
 
 import (
-	"log"
 	"strings"
 )
 
@@ -177,8 +176,6 @@ func JoinByHangingIndent(lines []string, baseIndent int, collapseSpaces bool) []
 		} else {
 			current = append(current, line)
 		}
-
-		log.Printf("line %s result %s current %s", line, result, current)
 	}
 	if len(current) > 0 {
 		result = append(result, concat(current))
