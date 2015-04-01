@@ -26,10 +26,11 @@ func (s *CodesSpec) String() string {
 	return fmt.Sprintf("%d %s %s\n%s", s.Id, s.Name, descriptionStr, codeSpecsStr)
 }
 
-func NewCodesSpec(id int32, name string, codeSpecs []*CodeSpec) *CodesSpec {
+func NewCodesSpec(id int32, name string, description string, codeSpecs []*CodeSpec) *CodesSpec {
 	return &CodesSpec{
-		Id:        id,
-		Name:      name,
-		CodeSpecs: codeSpecs,
+		Id:          id,
+		Name:        name,
+		Description: description,
+		CodeSpecs:   codeSpecs,
 	}
 }

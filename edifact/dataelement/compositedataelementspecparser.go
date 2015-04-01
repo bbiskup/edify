@@ -248,7 +248,6 @@ func (p *CompositeDataElementSpecParser) ParseSpec(specLines []string) (spec *Co
 		return
 	}
 
-	// TODO parse description
 	descrGroup := groups[1]
 	var descr string
 	if len(descrGroup) == 0 {
