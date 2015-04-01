@@ -1,6 +1,7 @@
 package util
 
 import (
+	"log"
 	"strings"
 )
 
@@ -78,6 +79,45 @@ func SplitByHangingIndent(lines []string, splitIndent int) [][]string {
 		result = append(result, currentSection)
 	}
 
+	return result
+}
+
+func removeLeadingAndTrailingEmptyLines(lines []string) []string {
+	if len(lines) == 0 {
+		return lines
+	}
+
+	if len(lines[0]) == 0 {
+		lines = lines[1:]
+	}
+
+	lenLines := len(lines)
+	if lenLines > 0 {
+		if len(lines[lenLines-1]) == 0 {
+			lines = lines[0 : lenLines-1]
+		}
+	}
+	return lines
+}
+
+func SplitMultipleLinesByEmptyLines(lines []string) [][]string {
+	result := [][]string{}
+
+	if len(lines) == 0 {
+		return result
+	}
+
+	var current []string = []string{}
+	for i, line := range lines {
+		log.Printf("# %d line: %s", i, line)
+		if len(line) > 0 {
+			current = append(current, line)
+		} else {
+			result = append(result, current)
+			current = []string{}
+		}
+	}
+	result = append(result, current)
 	return result
 }
 

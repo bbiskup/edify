@@ -2,6 +2,7 @@ package util
 
 import (
 	"fmt"
+	"reflect"
 	"strings"
 	"testing"
 )
@@ -199,5 +200,86 @@ func TestCustBoolStr(t *testing.T) {
 	}
 	if CustBoolStr(false, "yes", "no") != "no" {
 		t.Fail()
+	}
+}
+
+var removeLeadingAndTrailingEmptyLinesSpecs = []struct {
+	lines    []string
+	expected []string
+}{
+	{
+		lines:    []string{},
+		expected: []string{},
+	},
+	{
+		lines:    []string{"one"},
+		expected: []string{"one"},
+	},
+	{
+		lines:    []string{"one", "two"},
+		expected: []string{"one", "two"},
+	},
+	{
+		lines:    []string{"", "one", "two"},
+		expected: []string{"one", "two"},
+	},
+	{
+		lines:    []string{"", "one", "two", ""},
+		expected: []string{"one", "two"},
+	},
+	{
+		lines:    []string{"one", "two", ""},
+		expected: []string{"one", "two"},
+	},
+}
+
+func TestRemoveLeadingAndTrailingEmptyLines(t *testing.T) {
+	for _, spec := range removeLeadingAndTrailingEmptyLinesSpecs {
+		res := removeLeadingAndTrailingEmptyLines(spec.lines)
+		if !reflect.DeepEqual(res, spec.expected) {
+			t.Errorf("Expected: %s, got: %s", spec.expected, res)
+		}
+	}
+}
+
+var splitMultipleLinesByEmptyLinesSpecs = []struct {
+	lines    []string
+	expected [][]string
+}{
+	{
+		lines:    []string{"one"},
+		expected: [][]string{{"one"}},
+	},
+	{
+		lines:    []string{"one", "two"},
+		expected: [][]string{{"one", "two"}},
+	},
+	{
+		lines:    []string{"one", "", "two"},
+		expected: [][]string{{"one"}, {"two"}},
+	},
+	{
+		lines:    []string{"one", "", "", "two"},
+		expected: [][]string{{"one"}, {}, {"two"}},
+	},
+	{
+		lines:    []string{"", "one", "two"},
+		expected: [][]string{{}, {"one", "two"}},
+	},
+	{
+		lines:    []string{"one", "two", ""},
+		expected: [][]string{{"one", "two"}, {}},
+	},
+}
+
+func TestSplitMultipleLinesByEmptyLinesSpecs(t *testing.T) {
+	for _, spec := range splitMultipleLinesByEmptyLinesSpecs {
+		res := SplitMultipleLinesByEmptyLines(spec.lines)
+
+		resStr := fmt.Sprintf("%s", res)
+		expectedStr := fmt.Sprintf("%s", spec.expected)
+		if resStr != expectedStr {
+			t.Errorf("Expected: %s, got: %s", expectedStr, resStr)
+		}
 	}
 }
