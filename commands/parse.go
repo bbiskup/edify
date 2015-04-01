@@ -36,6 +36,10 @@ func ParseFile(fileName string) error {
 		return ParseSimpleDataElements(fileName)
 	}
 
+	if strings.HasPrefix(filePart, "EDCD") {
+		return ParseCompositeDataElements(fileName)
+	}
+
 	if strings.HasPrefix(filePart, "UNCL") {
 		return ParseCodeList(fileName)
 	}
@@ -55,6 +59,18 @@ func ParseSimpleDataElements(fileName string) error {
 	for _, spec := range specs {
 		fmt.Printf("\t%s\n", spec)
 	}*/
+	fmt.Println("")
+	return nil
+}
+
+func ParseCompositeDataElements(fileName string) error {
+	log.Printf("ParseCompositeDataElements %s\n", fileName)
+	p := dataelement.NewCompositeDataElementSpecParser()
+	specs, err := p.ParseSpecFile(fileName)
+	if err != nil {
+		return err
+	}
+	fmt.Printf("Found %d specs", len(specs))
 	fmt.Println("")
 	return nil
 }
