@@ -3,7 +3,8 @@ package commands
 import (
 	"errors"
 	"fmt"
-	sp "github.com/bbiskup/edify/edifact/dataelement"
+	"github.com/bbiskup/edify/edifact/codes"
+	"github.com/bbiskup/edify/edifact/dataelement"
 	"log"
 	"os"
 	"strings"
@@ -17,15 +18,24 @@ func Parse(fileName string) error {
 	if err != nil {
 		return err
 	}
-	if strings.Index(fileName, "EDED") == 0 {
+
+	pathParts := strings.Split(fileName, string(os.PathSeparator))
+	filePart := pathParts[len(pathParts)-1]
+
+	if strings.HasPrefix(filePart, "EDED") {
 		return ParseSimpleDataElements(fileName)
 	}
+
+	if strings.HasPrefix(filePart, "UNCL") {
+		return ParseCodeList(fileName)
+	}
+
 	return errors.New(fmt.Sprintf("Unrecognized file: %s", fileName))
 }
 
 func ParseSimpleDataElements(fileName string) error {
 	log.Printf("ParseSimpleDataElements %s\n", fileName)
-	p := sp.NewSimpleDataElementSpecParser()
+	p := dataelement.NewSimpleDataElementSpecParser()
 	specs, err := p.ParseSpecFile(fileName)
 	if err != nil {
 		return err
@@ -34,6 +44,23 @@ func ParseSimpleDataElements(fileName string) error {
 	for _, spec := range specs {
 		fmt.Printf("\t%s\n", spec)
 	}
+	fmt.Println("")
+	panic("xyz")
+	return nil
+}
+
+func ParseCodeList(fileName string) error {
+	log.Printf("ParseCodeList %s\n", fileName)
+	p := codes.NewCodesSpecParser()
+	specs, err := p.ParseSpecFile(fileName)
+	if err != nil {
+		return err
+	}
+	fmt.Printf("Found %d specs", len(specs))
+	/*fmt.Printf("Specs:\n")
+	for _, spec := range specs {
+		fmt.Printf("\t%s\n", spec)
+	}*/
 	fmt.Println("")
 	return nil
 }

@@ -22,3 +22,4 @@ script:
   - time ./edify extract_specs d14b
   - time ./edify purge_specs d14b
   - time ./edify ./edify parse testdata/EDED.14B
+  - time ./edify ./edify parse testdata/UNCL.14B

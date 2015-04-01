@@ -49,7 +49,7 @@ func main() {
 			Aliases: []string{"p"},
 			Action: func(c *cli.Context) {
 				fileName := c.Args().First()
-				err = commands.ParseSimpleDataElements(fileName)
+				err = commands.Parse(fileName)
 			},
 		},
 	}
