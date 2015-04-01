@@ -131,7 +131,7 @@ func (p *CodesSpecParser) ParseCodeSpecs(lines []string) ([]*CodeSpec, error) {
 
 func (p *CodesSpecParser) ParseCodesSpec(specLines []string) (spec *CodesSpec, err error) {
 	groups := util.SplitMultipleLinesByEmptyLines(specLines[1:])
-	log.Printf("########### Groups: \n%s\n", groups)
+	log.Printf("Groups: \n%s\n", groups)
 
 	if len(groups) < 4 {
 		return nil, errors.New(fmt.Sprintf("Not enough groups for spec %s", groups))
