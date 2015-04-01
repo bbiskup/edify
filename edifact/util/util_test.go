@@ -362,3 +362,28 @@ func TestJoinByHangingIndent(t *testing.T) {
 		}
 	}
 }
+
+var trimWhiteSpaceAndJoinSpecs = []struct {
+	lines    []string
+	joinStr  string
+	expected string
+}{
+	{[]string{""}, " ", ""},
+	{[]string{"", ""}, " ", " "},
+	{[]string{"a"}, " ", "a"},
+	{[]string{"a", "b"}, " ", "a b"},
+	{[]string{"a", "b"}, "x", "axb"},
+	{[]string{" a", "b"}, " ", "a b"},
+	{[]string{" a ", " b "}, " ", "a b"},
+	{[]string{"  a  ", "  b  "}, " ", "a b"},
+	{[]string{"\ta\t", "\tb\t"}, " ", "a b"},
+}
+
+func TestTrimWhiteSpaceAndJoin(t *testing.T) {
+	for _, spec := range trimWhiteSpaceAndJoinSpecs {
+		res := TrimWhiteSpaceAndJoin(spec.lines, spec.joinStr)
+		if res != spec.expected {
+			t.Errorf("Expected: %s, got: %s", spec.expected, res)
+		}
+	}
+}

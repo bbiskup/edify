@@ -185,3 +185,11 @@ func JoinByHangingIndent(lines []string, baseIndent int, collapseSpaces bool) []
 	}
 	return result
 }
+
+func TrimWhiteSpaceAndJoin(lines []string, joinStr string) string {
+	trimmed := []string{}
+	for _, line := range lines {
+		trimmed = append(trimmed, strings.TrimSpace(line))
+	}
+	return strings.Join(trimmed, joinStr)
+}
