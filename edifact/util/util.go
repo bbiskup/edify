@@ -1,8 +1,12 @@
 package util
 
 import (
-	"log"
 	"strings"
+)
+
+const (
+	EllipsisStr    = "..."
+	lenEllipsisStr = len(EllipsisStr)
 )
 
 // Parser utilities
@@ -108,8 +112,7 @@ func SplitMultipleLinesByEmptyLines(lines []string) [][]string {
 	}
 
 	var current []string = []string{}
-	for i, line := range lines {
-		log.Printf("# %d line: %s", i, line)
+	for _, line := range lines {
 		if len(line) > 0 {
 			current = append(current, line)
 		} else {
@@ -127,5 +130,20 @@ func CustBoolStr(value bool, trueStr string, falseStr string) string {
 		return trueStr
 	} else {
 		return falseStr
+	}
+}
+
+// Convert string into substring of specified max. length if too long
+func Ellipsis(str string, maxLen int) string {
+	lenStr := len(str)
+	if lenStr <= maxLen {
+		return str
+	} else {
+		if lenStr <= lenEllipsisStr {
+			return EllipsisStr
+		} else {
+			return str[:maxLen-lenEllipsisStr] + "..."
+		}
+
 	}
 }

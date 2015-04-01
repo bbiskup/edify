@@ -283,3 +283,28 @@ func TestSplitMultipleLinesByEmptyLinesSpecs(t *testing.T) {
 		}
 	}
 }
+
+var ellipsisSpec = []struct {
+	str      string
+	maxLen   int
+	expected string
+}{
+	{"", 0, ""},
+	{"", 1, ""},
+	{"one", 3, "one"},
+	{"one", 4, "one"},
+	{"one", 2, "..."},
+	{"one", 0, "..."},
+	{"onetwo", 5, "on..."},
+	{"onetwo", 4, "o..."},
+}
+
+func TestEllipsis(t *testing.T) {
+	for _, spec := range ellipsisSpec {
+		res := Ellipsis(spec.str, spec.maxLen)
+
+		if res != spec.expected {
+			t.Errorf("Expected: %s, got: %s", spec.expected, res)
+		}
+	}
+}
