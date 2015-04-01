@@ -14,6 +14,6 @@ func TestCompositeDataElementString(t *testing.T) {
 
 	res := fmt.Sprintf("%s", elem)
 	if res != expected {
-		t.Fatalf("Expected: '%s', got: '%s'", expected, res)
+		t.Errorf("Expected: '%s', got: '%s'", expected, res)
 	}
 }
