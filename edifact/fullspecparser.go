@@ -1,6 +1,7 @@
 package edifact
 
 import (
+	"fmt"
 	"github.com/bbiskup/edify/edifact/codes"
 	"github.com/bbiskup/edify/edifact/dataelement"
 	"log"
@@ -11,27 +12,30 @@ import (
 // Parses all relevant parts of EDIFACT spec
 type FullSpecParser struct {
 	Version string
+	Dir     string
 }
 
-func NewFullSpecParser(version string, dir string) (*FullSpecParser, error) {
-	const sepStr = string(os.PathSeparator)
-	codesParser := codes.NewCodesSpecParser()
-
-	codesPath := strings.Join([]string{
-		dir, "uncl", "UNCL." + version,
+func (p *FullSpecParser) getPath(subDir string, filePrefix string) string {
+	return strings.Join([]string{
+		p.Dir, subDir, fmt.Sprintf("%s.%s", filePrefix, p.Version),
 	}, string(os.PathSeparator))
+}
 
+func (p *FullSpecParser) parseCodeSpecs() (codes.CodesSpecMap, error) {
+	codesParser := codes.NewCodesSpecParser()
+	codesPath := p.getPath("uncl", "UNCL")
 	codesSpecs, err := codesParser.ParseSpecFile(codesPath)
 	if err != nil {
 		return nil, err
 	}
 	log.Printf("Loaded %d codes specs", len(codesSpecs))
+	return codesSpecs, nil
+}
+
+func (p *FullSpecParser) parseSimpleDataElemSpecs(codesSpecs codes.CodesSpecMap) (dataelement.SimpleDataElementSpecMap, error) {
 
 	simpleDataElemParser := dataelement.NewSimpleDataElementSpecParser(codesSpecs)
-
-	simpleDataElemSpecPath := strings.Join([]string{
-		dir, "eded", "EDED." + version,
-	}, string(os.PathSeparator))
+	simpleDataElemSpecPath := p.getPath("eded", "EDED")
 	simpleDataElemSpecs, err := simpleDataElemParser.ParseSpecFile(simpleDataElemSpecPath)
 	if err != nil {
 		return nil, err
@@ -54,13 +58,12 @@ func NewFullSpecParser(version string, dir string) (*FullSpecParser, error) {
 	} else {
 		log.Printf("No simple data element specs")
 	}
+	return simpleDataElemSpecs, nil
+}
 
+func (p *FullSpecParser) parseCompositeDataElemSpecs(simpleDataElemSpecs dataelement.SimpleDataElementSpecMap) (dataelement.CompositeDataElementSpecMap, error) {
 	compositeDataElemParser := dataelement.NewCompositeDataElementSpecParser(simpleDataElemSpecs)
-
-	compositeDataElemSpecPath := strings.Join([]string{
-		dir, "edcd", "EDCD." + version,
-	}, string(os.PathSeparator))
-
+	compositeDataElemSpecPath := p.getPath("edcd", "EDCD")
 	compositeDataElemSpecs, err := compositeDataElemParser.ParseSpecFile(compositeDataElemSpecPath)
 	if err != nil {
 		return nil, err
@@ -70,6 +73,29 @@ func NewFullSpecParser(version string, dir string) (*FullSpecParser, error) {
 	if numCompositeDataElemSpecs > 0 {
 		log.Printf("Loaded %d composite data element specs", numCompositeDataElemSpecs)
 	}
+	return compositeDataElemSpecs, nil
+}
 
-	return &FullSpecParser{version}, nil
+func (p *FullSpecParser) Parse() error {
+	codeSpecs, err := p.parseCodeSpecs()
+	if err != nil {
+		return err
+	}
+
+	simpleDataElemSpecs, err := p.parseSimpleDataElemSpecs(codeSpecs)
+	if err != nil {
+		return err
+	}
+
+	compositeDataElemSpecs, err := p.parseCompositeDataElemSpecs(simpleDataElemSpecs)
+	if err != nil {
+		return err
+	}
+
+	_ = compositeDataElemSpecs
+	return nil
+}
+
+func NewFullSpecParser(version string, dir string) (*FullSpecParser, error) {
+	return &FullSpecParser{version, dir}, nil
 }
