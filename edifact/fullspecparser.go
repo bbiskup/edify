@@ -55,5 +55,21 @@ func NewFullSpecParser(version string, dir string) (*FullSpecParser, error) {
 		log.Printf("No simple data element specs")
 	}
 
+	compositeDataElemParser := dataelement.NewCompositeDataElementSpecParser(simpleDataElemSpecs)
+
+	compositeDataElemSpecPath := strings.Join([]string{
+		dir, "edcd", "EDCD." + version,
+	}, string(os.PathSeparator))
+
+	compositeDataElemSpecs, err := compositeDataElemParser.ParseSpecFile(compositeDataElemSpecPath)
+	if err != nil {
+		return nil, err
+	}
+
+	numCompositeDataElemSpecs := len(compositeDataElemSpecs)
+	if numCompositeDataElemSpecs > 0 {
+		log.Printf("Loaded %d composite data element specs", numCompositeDataElemSpecs)
+	}
+
 	return &FullSpecParser{version}, nil
 }
