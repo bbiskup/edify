@@ -24,5 +24,4 @@ func TestSimpleDataElementSpec(t *testing.T) {
 	if spec.String() != expectedStr {
 		t.Errorf("incorrect String(): %s", specStr)
 	}
-
 }
