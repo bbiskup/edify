@@ -13,18 +13,24 @@ func TestSpecScannerFromFile(t *testing.T) {
 		t.Fatalf("Error creating SpecScanner: %s", err)
 	}
 
-	expected := [][]string{
-		[]string{"one"},
+	expectedHeader := []string{"one"}
+
+	expectedBody := [][]string{
 		[]string{"two"},
 		[]string{"three"},
+	}
+
+	if !reflect.DeepEqual(scanner.HeaderLines, expectedHeader) {
+		t.Fatalf("Expected: %s, got: %s", expectedHeader, scanner.HeaderLines)
 	}
 
 	allLines, err := scanner.GetAllSpecLines(true)
 	if err != nil {
 		t.Fatalf("Error reading spec lines: %s", err)
 	}
-	if !reflect.DeepEqual(allLines, expected) {
-		t.Fatalf("Expected: %s, got: %s", expected, allLines)
+
+	if !reflect.DeepEqual(allLines, expectedBody) {
+		t.Fatalf("Expected: %s, got: %s", expectedBody, allLines)
 	}
 }
 
@@ -42,15 +48,12 @@ var specScannerSpecs = []struct {
 	{`one
 
 `,
-		[][]string{
-			{"one"},
-		},
+		[][]string{},
 	},
 	{`one
 -------------------------
 two`,
 		[][]string{
-			{"one"},
 			{"two"},
 		},
 	},
@@ -62,8 +65,19 @@ three
 four
 `,
 		[][]string{
-			{"one"},
 			{"two", "three", "four"},
+		},
+	},
+	{`one
+-------------------------
+two
+-------------------------
+three
+four
+`,
+		[][]string{
+			{"two"},
+			{"three", "four"},
 		},
 	},
 }
@@ -72,15 +86,18 @@ func TestSpecScannerFromReader(t *testing.T) {
 	for _, spec := range specScannerSpecs {
 		reader := strings.NewReader(spec.inContents)
 		bufReader := bufio.NewReader(reader)
-		scanner := NewSpecScannerFromReader(bufReader)
+		scanner, err := NewSpecScannerFromReader(bufReader)
+		if err != nil {
+			t.Errorf("Error creating spec scanner from reader: %s", err)
+		}
 
 		allLines, err := scanner.GetAllSpecLines(true)
 		if err != nil {
-			t.Fatalf("Error reading spec lines: %s", err)
+			t.Errorf("Error reading spec lines: %s", err)
 		}
 
 		if !reflect.DeepEqual(allLines, spec.expected) {
-			t.Fatalf("Expected: %s, got: %s", spec.expected, allLines)
+			t.Errorf("Expected: %s, got: %s", spec.expected, allLines)
 		}
 	}
 }

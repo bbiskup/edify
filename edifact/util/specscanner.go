@@ -16,9 +16,10 @@ const (
 
 // scanner for spec files with entries separated by "-----...." lines
 type SpecScanner struct {
-	file    *os.File
-	scanner *bufio.Scanner
-	HasMore bool
+	file        *os.File
+	scanner     *bufio.Scanner
+	HasMore     bool
+	HeaderLines []string
 }
 
 func (s *SpecScanner) Err() error {
@@ -95,18 +96,24 @@ func NewSpecScanner(fileName string) (*SpecScanner, error) {
 		return nil, err
 	}
 
-	result, err := NewSpecScannerFromReader(bufio.NewReader(file)), err
+	result, err := NewSpecScannerFromReader(bufio.NewReader(file))
 	runtime.SetFinalizer(result, finalizer)
 	return result, err
 }
 
 // Create a scanner from a provided reader (e.g. for testing)
-func NewSpecScannerFromReader(reader *bufio.Reader) *SpecScanner {
-	return &SpecScanner{
+func NewSpecScannerFromReader(reader *bufio.Reader) (scanner *SpecScanner, err error) {
+	result := &SpecScanner{
 		file:    nil,
 		scanner: bufio.NewScanner(reader),
 		HasMore: true,
 	}
+
+	result.HeaderLines, err = result.GetNextSpecLines(true)
+	if err != nil {
+		return nil, err
+	}
+	return result, nil
 }
 
 func finalizer(s *SpecScanner) {

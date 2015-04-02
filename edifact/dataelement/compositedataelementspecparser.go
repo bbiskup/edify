@@ -207,8 +207,6 @@ func (p *CompositeDataElementSpecParser) ParseSpecFile(fileName string) (specs C
 		return
 	}
 
-	first := true
-
 	for {
 		// read specification parts
 		specLines, err := scanner.GetNextSpecLines(false)
@@ -220,12 +218,6 @@ func (p *CompositeDataElementSpecParser) ParseSpecFile(fileName string) (specs C
 		if !scanner.HasMore && len(specLines) == 0 {
 			log.Println("No more lines")
 			break
-		}
-
-		if first {
-			// Skip header part
-			first = false
-			continue
 		}
 
 		// log.Printf("specLines: \n%s\n", specLines)

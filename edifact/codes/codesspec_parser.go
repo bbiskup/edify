@@ -179,8 +179,6 @@ func (p *CodesSpecParser) ParseSpecFile(fileName string) (specs CodesSpecMap, er
 		return
 	}
 
-	first := true
-
 	for {
 		// read specification parts
 		specLines, err := scanner.GetNextSpecLines(false)
@@ -192,12 +190,6 @@ func (p *CodesSpecParser) ParseSpecFile(fileName string) (specs CodesSpecMap, er
 		if !scanner.HasMore && len(specLines) == 0 {
 			log.Println("No more lines")
 			break
-		}
-
-		if first {
-			// Skip header part
-			first = false
-			continue
 		}
 
 		// log.Printf("specLines: \n%s\n", specLines)

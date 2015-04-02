@@ -116,8 +116,6 @@ func (p *SimpleDataElementSpecParser) ParseSpecFile(fileName string) (specs Simp
 		return
 	}
 
-	first := true
-
 	for {
 		// read specification parts
 		specLines, err := scanner.GetNextSpecLines(true)
@@ -129,12 +127,6 @@ func (p *SimpleDataElementSpecParser) ParseSpecFile(fileName string) (specs Simp
 		if !scanner.HasMore && len(specLines) == 0 {
 			log.Println("No more lines")
 			break
-		}
-
-		if first {
-			// Skip header part
-			first = false
-			continue
 		}
 
 		spec, err := p.ParseSpec(specLines)
