@@ -1,9 +1,10 @@
 package segment
 
 import (
-	"testing"
+//"testing"
 )
 
+/*
 func TestParseSpec(t *testing.T) {
 	_ = NewSegmentSpecParser()
-}
+}*/

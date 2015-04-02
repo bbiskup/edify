@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/bbiskup/edify/edifact/codes"
 	"github.com/bbiskup/edify/edifact/dataelement"
+	"github.com/bbiskup/edify/edifact/segment"
 	"log"
 	"os"
 	"strings"
@@ -22,31 +23,31 @@ func (p *FullSpecParser) getPath(subDir string, filePrefix string) string {
 }
 
 func (p *FullSpecParser) parseCodeSpecs() (codes.CodesSpecMap, error) {
-	codesParser := codes.NewCodesSpecParser()
-	codesPath := p.getPath("uncl", "UNCL")
-	codesSpecs, err := codesParser.ParseSpecFile(codesPath)
+	parser := codes.NewCodesSpecParser()
+	path := p.getPath("uncl", "UNCL")
+	specs, err := parser.ParseSpecFile(path)
 	if err != nil {
 		return nil, err
 	}
-	log.Printf("Loaded %d codes specs", len(codesSpecs))
-	return codesSpecs, nil
+	log.Printf("Loaded %d codes specs", len(specs))
+	return specs, nil
 }
 
 func (p *FullSpecParser) parseSimpleDataElemSpecs(codesSpecs codes.CodesSpecMap) (dataelement.SimpleDataElementSpecMap, error) {
 
-	simpleDataElemParser := dataelement.NewSimpleDataElementSpecParser(codesSpecs)
-	simpleDataElemSpecPath := p.getPath("eded", "EDED")
-	simpleDataElemSpecs, err := simpleDataElemParser.ParseSpecFile(simpleDataElemSpecPath)
+	parser := dataelement.NewSimpleDataElementSpecParser(codesSpecs)
+	path := p.getPath("eded", "EDED")
+	specs, err := parser.ParseSpecFile(path)
 	if err != nil {
 		return nil, err
 	}
-	numSimpleDataElemSpecs := len(simpleDataElemSpecs)
-	if numSimpleDataElemSpecs > 0 {
-		log.Printf("Loaded %d simple data element specs", numSimpleDataElemSpecs)
+	numSpecs := len(specs)
+	if numSpecs > 0 {
+		log.Printf("Loaded %d simple data element specs", numSpecs)
 
 		// retrieve first element which uses codes (for display)
 		var firstVal *dataelement.SimpleDataElementSpec
-		for _, v := range simpleDataElemSpecs {
+		for _, v := range specs {
 			firstVal = v
 			if firstVal.CodesSpecs != nil {
 				break
@@ -58,22 +59,40 @@ func (p *FullSpecParser) parseSimpleDataElemSpecs(codesSpecs codes.CodesSpecMap)
 	} else {
 		log.Printf("No simple data element specs")
 	}
-	return simpleDataElemSpecs, nil
+	return specs, nil
 }
 
 func (p *FullSpecParser) parseCompositeDataElemSpecs(simpleDataElemSpecs dataelement.SimpleDataElementSpecMap) (dataelement.CompositeDataElementSpecMap, error) {
-	compositeDataElemParser := dataelement.NewCompositeDataElementSpecParser(simpleDataElemSpecs)
-	compositeDataElemSpecPath := p.getPath("edcd", "EDCD")
-	compositeDataElemSpecs, err := compositeDataElemParser.ParseSpecFile(compositeDataElemSpecPath)
+	parser := dataelement.NewCompositeDataElementSpecParser(simpleDataElemSpecs)
+	path := p.getPath("edcd", "EDCD")
+	specs, err := parser.ParseSpecFile(path)
 	if err != nil {
 		return nil, err
 	}
 
-	numCompositeDataElemSpecs := len(compositeDataElemSpecs)
-	if numCompositeDataElemSpecs > 0 {
-		log.Printf("Loaded %d composite data element specs", numCompositeDataElemSpecs)
+	numSpecs := len(specs)
+	if numSpecs > 0 {
+		log.Printf("Loaded %d composite data element specs", numSpecs)
 	}
-	return compositeDataElemSpecs, nil
+	return specs, nil
+}
+
+func (p *FullSpecParser) parseSegmentSpecs(
+	simpleDataElemSpecs dataelement.SimpleDataElementSpecMap,
+	compositeDataElemSpecs dataelement.CompositeDataElementSpecMap) (segment.SegmentSpecMap, error) {
+
+	parser := segment.NewSegmentSpecParser(simpleDataElemSpecs, compositeDataElemSpecs)
+	path := p.getPath("edsd", "EDSD")
+	specs, err := parser.ParseSpecFile(path)
+	if err != nil {
+		return nil, err
+	}
+
+	numSpecs := len(specs)
+	if numSpecs > 0 {
+		log.Printf("Loaded %d segment specs", numSpecs)
+	}
+	return specs, nil
 }
 
 func (p *FullSpecParser) Parse() error {
@@ -92,8 +111,10 @@ func (p *FullSpecParser) Parse() error {
 		return err
 	}
 
-	_ = compositeDataElemSpecs
-	return nil
+	segmentSpecs, err := p.parseSegmentSpecs(simpleDataElemSpecs, compositeDataElemSpecs)
+
+	_ = segmentSpecs
+	return err
 }
 
 func NewFullSpecParser(version string, dir string) (*FullSpecParser, error) {

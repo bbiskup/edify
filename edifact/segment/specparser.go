@@ -3,6 +3,7 @@ package segment
 import (
 	"errors"
 	"fmt"
+	"github.com/bbiskup/edify/edifact/dataelement"
 	"github.com/bbiskup/edify/edifact/util"
 	"regexp"
 	"strconv"
@@ -11,7 +12,9 @@ import (
 
 // Parses segment specifications file (e.g. EDSD.14B)
 type SegmentSpecParser struct {
-	compositeElemRE *regexp.Regexp
+	SimpleDataElemSpecs    dataelement.SimpleDataElementSpecMap
+	CompositeDataElemSpecs dataelement.CompositeDataElementSpecMap
+	compositeElemRE        *regexp.Regexp
 }
 
 type SegmentSpecMap map[string]*SegmentSpec
@@ -59,7 +62,7 @@ func (p *SegmentSpecParser) ParseCompositeElemSpec(specStr string) (pos int, nam
 func (p *SegmentSpecParser) ParseSpec(specLines []string) (spec *SegmentSpec, err error) {
 	/*for _, line := range specLines {
 
-																											}*/
+																																			}*/
 	panic("Not implemented")
 }
 
@@ -80,8 +83,13 @@ func (p *SegmentSpecParser) ParseSpecFile(fileName string) (specs SegmentSpecMap
 	return result, err
 }
 
-func NewSegmentSpecParser() *SegmentSpecParser {
+func NewSegmentSpecParser(
+	simpleDataElemSpecs dataelement.SimpleDataElementSpecMap,
+	compositeDataElemSpecs dataelement.CompositeDataElementSpecMap) *SegmentSpecParser {
+
 	return &SegmentSpecParser{
-		compositeElemRE: regexp.MustCompile(`^(\d{3})[ ]{4}(C\d{3}) ([A-Z ]{42}) ([CM])[ ]{4}(\d+)`),
+		SimpleDataElemSpecs:    simpleDataElemSpecs,
+		CompositeDataElemSpecs: compositeDataElemSpecs,
+		compositeElemRE:        regexp.MustCompile(`^(\d{3})[ ]{4}(C\d{3}) ([A-Z ]{42}) ([CM])[ ]{4}(\d+)`),
 	}
 }
