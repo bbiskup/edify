@@ -19,6 +19,7 @@ func main() {
 	app.Commands = []cli.Command{
 		{
 			Name:    "download_specs",
+			Usage:   "Download specs from remote server",
 			Aliases: []string{"d"},
 			Action: func(c *cli.Context) {
 				// version: e.g. 14b
@@ -28,6 +29,7 @@ func main() {
 		},
 		{
 			Name:    "extract_specs",
+			Usage:   "Extracts previously downloaded specs",
 			Aliases: []string{"x"},
 			Action: func(c *cli.Context) {
 				// version: e.g. 14b
@@ -37,6 +39,7 @@ func main() {
 		},
 		{
 			Name:    "purge_specs",
+			Usage:   "Purge previously extracted specs",
 			Aliases: []string{"u"},
 			Action: func(c *cli.Context) {
 				// version: e.g. 14b
@@ -46,6 +49,7 @@ func main() {
 		},
 		{
 			Name:    "parse",
+			Usage:   "Parse a particular spec file",
 			Aliases: []string{"p"},
 			Action: func(c *cli.Context) {
 				fileNames := c.Args()
