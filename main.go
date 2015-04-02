@@ -21,7 +21,7 @@ func main() {
 			Name:    "download_specs",
 			Aliases: []string{"d"},
 			Action: func(c *cli.Context) {
-				// version: e.g. d14b
+				// version: e.g. 14b
 				version := c.Args().First()
 				err = commands.DownloadSpecs(version)
 			},
@@ -30,7 +30,7 @@ func main() {
 			Name:    "extract_specs",
 			Aliases: []string{"x"},
 			Action: func(c *cli.Context) {
-				// version: e.g. d14b
+				// version: e.g. 14b
 				version := c.Args().First()
 				err = commands.ExtractSpecs(version)
 			},
@@ -39,7 +39,7 @@ func main() {
 			Name:    "purge_specs",
 			Aliases: []string{"u"},
 			Action: func(c *cli.Context) {
-				// version: e.g. d14b
+				// version: e.g. 14b
 				version := c.Args().First()
 				err = commands.PurgeSpecs(version)
 			},

@@ -120,7 +120,10 @@ func extractSpecsSecondLevel(targetDir string) error {
 func ExtractSpecs(version string) error {
 	archivePath := downloadPath(version)
 
-	targetDir := downloadDir + string(os.PathSeparator) + version
+	targetDir := downloadDir + string(os.PathSeparator) + versionDir(version)
+
+	log.Printf("Extracting archive %s --> %s", archivePath, targetDir)
+
 	err := os.MkdirAll(targetDir, os.ModeDir|os.ModePerm)
 	if err != nil {
 		return err

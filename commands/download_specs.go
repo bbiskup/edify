@@ -17,7 +17,11 @@ const (
 )
 
 func downloadPath(version string) string {
-	return downloadDir + string(os.PathSeparator) + version + ".zip"
+	return downloadDir + string(os.PathSeparator) + versionDir(version) + ".zip"
+}
+
+func versionDir(version string) string {
+	return fmt.Sprintf("d%s", version)
 }
 
 func prepareTargetPath(version string) (*os.File, error) {
@@ -44,7 +48,9 @@ func DownloadSpecs(version string) error {
 		return errors.New("No version specified")
 	}
 
-	urlStr := strings.Join([]string{urlRoot, version, version + ".zip"}, "/")
+	// e.g. http://www.unece.org/fileadmin/DAM/trade/untdid/d14b/d14b.zip
+	vDir := versionDir(version)
+	urlStr := strings.Join([]string{urlRoot, vDir, vDir + ".zip"}, "/")
 
 	// Validate URL
 	_, err := url.Parse(urlStr)
@@ -83,7 +89,8 @@ func DownloadSpecs(version string) error {
 		return err
 	}
 
-	log.Printf("Download of '%s' (%.2f MB) complete", urlStr, float64(size)/1e6)
+	log.Printf("Download of '%s' (%.2f MB) --> %s complete",
+		urlStr, float64(size)/1e6, targetFile.Name())
 
 	return nil
 }
