@@ -48,7 +48,8 @@ func NewFullSpecParser(version string, dir string) (*FullSpecParser, error) {
 				break
 			}
 		}
-		log.Printf("\tA random spec: %s", firstVal)
+		log.Printf("\tA random spec:")
+		log.Printf("%s", firstVal)
 		log.Printf("\t  codesSpecs: %d", firstVal.CodesSpecs.Len())
 	} else {
 		log.Printf("No simple data element specs")
