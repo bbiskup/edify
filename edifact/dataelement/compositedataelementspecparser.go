@@ -197,16 +197,6 @@ func (p *CompositeDataElementSpecParser) ParseSpec(specLines []string) (spec *Co
 	return
 }
 
-type CompositeDataElementSpecMap map[string]*CompositeDataElementSpec
-
-func (sm CompositeDataElementSpecMap) String() string {
-	result := []string{}
-	for key, value := range sm {
-		result = append(result, fmt.Sprintf("%s: %s", key, value))
-	}
-	return strings.Join(result, ", ")
-}
-
 // Parse composite data element spec file, e.g. EDCD14.B
 func (p *CompositeDataElementSpecParser) ParseSpecFile(fileName string) (specs CompositeDataElementSpecMap, err error) {
 	result := CompositeDataElementSpecMap{}
@@ -242,7 +232,7 @@ func (p *CompositeDataElementSpecParser) ParseSpecFile(fileName string) (specs C
 		if err != nil {
 			return nil, err
 		}
-		result[spec.Name] = spec
+		result[spec.Id] = spec
 	}
 	return result, nil
 }

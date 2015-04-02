@@ -1,6 +1,7 @@
 package dataelement
 
 import (
+	"bytes"
 	"fmt"
 	"github.com/bbiskup/edify/edifact/util"
 	"strings"
@@ -39,4 +40,24 @@ func NewCompositeDataElementSpec(
 		Description:    description,
 		ComponentSpecs: componentSpecs,
 	}
+}
+
+type CompositeDataElementSpecMap map[string]*CompositeDataElementSpec
+
+/*
+func (sm CompositeDataElementSpecMap) String() string {
+	result := []string{}
+	for key, value := range sm {
+		result = append(result, fmt.Sprintf("%s: %s", key, value))
+	}
+	return strings.Join(result, ", ")
+}*/
+
+func (m CompositeDataElementSpecMap) String() string {
+	var result bytes.Buffer
+	result.WriteString("CompositeDataElementSpecMap\n")
+	for id, spec := range m {
+		result.WriteString(fmt.Sprintf("\t%-8s: %s\n", id, spec))
+	}
+	return result.String()
 }
