@@ -11,6 +11,9 @@ import (
 )
 
 func Parse(fileNames []string) error {
+	if len(fileNames) == 0 {
+		return errors.New("Nothing to parse")
+	}
 	for _, fileName := range fileNames {
 		err := ParseFile(fileName)
 		if err != nil {
