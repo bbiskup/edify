@@ -425,3 +425,9 @@ func TestCheckNotNil(t *testing.T) {
 		}
 	}
 }
+
+func TestUnused(t *testing.T) {
+	a := 1
+	b := 2
+	Unused(a, b)
+}

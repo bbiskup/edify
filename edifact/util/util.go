@@ -200,3 +200,8 @@ func CheckNotNil(values ...interface{}) error {
 	}
 	return nil
 }
+
+// Avoids compiler errors for unused variables
+func Unused(values ...interface{}) {
+
+}
