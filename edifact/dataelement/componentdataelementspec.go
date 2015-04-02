@@ -8,6 +8,9 @@ import (
 type ComponentDataElementSpec struct {
 	Num         int32
 	IsMandatory bool
+
+	// simple or composite data element spec
+	DataElementSpec interface{}
 }
 
 func (s *ComponentDataElementSpec) String() string {
@@ -15,9 +18,10 @@ func (s *ComponentDataElementSpec) String() string {
 	return fmt.Sprintf("Component %d (%s)", s.Num, isMandatoryStr)
 }
 
-func NewComponentDataElementSpec(num int32, isMandatory bool) *ComponentDataElementSpec {
+func NewComponentDataElementSpec(num int32, isMandatory bool, dataElementSpec interface{}) *ComponentDataElementSpec {
 	return &ComponentDataElementSpec{
-		Num:         num,
-		IsMandatory: isMandatory,
+		Num:             num,
+		IsMandatory:     isMandatory,
+		DataElementSpec: dataElementSpec,
 	}
 }

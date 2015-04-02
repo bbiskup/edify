@@ -5,6 +5,19 @@ import (
 	"testing"
 )
 
+func fixtureMultiSimpleDataElementSpecs() SimpleDataElementSpecMap {
+	s_8179, _ := NewSimpleDataElementSpec(8179, "name_1", "descr_1", NewRepr(AlphaNum, true, 3), nil)
+	s_1131, _ := NewSimpleDataElementSpec(1131, "name_1", "descr_1", NewRepr(AlphaNum, true, 3), nil)
+	s_3055, _ := NewSimpleDataElementSpec(3055, "name_1", "descr_1", NewRepr(AlphaNum, true, 3), nil)
+	s_8178, _ := NewSimpleDataElementSpec(8178, "name_1", "descr_1", NewRepr(AlphaNum, true, 3), nil)
+	return SimpleDataElementSpecMap{
+		8179: s_8179,
+		1131: s_1131,
+		3055: s_3055,
+		8178: s_8178,
+	}
+}
+
 var parserSpec = []struct {
 	specLines      []string
 	expectedResStr string
@@ -71,7 +84,7 @@ var parserSpec = []struct {
 
 func TestParser(t *testing.T) {
 	for _, spec := range parserSpec {
-		parser := NewCompositeDataElementSpecParser()
+		parser := NewCompositeDataElementSpecParser(fixtureMultiSimpleDataElementSpecs())
 		res, err := parser.ParseSpec(spec.specLines)
 		if err != nil && spec.expectErr {
 			fmt.Printf("expected err: %s", err)
@@ -96,8 +109,9 @@ func TestParser(t *testing.T) {
 }
 
 func TestParseFile(t *testing.T) {
-	parser := NewCompositeDataElementSpecParser()
-	res, err := parser.ParseSpecFile("../../testdata/EDCD.14B")
+	// TODO provide full data elements fixture
+	parser := NewCompositeDataElementSpecParser(fixtureMultiSimpleDataElementSpecs())
+	res, err := parser.ParseSpecFile("../../testdata/EDCD.14B_short")
 	if err != nil {
 		t.Fatalf("Unable to parse composite data element spec: %s", err)
 	}

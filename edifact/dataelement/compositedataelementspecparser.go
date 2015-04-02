@@ -12,8 +12,9 @@ import (
 
 // Parses composite element specification (e.g. EDSD.14B)
 type CompositeDataElementSpecParser struct {
-	headerRE        *regexp.Regexp
-	componentElemRE *regexp.Regexp
+	simpleDataElemSpecs SimpleDataElementSpecMap
+	headerRE            *regexp.Regexp
+	componentElemRE     *regexp.Regexp
 }
 
 /* Parse a line of the form
@@ -48,7 +49,12 @@ func (p *CompositeDataElementSpecParser) ParseComponentDataElemenSpec(specLine s
 		return
 	}
 
-	spec = NewComponentDataElementSpec(int32(num), isMandatory)
+	id := int32(num)
+	simpleDataElemSpec := p.simpleDataElemSpecs[id]
+	if simpleDataElemSpec == nil {
+		return nil, errors.New(fmt.Sprintf("No simple data elem spec for ID %d", id))
+	}
+	spec = NewComponentDataElementSpec(id, isMandatory, simpleDataElemSpec)
 	return
 }
 
@@ -241,10 +247,12 @@ func (p *CompositeDataElementSpecParser) ParseSpecFile(fileName string) (specs C
 	return result, nil
 }
 
-func NewCompositeDataElementSpecParser() *CompositeDataElementSpecParser {
+func NewCompositeDataElementSpecParser(simpleDataElemSpecs SimpleDataElementSpecMap) *CompositeDataElementSpecParser {
 	// TODO account for change indicators?
 	return &CompositeDataElementSpecParser{
 		// We ignore the repr spec (already available via simple data element specs)
+
+		simpleDataElemSpecs: simpleDataElemSpecs,
 
 		headerRE: regexp.MustCompile(`^[ ]{7}(C[0-9]{3}) ([A-Z/& -]+) *$`),
 		// OBSOLETE componentElemRE: regexp.MustCompile(`^[ ]{7}(\d{4})  ([A-Za-z ]{41}) ([CM]) .+$`),

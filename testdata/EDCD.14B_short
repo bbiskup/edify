@@ -1,0 +1,23 @@
+2.   Composite specifications
+
+     Change indicators
+
+     a plus sign (+)    for an addition
+     an asterisk (*)    for an amendment to structure
+     a hash sign (#)    for changes to names
+     a vertical bar (|) for changes to text for descriptions or
+                        notes
+     a letter X (X)     for marked for deletion
+
+----------------------------------------------------------------------
+
+       C001 TRANSPORT MEANS
+
+       Desc: Code and/or name identifying the type of means of
+             transport.
+
+010    8179  Transport means description code          C      an..8
+020    1131  Code list identification code             C      an..17
+030    3055  Code list responsible agency code         C      an..3
+040    8178  Transport means description               C      an..17
+
