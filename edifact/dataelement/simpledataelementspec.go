@@ -1,6 +1,7 @@
 package dataelement
 
 import (
+	"bytes"
 	"fmt"
 	"github.com/bbiskup/edify/edifact/codes"
 	"github.com/bbiskup/edify/edifact/util"
@@ -31,4 +32,15 @@ func NewSimpleDataElementSpec(num int32, name string, descr string, repr *Repr, 
 		Repr:       repr,
 		CodesSpecs: codes,
 	}, nil
+}
+
+type SimpleDataElementSpecMap map[int32]*SimpleDataElementSpec
+
+func (sm SimpleDataElementSpecMap) String() string {
+	var result bytes.Buffer
+	result.WriteString("SimpleDataElementSpecMap\n")
+	for key, value := range sm {
+		result.WriteString(fmt.Sprintf("\t%d: %s\n", key, value))
+	}
+	return result.String()
 }

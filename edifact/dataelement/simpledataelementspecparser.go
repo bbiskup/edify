@@ -111,16 +111,6 @@ func (p *SimpleDataElementSpecParser) ParseSpec(specLines []string) (spec *Simpl
 	return NewSimpleDataElementSpec(id, name, description, repr, codesSpec)
 }
 
-type SimpleDataElementSpecMap map[int32]*SimpleDataElementSpec
-
-func (sm SimpleDataElementSpecMap) String() string {
-	result := []string{}
-	for key, value := range sm {
-		result = append(result, fmt.Sprintf("%d: %s", key, value))
-	}
-	return strings.Join(result, ", ")
-}
-
 func (p *SimpleDataElementSpecParser) ParseSpecFile(fileName string) (specs SimpleDataElementSpecMap, err error) {
 	result := SimpleDataElementSpecMap{}
 
