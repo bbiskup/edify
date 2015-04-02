@@ -5,6 +5,16 @@ import (
 	"testing"
 )
 
+const expectedValid1 = `Composite C001 TRANSPORT MEANS 'Code an...'
+	Component 1131/name_1131 @ 20 (cond.)
+	Component 3055/name_3055 @ 30 (cond.)
+	Component 8178/name_8178 @ 40 (cond.)`
+
+const expectedValidFallbackDescription = `Composite C001 TRANSPORT MEANS '<no des...'
+	Component 1131/name_1131 @ 20 (cond.)
+	Component 3055/name_3055 @ 30 (cond.)
+	Component 8178/name_8178 @ 40 (cond.)`
+
 var parserSpec = []struct {
 	specLines      []string
 	expectedResStr string
@@ -23,7 +33,7 @@ var parserSpec = []struct {
 			"030    3055  Code list responsible agency code         C      an..3",
 			"040    8178  Transport means description               C      an..17",
 		},
-		"Composite C001 TRANSPORT MEANS 'Code an...'\n\tComponent 1131/name_1131 @ 20 (cond.)\n\tComponent 3055/name_3055 @ 30 (cond.)\n\tComponent 8178/name_8178 @ 40 (cond.)",
+		expectedValid1,
 		false,
 	},
 	{
@@ -64,7 +74,7 @@ var parserSpec = []struct {
 			"030    3055  Code list responsible agency code         C      an..3",
 			"040    8178  Transport means description               C      an..17",
 		},
-		"Composite C001 TRANSPORT MEANS '<no des...'\n\tComponent 1131/name_1131 @ 20 (cond.)\n\tComponent 3055/name_3055 @ 30 (cond.)\n\tComponent 8178/name_8178 @ 40 (cond.)",
+		expectedValidFallbackDescription,
 		true,
 	},
 }
