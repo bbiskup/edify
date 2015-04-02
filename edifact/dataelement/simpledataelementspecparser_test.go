@@ -1,7 +1,6 @@
 package dataelement
 
 import (
-	"github.com/bbiskup/edify/edifact/codes"
 	"log"
 	"strings"
 	"testing"
@@ -14,13 +13,6 @@ func TestSpecParser(t *testing.T) {
 	if err != nil {
 		t.Fatalf("Parse error: %s", err)
 	}
-}
-
-func fixtureTextCodesSpecMap() codes.CodesSpecMap {
-	codeSpec := codes.NewCodeSpec("id1", "codename", "codedescr")
-	codesSpec := codes.NewCodesSpec("1000", "codesname", "codesdescr", []*codes.CodeSpec{codeSpec})
-	specMap := codes.CodesSpecMap{"1000": codesSpec}
-	return specMap
 }
 
 const specLines = `

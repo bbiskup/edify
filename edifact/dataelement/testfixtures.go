@@ -2,7 +2,15 @@ package dataelement
 
 import (
 	"fmt"
+	"github.com/bbiskup/edify/edifact/codes"
 )
+
+func fixtureTextCodesSpecMap() codes.CodesSpecMap {
+	codeSpec := codes.NewCodeSpec("id1", "codename", "codedescr")
+	codesSpec := codes.NewCodesSpec("1000", "codesname", "codesdescr", []*codes.CodeSpec{codeSpec})
+	specMap := codes.CodesSpecMap{"1000": codesSpec}
+	return specMap
+}
 
 func fixtureSimpleDataElemSpec(id string) *SimpleDataElementSpec {
 	result, err := NewSimpleDataElementSpec(

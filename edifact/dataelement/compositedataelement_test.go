@@ -1,7 +1,6 @@
 package dataelement
 
 import (
-	"fmt"
 	"testing"
 )
 
@@ -18,7 +17,7 @@ func TestCompositeDataElementString(t *testing.T) {
 	})
 	expected := "Composite C817 ADDRESS USAGE 'test de...'\n\tComponent 1/name_1 @ 1 (mand.)"
 
-	res := fmt.Sprintf("%s", elem)
+	res := elem.String()
 	if res != expected {
 		t.Errorf("Expected: '%s', got: '%s'", expected, res)
 	}
