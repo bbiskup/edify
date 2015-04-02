@@ -4,7 +4,6 @@ import (
 	"errors"
 	"fmt"
 	"github.com/bbiskup/edify/edifact/util"
-	"log"
 	"regexp"
 	"strconv"
 	"strings"
@@ -60,10 +59,11 @@ func (p *SegmentSpecParser) ParseCompositeElemSpec(specStr string) (pos int, nam
 func (p *SegmentSpecParser) ParseSpec(specLines []string) (spec *SegmentSpec, err error) {
 	/*for _, line := range specLines {
 
-																				}*/
+																										}*/
 	panic("Not implemented")
 }
 
+/*
 func (p *SegmentSpecParser) ParseSpecFile(fileName string) (specs SegmentSpecMap, err error) {
 	result := SegmentSpecMap{}
 
@@ -101,6 +101,23 @@ func (p *SegmentSpecParser) ParseSpecFile(fileName string) (specs SegmentSpecMap
 		result[spec.Name] = spec
 	}
 	return result, nil
+}*/
+
+func (p *SegmentSpecParser) ParseSpecFile(fileName string) (specs SegmentSpecMap, err error) {
+	result := SegmentSpecMap{}
+
+	parseSection := func(lines []string) error {
+		spec, err := p.ParseSpec(lines)
+		if err != nil {
+			return err
+		}
+		result[spec.Id] = spec
+		return nil
+	}
+
+	err = util.ParseSpecFile(fileName, parseSection)
+
+	return result, err
 }
 
 func NewSegmentSpecParser() *SegmentSpecParser {
