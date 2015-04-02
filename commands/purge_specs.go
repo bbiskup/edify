@@ -1,12 +1,16 @@
 package commands
 
 import (
+	"errors"
 	"log"
 	"os"
 )
 
 // Purge extracted EDIFACT spec content
 func PurgeSpecs(version string) error {
+	if len(version) == 0 {
+		return errors.New("No version specified")
+	}
 	versionSubDir := downloadDir + string(os.PathSeparator) + versionDir(version)
 	s, err := os.Stat(versionSubDir)
 	if !os.IsNotExist(err) && s.IsDir() {

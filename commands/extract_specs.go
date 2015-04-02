@@ -2,6 +2,7 @@ package commands
 
 import (
 	"archive/zip"
+	"errors"
 	"io"
 	"io/ioutil"
 	"log"
@@ -118,8 +119,11 @@ func extractSpecsSecondLevel(targetDir string) error {
 
 // Extract EDIFACT specs from file provided by UNECE
 func ExtractSpecs(version string) error {
-	archivePath := downloadPath(version)
+	if len(version) == 0 {
+		return errors.New("No version specified")
+	}
 
+	archivePath := downloadPath(version)
 	targetDir := downloadDir + string(os.PathSeparator) + versionDir(version)
 
 	log.Printf("Extracting archive %s --> %s", archivePath, targetDir)
