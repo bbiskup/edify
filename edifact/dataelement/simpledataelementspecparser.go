@@ -15,7 +15,6 @@ import (
 	"github.com/bbiskup/edify/edifact/util"
 	"log"
 	"regexp"
-	"strconv"
 	"strings"
 )
 
@@ -32,17 +31,17 @@ type SimpleDataElementSpecParser struct {
 }
 
 // Get data element spec number
-func (p *SimpleDataElementSpecParser) getNameAndNum(specLinesSections [][]string) (name string, num int, err error) {
+func (p *SimpleDataElementSpecParser) getIdAndName(specLinesSections [][]string) (id string, name string, err error) {
 	numSection := specLinesSections[0]
 	numSectionHeader := numSection[0]
 	numLineMatch := p.numLineRE.FindStringSubmatch(numSectionHeader)
 	if numLineMatch == nil {
-		return "", -1, errors.New(
+		return "", "", errors.New(
 			fmt.Sprintf("Missing num section in line '%s'",
 				numSectionHeader))
 	}
+	id = numLineMatch[1]
 	name = strings.TrimSpace(numLineMatch[2])
-	num, err = strconv.Atoi(numLineMatch[1])
 	return
 }
 
@@ -88,7 +87,7 @@ func (p *SimpleDataElementSpecParser) ParseSpec(specLines []string) (spec *Simpl
 			numSpecLinesSections))
 	}
 
-	name, num, err := p.getNameAndNum(specLinesSections)
+	id, name, err := p.getIdAndName(specLinesSections)
 	if err != nil {
 		return nil, err
 	}
@@ -102,8 +101,6 @@ func (p *SimpleDataElementSpecParser) ParseSpec(specLines []string) (spec *Simpl
 	if err != nil {
 		return nil, err
 	}
-
-	id := int32(num)
 
 	// may be nil for fields that don't use a code
 	codesSpec := p.codesSpecs[id]
@@ -144,7 +141,7 @@ func (p *SimpleDataElementSpecParser) ParseSpecFile(fileName string) (specs Simp
 		if err != nil {
 			return nil, err
 		}
-		result[spec.Num] = spec
+		result[spec.Id()] = spec
 	}
 	return result, nil
 }

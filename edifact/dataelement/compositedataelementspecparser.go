@@ -31,11 +31,13 @@ func (p *CompositeDataElementSpecParser) ParseComponentDataElemenSpec(specLine s
 		panic("Internal error: incorrect regular expression")
 	}
 
-	numStr := specMatch[2]
-	num, err := strconv.Atoi(numStr)
+	positionStr := specMatch[1]
+	position, err := strconv.Atoi(positionStr)
 	if err != nil {
-		return
+		return nil, err
 	}
+
+	id := specMatch[2]
 
 	mandatoryStr := specMatch[3]
 	var isMandatory bool
@@ -49,12 +51,11 @@ func (p *CompositeDataElementSpecParser) ParseComponentDataElemenSpec(specLine s
 		return
 	}
 
-	id := int32(num)
 	simpleDataElemSpec := p.simpleDataElemSpecs[id]
 	if simpleDataElemSpec == nil {
-		return nil, errors.New(fmt.Sprintf("No simple data elem spec for ID %d", id))
+		return nil, errors.New(fmt.Sprintf("No simple data elem spec for ID %s", id))
 	}
-	spec = NewComponentDataElementSpec(id, isMandatory, simpleDataElemSpec)
+	spec = NewComponentDataElementSpec(position, isMandatory, simpleDataElemSpec)
 	return
 }
 
@@ -232,7 +233,7 @@ func (p *CompositeDataElementSpecParser) ParseSpecFile(fileName string) (specs C
 		if err != nil {
 			return nil, err
 		}
-		result[spec.Id] = spec
+		result[spec.Id()] = spec
 	}
 	return result, nil
 }

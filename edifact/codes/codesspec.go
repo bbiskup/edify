@@ -8,13 +8,13 @@ import (
 
 // EDIFACT Codes as defined e.g. in UNCL.14B
 type CodesSpec struct {
-	Id          int32
+	Id          string
 	Name        string
 	Description string
 	CodeSpecs   []*CodeSpec
 }
 
-type CodesSpecMap map[int32]*CodesSpec
+type CodesSpecMap map[string]*CodesSpec
 
 func (s *CodesSpec) String() string {
 	specsStrs := []string{}
@@ -25,7 +25,7 @@ func (s *CodesSpec) String() string {
 
 	descriptionStr := util.Ellipsis(s.Description, maxDescrDisplayLen)
 
-	return fmt.Sprintf("%d %s %s\n%s", s.Id, s.Name, descriptionStr, codeSpecsStr)
+	return fmt.Sprintf("%s %s %s\n%s", s.Id, s.Name, descriptionStr, codeSpecsStr)
 }
 
 func (s *CodesSpec) Len() int {
@@ -36,7 +36,7 @@ func (s *CodesSpec) Len() int {
 	}
 }
 
-func NewCodesSpec(id int32, name string, description string, codeSpecs []*CodeSpec) *CodesSpec {
+func NewCodesSpec(id string, name string, description string, codeSpecs []*CodeSpec) *CodesSpec {
 	return &CodesSpec{
 		Id:          id,
 		Name:        name,

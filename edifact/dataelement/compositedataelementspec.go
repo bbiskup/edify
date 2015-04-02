@@ -12,10 +12,20 @@ const (
 )
 
 type CompositeDataElementSpec struct {
-	Id             string
-	Name           string
+	id             string
+	name           string
 	Description    string
 	ComponentSpecs []*ComponentDataElementSpec
+}
+
+// from interface DataElementSpec
+func (s *CompositeDataElementSpec) Id() string {
+	return s.id
+}
+
+// from interface DataElementSpec
+func (s *CompositeDataElementSpec) Name() string {
+	return s.name
 }
 
 func (s *CompositeDataElementSpec) String() string {
@@ -27,7 +37,7 @@ func (s *CompositeDataElementSpec) String() string {
 	componentSpecsStr := strings.Join(specsStrs, "\n")
 	return fmt.Sprintf(
 		"Composite %s %s '%s'\n%s",
-		s.Id, s.Name, descrStr, componentSpecsStr)
+		s.id, s.name, descrStr, componentSpecsStr)
 }
 
 func NewCompositeDataElementSpec(
@@ -35,8 +45,8 @@ func NewCompositeDataElementSpec(
 	componentSpecs []*ComponentDataElementSpec) *CompositeDataElementSpec {
 
 	return &CompositeDataElementSpec{
-		Id:             id,
-		Name:           name,
+		id:             id,
+		name:           name,
 		Description:    description,
 		ComponentSpecs: componentSpecs,
 	}

@@ -6,22 +6,22 @@ import (
 )
 
 type ComponentDataElementSpec struct {
-	Num         int32
+	Position    int
 	IsMandatory bool
 
 	// simple or composite data element spec
-	DataElementSpec interface{}
+	DataElemSpec DataElementSpec
 }
 
 func (s *ComponentDataElementSpec) String() string {
 	isMandatoryStr := util.CustBoolStr(s.IsMandatory, "mand.", "cond.")
-	return fmt.Sprintf("Component %d (%s)", s.Num, isMandatoryStr)
+	return fmt.Sprintf("Component %s/%s @ %d (%s)", s.DataElemSpec.Id(), s.DataElemSpec.Name(), s.Position, isMandatoryStr)
 }
 
-func NewComponentDataElementSpec(num int32, isMandatory bool, dataElementSpec interface{}) *ComponentDataElementSpec {
+func NewComponentDataElementSpec(position int, isMandatory bool, dataElementSpec DataElementSpec) *ComponentDataElementSpec {
 	return &ComponentDataElementSpec{
-		Num:             num,
-		IsMandatory:     isMandatory,
-		DataElementSpec: dataElementSpec,
+		Position:     position,
+		IsMandatory:  isMandatory,
+		DataElemSpec: dataElementSpec,
 	}
 }

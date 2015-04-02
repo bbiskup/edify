@@ -6,7 +6,6 @@ import (
 	"github.com/bbiskup/edify/edifact/util"
 	"log"
 	"regexp"
-	"strconv"
 	"strings"
 )
 
@@ -22,7 +21,7 @@ type CodesSpecParser struct {
      1073  Document line action code                               [B]
 
 */
-func (p *CodesSpecParser) ParseCodesSpecHeader(header string) (id int32, name string, err error) {
+func (p *CodesSpecParser) ParseCodesSpecHeader(header string) (id string, name string, err error) {
 	headerMatch := p.codesHeaderRE.FindStringSubmatch(header)
 	if headerMatch == nil {
 		err = errors.New(fmt.Sprintf("Unable to parse codes header section (header: '%s'", header))
@@ -33,11 +32,7 @@ func (p *CodesSpecParser) ParseCodesSpecHeader(header string) (id int32, name st
 		panic("Internal error: incorrect regular expression")
 	}
 
-	id_, err := strconv.Atoi(headerMatch[1])
-	if err != nil {
-		return
-	}
-	id = int32(id_)
+	id = headerMatch[1]
 	name = headerMatch[2]
 	return
 }

@@ -9,38 +9,48 @@ import (
 
 // DataElement specification
 type SimpleDataElementSpec struct {
-	Num        int32
-	Name       string
+	id         string
+	name       string
 	Descr      string
 	Repr       *Repr
 	CodesSpecs *codes.CodesSpec
 }
 
 func (s *SimpleDataElementSpec) String() string {
-	return fmt.Sprintf("SimpleDataElementSpec: %d '%s' [%s]", s.Num, s.Name, s.Repr)
+	return fmt.Sprintf("SimpleDataElementSpec: %s '%s' [%s]", s.id, s.name, s.Repr)
 }
 
-func NewSimpleDataElementSpec(num int32, name string, descr string, repr *Repr, codes *codes.CodesSpec) (*SimpleDataElementSpec, error) {
-	err := util.CheckNotNil(num, name, descr, repr, codes)
+// from interface DataElementSpec
+func (s *SimpleDataElementSpec) Id() string {
+	return s.id
+}
+
+// from interface DataElementSpec
+func (s *SimpleDataElementSpec) Name() string {
+	return s.name
+}
+
+func NewSimpleDataElementSpec(id string, name string, descr string, repr *Repr, codes *codes.CodesSpec) (*SimpleDataElementSpec, error) {
+	err := util.CheckNotNil(id, name, descr, repr, codes)
 	if err != nil {
 		return nil, err
 	}
 	return &SimpleDataElementSpec{
-		Num:        num,
-		Name:       name,
+		id:         id,
+		name:       name,
 		Descr:      descr,
 		Repr:       repr,
 		CodesSpecs: codes,
 	}, nil
 }
 
-type SimpleDataElementSpecMap map[int32]*SimpleDataElementSpec
+type SimpleDataElementSpecMap map[string]*SimpleDataElementSpec
 
 func (sm SimpleDataElementSpecMap) String() string {
 	var result bytes.Buffer
 	result.WriteString("SimpleDataElementSpecMap\n")
-	for key, value := range sm {
-		result.WriteString(fmt.Sprintf("\t%d: %s\n", key, value))
+	for id, spec := range sm {
+		result.WriteString(fmt.Sprintf("\t%s: %s\n", id, spec))
 	}
 	return result.String()
 }
