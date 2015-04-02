@@ -74,7 +74,7 @@ func TestParser(t *testing.T) {
 		parser := NewCompositeDataElementSpecParser(fixtureMultiSimpleDataElementSpecs())
 		res, err := parser.ParseSpec(spec.specLines)
 		if err != nil && spec.expectErr {
-			fmt.Printf("expected err: %s", err)
+			// fmt.Printf("expected err: %s", err)
 			continue
 		}
 
@@ -100,7 +100,14 @@ func TestParseFile(t *testing.T) {
 	parser := NewCompositeDataElementSpecParser(fixtureMultiSimpleDataElementSpecs())
 	res, err := parser.ParseSpecFile("../../testdata/EDCD.14B_short")
 	if err != nil {
-		t.Fatalf("Unable to parse composite data element spec: %s", err)
+		t.Errorf("Unable to parse composite data element spec: %s", err)
 	}
 	fmt.Printf("res: %s", res)
+	if len(res) != 1 {
+		t.Error("Expected 1 composite data element spec")
+	}
+
+	if res["C001"] == nil {
+		t.Error("Composite data element C001 not found")
+	}
 }
