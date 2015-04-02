@@ -4,7 +4,6 @@ import (
 	"errors"
 	"fmt"
 	"github.com/bbiskup/edify/edifact/util"
-	"log"
 	"regexp"
 	"strings"
 )
@@ -174,32 +173,18 @@ func (p *CodesSpecParser) ParseCodesSpec(specLines []string) (spec *CodesSpec, e
 func (p *CodesSpecParser) ParseSpecFile(fileName string) (specs CodesSpecMap, err error) {
 	result := CodesSpecMap{}
 
-	scanner, err := util.NewSpecScanner(fileName)
-	if err != nil {
-		return
-	}
-
-	for {
-		// read specification parts
-		specLines, err := scanner.GetNextSpecLines(false)
-
+	parseSection := func(lines []string) error {
+		spec, err := p.ParseCodesSpec(lines)
 		if err != nil {
-			return nil, err
-		}
-
-		if !scanner.HasMore && len(specLines) == 0 {
-			log.Println("No more lines")
-			break
-		}
-
-		// log.Printf("specLines: \n%s\n", specLines)
-		spec, err := p.ParseCodesSpec(specLines)
-		if err != nil {
-			return nil, err
+			return err
 		}
 		result[spec.Id] = spec
+		return nil
 	}
-	return result, nil
+
+	err = util.ParseSpecFile(fileName, parseSection)
+
+	return result, err
 }
 
 func NewCodesSpecParser() *CodesSpecParser {

@@ -123,3 +123,34 @@ func finalizer(s *SpecScanner) {
 		s.file = nil
 	}
 }
+
+// Signature for callback to parse
+type ParseSection func(lines []string) error
+
+func ParseSpecFile(fileName string, parseSection ParseSection) error {
+	scanner, err := NewSpecScanner(fileName)
+	if err != nil {
+		return err
+	}
+
+	for {
+		// read specification parts
+		specLines, err := scanner.GetNextSpecLines(false)
+
+		if err != nil {
+			return err
+		}
+
+		if !scanner.HasMore && len(specLines) == 0 {
+			log.Println("No more lines")
+			break
+		}
+
+		// log.Printf("specLines: \n%s\n", specLines)
+		err = parseSection(specLines)
+		if err != nil {
+			return err
+		}
+	}
+	return nil
+}

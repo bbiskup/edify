@@ -4,7 +4,6 @@ import (
 	"errors"
 	"fmt"
 	"github.com/bbiskup/edify/edifact/util"
-	"log"
 	"regexp"
 	"strconv"
 	"strings"
@@ -202,32 +201,18 @@ func (p *CompositeDataElementSpecParser) ParseSpec(specLines []string) (spec *Co
 func (p *CompositeDataElementSpecParser) ParseSpecFile(fileName string) (specs CompositeDataElementSpecMap, err error) {
 	result := CompositeDataElementSpecMap{}
 
-	scanner, err := util.NewSpecScanner(fileName)
-	if err != nil {
-		return
-	}
-
-	for {
-		// read specification parts
-		specLines, err := scanner.GetNextSpecLines(false)
-
+	parseSection := func(lines []string) error {
+		spec, err := p.ParseSpec(lines)
 		if err != nil {
-			return nil, err
-		}
-
-		if !scanner.HasMore && len(specLines) == 0 {
-			log.Println("No more lines")
-			break
-		}
-
-		// log.Printf("specLines: \n%s\n", specLines)
-		spec, err := p.ParseSpec(specLines)
-		if err != nil {
-			return nil, err
+			return err
 		}
 		result[spec.Id()] = spec
+		return nil
 	}
-	return result, nil
+
+	err = util.ParseSpecFile(fileName, parseSection)
+
+	return result, err
 }
 
 func NewCompositeDataElementSpecParser(simpleDataElemSpecs SimpleDataElementSpecMap) *CompositeDataElementSpecParser {

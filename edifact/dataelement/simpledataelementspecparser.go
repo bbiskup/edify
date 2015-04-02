@@ -111,31 +111,18 @@ func (p *SimpleDataElementSpecParser) ParseSpec(specLines []string) (spec *Simpl
 func (p *SimpleDataElementSpecParser) ParseSpecFile(fileName string) (specs SimpleDataElementSpecMap, err error) {
 	result := SimpleDataElementSpecMap{}
 
-	scanner, err := util.NewSpecScanner(fileName)
-	if err != nil {
-		return
-	}
-
-	for {
-		// read specification parts
-		specLines, err := scanner.GetNextSpecLines(true)
-
+	parseSection := func(lines []string) error {
+		spec, err := p.ParseSpec(lines)
 		if err != nil {
-			return nil, err
-		}
-
-		if !scanner.HasMore && len(specLines) == 0 {
-			log.Println("No more lines")
-			break
-		}
-
-		spec, err := p.ParseSpec(specLines)
-		if err != nil {
-			return nil, err
+			return err
 		}
 		result[spec.Id()] = spec
+		return nil
 	}
-	return result, nil
+
+	err = util.ParseSpecFile(fileName, parseSection)
+
+	return result, err
 }
 
 func NewSimpleDataElementSpecParser(codesSpecs codes.CodesSpecMap) *SimpleDataElementSpecParser {
