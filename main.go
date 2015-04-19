@@ -42,9 +42,17 @@ func main() {
 			Usage:   "Purge previously extracted specs",
 			Aliases: []string{"u"},
 			Action: func(c *cli.Context) {
+				purgeAll := c.Bool("all")
 				// version: e.g. 14b
 				version := c.Args().First()
-				err = commands.PurgeSpecs(version)
+				err = commands.PurgeSpecs(version, purgeAll)
+			},
+
+			Flags: []cli.Flag{
+				cli.BoolFlag{
+					Name:  "all, a",
+					Usage: "delete everything (including downloaded archives)",
+				},
 			},
 		},
 		{
