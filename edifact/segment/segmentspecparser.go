@@ -92,7 +92,7 @@ func (p *SegmentSpecParser) parseDataElementSpecs(
 			return nil, errors.New(fmt.Sprintf("Malformed data element spec group: '%s'", group))
 		}
 		fmt.Printf("#### group %s\n", group)
-		specLine := util.JoinByHangingIndent(group, 0, true)[0]
+		specLine := util.JoinByHangingIndent(group, 8, true)[0]
 		if len(specLine) > 0 {
 			r, _ := utf8.DecodeRuneInString(specLine)
 			if !unicode.IsDigit(r) {
@@ -206,6 +206,6 @@ func NewSegmentSpecParser(
 		SimpleDataElemSpecs:    simpleDataElemSpecs,
 		CompositeDataElemSpecs: compositeDataElemSpecs,
 		headerRE:               regexp.MustCompile(`^[ ]{7}([A-Z]{3})  (.*) *$`),
-		dataElemRE:             regexp.MustCompile(`^(\d{3})[ ]{4}([0-9C][0-9]{3}) (.+) ([CM])[ ]{4}(\d+)[^0-9]?.*`),
+		dataElemRE:             regexp.MustCompile(`^(\d{3})[ ]{4}([0-9C][0-9]{3}) (.+) ([CM])[ ]{3,4}(\d+)[^0-9]?.*`),
 	}
 }
