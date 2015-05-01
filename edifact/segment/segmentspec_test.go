@@ -1,6 +1,7 @@
 package segment
 
 import (
+	"github.com/stretchr/testify/assert"
 	"strings"
 	"testing"
 )
@@ -23,12 +24,8 @@ func TestParseHeader(t *testing.T) {
 	if err != nil {
 		t.Errorf("Unexpected error: %s", err)
 	}
-	if id != "ADR" {
-		t.Errorf("Incorrect id: '%s'", id)
-	}
-	if name != "ADDRESS" {
-		t.Errorf("Incorrect name: '%s'", name)
-	}
+	assert.Equal(t, "ADR", id, "Incorrect id")
+	assert.Equal(t, "ADDRESS", name, "Incorrect name")
 }
 
 const funcStr = `       Function: To provide information concerning pricing
@@ -43,7 +40,5 @@ func TestParseFunction(t *testing.T) {
 	if err != nil {
 		t.Errorf("Unexpected error: %s", err)
 	}
-	if fun != expectedFun {
-		t.Errorf("Incorrect fun: '%s'", fun)
-	}
+	assert.Equal(t, expectedFun, fun, "Incorrect fun")
 }
