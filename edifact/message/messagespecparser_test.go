@@ -39,3 +39,11 @@ func TestParseAUTHORFile(t *testing.T) {
 	assert.Equal(t, "3", spec.Revision)
 	assert.Equal(t, time.Date(2014, time.November, 17, 0, 0, 0, 0, time.UTC), spec.Date)
 }
+
+func TestParseNonExistentFile(t *testing.T) {
+	segmentSpecs := segment.SegmentSpecMap{} // TODO actual fixture
+	parser := NewMessageSpecParser(segmentSpecs)
+	spec, err := parser.ParseSpecFile("../../testdata/NON_EXISTENT")
+	assert.NotNil(t, err)
+	assert.Nil(t, spec)
+}
