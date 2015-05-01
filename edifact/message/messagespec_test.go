@@ -15,5 +15,5 @@ func TestString(t *testing.T) {
 		"testsource",
 	)
 
-	assert.Equal(t, s.String(), "Message testid (testname)", "String() incorrect")
+	assert.Equal(t, s.String(), "Message testid (testname)")
 }

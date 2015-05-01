@@ -20,5 +20,5 @@ func (d *DummyElem) Name() string {
 func TestSegmentDataElementSpec(t *testing.T) {
 	e := NewSegmentDataElementSpec(&DummyElem{}, 3, true)
 	const expected = "SegmentDataElem dummy_id 3x mand."
-	assert.Equal(t, expected, e.String(), "String() incorrect")
+	assert.Equal(t, expected, e.String())
 }

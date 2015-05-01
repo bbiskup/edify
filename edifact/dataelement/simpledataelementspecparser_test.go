@@ -11,7 +11,7 @@ func TestSpecParser(t *testing.T) {
 	// TODO will fail; does not contain required keys
 	p := NewSimpleDataElementSpecParser(fixtureTextCodesSpecMap())
 	_, err := p.ParseSpecFile("../../testdata/EDED.14B_short")
-	assert.Nil(t, err, "Parse error")
+	assert.Nil(t, err)
 }
 
 const specLines = `
@@ -25,7 +25,7 @@ const specLines = `
 func TestParseSpecLines(t *testing.T) {
 	p := NewSimpleDataElementSpecParser(fixtureTextCodesSpecMap())
 	res, err := p.ParseSpec(strings.Split(specLines, "\n"))
-	assert.Nil(t, err, "Failed to parse specLines")
+	assert.Nil(t, err)
 	log.Printf("res: %s", res)
 }
 
@@ -33,7 +33,7 @@ func BenchmarkParseSpecLines(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		p := NewSimpleDataElementSpecParser(fixtureTextCodesSpecMap())
 		specs, err := p.ParseSpecFile("../../testdata/EDED.14B")
-		assert.Nil(b, err, "Parse error")
+		assert.Nil(b, err)
 		log.Printf("Parsed %d specs\n", len(specs))
 	}
 }

@@ -91,7 +91,7 @@ func TestParser(t *testing.T) {
 
 		assert.Nil(t, err)
 		assert.NotNil(t, res)
-		assert.Equal(t, spec.expectedResStr, res.String(), "String() incorrect")
+		assert.Equal(t, spec.expectedResStr, res.String())
 	}
 }
 
@@ -101,6 +101,6 @@ func TestParseFile(t *testing.T) {
 	res, err := parser.ParseSpecFile("../../testdata/EDCD.14B_short")
 	assert.Nil(t, err)
 	fmt.Printf("res: %s", res)
-	assert.Equal(t, 1, len(res), "Expected 1 composite data element spec")
+	assert.Equal(t, 1, len(res))
 	assert.NotNil(t, res["C001"])
 }

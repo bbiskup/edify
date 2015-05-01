@@ -12,12 +12,12 @@ func TestParseDataElemSpec(t *testing.T) {
 	p := NewSegmentSpecParser(nil, nil)
 
 	pos, id, dataElementKind, count, isMandatory, err := p.parseDataElemSpec(dataElemSpecStr)
-	assert.Nil(t, err, "Unable to parse DataElementSpec")
-	assert.Equal(t, 10, pos, "Incorrect position")
-	assert.Equal(t, "C817", id, "Incorrect ID")
-	assert.Equal(t, 1, count, "Incorrect count")
-	assert.False(t, isMandatory, "Should be conditional")
-	assert.Equal(t, Composite, dataElementKind, "Should be composite")
+	assert.Nil(t, err)
+	assert.Equal(t, 10, pos)
+	assert.Equal(t, "C817", id)
+	assert.Equal(t, 1, count)
+	assert.False(t, isMandatory)
+	assert.Equal(t, Composite, dataElementKind)
 }
 
 const segmentSpec = `
@@ -41,11 +41,11 @@ func TestParseSpec(t *testing.T) {
 	specLines := strings.Split(segmentSpec, "\n")
 	segmentSpec, err := p.ParseSpec(specLines)
 
-	assert.Nil(t, err, "Parsing failed")
-	assert.Equal(t, "CDI", segmentSpec.Id, "Id incorrect")
-	assert.Equal(t, "PHYSICAL OR LOGICAL STATE", segmentSpec.Name, "Incorrect Name")
-	assert.Equal(t, "To describe a physical or logical state.", segmentSpec.Function, "Incorrect Function")
+	assert.Nil(t, err)
+	assert.Equal(t, "CDI", segmentSpec.Id)
+	assert.Equal(t, "PHYSICAL OR LOGICAL STATE", segmentSpec.Name)
+	assert.Equal(t, "To describe a physical or logical state.", segmentSpec.Function)
 
 	lenSegmentDataElementSpecs := len(segmentSpec.SegmentDataElementSpecs)
-	assert.Equal(t, 2, lenSegmentDataElementSpecs, "Incorrect len")
+	assert.Equal(t, 2, lenSegmentDataElementSpecs)
 }

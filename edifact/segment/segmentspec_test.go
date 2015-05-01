@@ -9,23 +9,16 @@ import (
 func TestSegmentSpec(t *testing.T) {
 	spec := NewSegmentSpec("ADR", "ADDRESS", "To specify an address.", nil)
 
-	const expectedStr = "Segment ADR/ADDRESS (0 data elems)"
-	specStr := spec.String()
-
-	if specStr != expectedStr {
-		t.Errorf("Expected: %s got: %s", expectedStr, specStr)
-	}
+	assert.Equal(t, "Segment ADR/ADDRESS (0 data elems)", spec.String(), "Incorrect String()")
 }
 
 func TestParseHeader(t *testing.T) {
 	spec := NewSegmentSpecParser(nil, nil)
-
 	id, name, err := spec.parseHeader("       ADR  ADDRESS")
-	if err != nil {
-		t.Errorf("Unexpected error: %s", err)
-	}
-	assert.Equal(t, "ADR", id, "Incorrect id")
-	assert.Equal(t, "ADDRESS", name, "Incorrect name")
+
+	assert.Nil(t, err)
+	assert.Equal(t, "ADR", id)
+	assert.Equal(t, "ADDRESS", name)
 }
 
 const funcStr = `       Function: To provide information concerning pricing
@@ -37,8 +30,6 @@ func TestParseFunction(t *testing.T) {
 	spec := NewSegmentSpecParser(nil, nil)
 	funcLines := strings.Split(funcStr, "\n")
 	fun, err := spec.parseFunction(funcLines)
-	if err != nil {
-		t.Errorf("Unexpected error: %s", err)
-	}
-	assert.Equal(t, expectedFun, fun, "Incorrect fun")
+	assert.Nil(t, err)
+	assert.Equal(t, expectedFun, fun)
 }
