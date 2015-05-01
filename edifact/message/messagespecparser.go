@@ -15,7 +15,7 @@ var sourceRE = regexp.MustCompile(`^SOURCE: (.*) *$`)
 // Parser for message specifications
 // e.g. d14b/edmd/AUTHOR_D.14B
 type MessageSpecParser struct {
-	segmentSpecs []*segment.SegmentSpec
+	segmentSpecs segment.SegmentSpecMap
 }
 
 func (p *MessageSpecParser) parseDate(dateStr string) (date time.Time, err error) {
@@ -48,13 +48,17 @@ func (p *MessageSpecParser) ParseSpecFile(fileName string) (spec *MessageSpec, e
 	}
 
 	lines := strings.Split(string(contents), "\n")
-	name := strings.TrimSpace(lines[5])
-	id := strings.TrimSpace(lines[33])
-	version := strings.TrimSpace(lines[34])
-	release := strings.TrimSpace(lines[35])
-	contrAgency := strings.TrimSpace(lines[36])
-	revision := strings.TrimSpace(lines[38])
-	date, err := p.parseDate(strings.TrimSpace(lines[39]))
+	name := strings.TrimSpace(lines[4])
+	fmt.Printf("id-line: '%s'", lines[33])
+
+	detailCol := 58
+
+	id := strings.TrimSpace(lines[33][detailCol:])
+	version := strings.TrimSpace(lines[34][detailCol:])
+	release := strings.TrimSpace(lines[35][detailCol:])
+	contrAgency := strings.TrimSpace(lines[36][detailCol:])
+	revision := strings.TrimSpace(lines[38][detailCol:])
+	date, err := p.parseDate(strings.TrimSpace(lines[39][detailCol:]))
 	source, err := p.parseSource(lines[46])
 	if err != nil {
 		return
@@ -62,7 +66,7 @@ func (p *MessageSpecParser) ParseSpecFile(fileName string) (spec *MessageSpec, e
 	return NewMessageSpec(id, name, version, release, contrAgency, revision, date, source), nil
 }
 
-func NewMessageSpecParser(segmentSpecs []*segment.SegmentSpec) *MessageSpecParser {
+func NewMessageSpecParser(segmentSpecs segment.SegmentSpecMap) *MessageSpecParser {
 	return &MessageSpecParser{
 		segmentSpecs: segmentSpecs,
 	}
