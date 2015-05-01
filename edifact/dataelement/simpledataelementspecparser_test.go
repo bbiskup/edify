@@ -1,6 +1,7 @@
 package dataelement
 
 import (
+	"github.com/stretchr/testify/assert"
 	"log"
 	"strings"
 	"testing"
@@ -10,9 +11,7 @@ func TestSpecParser(t *testing.T) {
 	// TODO will fail; does not contain required keys
 	p := NewSimpleDataElementSpecParser(fixtureTextCodesSpecMap())
 	_, err := p.ParseSpecFile("../../testdata/EDED.14B_short")
-	if err != nil {
-		t.Fatalf("Parse error: %s", err)
-	}
+	assert.Nil(t, err, "Parse error")
 }
 
 const specLines = `
@@ -26,9 +25,7 @@ const specLines = `
 func TestParseSpecLines(t *testing.T) {
 	p := NewSimpleDataElementSpecParser(fixtureTextCodesSpecMap())
 	res, err := p.ParseSpec(strings.Split(specLines, "\n"))
-	if err != nil {
-		t.Fatalf("Failed to parse specLines: %s", err)
-	}
+	assert.Nil(t, err, "Failed to parse specLines")
 	log.Printf("res: %s", res)
 }
 
@@ -36,10 +33,7 @@ func BenchmarkParseSpecLines(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		p := NewSimpleDataElementSpecParser(fixtureTextCodesSpecMap())
 		specs, err := p.ParseSpecFile("../../testdata/EDED.14B")
-		if err != nil {
-			log.Printf("Parse error: %s\n", err)
-			return
-		}
+		assert.Nil(b, err, "Parse error")
 		log.Printf("Parsed %d specs\n", len(specs))
 	}
 }
