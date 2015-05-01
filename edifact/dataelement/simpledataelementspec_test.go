@@ -1,27 +1,19 @@
 package dataelement
 
 import (
+	"github.com/stretchr/testify/assert"
 	"testing"
 )
 
 func TestSimpleDataElementSpec(t *testing.T) {
 	codesSpecMap := fixtureTextCodesSpecMap()
 	spec, err := NewSimpleDataElementSpec("1", "name_1", "descr_1", NewRepr(AlphaNum, true, 3), codesSpecMap["1000"])
-	if err != nil {
-		t.Errorf("Failed to create simple data element spec: %s", err)
-	}
-
-	if spec.Id() != "1" || spec.id != "1" {
-		t.Errorf("incorrect Id")
-	}
-
-	if spec.Name() != "name_1" || spec.name != "name_1" {
-		t.Errorf("incorrect Name()")
-	}
+	assert.Nil(t, err, "Failed to create simple data element spec")
+	assert.Equal(t, "1", spec.Id(), "Incorrect Id()")
+	assert.Equal(t, "1", spec.id, "Incorrect id")
+	assert.Equal(t, "name_1", spec.Name(), "Incorrect Name()")
+	assert.Equal(t, "name_1", spec.name, "Incorrect name")
 
 	const expectedStr = "SimpleDataElementSpec: 1 'name_1' [an..3]"
-	specStr := spec.String()
-	if spec.String() != expectedStr {
-		t.Errorf("incorrect String(): %s", specStr)
-	}
+	assert.Equal(t, "SimpleDataElementSpec: 1 'name_1' [an..3]", spec.String(), "Incorrect String()")
 }
