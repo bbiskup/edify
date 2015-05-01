@@ -21,7 +21,7 @@ type MessageSpec struct {
 }
 
 func (m *MessageSpec) String() string {
-	return fmt.Sprintf("Message %s (%s)", m.Id, m.Name)
+	return fmt.Sprintf("Message %s (%s %s)", m.Id, m.Name, m.Release)
 }
 
 func NewMessageSpec(
