@@ -38,6 +38,23 @@ func (p *MessageSpecParser) parseSource(sourceStr string) (source string, err er
 }
 
 // One spec file contains the spec for a single message type
+/*
+                                UN/EDIFACT
+
+                  UNITED NATIONS STANDARD MESSAGE (UNSM)
+
+                              Invoice message
+...
+                                           Message Type : INVOIC
+                                           Version      : D
+                                           Release      : 14B
+                                           Contr. Agency: UN
+
+                                           Revision     : 16
+                                           Date         : 2014-11-17
+...
+SOURCE: TBG1 Supply Chain
+*/
 func (p *MessageSpecParser) ParseSpecFile(fileName string) (spec *MessageSpec, err error) {
 	// The largest standard message file has 321k (about 6800 lines), so
 	// we can read it at once
