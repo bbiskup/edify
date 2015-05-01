@@ -1,7 +1,7 @@
 package segment
 
 import (
-	"fmt"
+	"github.com/stretchr/testify/assert"
 	"testing"
 )
 
@@ -20,8 +20,5 @@ func (d *DummyElem) Name() string {
 func TestSegmentDataElementSpec(t *testing.T) {
 	e := NewSegmentDataElementSpec(&DummyElem{}, 3, true)
 	const expected = "SegmentDataElem dummy_id 3x mand."
-	eStr := e.String()
-	if eStr != expected {
-		t.Errorf(fmt.Sprintf("Expected: %s, got: %s", expected, eStr))
-	}
+	assert.Equal(t, expected, e.String(), "String() incorrect")
 }
