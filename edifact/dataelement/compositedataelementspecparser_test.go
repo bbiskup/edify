@@ -2,6 +2,7 @@ package dataelement
 
 import (
 	"fmt"
+	"github.com/stretchr/testify/assert"
 	"testing"
 )
 
@@ -88,20 +89,9 @@ func TestParser(t *testing.T) {
 			continue
 		}
 
-		if err != nil {
-			t.Errorf(fmt.Sprintf("Failed to parse spec %s: %s", spec.specLines, err))
-			continue
-		}
-
-		if res == nil {
-			t.Errorf("No result")
-			continue
-		}
-
-		resStr := res.String()
-		if resStr != spec.expectedResStr {
-			t.Errorf("Expected: %s, got: %s", spec.expectedResStr, resStr)
-		}
+		assert.Nil(t, err)
+		assert.NotNil(t, res)
+		assert.Equal(t, spec.expectedResStr, res.String(), "String() incorrect")
 	}
 }
 
@@ -109,15 +99,8 @@ func TestParseFile(t *testing.T) {
 	// TODO provide full data elements fixture
 	parser := NewCompositeDataElementSpecParser(fixtureMultiSimpleDataElementSpecs())
 	res, err := parser.ParseSpecFile("../../testdata/EDCD.14B_short")
-	if err != nil {
-		t.Errorf("Unable to parse composite data element spec: %s", err)
-	}
+	assert.Nil(t, err)
 	fmt.Printf("res: %s", res)
-	if len(res) != 1 {
-		t.Error("Expected 1 composite data element spec")
-	}
-
-	if res["C001"] == nil {
-		t.Error("Composite data element C001 not found")
-	}
+	assert.Equal(t, 1, len(res), "Expected 1 composite data element spec")
+	assert.NotNil(t, res["C001"])
 }
