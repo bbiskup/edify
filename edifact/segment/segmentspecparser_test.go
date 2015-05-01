@@ -2,6 +2,7 @@ package segment
 
 import (
 	"fmt"
+	"github.com/stretchr/testify/assert"
 	"strings"
 	"testing"
 )
@@ -16,24 +17,11 @@ func TestParseDataElemSpec(t *testing.T) {
 		t.Fatalf(fmt.Sprintf("Error parsing data elem spec: %s", err))
 	}
 
-	if pos != 10 {
-		t.Errorf(fmt.Sprintf("Incorrect position: %d", pos))
-	}
-	if id != "C817" {
-		t.Errorf(fmt.Sprintf("Incorrect ID: %s", id))
-	}
-
-	if count != 1 {
-		t.Errorf(fmt.Sprintf("Incorrect count: %d", count))
-	}
-
-	if isMandatory {
-		t.Errorf("Should be condiional")
-	}
-
-	if dataElementKind != Composite {
-		t.Errorf("Should be composite")
-	}
+	assert.Equal(t, 10, pos, "Incorrect position")
+	assert.Equal(t, "C817", id, "Incorrect ID")
+	assert.Equal(t, 1, count, "Incorrect count")
+	assert.False(t, isMandatory, "Should be conditional")
+	assert.Equal(t, Composite, dataElementKind, "Should be composite")
 }
 
 const segmentSpec = `
