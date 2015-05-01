@@ -1,6 +1,7 @@
 package codes
 
 import (
+	"github.com/stretchr/testify/assert"
 	"testing"
 )
 
@@ -8,13 +9,7 @@ func TestParseFile(t *testing.T) {
 	parser := NewCodesSpecParser()
 	const fileName = "../../testdata/UNCL.14B"
 	specsMap, err := parser.ParseSpecFile(fileName)
-	if err != nil {
-		t.Fatalf("Failed to parse spec file %s: %s", fileName, err)
-	}
+	assert.Nil(t, err)
 
-	expectedLen := 272
-	lenSpecsMap := len(specsMap)
-	if lenSpecsMap != expectedLen {
-		t.Errorf("Length mismatch; expected: %d; got: %d", expectedLen, lenSpecsMap)
-	}
+	assert.Equal(t, 272, len(specsMap))
 }

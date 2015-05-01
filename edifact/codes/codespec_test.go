@@ -1,13 +1,11 @@
 package codes
 
 import (
+	"github.com/stretchr/testify/assert"
 	"testing"
 )
 
 func TestCodeSpec(t *testing.T) {
 	spec := NewCodeSpec("10", "testname", "testdescr")
-	expected := "10 testname testdescr"
-	if spec.String() != expected {
-		t.Fatalf("Expected: '%s', got: '%s'", expected, spec)
-	}
+	assert.Equal(t, "10 testname testdescr", spec.String())
 }
