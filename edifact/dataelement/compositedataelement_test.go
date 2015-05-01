@@ -1,6 +1,7 @@
 package dataelement
 
 import (
+	"github.com/stretchr/testify/assert"
 	"testing"
 )
 
@@ -19,16 +20,9 @@ func TestCompositeDataElementString(t *testing.T) {
 		e1,
 	})
 
-	if compositeDataElemSpec.Id() != "C817" || compositeDataElemSpec.id != "C817" {
-		t.Errorf("incorrect Id")
-	}
-
-	if compositeDataElemSpec.Name() != "ADDRESS USAGE" || compositeDataElemSpec.name != "ADDRESS USAGE" {
-		t.Errorf("incorrect Name()")
-	}
-
-	specStr := compositeDataElemSpec.String()
-	if compositeDataElemSpec.String() != expectedStr {
-		t.Errorf("incorrect String(): %s", specStr)
-	}
+	assert.Equal(t, "C817", compositeDataElemSpec.Id(), "Incorrect Id()")
+	assert.Equal(t, "C817", compositeDataElemSpec.id, "Incorrect id")
+	assert.Equal(t, "ADDRESS USAGE", compositeDataElemSpec.Name(), "Incorrect Name()")
+	assert.Equal(t, "ADDRESS USAGE", compositeDataElemSpec.name, "Incorrect name")
+	assert.Equal(t, expectedStr, compositeDataElemSpec.String(), "IncorrectString")
 }
