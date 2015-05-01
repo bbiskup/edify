@@ -1,7 +1,7 @@
 package dataelement
 
 import (
-	"fmt"
+	"github.com/stretchr/testify/assert"
 	"reflect"
 	"strings"
 	"testing"
@@ -23,13 +23,8 @@ var reprSpec = []struct {
 func TestParseRepr(t *testing.T) {
 	for _, spec := range reprSpec {
 		res, err := ParseRepr(spec.reprStr)
-		if err != nil {
-			t.Fatalf("Parse error: %s", err)
-		}
-		if !reflect.DeepEqual(res, spec.expected) {
-			t.Fatalf("Repr string: %s: expected: %#v, got: %#v",
-				spec.reprStr, spec.expected, res)
-		}
+		assert.Nil(t, err)
+		assert.True(t, reflect.DeepEqual(res, spec.expected))
 	}
 }
 
@@ -63,49 +58,36 @@ func TestValidateRepr(t *testing.T) {
 		res, err := spec.repr.Validate(spec.testStr)
 
 		if spec.expected {
-			if err != nil {
-				t.Fatalf("Validation error: %s", err)
-			}
+			assert.Nil(t, err)
 		} else {
-			if err == nil {
-				t.Fatalf("Should get validation error")
-			}
+			assert.NotNil(t, err)
 		}
 
-		if !reflect.DeepEqual(res, spec.expected) {
-			t.Fatalf("Test string: %s: expected: %#v, got: %#v",
-				spec.testStr, spec.expected, res)
-		}
+		assert.True(t, reflect.DeepEqual(res, spec.expected))
 	}
 }
 
 func BenchmarkValidateShortExpr(b *testing.B) {
 	repr, err := ParseRepr("an..10")
-	if err != nil {
-		b.Fatalf("Parse error: %s", err)
-	}
+	assert.Nil(b, err)
 	b.ResetTimer()
 	for i := 0; i < b.N; i++ {
 		res, err := repr.Validate("abcdef1234")
-		if !res {
-			b.Fatalf(fmt.Sprintf("Validation failed: %s", err))
-		}
+		assert.NotNil(b, res)
+		assert.Nil(b, err)
 	}
 }
 
 func BenchmarkValidateLongExpr(b *testing.B) {
 	repr, err := ParseRepr("an..10000")
-	if err != nil {
-		b.Fatalf("Parse error: %s", err)
-	}
+	assert.Nil(b, err)
 
 	testStr := strings.Repeat("x", 10000)
 
 	b.ResetTimer()
 	for i := 0; i < b.N; i++ {
 		res, err := repr.Validate(testStr)
-		if !res {
-			b.Fatalf(fmt.Sprintf("Validation failed: %s", err))
-		}
+		assert.NotNil(b, res)
+		assert.Nil(b, err)
 	}
 }

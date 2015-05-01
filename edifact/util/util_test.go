@@ -2,6 +2,7 @@ package util
 
 import (
 	"fmt"
+	"github.com/stretchr/testify/assert"
 	"reflect"
 	"strings"
 	"testing"
@@ -51,12 +52,7 @@ var splitTests = []struct {
 func TestSplitEDIFACT(t *testing.T) {
 	for _, s := range splitTests {
 		res := SplitEDIFACT(s.input, s.sep, s.escapeChar)
-
-		resStr := fmt.Sprintf("%#v", res)
-		expectedStr := fmt.Sprintf("%#v", s.expected)
-		if resStr != expectedStr {
-			t.Fatalf("Expected: %#v; got: %#v", expectedStr, resStr)
-		}
+		assert.Equal(t, fmt.Sprintf("%#v", s.expected), fmt.Sprintf("%#v", res))
 	}
 }
 
@@ -81,11 +77,7 @@ var getIndentTests = []struct {
 
 func TestGetIndent(t *testing.T) {
 	for _, spec := range getIndentTests {
-		res := GetIndent(spec.str)
-		if res != spec.expected {
-			t.Fatalf("Failed for spec '%s': expected %d, got %d",
-				spec.str, spec.expected, res)
-		}
+		assert.Equal(t, spec.expected, GetIndent(spec.str))
 	}
 }
 
@@ -161,13 +153,7 @@ func TestSplitByHangingIndent(t *testing.T) {
 	for _, spec := range splitByHangingIndentTests {
 		res := SplitByHangingIndent(spec.lines, 0)
 
-		expectedStr := fmt.Sprintf("%s", spec.expected)
-		resStr := fmt.Sprintf("%s", res)
-
-		if resStr != expectedStr {
-			t.Fatalf("Failed for spec '%s': expected %s, got %s",
-				spec.lines, expectedStr, res)
-		}
+		assert.Equal(t, fmt.Sprintf("%s", spec.expected), fmt.Sprintf("%s", res))
 	}
 }
 
@@ -195,12 +181,8 @@ func BenchmarkSplitByHangingIndent(b *testing.B) {
 }
 
 func TestCustBoolStr(t *testing.T) {
-	if CustBoolStr(true, "yes", "no") != "yes" {
-		t.Fail()
-	}
-	if CustBoolStr(false, "yes", "no") != "no" {
-		t.Fail()
-	}
+	assert.Equal(t, "yes", CustBoolStr(true, "yes", "no"))
+	assert.Equal(t, "no", CustBoolStr(false, "yes", "no"))
 }
 
 var removeLeadingAndTrailingEmptyLinesSpecs = []struct {
@@ -236,9 +218,7 @@ var removeLeadingAndTrailingEmptyLinesSpecs = []struct {
 func TestRemoveLeadingAndTrailingEmptyLines(t *testing.T) {
 	for _, spec := range removeLeadingAndTrailingEmptyLinesSpecs {
 		res := RemoveLeadingAndTrailingEmptyLines(spec.lines)
-		if !reflect.DeepEqual(res, spec.expected) {
-			t.Errorf("Expected: %s, got: %s", spec.expected, res)
-		}
+		assert.True(t, reflect.DeepEqual(res, spec.expected))
 	}
 }
 
@@ -275,12 +255,7 @@ var splitMultipleLinesByEmptyLinesSpecs = []struct {
 func TestSplitMultipleLinesByEmptyLinesSpecs(t *testing.T) {
 	for _, spec := range splitMultipleLinesByEmptyLinesSpecs {
 		res := SplitMultipleLinesByEmptyLines(spec.lines)
-
-		resStr := fmt.Sprintf("%s", res)
-		expectedStr := fmt.Sprintf("%s", spec.expected)
-		if resStr != expectedStr {
-			t.Errorf("Expected: %s, got: %s", expectedStr, resStr)
-		}
+		assert.Equal(t, fmt.Sprintf("%s", spec.expected), fmt.Sprintf("%s", res))
 	}
 }
 
@@ -302,10 +277,7 @@ var ellipsisSpec = []struct {
 func TestEllipsis(t *testing.T) {
 	for _, spec := range ellipsisSpec {
 		res := Ellipsis(spec.str, spec.maxLen)
-
-		if res != spec.expected {
-			t.Errorf("Expected: %s, got: %s", spec.expected, res)
-		}
+		assert.Equal(t, spec.expected, res)
 	}
 }
 
@@ -355,11 +327,7 @@ var joinByHangingIndentSpecs = []struct {
 func TestJoinByHangingIndent(t *testing.T) {
 	for _, spec := range joinByHangingIndentSpecs {
 		res := JoinByHangingIndent(spec.lines, spec.baseIndent, spec.collapseSpaces)
-		resStr := fmt.Sprintf("%#v", res)
-		expectedStr := fmt.Sprintf("%#v", spec.expected)
-		if expectedStr != resStr {
-			t.Errorf("Expected: %s, got: %s", expectedStr, resStr)
-		}
+		assert.Equal(t, fmt.Sprintf("%#v", spec.expected), fmt.Sprintf("%#v", res))
 	}
 }
 
@@ -382,9 +350,7 @@ var trimWhiteSpaceAndJoinSpecs = []struct {
 func TestTrimWhiteSpaceAndJoin(t *testing.T) {
 	for _, spec := range trimWhiteSpaceAndJoinSpecs {
 		res := TrimWhiteSpaceAndJoin(spec.lines, spec.joinStr)
-		if res != spec.expected {
-			t.Errorf("Expected: %s, got: %s", spec.expected, res)
-		}
+		assert.Equal(t, spec.expected, res)
 	}
 }
 
@@ -417,11 +383,11 @@ var checkNotNilSpecs = []struct {
 func TestCheckNotNil(t *testing.T) {
 	for _, spec := range checkNotNilSpecs {
 		err := CheckNotNil(spec.values...)
-		if spec.expectErr && err == nil {
-			t.Errorf("Expected an error")
+		if spec.expectErr {
+			assert.NotNil(t, err)
 		}
-		if !spec.expectErr && err != nil {
-			t.Errorf("Unexpected error: %s", err)
+		if !spec.expectErr {
+			assert.Nil(t, err)
 		}
 	}
 }
