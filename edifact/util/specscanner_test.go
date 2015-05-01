@@ -2,6 +2,7 @@ package util
 
 import (
 	"bufio"
+	"github.com/stretchr/testify/assert"
 	"reflect"
 	"strings"
 	"testing"
@@ -9,9 +10,7 @@ import (
 
 func TestSpecScannerFromFile(t *testing.T) {
 	scanner, err := NewSpecScanner("../../testdata/specscanner/1")
-	if err != nil {
-		t.Fatalf("Error creating SpecScanner: %s", err)
-	}
+	assert.Nil(t, err)
 
 	expectedHeader := []string{"one"}
 
@@ -20,25 +19,16 @@ func TestSpecScannerFromFile(t *testing.T) {
 		[]string{"three"},
 	}
 
-	if !reflect.DeepEqual(scanner.HeaderLines, expectedHeader) {
-		t.Fatalf("Expected: %s, got: %s", expectedHeader, scanner.HeaderLines)
-	}
+	assert.True(t, reflect.DeepEqual(scanner.HeaderLines, expectedHeader))
 
 	allLines, err := scanner.GetAllSpecLines(true)
-	if err != nil {
-		t.Fatalf("Error reading spec lines: %s", err)
-	}
-
-	if !reflect.DeepEqual(allLines, expectedBody) {
-		t.Fatalf("Expected: %s, got: %s", expectedBody, allLines)
-	}
+	assert.Nil(t, err)
+	assert.True(t, reflect.DeepEqual(allLines, expectedBody))
 }
 
 func TestSpecScannerFileNotExistent(t *testing.T) {
 	_, err := NewSpecScanner("../../testdata/specscanner/__NONEXISTANT__")
-	if err == nil {
-		t.Fatalf("NewSpecScanner should fail with nonexistent file")
-	}
+	assert.NotNil(t, err)
 }
 
 var specScannerSpecs = []struct {
@@ -87,17 +77,10 @@ func TestSpecScannerFromReader(t *testing.T) {
 		reader := strings.NewReader(spec.inContents)
 		bufReader := bufio.NewReader(reader)
 		scanner, err := NewSpecScannerFromReader(bufReader)
-		if err != nil {
-			t.Errorf("Error creating spec scanner from reader: %s", err)
-		}
+		assert.Nil(t, err)
 
 		allLines, err := scanner.GetAllSpecLines(true)
-		if err != nil {
-			t.Errorf("Error reading spec lines: %s", err)
-		}
-
-		if !reflect.DeepEqual(allLines, spec.expected) {
-			t.Errorf("Expected: %s, got: %s", spec.expected, allLines)
-		}
+		assert.Nil(t, err)
+		assert.True(t, reflect.DeepEqual(allLines, spec.expected))
 	}
 }
