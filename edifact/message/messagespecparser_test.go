@@ -47,3 +47,16 @@ func TestParseNonExistentFile(t *testing.T) {
 	assert.NotNil(t, err)
 	assert.Nil(t, spec)
 }
+
+func TestParseDir(t *testing.T) {
+	segmentSpecs := segment.SegmentSpecMap{} // TODO actual fixture
+	parser := NewMessageSpecParser(segmentSpecs)
+	specs, err := parser.ParseSpecDir("../../testdata/message_specs", "14B")
+	assert.Nil(t, err)
+	assert.NotNil(t, specs)
+	fmt.Printf("Message specs: %s", specs)
+
+	// ioutil.ReadDir sorts entries alphabetically
+	assert.Equal(t, "BALANC", specs[0].Id)
+	assert.Equal(t, "JOBCON", specs[1].Id)
+}

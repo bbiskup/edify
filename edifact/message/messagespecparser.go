@@ -5,10 +5,13 @@ import (
 	"fmt"
 	"github.com/bbiskup/edify/edifact/segment"
 	"io/ioutil"
+	"os"
 	"regexp"
 	"strings"
 	"time"
 )
+
+const pathSep = string(os.PathSeparator)
 
 var sourceRE = regexp.MustCompile(`^SOURCE: (.*) *$`)
 
@@ -81,6 +84,24 @@ func (p *MessageSpecParser) ParseSpecFile(fileName string) (spec *MessageSpec, e
 		return
 	}
 	return NewMessageSpec(id, name, version, release, contrAgency, revision, date, source), nil
+}
+
+func (p *MessageSpecParser) ParseSpecDir(dirName string, suffix string) (specs []*MessageSpec, err error) {
+	entries, err := ioutil.ReadDir(dirName)
+
+	specs = []*MessageSpec{}
+	for _, entry := range entries {
+		fileName := entry.Name()
+		if !strings.HasSuffix(fileName, "."+suffix) {
+			continue
+		}
+		spec, err := p.ParseSpecFile(dirName + pathSep + fileName)
+		if err != nil {
+			return nil, err
+		}
+		specs = append(specs, spec)
+	}
+	return
 }
 
 func NewMessageSpecParser(segmentSpecs segment.SegmentSpecMap) *MessageSpecParser {
