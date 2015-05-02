@@ -40,6 +40,48 @@ func (p *MessageSpecParser) parseSource(sourceStr string) (source string, err er
 	return match[1], nil
 }
 
+// lines: lines of message spec file (without header)
+func (ü *MessageSpecParser) getSegmentTableLines(lines []string) (segmentTable []string, err error) {
+	started := false
+	for _, line := range lines {
+		if strings.HasPrefix(line, "Pos     Tag Name") {
+			started = true
+			continue
+		}
+		if started {
+			segmentTable = append(segmentTable, line)
+		}
+	}
+	if !started {
+		err = errors.New(fmt.Sprintf("Segment table not found"))
+	}
+	return
+}
+
+/*
+ Get sequence of segments/segment groups
+ e.g.
+
+00010   UNH Message header                           M   1
+00020   BGM Beginning of message                     M   1
+00030   DTM Date/time/period                         C   1
+00040   BUS Business function                        C   1
+
+00050       ---- Segment group 1  ------------------ C   2----------------+
+00060   RFF Reference                                M   1                |
+00070   DTM Date/time/period                         C   1----------------+
+
+00080       ---- Segment group 2  ------------------ C   5----------------+
+00090   FII Financial institution information        M   1                |
+00100   CTA Contact information                      C   1                |
+00110   COM Communication contact                    C   5----------------+
+...
+*/
+func (p *MessageSpecParser) getMessageSpecParts(lines []string) (messageSpecParts []*MessageSpecPart, err error) {
+	_, err = p.getSegmentTableLines(lines)
+	panic("NotImplemented")
+}
+
 // One spec file contains the spec for a single message type
 /*
                                 UN/EDIFACT
@@ -83,6 +125,13 @@ func (p *MessageSpecParser) ParseSpecFile(fileName string) (spec *MessageSpec, e
 	if err != nil {
 		return
 	}
+
+	/*
+		_, err = p.getMessageSpecParts(lines[47:])
+		if err != nil {
+			return
+		}*/
+
 	return NewMessageSpec(id, name, version, release, contrAgency, revision, date, source), nil
 }
 
