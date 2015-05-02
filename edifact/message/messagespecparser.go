@@ -7,13 +7,31 @@ import (
 	"io/ioutil"
 	"os"
 	"regexp"
+	"strconv"
 	"strings"
 	"time"
 )
 
 const pathSep = string(os.PathSeparator)
 
-var sourceRE = regexp.MustCompile(`^SOURCE: (.*) *$`)
+var (
+	// e.g.
+	// "SOURCE: TBG3 Transport"
+	sourceRE = regexp.MustCompile(`^SOURCE: (.*) *$`)
+
+	// e.g.
+	// "00210       ---- Segment group 6  ------------------ C   99-------------+||"
+	segmentGroupStartRE = regexp.MustCompile(
+		`^(\d{5})[ ]+-{4} Segment group (\d+)[ ]+[-]+ ([MC])[ ]*(\d+)[ ]*[-]+[+]+([|]*)$`)
+)
+
+type SegmentGroupStart struct {
+	RecordNum    int
+	GroupNum     int
+	IsMandatory  bool
+	MaxCount     int
+	NestingLevel int
+}
 
 // Parser for message specifications
 // e.g. d14b/edmd/AUTHOR_D.14B
@@ -80,6 +98,52 @@ func (ü *MessageSpecParser) getSegmentTableLines(lines []string) (segmentTable 
 func (p *MessageSpecParser) getMessageSpecParts(lines []string) (messageSpecParts []*MessageSpecPart, err error) {
 	_, err = p.getSegmentTableLines(lines)
 	panic("NotImplemented")
+}
+
+func (p *MessageSpecParser) matchSegmentGroupStart(line string) (segmentGroupStart *SegmentGroupStart, err error) {
+	match := segmentGroupStartRE.FindStringSubmatch(line)
+	if match == nil {
+		// not an error; other pattern might still match
+		return
+	}
+
+	if len(match) != 6 {
+		panic("Internal error: incorrect regular expression")
+	}
+
+	recordNum, err := strconv.Atoi(match[1])
+	if err != nil {
+		return
+	}
+
+	groupNum, err := strconv.Atoi(match[2])
+	if err != nil {
+		return
+	}
+
+	isMandatoryStr := match[3]
+	var isMandatory bool
+	switch isMandatoryStr {
+	case "C":
+		isMandatory = false
+	case "M":
+		isMandatory = true
+	}
+
+	maxCount, err := strconv.Atoi(match[4])
+	if err != nil {
+		return
+	}
+
+	bars := match[5]
+
+	return &SegmentGroupStart{
+		RecordNum:    recordNum,
+		GroupNum:     groupNum,
+		IsMandatory:  isMandatory,
+		MaxCount:     maxCount,
+		NestingLevel: len(bars),
+	}, nil
 }
 
 // One spec file contains the spec for a single message type
