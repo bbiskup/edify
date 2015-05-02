@@ -22,7 +22,6 @@ func (s *CodesSpec) String() string {
 		specsStrs = append(specsStrs, fmt.Sprintf("\t%s", spec.String()))
 	}
 	codeSpecsStr := strings.Join(specsStrs, "\n")
-
 	descriptionStr := util.Ellipsis(s.Description, maxDescrDisplayLen)
 
 	return fmt.Sprintf("%s %s %s\n%s", s.Id, s.Name, descriptionStr, codeSpecsStr)

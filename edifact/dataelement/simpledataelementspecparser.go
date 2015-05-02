@@ -121,7 +121,6 @@ func (p *SimpleDataElementSpecParser) ParseSpecFile(fileName string) (specs Simp
 	}
 
 	err = util.ParseSpecFile(fileName, parseSection)
-
 	return result, err
 }
 
