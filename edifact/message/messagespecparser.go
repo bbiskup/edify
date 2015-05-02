@@ -35,7 +35,7 @@ var (
 	//
 	// group end (2 nesting levels at once)
 	// "00160   QTY Quantity                                 C   99--------------++"
-	segmentRE = regexp.MustCompile(`^(\d{5})[ ]{3}([A-Z]{3}) (.{40}) ([MC])[ ]*(\d+)[-| ]*$`)
+	segmentRE = regexp.MustCompile(`^(\d{5})[ ]{3}([A-Z]{3}) (.{40}) ([MC])[ ]*(\d+)[-+ ]*([|]*)[ ]*$`)
 )
 
 type SegmentGroupStart struct {
@@ -43,6 +43,18 @@ type SegmentGroupStart struct {
 	GroupNum     int
 	IsMandatory  bool
 	MaxCount     int
+	NestingLevel int
+}
+
+type SegmentEntry struct {
+	RecordNum   int
+	SegmentId   string
+	SegmentName string
+	IsMandatory bool
+	MaxCount    int
+
+	// Nesting level _after_ this segment entry
+	// A segment entry might close multiple groups simultaneously.
 	NestingLevel int
 }
 
@@ -158,6 +170,47 @@ func (p *MessageSpecParser) parseSegmentGroupStart(line string) (segmentGroupSta
 
 		// Conceptually, nesting level 0 is outside any group
 		NestingLevel: len(bars) + 1,
+	}, nil
+}
+
+func (p *MessageSpecParser) parseSegmentEntry(line string) (segmentEntry *SegmentEntry, err error) {
+	match := segmentRE.FindStringSubmatch(line)
+	if match == nil {
+		return
+	}
+
+	if len(match) != 7 {
+		panic("Internal error: incorrect regular expression")
+	}
+
+	recordNum, err := strconv.Atoi(match[1])
+	if err != nil {
+		return
+	}
+
+	isMandatoryStr := match[4]
+	var isMandatory bool
+	switch isMandatoryStr {
+	case "C":
+		isMandatory = false
+	case "M":
+		isMandatory = true
+	}
+
+	maxCount, err := strconv.Atoi(match[5])
+	if err != nil {
+		return
+	}
+
+	bars := match[6]
+
+	return &SegmentEntry{
+		RecordNum:    recordNum,
+		SegmentId:    match[2],
+		SegmentName:  strings.TrimSpace(match[3]),
+		IsMandatory:  isMandatory,
+		MaxCount:     maxCount,
+		NestingLevel: len(bars),
 	}, nil
 }
 

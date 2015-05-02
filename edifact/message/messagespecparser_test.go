@@ -14,8 +14,7 @@ import (
 // Most groups (258): GOVCBR; only msg type with > 99 groups
 
 func TestParseINVOICFile(t *testing.T) {
-	segmentSpecs := segment.SegmentSpecMap{} // TODO actual fixture
-	parser := NewMessageSpecParser(segmentSpecs)
+	parser := NewMessageSpecParser(segment.SegmentSpecMap{})
 	spec, err := parser.ParseSpecFile("../../testdata/INVOIC_D.14B")
 	assert.Nil(t, err)
 	assert.NotNil(t, spec)
@@ -30,8 +29,7 @@ func TestParseINVOICFile(t *testing.T) {
 }
 
 func TestParseAUTHORFile(t *testing.T) {
-	segmentSpecs := segment.SegmentSpecMap{} // TODO actual fixture
-	parser := NewMessageSpecParser(segmentSpecs)
+	parser := NewMessageSpecParser(segment.SegmentSpecMap{})
 	spec, err := parser.ParseSpecFile("../../testdata/AUTHOR_D.14B")
 	assert.Nil(t, err)
 	assert.NotNil(t, spec)
@@ -46,16 +44,14 @@ func TestParseAUTHORFile(t *testing.T) {
 }
 
 func TestParseNonExistentFile(t *testing.T) {
-	segmentSpecs := segment.SegmentSpecMap{} // TODO actual fixture
-	parser := NewMessageSpecParser(segmentSpecs)
+	parser := NewMessageSpecParser(segment.SegmentSpecMap{})
 	spec, err := parser.ParseSpecFile("../../testdata/NON_EXISTENT")
 	assert.NotNil(t, err)
 	assert.Nil(t, spec)
 }
 
 func TestParseDir(t *testing.T) {
-	segmentSpecs := segment.SegmentSpecMap{} // TODO actual fixture
-	parser := NewMessageSpecParser(segmentSpecs)
+	parser := NewMessageSpecParser(segment.SegmentSpecMap{})
 	specs, err := parser.ParseSpecDir("../../testdata/message_specs", "14B")
 	assert.Nil(t, err)
 	assert.NotNil(t, specs)
@@ -103,9 +99,8 @@ var segmentGroupStartSpec = []struct {
 	},
 }
 
-func TestSegmentGroupStartRE(t *testing.T) {
-	segmentSpecs := segment.SegmentSpecMap{}
-	parser := NewMessageSpecParser(segmentSpecs)
+func TestParseSegmentGroupStart(t *testing.T) {
+	parser := NewMessageSpecParser(segment.SegmentSpecMap{})
 	for _, spec := range segmentGroupStartSpec {
 		res, err := parser.parseSegmentGroupStart(spec.line)
 		require.Nil(t, err)
@@ -122,5 +117,36 @@ func TestSegmentGroupStartRE(t *testing.T) {
 		assert.Equal(t, spec.isMandatory, res.IsMandatory)
 		assert.Equal(t, spec.maxCount, res.MaxCount)
 		assert.Equal(t, spec.nestingLevel, res.NestingLevel)
+	}
+}
+
+var segmentEntryStartSpec = []struct {
+	line         string
+	shouldMatch  bool
+	recordNum    int
+	SegmentId    string
+	SegmentName  string
+	isMandatory  bool
+	maxCount     int
+	nestingLevel int
+}{
+	{
+		"00020   BGM Beginning of message                     M   1     ",
+		true, 20, "BGM", "Beginning of message", true, 1, 0,
+	},
+}
+
+func TestParseSegmentEntry(t *testing.T) {
+	parser := NewMessageSpecParser(segment.SegmentSpecMap{})
+	for _, spec := range segmentEntryStartSpec {
+		res, err := parser.parseSegmentEntry(spec.line)
+		require.Nil(t, err)
+
+		if spec.shouldMatch {
+			require.NotNil(t, res)
+		} else {
+			assert.Nil(t, res)
+			continue
+		}
 	}
 }
