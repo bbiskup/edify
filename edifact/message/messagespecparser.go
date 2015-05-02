@@ -126,11 +126,10 @@ func (p *MessageSpecParser) ParseSpecFile(fileName string) (spec *MessageSpec, e
 		return
 	}
 
-	/*
-		_, err = p.getMessageSpecParts(lines[47:])
-		if err != nil {
-			return
-		}*/
+	/*_, err = p.getMessageSpecParts(lines[47:])
+	if err != nil {
+		return
+	}*/
 
 	return NewMessageSpec(id, name, version, release, contrAgency, revision, date, source), nil
 }

@@ -1,8 +1,20 @@
 package message
 
+import (
+	"fmt"
+	"github.com/bbiskup/edify/edifact/util"
+)
+
+// Segment group specification in message specification
 type MessageSpecSegmentGroupPart struct {
 	MessageSpecPartBase
-	children []*MessageSpecPart
+	Name     string
+	children []MessageSpecPart
+}
+
+func (p *MessageSpecSegmentGroupPart) String() string {
+	mandatoryStr := util.CustBoolStr(p.IsMandatory(), "mand.", "cond.")
+	return fmt.Sprintf("Segment group %s %d %s (%d children)", p.Name, p.MaxCount(), mandatoryStr, p.Count())
 }
 
 func (p *MessageSpecSegmentGroupPart) IsGroup() bool {
@@ -13,20 +25,21 @@ func (p *MessageSpecSegmentGroupPart) Count() int {
 	return len(p.children)
 }
 
-func (p *MessageSpecSegmentGroupPart) Children() []*MessageSpecPart {
+func (p *MessageSpecSegmentGroupPart) Children() []MessageSpecPart {
 	return p.children
 }
 
-func (p *MessageSpecSegmentGroupPart) Append(messageSpecPart *MessageSpecPart) {
+func (p *MessageSpecSegmentGroupPart) Append(messageSpecPart MessageSpecPart) {
 	p.children = append(p.children, messageSpecPart)
 }
 
-func NewMessageSpecSegmentGroupPart(children []*MessageSpecPart, maxCount int, isMandatory bool) *MessageSpecSegmentGroupPart {
+func NewMessageSpecSegmentGroupPart(name string, children []MessageSpecPart, maxCount int, isMandatory bool) *MessageSpecSegmentGroupPart {
 	return &MessageSpecSegmentGroupPart{
 		MessageSpecPartBase{
 			maxCount:    maxCount,
 			isMandatory: isMandatory,
 		},
+		name,
 		children,
 	}
 }

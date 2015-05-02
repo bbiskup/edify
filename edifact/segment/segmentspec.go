@@ -29,13 +29,3 @@ func NewSegmentSpec(
 		SegmentDataElementSpecs: segmentDataElementSpecs,
 	}
 }
-
-// From interface SegmentOrGroupSpec
-func (s *SegmentSpec) Len() int {
-	return 1
-}
-
-// From interface SegmentOrGroupSpec
-func (s *SegmentSpec) ItemAt(index int) SegmentOrGroupSpec {
-	return s
-}
