@@ -136,7 +136,17 @@ var segmentEntryStartSpec = []struct {
 	},
 	{
 		"00060   TDT Transport information                    M   1                |",
-		true, 60, "TDT", "Transport information", true, 1, 1},
+		true, 60, "TDT", "Transport information", true, 1, 1,
+	},
+	{
+		"00140   DTM Date/time/period                         M   1               ||",
+		true, 140, "DTM", "Date/time/period", true, 1, 2,
+	},
+	{
+		// not a segment entry
+		"00210       ---- Segment group 6  ------------------ C   99-------------+||",
+		false, 0, "", "", false, 0, 0,
+	},
 }
 
 func TestParseSegmentEntry(t *testing.T) {
