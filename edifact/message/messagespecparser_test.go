@@ -69,7 +69,6 @@ func TestParseDir(t *testing.T) {
 var segmentGroupStartSpec = []struct {
 	line         string
 	shouldMatch  bool
-	expectErr    bool
 	recordNum    int
 	groupNum     int
 	isMandatory  bool
@@ -78,23 +77,29 @@ var segmentGroupStartSpec = []struct {
 }{
 	{
 		"00170       ---- Segment group 4  ------------------ C   99---------------+",
-		true, false, 170, 4, false, 99, 0,
+		true, 170, 4, false, 99, 0,
 	},
 	{
 		"00130       ---- Segment group 3  ------------------ C   999-------------+|",
-		true, false, 130, 3, false, 999, 1,
+		true, 130, 3, false, 999, 1,
 	},
 	{
 		"00210       ---- Segment group 6  ------------------ C   99-------------+||",
-		true, false, 210, 6, false, 99, 2,
+		true, 210, 6, false, 99, 2,
 	},
 	{
 		"00050       ---- Segment group 1  ------------------ M   1----------------+",
-		true, false, 50, 1, true, 1, 0,
+		true, 50, 1, true, 1, 0,
 	},
 	{
+		// not a group start line
 		"00090   RFF Reference                                C   9----------------+",
-		false, false, 0, 0, false, 0, 0,
+		false, 0, 0, false, 0, 0,
+	},
+	{
+		// not a group start line
+		"00110   EQD Equipment details                        M   1                |",
+		false, 0, 0, false, 0, 0,
 	},
 }
 
@@ -103,12 +108,7 @@ func TestSegmentGroupStartRE(t *testing.T) {
 	parser := NewMessageSpecParser(segmentSpecs)
 	for _, spec := range segmentGroupStartSpec {
 		res, err := parser.matchSegmentGroupStart(spec.line)
-		if spec.expectErr {
-			assert.NotNil(t, err)
-			continue
-		} else {
-			require.Nil(t, err)
-		}
+		require.Nil(t, err)
 
 		if spec.shouldMatch {
 			require.NotNil(t, res)
