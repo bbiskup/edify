@@ -84,6 +84,18 @@ var segmentGroupStartSpec = []struct {
 		"00130       ---- Segment group 3  ------------------ C   999-------------+|",
 		true, false, 130, 3, false, 999, 1,
 	},
+	{
+		"00210       ---- Segment group 6  ------------------ C   99-------------+||",
+		true, false, 210, 6, false, 99, 2,
+	},
+	{
+		"00050       ---- Segment group 1  ------------------ M   1----------------+",
+		true, false, 50, 1, true, 1, 0,
+	},
+	{
+		"00090   RFF Reference                                C   9----------------+",
+		false, false, 0, 0, false, 0, 0,
+	},
 }
 
 func TestSegmentGroupStartRE(t *testing.T) {
@@ -102,6 +114,7 @@ func TestSegmentGroupStartRE(t *testing.T) {
 			require.NotNil(t, res)
 		} else {
 			assert.Nil(t, res)
+			continue
 		}
 
 		assert.Equal(t, spec.recordNum, res.RecordNum)
