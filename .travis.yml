@@ -5,7 +5,7 @@ go:
     - 1.4
     - tip
 cache:
-  - apt: true
+  #- apt: true
 
 install:
   - sudo apt-get install -y curl bison make
