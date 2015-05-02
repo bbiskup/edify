@@ -21,10 +21,6 @@ var (
 	sourceRE = regexp.MustCompile(`^SOURCE: (.*) *$`)
 
 	// e.g.
-	// "            HEADER SECTION"
-	headerOrEmptyInGroupSectionRE = regexp.MustCompile(`^[ ]{12}.*$`)
-
-	// e.g.
 	// "00210       ---- Segment group 6  ------------------ C   99-------------+||"
 	segmentGroupStartRE = regexp.MustCompile(
 		`^(\d{5})[ ]+-{4} Segment group (\d+)[ ]+[-]+ ([MC])[ ]*(\d+)[ ]*[-]+[+]+([|]*)$`)
@@ -252,8 +248,12 @@ func (p *MessageSpecParser) parseSegmentEntry(line string) (segmentEntry *Segmen
 	}, nil
 }
 
+// e.g.
+// "            HEADER SECTION"
+// or
+// "
 func (p *MessageSpecParser) matchHeaderOrEmptyInGroupSection(line string) (matches bool) {
-	return headerOrEmptyInGroupSectionRE.FindStringSubmatch(line) != nil
+	return strings.HasPrefix(line, "            ")
 }
 
 // One spec file contains the spec for a single message type
