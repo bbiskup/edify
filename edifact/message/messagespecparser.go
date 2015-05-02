@@ -23,6 +23,19 @@ var (
 	// "00210       ---- Segment group 6  ------------------ C   99-------------+||"
 	segmentGroupStartRE = regexp.MustCompile(
 		`^(\d{5})[ ]+-{4} Segment group (\d+)[ ]+[-]+ ([MC])[ ]*(\d+)[ ]*[-]+[+]+([|]*)$`)
+
+	// e.g. (top-level; not in group)
+	//"00010   UNH Message header                           M   1     "
+	//
+	// in group
+	// "00060   TDT Transport information                    M   1                |"
+	//
+	// in group; deeper nesting
+	// "00140   DTM Date/time/period                         M   1               ||"
+	//
+	// group end (2 nesting levels at once)
+	// "00160   QTY Quantity                                 C   99--------------++"
+	segmentRE = regexp.MustCompile(`^(\d{5})[ ]{3}([A-Z]{3}) (.{40}) ([MC])[ ]*(\d+)[-| ]*$`)
 )
 
 type SegmentGroupStart struct {
@@ -138,11 +151,13 @@ func (p *MessageSpecParser) matchSegmentGroupStart(line string) (segmentGroupSta
 	bars := match[5]
 
 	return &SegmentGroupStart{
-		RecordNum:    recordNum,
-		GroupNum:     groupNum,
-		IsMandatory:  isMandatory,
-		MaxCount:     maxCount,
-		NestingLevel: len(bars),
+		RecordNum:   recordNum,
+		GroupNum:    groupNum,
+		IsMandatory: isMandatory,
+		MaxCount:    maxCount,
+
+		// Conceptually, nesting level 0 is outside any group
+		NestingLevel: len(bars) + 1,
 	}, nil
 }
 
