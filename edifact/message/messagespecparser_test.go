@@ -107,7 +107,7 @@ func TestSegmentGroupStartRE(t *testing.T) {
 	segmentSpecs := segment.SegmentSpecMap{}
 	parser := NewMessageSpecParser(segmentSpecs)
 	for _, spec := range segmentGroupStartSpec {
-		res, err := parser.matchSegmentGroupStart(spec.line)
+		res, err := parser.parseSegmentGroupStart(spec.line)
 		require.Nil(t, err)
 
 		if spec.shouldMatch {

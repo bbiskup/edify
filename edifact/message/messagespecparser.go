@@ -113,7 +113,7 @@ func (p *MessageSpecParser) getMessageSpecParts(lines []string) (messageSpecPart
 	panic("NotImplemented")
 }
 
-func (p *MessageSpecParser) matchSegmentGroupStart(line string) (segmentGroupStart *SegmentGroupStart, err error) {
+func (p *MessageSpecParser) parseSegmentGroupStart(line string) (segmentGroupStart *SegmentGroupStart, err error) {
 	match := segmentGroupStartRE.FindStringSubmatch(line)
 	if match == nil {
 		// not an error; other pattern might still match
