@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"github.com/bbiskup/edify/edifact/segment"
 	"io/ioutil"
+	"log"
 	"os"
 	"regexp"
 	"strconv"
@@ -18,6 +19,10 @@ var (
 	// e.g.
 	// "SOURCE: TBG3 Transport"
 	sourceRE = regexp.MustCompile(`^SOURCE: (.*) *$`)
+
+	// e.g.
+	// "            HEADER SECTION"
+	headerOrEmptyInGroupSectionRE = regexp.MustCompile(`^[ ]{12}.*$`)
 
 	// e.g.
 	// "00210       ---- Segment group 6  ------------------ C   99-------------+||"
@@ -120,9 +125,42 @@ func (ü *MessageSpecParser) getSegmentTableLines(lines []string) (segmentTable 
 00110   COM Communication contact                    C   5----------------+
 ...
 */
-func (p *MessageSpecParser) getMessageSpecParts(lines []string) (messageSpecParts []*MessageSpecPart, err error) {
-	_, err = p.getSegmentTableLines(lines)
-	panic("NotImplemented")
+func (p *MessageSpecParser) parseMessageSpecParts(lines []string) (messageSpecParts []*MessageSpecPart, err error) {
+	segmentTableLines, err := p.getSegmentTableLines(lines)
+	//currentNestingLevel := 0
+	log.Printf("########## %d", len(segmentTableLines))
+	for index, line := range segmentTableLines {
+		line = strings.TrimRight(line, " \r\n")
+		log.Printf("line %d: '%s'\n", index, line)
+		if len(strings.TrimSpace(line)) == 0 {
+			continue
+		}
+
+		if p.matchHeaderOrEmptyInGroupSection(line) {
+			continue
+		}
+
+		segmentEntry, err := p.parseSegmentEntry(line)
+		if err != nil {
+			return nil, err
+		}
+		if segmentEntry != nil {
+			log.Printf("Found %#v", segmentEntry)
+			continue
+		}
+
+		segmentGroupStartSpec, err := p.parseSegmentGroupStart(line)
+		if err != nil {
+			return nil, err
+		}
+
+		if segmentGroupStartSpec != nil {
+			log.Printf("Found %#v", segmentEntryStartSpec)
+		} else {
+			return nil, errors.New(fmt.Sprintf("Parse error at index %d", index))
+		}
+	}
+	return
 }
 
 func (p *MessageSpecParser) parseSegmentGroupStart(line string) (segmentGroupStart *SegmentGroupStart, err error) {
@@ -214,6 +252,10 @@ func (p *MessageSpecParser) parseSegmentEntry(line string) (segmentEntry *Segmen
 	}, nil
 }
 
+func (p *MessageSpecParser) matchHeaderOrEmptyInGroupSection(line string) (matches bool) {
+	return headerOrEmptyInGroupSectionRE.FindStringSubmatch(line) != nil
+}
+
 // One spec file contains the spec for a single message type
 /*
                                 UN/EDIFACT
@@ -258,10 +300,10 @@ func (p *MessageSpecParser) ParseSpecFile(fileName string) (spec *MessageSpec, e
 		return
 	}
 
-	/*_, err = p.getMessageSpecParts(lines[47:])
+	_, err = p.parseMessageSpecParts(lines[47:])
 	if err != nil {
 		return
-	}*/
+	}
 
 	return NewMessageSpec(id, name, version, release, contrAgency, revision, date, source), nil
 }

@@ -17,7 +17,7 @@ func TestParseINVOICFile(t *testing.T) {
 	parser := NewMessageSpecParser(segment.SegmentSpecMap{})
 	spec, err := parser.ParseSpecFile("../../testdata/INVOIC_D.14B")
 	assert.Nil(t, err)
-	assert.NotNil(t, spec)
+	require.NotNil(t, spec)
 	fmt.Printf("Message spec: %s", spec)
 
 	assert.Equal(t, "INVOIC", spec.Id)
@@ -32,7 +32,7 @@ func TestParseAUTHORFile(t *testing.T) {
 	parser := NewMessageSpecParser(segment.SegmentSpecMap{})
 	spec, err := parser.ParseSpecFile("../../testdata/AUTHOR_D.14B")
 	assert.Nil(t, err)
-	assert.NotNil(t, spec)
+	require.NotNil(t, spec)
 	fmt.Printf("Message spec: %s", spec)
 
 	assert.Equal(t, "AUTHOR", spec.Id)
@@ -54,7 +54,7 @@ func TestParseDir(t *testing.T) {
 	parser := NewMessageSpecParser(segment.SegmentSpecMap{})
 	specs, err := parser.ParseSpecDir("../../testdata/message_specs", "14B")
 	assert.Nil(t, err)
-	assert.NotNil(t, specs)
+	require.NotNil(t, specs)
 	fmt.Printf("Message specs: %s", specs)
 
 	// ioutil.ReadDir sorts entries alphabetically
@@ -168,4 +168,11 @@ func TestParseSegmentEntry(t *testing.T) {
 		assert.Equal(t, spec.maxCount, res.MaxCount)
 		assert.Equal(t, spec.nestingLevel, res.NestingLevel)
 	}
+}
+
+func TestParseHeaderSection(t *testing.T) {
+	parser := NewMessageSpecParser(segment.SegmentSpecMap{})
+	assert.Equal(t, true, parser.matchHeaderOrEmptyInGroupSection("            HEADER SECTION"))
+	assert.Equal(t, true, parser.matchHeaderOrEmptyInGroupSection("            HEADER SECTION  "))
+	assert.Equal(t, false, parser.matchHeaderOrEmptyInGroupSection("           HEADER SECTION"))
 }
