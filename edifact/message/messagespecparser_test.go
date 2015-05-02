@@ -80,6 +80,10 @@ var segmentGroupStartSpec = []struct {
 		"00170       ---- Segment group 4  ------------------ C   99---------------+",
 		true, false, 170, 4, false, 99, 0,
 	},
+	{
+		"00130       ---- Segment group 3  ------------------ C   999-------------+|",
+		true, false, 130, 3, false, 999, 1,
+	},
 }
 
 func TestSegmentGroupStartRE(t *testing.T) {
