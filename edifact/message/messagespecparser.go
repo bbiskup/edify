@@ -142,6 +142,9 @@ func (p *MessageSpecParser) parseMessageSpecParts(lines []string) (messageSpecPa
 		}
 		if segmentEntry != nil {
 			log.Printf("Found %#v", segmentEntry)
+
+			// TODO create MessageSpecPart
+
 			continue
 		}
 
@@ -151,7 +154,7 @@ func (p *MessageSpecParser) parseMessageSpecParts(lines []string) (messageSpecPa
 		}
 
 		if segmentGroupStartSpec != nil {
-			log.Printf("Found %#v", segmentEntryStartSpec)
+			log.Printf("Found %#v", segmentGroupStartSpec)
 		} else {
 			return nil, errors.New(fmt.Sprintf("Parse error at index %d", index))
 		}
