@@ -14,3 +14,14 @@ func TestMessageSpecGroupPart(t *testing.T) {
 	assert.Equal(t, true, part.IsGroup())
 	assert.Equal(t, 0, part.Count())
 }
+
+func TestAppend(t *testing.T) {
+	part1 := NewMessageSpecSegmentGroupPart(
+		"testgroup1", []MessageSpecPart{}, 5, true)
+	assert.Equal(t, 0, part1.Count())
+	part2 := NewMessageSpecSegmentGroupPart(
+		"testgroup2", []MessageSpecPart{}, 5, true)
+
+	part1.Append(part2)
+	assert.Equal(t, 1, part1.Count())
+}

@@ -4,7 +4,7 @@ package message
 type MessageSpecPart interface {
 	MaxCount() int
 	IsMandatory() bool
-	IsGroup()
+	IsGroup() bool
 }
 
 // Parts of a message.
