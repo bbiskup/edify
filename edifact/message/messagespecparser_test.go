@@ -124,8 +124,8 @@ var segmentEntryStartSpec = []struct {
 	line         string
 	shouldMatch  bool
 	recordNum    int
-	SegmentId    string
-	SegmentName  string
+	segmentId    string
+	segmentName  string
 	isMandatory  bool
 	maxCount     int
 	nestingLevel int
@@ -134,6 +134,9 @@ var segmentEntryStartSpec = []struct {
 		"00020   BGM Beginning of message                     M   1     ",
 		true, 20, "BGM", "Beginning of message", true, 1, 0,
 	},
+	{
+		"00060   TDT Transport information                    M   1                |",
+		true, 60, "TDT", "Transport information", true, 1, 1},
 }
 
 func TestParseSegmentEntry(t *testing.T) {
@@ -148,5 +151,11 @@ func TestParseSegmentEntry(t *testing.T) {
 			assert.Nil(t, res)
 			continue
 		}
+		assert.Equal(t, spec.recordNum, res.RecordNum)
+		assert.Equal(t, spec.segmentId, res.SegmentId)
+		assert.Equal(t, spec.segmentName, res.SegmentName)
+		assert.Equal(t, spec.isMandatory, res.IsMandatory)
+		assert.Equal(t, spec.maxCount, res.MaxCount)
+		assert.Equal(t, spec.nestingLevel, res.NestingLevel)
 	}
 }
