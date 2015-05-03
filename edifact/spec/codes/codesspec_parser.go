@@ -3,6 +3,7 @@ package codes
 import (
 	"errors"
 	"fmt"
+	"github.com/bbiskup/edify/edifact/spec/specutil"
 	"github.com/bbiskup/edify/edifact/util"
 	"regexp"
 	"strings"
@@ -182,7 +183,7 @@ func (p *CodesSpecParser) ParseSpecFile(fileName string) (specs CodesSpecMap, er
 		return nil
 	}
 
-	err = util.ParseSpecFile(fileName, parseSection)
+	err = specutil.ParseSpecFile(fileName, parseSection)
 
 	return result, err
 }

@@ -1,16 +1,18 @@
-package util
+package specutil
 
 import (
 	"bufio"
 	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 	"reflect"
 	"strings"
 	"testing"
 )
 
 func TestSpecScannerFromFile(t *testing.T) {
-	scanner, err := NewSpecScanner("../../testdata/specscanner/1")
+	scanner, err := NewSpecScanner("../../../testdata/specscanner/1")
 	assert.Nil(t, err)
+	require.NotNil(t, scanner)
 
 	expectedHeader := []string{"one"}
 
@@ -27,8 +29,9 @@ func TestSpecScannerFromFile(t *testing.T) {
 }
 
 func TestSpecScannerFileNotExistent(t *testing.T) {
-	_, err := NewSpecScanner("../../testdata/specscanner/__NONEXISTANT__")
+	scanner, err := NewSpecScanner("../../testdata/specscanner/__NONEXISTANT__")
 	assert.NotNil(t, err)
+	assert.Nil(t, scanner)
 }
 
 var specScannerSpecs = []struct {
