@@ -12,8 +12,6 @@ type SegmentSpec struct {
 	SegmentDataElementSpecs []*SegmentDataElementSpec
 }
 
-type SegmentSpecMap map[string]*SegmentSpec
-
 func (s *SegmentSpec) String() string {
 	return fmt.Sprintf(
 		"Segment %s/%s (%d data elems)",

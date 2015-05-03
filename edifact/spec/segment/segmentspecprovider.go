@@ -11,6 +11,8 @@ type SegmentSpecProvider interface {
 	Len() int
 }
 
+type SegmentSpecMap map[string]*SegmentSpec
+
 // Regular implementation of SegmentSpecProvider for production
 type SegmentSpecProviderImpl struct {
 	segmentSpecs SegmentSpecMap
