@@ -64,6 +64,16 @@ func main() {
 				err = commands.Parse(fileNames)
 			},
 		},
+
+		{
+			Name:    "full_parse",
+			Usage:   "Parse entire specification",
+			Aliases: []string{"f"},
+			Action: func(c *cli.Context) {
+				specDirNames := c.Args()
+				err = commands.FullParse(specDirNames)
+			},
+		},
 	}
 
 	start := time.Now()

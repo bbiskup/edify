@@ -1,4 +1,4 @@
-package edifact
+package specparser
 
 import (
 	"fmt"
