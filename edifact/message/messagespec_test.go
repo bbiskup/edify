@@ -13,7 +13,8 @@ func TestString(t *testing.T) {
 		"testcontragency", "testrevision",
 		time.Date(2015, time.January, 15, 0, 0, 0, 0, time.UTC),
 		"testsource",
+		[]MessageSpecPart{},
 	)
 
-	assert.Equal(t, s.String(), "Message testid (testname testrelease)")
+	assert.Equal(t, s.String(), "Message testid (testname testrelease): 0 parts")
 }

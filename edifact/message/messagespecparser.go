@@ -359,12 +359,12 @@ func (p *MessageSpecParser) ParseSpecFile(fileName string) (spec *MessageSpec, e
 		return
 	}
 
-	_, err = p.parseMessageSpecParts(lines[47:])
+	specParts, err := p.parseMessageSpecParts(lines[47:])
 	if err != nil {
 		return
 	}
 
-	return NewMessageSpec(id, name, version, release, contrAgency, revision, date, source), nil
+	return NewMessageSpec(id, name, version, release, contrAgency, revision, date, source, specParts), nil
 }
 
 func (p *MessageSpecParser) ParseSpecDir(dirName string, suffix string) (specs []*MessageSpec, err error) {

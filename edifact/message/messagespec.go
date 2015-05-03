@@ -18,20 +18,25 @@ type MessageSpec struct {
 	Date        time.Time
 
 	Source string
+	Parts  []MessageSpecPart
 }
 
 func (m *MessageSpec) String() string {
-	return fmt.Sprintf("Message %s (%s %s)", m.Id, m.Name, m.Release)
+	return fmt.Sprintf(
+		"Message %s (%s %s): %d parts",
+		m.Id, m.Name, m.Release, len(m.Parts))
 }
 
 func NewMessageSpec(
-	Id string, Name string,
-	Version string, Release string, ContrAgency string,
-	Revision string, Date time.Time, Source string) *MessageSpec {
+	id string, name string,
+	version string, release string, contrAgency string,
+	revision string, date time.Time, source string,
+	parts []MessageSpecPart) *MessageSpec {
 
 	return &MessageSpec{
-		Id: Id, Name: Name,
-		Version: Version, Release: Release, ContrAgency: ContrAgency,
-		Revision: Revision, Date: Date, Source: Source,
+		Id: id, Name: name,
+		Version: version, Release: release, ContrAgency: contrAgency,
+		Revision: revision, Date: date, Source: source,
+		Parts: parts,
 	}
 }
