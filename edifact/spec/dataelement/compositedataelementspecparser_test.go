@@ -98,7 +98,7 @@ func TestParser(t *testing.T) {
 func TestParseFile(t *testing.T) {
 	// TODO provide full data elements fixture
 	parser := NewCompositeDataElementSpecParser(fixtureMultiSimpleDataElementSpecs())
-	res, err := parser.ParseSpecFile("../../testdata/EDCD.14B_short")
+	res, err := parser.ParseSpecFile("../../../testdata/EDCD.14B_short")
 	assert.Nil(t, err)
 	fmt.Printf("res: %s", res)
 	assert.Equal(t, 1, len(res))

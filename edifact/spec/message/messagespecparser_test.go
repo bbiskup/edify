@@ -2,7 +2,7 @@ package message
 
 import (
 	"fmt"
-	"github.com/bbiskup/edify/edifact/segment"
+	"github.com/bbiskup/edify/edifact/spec/segment"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 	"testing"
@@ -28,7 +28,7 @@ func (p *MockSegmentSpecProviderImpl) Len() int {
 
 func TestParseINVOICFile(t *testing.T) {
 	parser := NewMessageSpecParser(&MockSegmentSpecProviderImpl{})
-	spec, err := parser.ParseSpecFile("../../testdata/INVOIC_D.14B")
+	spec, err := parser.ParseSpecFile("../../../testdata/INVOIC_D.14B")
 	assert.Nil(t, err)
 	require.NotNil(t, spec)
 	fmt.Printf("Message spec: %s", spec)
@@ -48,7 +48,7 @@ func TestParseINVOICFile(t *testing.T) {
 
 func TestParseAUTHORFile(t *testing.T) {
 	parser := NewMessageSpecParser(&MockSegmentSpecProviderImpl{})
-	spec, err := parser.ParseSpecFile("../../testdata/AUTHOR_D.14B")
+	spec, err := parser.ParseSpecFile("../../../testdata/AUTHOR_D.14B")
 	assert.Nil(t, err)
 	require.NotNil(t, spec)
 	fmt.Printf("Message spec: %s", spec)
@@ -63,7 +63,7 @@ func TestParseAUTHORFile(t *testing.T) {
 
 func TestParseNonExistentFile(t *testing.T) {
 	parser := NewMessageSpecParser(&MockSegmentSpecProviderImpl{})
-	spec, err := parser.ParseSpecFile("../../testdata/NON_EXISTENT")
+	spec, err := parser.ParseSpecFile("../../../testdata/NON_EXISTENT")
 	assert.NotNil(t, err)
 	assert.Nil(t, spec)
 }
@@ -71,7 +71,7 @@ func TestParseNonExistentFile(t *testing.T) {
 func TestParseDir(t *testing.T) {
 	parser := NewMessageSpecParser(&MockSegmentSpecProviderImpl{})
 
-	specs, err := parser.ParseSpecDir("../../testdata/message_specs", "14B")
+	specs, err := parser.ParseSpecDir("../../../testdata/message_specs", "14B")
 	assert.Nil(t, err)
 	require.NotNil(t, specs)
 	fmt.Printf("Message specs: %s", specs)

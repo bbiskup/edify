@@ -10,7 +10,7 @@ import (
 func TestSpecParser(t *testing.T) {
 	// TODO will fail; does not contain required keys
 	p := NewSimpleDataElementSpecParser(fixtureTextCodesSpecMap())
-	_, err := p.ParseSpecFile("../../testdata/EDED.14B_short")
+	_, err := p.ParseSpecFile("../../../testdata/EDED.14B_short")
 	assert.Nil(t, err)
 }
 
@@ -32,7 +32,7 @@ func TestParseSpecLines(t *testing.T) {
 func BenchmarkParseSpecLines(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		p := NewSimpleDataElementSpecParser(fixtureTextCodesSpecMap())
-		specs, err := p.ParseSpecFile("../../testdata/EDED.14B")
+		specs, err := p.ParseSpecFile("../../../testdata/EDED.14B")
 		assert.Nil(b, err)
 		log.Printf("Parsed %d specs\n", len(specs))
 	}

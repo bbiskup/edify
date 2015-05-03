@@ -1,7 +1,7 @@
 package message
 
 import (
-	"github.com/bbiskup/edify/edifact/segment"
+	"github.com/bbiskup/edify/edifact/spec/segment"
 )
 
 func fixtureSimpleSegmentSpec() *segment.SegmentSpec {

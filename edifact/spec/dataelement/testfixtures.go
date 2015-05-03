@@ -2,7 +2,7 @@ package dataelement
 
 import (
 	"fmt"
-	"github.com/bbiskup/edify/edifact/codes"
+	"github.com/bbiskup/edify/edifact/spec/codes"
 )
 
 func fixtureTextCodesSpecMap() codes.CodesSpecMap {

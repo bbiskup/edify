@@ -11,7 +11,7 @@ package dataelement
 import (
 	"errors"
 	"fmt"
-	"github.com/bbiskup/edify/edifact/codes"
+	"github.com/bbiskup/edify/edifact/spec/codes"
 	"github.com/bbiskup/edify/edifact/util"
 	"log"
 	"regexp"

@@ -2,7 +2,7 @@ package segment
 
 import (
 	"fmt"
-	de "github.com/bbiskup/edify/edifact/dataelement"
+	de "github.com/bbiskup/edify/edifact/spec/dataelement"
 	"github.com/bbiskup/edify/edifact/util"
 )
 

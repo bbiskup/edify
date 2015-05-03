@@ -3,7 +3,7 @@ package message
 import (
 	"errors"
 	"fmt"
-	"github.com/bbiskup/edify/edifact/segment"
+	"github.com/bbiskup/edify/edifact/spec/segment"
 	"io/ioutil"
 	"log"
 	"os"

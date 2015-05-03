@@ -2,9 +2,9 @@ package edifact
 
 import (
 	"fmt"
-	"github.com/bbiskup/edify/edifact/codes"
-	"github.com/bbiskup/edify/edifact/dataelement"
-	"github.com/bbiskup/edify/edifact/segment"
+	"github.com/bbiskup/edify/edifact/spec/codes"
+	"github.com/bbiskup/edify/edifact/spec/dataelement"
+	"github.com/bbiskup/edify/edifact/spec/segment"
 	"log"
 	"os"
 	"strings"

@@ -3,7 +3,7 @@ package segment
 import (
 	"errors"
 	"fmt"
-	"github.com/bbiskup/edify/edifact/dataelement"
+	"github.com/bbiskup/edify/edifact/spec/dataelement"
 	"github.com/bbiskup/edify/edifact/util"
 	"log"
 	"regexp"

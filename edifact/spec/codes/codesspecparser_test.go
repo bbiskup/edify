@@ -7,7 +7,7 @@ import (
 
 func TestParseFile(t *testing.T) {
 	parser := NewCodesSpecParser()
-	const fileName = "../../testdata/UNCL.14B"
+	const fileName = "../../../testdata/UNCL.14B"
 	specsMap, err := parser.ParseSpecFile(fileName)
 	assert.Nil(t, err)
 

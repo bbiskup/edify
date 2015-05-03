@@ -2,7 +2,7 @@ package message
 
 import (
 	"fmt"
-	"github.com/bbiskup/edify/edifact/segment"
+	"github.com/bbiskup/edify/edifact/spec/segment"
 	"github.com/bbiskup/edify/edifact/util"
 )
 
