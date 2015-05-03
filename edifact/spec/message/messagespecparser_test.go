@@ -44,6 +44,12 @@ func TestParseINVOICFile(t *testing.T) {
 	assert.Equal(t, 32, spec.Count())
 	assert.Equal(t, "dummy_segment_spec-UNH", spec.Parts[0].Name())
 	assert.Equal(t, "dummy_segment_spec-GIR", spec.Parts[10].Name())
+	assert.Equal(t, "Group_1", spec.Parts[11].Name())
+	assert.Equal(t, 99999, spec.Parts[11].MaxCount())
+
+	group_1, ok := spec.Parts[11].(*MessageSpecSegmentGroupPart)
+	assert.True(t, ok)
+	assert.Equal(t, group_1.Count(), 9)
 }
 
 func TestParseAUTHORFile(t *testing.T) {
