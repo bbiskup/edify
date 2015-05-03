@@ -4,6 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"github.com/bbiskup/edify/edifact/spec/dataelement"
+	"github.com/bbiskup/edify/edifact/spec/specutil"
 	"github.com/bbiskup/edify/edifact/util"
 	"log"
 	"regexp"
@@ -191,7 +192,7 @@ func (p *SegmentSpecParser) ParseSpecFile(fileName string) (specs SegmentSpecPro
 		return nil
 	}
 
-	err = util.ParseSpecFile(fileName, parseSection)
+	err = specutil.ParseSpecFile(fileName, parseSection)
 
 	return &SegmentSpecProviderImpl{result}, err
 }

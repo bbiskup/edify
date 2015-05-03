@@ -12,6 +12,7 @@ import (
 	"errors"
 	"fmt"
 	"github.com/bbiskup/edify/edifact/spec/codes"
+	"github.com/bbiskup/edify/edifact/spec/specutil"
 	"github.com/bbiskup/edify/edifact/util"
 	"log"
 	"regexp"
@@ -120,7 +121,7 @@ func (p *SimpleDataElementSpecParser) ParseSpecFile(fileName string) (specs Simp
 		return nil
 	}
 
-	err = util.ParseSpecFile(fileName, parseSection)
+	err = specutil.ParseSpecFile(fileName, parseSection)
 	return result, err
 }
 
