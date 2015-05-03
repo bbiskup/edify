@@ -9,7 +9,7 @@ import (
 
 func TestFullSpecParser(t *testing.T) {
 	// TODO provide permanent test data
-	parser, err := NewFullSpecParser("14B", "../../testdata/d14b")
+	parser, err := NewFullSpecParser("14B", "../../../testdata/d14b")
 	assert.Nil(t, err)
 	require.NotNil(t, parser)
 
