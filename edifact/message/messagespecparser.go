@@ -204,7 +204,8 @@ func (p *MessageSpecParser) parseMessageSpecParts(lines []string) (messageSpecPa
 			p.logNestingLevelChange(currentNestingLevel, sg.NestingLevel)
 
 			group := NewMessageSpecSegmentGroupPart(
-				string(sg.GroupNum), []MessageSpecPart{}, sg.MaxCount,
+				fmt.Sprintf("Group_%d", sg.GroupNum),
+				[]MessageSpecPart{}, sg.MaxCount,
 				sg.IsMandatory, currentMessageSpecPart)
 
 			messageSpecParts = append(messageSpecParts, group)
