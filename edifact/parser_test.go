@@ -17,10 +17,9 @@ CNT+2:1'
 UNT+9+1'
     `
 
-
 func TestParser1(t *testing.T) {
 
-	p := edi.NewParser()
+	p := NewParser()
 	message, err := p.ParseMessage(msg1)
 	if err != nil {
 		t.Fatalf("Parse error: %s", err)
@@ -29,4 +28,5 @@ func TestParser1(t *testing.T) {
 	if message == nil {
 		t.Fatalf("Parser returned nil message")
 	}
-}*/
+}
+*/
