@@ -137,9 +137,6 @@ func (p *MessageSpecParser) logNestingLevelChange(currentNestingLevel int, newNe
 */
 func (p *MessageSpecParser) parseMessageSpecParts(lines []string) (messageSpecParts []MessageSpecPart, err error) {
 	segmentTableLines, err := p.getSegmentTableLines(lines)
-	log.Printf("######################### -> segmentTableLines")
-	log.Printf("%s", strings.Join(segmentTableLines, "\n"))
-	log.Printf("######################### <- segmentTableLines")
 	currentNestingLevel := 0
 	var currentMessageSpecPart MessageSpecPart = nil
 	numLines := len(segmentTableLines)
@@ -158,7 +155,6 @@ func (p *MessageSpecParser) parseMessageSpecParts(lines []string) (messageSpecPa
 		// multiLineStartMatch := segmentMultiLineRE.FindStringSubmatch(line)
 		if index < numLines-1 {
 			nextLine := segmentTableLines[index+1]
-			log.Printf("nextLine '%s'", nextLine)
 			if strings.HasPrefix(nextLine, "               ") && !strings.HasPrefix(nextLine, "                      ") {
 				log.Printf("Joining multi-line")
 				firstLine := strings.TrimRight(line, "+| ")
@@ -166,8 +162,6 @@ func (p *MessageSpecParser) parseMessageSpecParts(lines []string) (messageSpecPa
 				index++
 			}
 		}
-
-		// log.Printf("line %d: '%s'\n", index, line)
 
 		// Each line must either be a segment entry or segment group start
 
