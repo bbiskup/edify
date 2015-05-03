@@ -117,6 +117,10 @@ var segmentGroupStartSpec = []struct {
 		true, 50, 1, true, 1, 1,
 	},
 	{
+		"00050       ---- Segment group 100------------------ M   1----------------+",
+		true, 50, 100, true, 1, 1,
+	},
+	{
 		// not a group start line
 		"00090   RFF Reference                                C   9----------------+",
 		false, 0, 0, false, 0, 1,

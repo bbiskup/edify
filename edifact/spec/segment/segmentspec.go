@@ -2,6 +2,7 @@ package segment
 
 import (
 	"fmt"
+	"log"
 )
 
 // Segment specification
@@ -26,7 +27,18 @@ type SegmentSpecProviderImpl struct {
 }
 
 func (p *SegmentSpecProviderImpl) Get(id string) *SegmentSpec {
-	return p.segmentSpecs[id]
+	result := p.segmentSpecs[id]
+	if result == nil {
+		// e.g. UNH, UNT are not defined in UNCE specs, because they
+		// are not part of the release cycle. Instead, they are defined
+		// in part 1 of ISO9735 (file testdata/r1241.txt)
+		log.Printf("######################## Missing segment spec: '%s'", id)
+		return NewSegmentSpec(
+			id, fmt.Sprintf("missing-%s", id),
+			"dummy_function", nil)
+	} else {
+		return result
+	}
 }
 
 func (p *SegmentSpecProviderImpl) Len() int {

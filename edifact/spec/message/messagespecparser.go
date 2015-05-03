@@ -23,7 +23,7 @@ var (
 	// e.g.
 	// "00210       ---- Segment group 6  ------------------ C   99-------------+||"
 	segmentGroupStartRE = regexp.MustCompile(
-		`^(\d{5})[ ]+-{4} Segment group (\d+)[ ]+[-]+ ([MC])[ ]*(\d+)[ ]*[-]+[+]+([|]*)$`)
+		`^(\d{5})[ *]+-{4} Segment group (\d+)[ ]*[-]+ ([MC])[ ]*(\d+)[ ]*[-]+[+]+([|]*)$`)
 
 	// e.g. (top-level; not in group)
 	//"00010   UNH Message header                           M   1     "
@@ -36,7 +36,12 @@ var (
 	//
 	// group end (2 nesting levels at once)
 	// "00160   QTY Quantity                                 C   99--------------++"
-	segmentRE = regexp.MustCompile(`^(\d{5})[ ]{3}([A-Z]{3}) (.{40}) ([MC])[ ]*(\d+)[-+ ]*([|]*)[ ]*$`)
+	segmentRE = regexp.MustCompile(`^(\d{5})[ ]{3}([A-Z]{3}) (.{20,}) ([MC])[ ]*(\d+)[-+ ]*([|]*)[ ]*$`)
+
+	// A segment spec that spans multiple lines because
+	// of a long name, e.g. (QALITY_D.14B)
+	// "00250   SPS Sampling parameters for summary                               |"
+	// "               statistics                            C   1                |"
 )
 
 type SegmentGroupStart struct {
@@ -85,7 +90,7 @@ func (p *MessageSpecParser) parseSource(sourceStr string) (source string, err er
 }
 
 // lines: lines of message spec file (without header)
-func (ü *MessageSpecParser) getSegmentTableLines(lines []string) (segmentTable []string, err error) {
+func (p *MessageSpecParser) getSegmentTableLines(lines []string) (segmentTable []string, err error) {
 	started := false
 	for _, line := range lines {
 		if strings.HasPrefix(line, "Pos     Tag Name") {
@@ -132,9 +137,13 @@ func (p *MessageSpecParser) logNestingLevelChange(currentNestingLevel int, newNe
 */
 func (p *MessageSpecParser) parseMessageSpecParts(lines []string) (messageSpecParts []MessageSpecPart, err error) {
 	segmentTableLines, err := p.getSegmentTableLines(lines)
+	log.Printf("######################### -> segmentTableLines")
+	log.Printf("%s", strings.Join(segmentTableLines, "\n"))
+	log.Printf("######################### <- segmentTableLines")
 	currentNestingLevel := 0
 	var currentMessageSpecPart MessageSpecPart = nil
-	log.Printf("Processing %d segment table lines", len(segmentTableLines))
+	numLines := len(segmentTableLines)
+	log.Printf("Processing %d segment table lines", numLines)
 	for index, line := range segmentTableLines {
 		line = strings.TrimRight(line, " \r\n")
 		if len(strings.TrimSpace(line)) == 0 {
@@ -143,6 +152,19 @@ func (p *MessageSpecParser) parseMessageSpecParts(lines []string) (messageSpecPa
 
 		if p.matchHeaderOrEmptyInGroupSection(line) {
 			continue
+		}
+
+		// Join multi-line segment definition
+		// multiLineStartMatch := segmentMultiLineRE.FindStringSubmatch(line)
+		if index < numLines-1 {
+			nextLine := segmentTableLines[index+1]
+			log.Printf("nextLine '%s'", nextLine)
+			if strings.HasPrefix(nextLine, "               ") && !strings.HasPrefix(nextLine, "                      ") {
+				log.Printf("Joining multi-line")
+				firstLine := strings.TrimRight(line, "+| ")
+				line = firstLine + " " + strings.TrimSpace(nextLine)
+				index++
+			}
 		}
 
 		// log.Printf("line %d: '%s'\n", index, line)
@@ -223,7 +245,9 @@ func (p *MessageSpecParser) parseMessageSpecParts(lines []string) (messageSpecPa
 			currentMessageSpecPart = group
 			currentNestingLevel = sg.NestingLevel
 		} else {
-			return nil, errors.New(fmt.Sprintf("Parse error at index %d", index))
+			return nil, errors.New(
+				fmt.Sprintf("Parse error at index %d ('%s')",
+					index, line))
 		}
 	}
 	return
@@ -348,6 +372,7 @@ func (p *MessageSpecParser) ParseSpecFile(fileName string) (spec *MessageSpec, e
 	// The largest standard message file has 321k (about 6800 lines), so
 	// we can read it at once
 
+	log.Printf("Parsing message spec file '%s'", fileName)
 	contents, err := ioutil.ReadFile(fileName)
 	if err != nil {
 		return
@@ -387,10 +412,17 @@ func (p *MessageSpecParser) ParseSpecDir(dirName string, suffix string) (specs [
 
 	specs = []*MessageSpec{}
 	for _, entry := range entries {
+		fmt.Printf("===== %s", entry.Name())
 		fileName := entry.Name()
 		if !strings.HasSuffix(fileName, "."+suffix) {
 			continue
 		}
+
+		if strings.HasPrefix(fileName, "EDMDI") {
+			// message index file
+			continue
+		}
+
 		spec, err := p.ParseSpecFile(dirName + pathSep + fileName)
 		if err != nil {
 			return nil, err

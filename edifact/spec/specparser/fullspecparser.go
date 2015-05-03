@@ -4,11 +4,14 @@ import (
 	"fmt"
 	"github.com/bbiskup/edify/edifact/spec/codes"
 	"github.com/bbiskup/edify/edifact/spec/dataelement"
+	"github.com/bbiskup/edify/edifact/spec/message"
 	"github.com/bbiskup/edify/edifact/spec/segment"
 	"log"
 	"os"
 	"strings"
 )
+
+const pathSeparator = string(os.PathSeparator)
 
 // Parses all relevant parts of EDIFACT spec
 type FullSpecParser struct {
@@ -95,6 +98,13 @@ func (p *FullSpecParser) parseSegmentSpecs(
 	return specs, nil
 }
 
+func (p *FullSpecParser) parseMessageSpecs(segmentSpecs segment.SegmentSpecProvider) (messageSpecs []*message.MessageSpec, err error) {
+	msgDir := p.Dir + pathSeparator + "edmd"
+	parser := message.NewMessageSpecParser(segmentSpecs)
+	fmt.Printf("Parsing message specs with suffix '%s' in directory '%s'", p.Version, msgDir)
+	return parser.ParseSpecDir(msgDir, p.Version)
+}
+
 func (p *FullSpecParser) Parse() error {
 	codeSpecs, err := p.parseCodeSpecs()
 	if err != nil {
@@ -112,8 +122,16 @@ func (p *FullSpecParser) Parse() error {
 	}
 
 	segmentSpecs, err := p.parseSegmentSpecs(simpleDataElemSpecs, compositeDataElemSpecs)
+	if err != nil {
+		return err
+	}
 
-	_ = segmentSpecs
+	messageSpecs, err := p.parseMessageSpecs(segmentSpecs)
+	if err != nil {
+		return err
+	}
+
+	log.Printf("Parsed %d message specs", len(messageSpecs))
 	return err
 }
 
