@@ -3,15 +3,17 @@ package edifact
 import (
 	"fmt"
 	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 	"testing"
 )
 
 func TestFullSpecParser(t *testing.T) {
 	// TODO provide permanent test data
-	p, err := NewFullSpecParser("14B", "../testdata/d14b")
+	parser, err := NewFullSpecParser("14B", "../../testdata/d14b")
 	assert.Nil(t, err)
+	require.NotNil(t, parser)
 
-	err = p.Parse()
+	err = parser.Parse()
 	assert.Nil(t, err)
-	fmt.Printf("p: %#v", p)
+	fmt.Printf("p: %#v", parser)
 }
