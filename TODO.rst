@@ -1,6 +1,8 @@
 TODO
 ====
 
+- Parallel parsing of segment specs
+
 - Obtain UNH and other missing definitions from EDIFACT spec? (missing from UNCE specs)
   - 2015-05-03: UNH, UNT, UNS, UGH, UGT missing
   - See testdata/d14b/_TextFiles/CONTENT.TXT:
