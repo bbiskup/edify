@@ -9,12 +9,25 @@ import (
 	"time"
 )
 
+type MockSegmentSpecProviderImpl struct {
+}
+
+func (p *MockSegmentSpecProviderImpl) Get(id string) *segment.SegmentSpec {
+	return segment.NewSegmentSpec(
+		id, fmt.Sprintf("dummy_segment_spec-%s", id), "dummy_function", nil)
+}
+
+func (p *MockSegmentSpecProviderImpl) Len() int {
+	// Dummy value; unused
+	return 100
+}
+
 // Example of small file with 3 levels of nesting: TPFREP; multiple nesting levels end simulateously
 // Bigger file, 3 levels, up/down: ORDRSP
 // Most groups (258): GOVCBR; only msg type with > 99 groups
 
 func TestParseINVOICFile(t *testing.T) {
-	parser := NewMessageSpecParser(segment.SegmentSpecMap{})
+	parser := NewMessageSpecParser(&MockSegmentSpecProviderImpl{})
 	spec, err := parser.ParseSpecFile("../../testdata/INVOIC_D.14B")
 	assert.Nil(t, err)
 	require.NotNil(t, spec)
@@ -29,7 +42,7 @@ func TestParseINVOICFile(t *testing.T) {
 }
 
 func TestParseAUTHORFile(t *testing.T) {
-	parser := NewMessageSpecParser(segment.SegmentSpecMap{})
+	parser := NewMessageSpecParser(&MockSegmentSpecProviderImpl{})
 	spec, err := parser.ParseSpecFile("../../testdata/AUTHOR_D.14B")
 	assert.Nil(t, err)
 	require.NotNil(t, spec)
@@ -44,14 +57,15 @@ func TestParseAUTHORFile(t *testing.T) {
 }
 
 func TestParseNonExistentFile(t *testing.T) {
-	parser := NewMessageSpecParser(segment.SegmentSpecMap{})
+	parser := NewMessageSpecParser(&MockSegmentSpecProviderImpl{})
 	spec, err := parser.ParseSpecFile("../../testdata/NON_EXISTENT")
 	assert.NotNil(t, err)
 	assert.Nil(t, spec)
 }
 
 func TestParseDir(t *testing.T) {
-	parser := NewMessageSpecParser(segment.SegmentSpecMap{})
+	parser := NewMessageSpecParser(&MockSegmentSpecProviderImpl{})
+
 	specs, err := parser.ParseSpecDir("../../testdata/message_specs", "14B")
 	assert.Nil(t, err)
 	require.NotNil(t, specs)
@@ -100,7 +114,7 @@ var segmentGroupStartSpec = []struct {
 }
 
 func TestParseSegmentGroupStart(t *testing.T) {
-	parser := NewMessageSpecParser(segment.SegmentSpecMap{})
+	parser := NewMessageSpecParser(&MockSegmentSpecProviderImpl{})
 	for _, spec := range segmentGroupStartSpec {
 		res, err := parser.parseSegmentGroupStart(spec.line)
 		require.Nil(t, err)
@@ -150,7 +164,7 @@ var segmentEntryStartSpec = []struct {
 }
 
 func TestParseSegmentEntry(t *testing.T) {
-	parser := NewMessageSpecParser(segment.SegmentSpecMap{})
+	parser := NewMessageSpecParser(&MockSegmentSpecProviderImpl{})
 	for _, spec := range segmentEntryStartSpec {
 		res, err := parser.parseSegmentEntry(spec.line)
 		require.Nil(t, err)
@@ -171,7 +185,7 @@ func TestParseSegmentEntry(t *testing.T) {
 }
 
 func TestParseHeaderSection(t *testing.T) {
-	parser := NewMessageSpecParser(segment.SegmentSpecMap{})
+	parser := NewMessageSpecParser(&MockSegmentSpecProviderImpl{})
 	assert.Equal(t, true, parser.matchHeaderOrEmptyInGroupSection("            HEADER SECTION"))
 	assert.Equal(t, true, parser.matchHeaderOrEmptyInGroupSection("            HEADER SECTION  "))
 	assert.Equal(t, false, parser.matchHeaderOrEmptyInGroupSection("           HEADER SECTION"))

@@ -33,11 +33,15 @@ func (p *MessageSpecSegmentGroupPart) Append(messageSpecPart MessageSpecPart) {
 	p.children = append(p.children, messageSpecPart)
 }
 
-func NewMessageSpecSegmentGroupPart(name string, children []MessageSpecPart, maxCount int, isMandatory bool) *MessageSpecSegmentGroupPart {
+func NewMessageSpecSegmentGroupPart(
+	name string, children []MessageSpecPart,
+	maxCount int, isMandatory bool, parent MessageSpecPart) *MessageSpecSegmentGroupPart {
+
 	return &MessageSpecSegmentGroupPart{
 		MessageSpecPartBase{
 			maxCount:    maxCount,
 			isMandatory: isMandatory,
+			parent:      parent,
 		},
 		name,
 		children,

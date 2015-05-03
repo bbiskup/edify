@@ -62,7 +62,7 @@ type SegmentEntry struct {
 // Parser for message specifications
 // e.g. d14b/edmd/AUTHOR_D.14B
 type MessageSpecParser struct {
-	segmentSpecs segment.SegmentSpecMap
+	segmentSpecs segment.SegmentSpecProvider
 }
 
 func (p *MessageSpecParser) parseDate(dateStr string) (date time.Time, err error) {
@@ -102,6 +102,15 @@ func (ü *MessageSpecParser) getSegmentTableLines(lines []string) (segmentTable 
 	return
 }
 
+func (p *MessageSpecParser) logNestingLevelChange(currentNestingLevel int, newNestingLevel int) {
+	if currentNestingLevel != newNestingLevel {
+		log.Printf("  Nesting level %d ---> %d",
+			currentNestingLevel, newNestingLevel)
+	} else {
+		// log.Printf("  Nesting level remains at %d", currentNestingLevel)
+	}
+}
+
 /*
  Get sequence of segments/segment groups
  e.g.
@@ -121,9 +130,10 @@ func (ü *MessageSpecParser) getSegmentTableLines(lines []string) (segmentTable 
 00110   COM Communication contact                    C   5----------------+
 ...
 */
-func (p *MessageSpecParser) parseMessageSpecParts(lines []string) (messageSpecParts []*MessageSpecPart, err error) {
+func (p *MessageSpecParser) parseMessageSpecParts(lines []string) (messageSpecParts []MessageSpecPart, err error) {
 	segmentTableLines, err := p.getSegmentTableLines(lines)
-	//currentNestingLevel := 0
+	currentNestingLevel := 0
+	var currentMessageSpecPart MessageSpecPart = nil
 	log.Printf("########## %d", len(segmentTableLines))
 	for index, line := range segmentTableLines {
 		line = strings.TrimRight(line, " \r\n")
@@ -136,25 +146,70 @@ func (p *MessageSpecParser) parseMessageSpecParts(lines []string) (messageSpecPa
 			continue
 		}
 
+		// Each line must either be a segment entry or segment group start
+
 		segmentEntry, err := p.parseSegmentEntry(line)
 		if err != nil {
 			return nil, err
 		}
+
+		// Are we dealing with a segment entry?
 		if segmentEntry != nil {
 			log.Printf("Found %#v", segmentEntry)
+			p.logNestingLevelChange(currentNestingLevel, segmentEntry.NestingLevel)
+			nestingDelta := currentNestingLevel - segmentEntry.NestingLevel
 
-			// TODO create MessageSpecPart
+			segmentSpec := p.segmentSpecs.Get(segmentEntry.SegmentId)
+			if segmentSpec == nil {
+				return nil, errors.New(fmt.Sprintf("No segment spec for ID '%s'",
+					segmentEntry.SegmentId))
+			}
+			part := NewMessageSpecSegmentPart(
+				segmentSpec, segmentEntry.MaxCount, segmentEntry.IsMandatory, currentMessageSpecPart)
 
+			if currentNestingLevel == 0 {
+				messageSpecParts = append(messageSpecParts, part)
+			} else {
+				group, ok := currentMessageSpecPart.(*MessageSpecSegmentGroupPart)
+				if !ok {
+					return nil, errors.New(fmt.Sprintf(
+						"Internal error: nesting incorrect; got: %#v",
+						currentMessageSpecPart))
+				}
+				group.Append(part)
+			}
+
+			if nestingDelta > 0 {
+				// Navigate up in message spec part hierarchy
+				for level := 0; level < nestingDelta; level++ {
+					currentMessageSpecPart = currentMessageSpecPart.Parent()
+				}
+				log.Printf("Parent now %#v after navigating up %d levels",
+					currentMessageSpecPart, nestingDelta)
+			}
+
+			currentNestingLevel = segmentEntry.NestingLevel
 			continue
 		}
 
+		// Next alternative: segment group start
 		segmentGroupStartSpec, err := p.parseSegmentGroupStart(line)
 		if err != nil {
 			return nil, err
 		}
 
-		if segmentGroupStartSpec != nil {
-			log.Printf("Found %#v", segmentGroupStartSpec)
+		sg := segmentGroupStartSpec
+		if sg != nil {
+			log.Printf("Found %#v", sg)
+			p.logNestingLevelChange(currentNestingLevel, sg.NestingLevel)
+
+			group := NewMessageSpecSegmentGroupPart(
+				string(sg.GroupNum), []MessageSpecPart{}, sg.MaxCount,
+				sg.IsMandatory, currentMessageSpecPart)
+
+			messageSpecParts = append(messageSpecParts, group)
+			currentMessageSpecPart = group
+			currentNestingLevel = sg.NestingLevel
 		} else {
 			return nil, errors.New(fmt.Sprintf("Parse error at index %d", index))
 		}
@@ -329,7 +384,7 @@ func (p *MessageSpecParser) ParseSpecDir(dirName string, suffix string) (specs [
 	return
 }
 
-func NewMessageSpecParser(segmentSpecs segment.SegmentSpecMap) *MessageSpecParser {
+func NewMessageSpecParser(segmentSpecs segment.SegmentSpecProvider) *MessageSpecParser {
 	return &MessageSpecParser{
 		segmentSpecs: segmentSpecs,
 	}

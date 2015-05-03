@@ -12,6 +12,27 @@ type SegmentSpec struct {
 	SegmentDataElementSpecs []*SegmentDataElementSpec
 }
 
+type SegmentSpecMap map[string]*SegmentSpec
+
+// Provides segment spec by Id
+type SegmentSpecProvider interface {
+	Get(id string) *SegmentSpec
+	Len() int
+}
+
+// Regular implementation of SegmentSpecProvider for production
+type SegmentSpecProviderImpl struct {
+	segmentSpecs SegmentSpecMap
+}
+
+func (p *SegmentSpecProviderImpl) Get(id string) *SegmentSpec {
+	return p.segmentSpecs[id]
+}
+
+func (p *SegmentSpecProviderImpl) Len() int {
+	return len(p.segmentSpecs)
+}
+
 func (s *SegmentSpec) String() string {
 	return fmt.Sprintf(
 		"Segment %s/%s (%d data elems)",

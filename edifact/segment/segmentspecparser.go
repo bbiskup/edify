@@ -28,8 +28,6 @@ type SegmentSpecParser struct {
 	dataElemRE             *regexp.Regexp
 }
 
-type SegmentSpecMap map[string]*SegmentSpec
-
 // Parse composite element spec of the form
 // "020    C138 PRICE MULTIPLIER INFORMATION               C    1"
 func (p *SegmentSpecParser) parseDataElemSpec(
@@ -181,7 +179,7 @@ func (p *SegmentSpecParser) ParseSpec(specLines []string) (spec *SegmentSpec, er
 	return NewSegmentSpec(id, name, fun, dataElementSpecs), nil
 }
 
-func (p *SegmentSpecParser) ParseSpecFile(fileName string) (specs SegmentSpecMap, err error) {
+func (p *SegmentSpecParser) ParseSpecFile(fileName string) (specs SegmentSpecProvider, err error) {
 	result := SegmentSpecMap{}
 
 	parseSection := func(lines []string) error {
@@ -195,7 +193,7 @@ func (p *SegmentSpecParser) ParseSpecFile(fileName string) (specs SegmentSpecMap
 
 	err = util.ParseSpecFile(fileName, parseSection)
 
-	return result, err
+	return &SegmentSpecProviderImpl{result}, err
 }
 
 func NewSegmentSpecParser(

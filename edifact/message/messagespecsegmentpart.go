@@ -21,11 +21,15 @@ func (p *MessageSpecSegmentPart) IsGroup() bool {
 	return false
 }
 
-func NewMessageSpecSegmentPart(segmentSpec *segment.SegmentSpec, maxCount int, isMandatory bool) *MessageSpecSegmentPart {
+func NewMessageSpecSegmentPart(
+	segmentSpec *segment.SegmentSpec,
+	maxCount int, isMandatory bool, parent MessageSpecPart) *MessageSpecSegmentPart {
+
 	return &MessageSpecSegmentPart{
 		MessageSpecPartBase{
 			maxCount:    maxCount,
 			isMandatory: isMandatory,
+			parent:      parent,
 		},
 		segmentSpec,
 	}

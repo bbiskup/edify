@@ -79,16 +79,16 @@ func (p *FullSpecParser) parseCompositeDataElemSpecs(simpleDataElemSpecs dataele
 
 func (p *FullSpecParser) parseSegmentSpecs(
 	simpleDataElemSpecs dataelement.SimpleDataElementSpecMap,
-	compositeDataElemSpecs dataelement.CompositeDataElementSpecMap) (segment.SegmentSpecMap, error) {
+	compositeDataElemSpecs dataelement.CompositeDataElementSpecMap) (specs segment.SegmentSpecProvider, err error) {
 
 	parser := segment.NewSegmentSpecParser(simpleDataElemSpecs, compositeDataElemSpecs)
 	path := p.getPath("edsd", "EDSD")
-	specs, err := parser.ParseSpecFile(path)
+	specs, err = parser.ParseSpecFile(path)
 	if err != nil {
 		return nil, err
 	}
 
-	numSpecs := len(specs)
+	numSpecs := specs.Len()
 	if numSpecs > 0 {
 		log.Printf("Loaded %d segment specs", numSpecs)
 	}
