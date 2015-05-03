@@ -50,6 +50,10 @@ func TestParseINVOICFile(t *testing.T) {
 	group_1, ok := spec.Parts[11].(*MessageSpecSegmentGroupPart)
 	assert.True(t, ok)
 	assert.Equal(t, group_1.Count(), 9)
+
+	group_1_segm_0 := group_1.Children()[0].(*MessageSpecSegmentPart)
+	assert.True(t, ok)
+	assert.Equal(t, group_1_segm_0.SegmentSpec.Id, "RFF")
 }
 
 func TestParseAUTHORFile(t *testing.T) {
