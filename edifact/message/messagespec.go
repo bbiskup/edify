@@ -1,6 +1,7 @@
 package message
 
 import (
+	"bytes"
 	"fmt"
 	"time"
 )
@@ -24,7 +25,23 @@ type MessageSpec struct {
 func (m *MessageSpec) String() string {
 	return fmt.Sprintf(
 		"Message %s (%s %s): %d parts",
-		m.Id, m.Name, m.Release, len(m.Parts))
+		m.Id, m.Name, m.Release, m.Count())
+}
+
+// Verbose output fo debugging
+func (m *MessageSpec) Dump() string {
+	count := m.Count()
+	var buffer bytes.Buffer
+
+	for i := 0; i < count; i++ {
+		buffer.WriteString(m.Parts[i].String() + "\n")
+	}
+	return buffer.String()
+}
+
+// Number of parts
+func (m *MessageSpec) Count() int {
+	return len(m.Parts)
 }
 
 func NewMessageSpec(

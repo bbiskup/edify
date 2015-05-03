@@ -8,13 +8,17 @@ import (
 // Segment group specification in message specification
 type MessageSpecSegmentGroupPart struct {
 	MessageSpecPartBase
-	Name     string
+	name     string
 	children []MessageSpecPart
+}
+
+func (p *MessageSpecSegmentGroupPart) Name() string {
+	return p.name
 }
 
 func (p *MessageSpecSegmentGroupPart) String() string {
 	mandatoryStr := util.CustBoolStr(p.IsMandatory(), "mand.", "cond.")
-	return fmt.Sprintf("Segment group %s %d %s (%d children)", p.Name, p.MaxCount(), mandatoryStr, p.Count())
+	return fmt.Sprintf("Segment group %s %d %s (%d children)", p.Name(), p.MaxCount(), mandatoryStr, p.Count())
 }
 
 func (p *MessageSpecSegmentGroupPart) IsGroup() bool {

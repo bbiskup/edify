@@ -8,6 +8,8 @@ type MessageSpecPart interface {
 
 	// returns nil when at nesting level 0
 	Parent() MessageSpecPart
+	String() string
+	Name() string
 }
 
 // Parts of a message.

@@ -12,6 +12,10 @@ type MessageSpecSegmentPart struct {
 	SegmentSpec *segment.SegmentSpec
 }
 
+func (p *MessageSpecSegmentPart) Name() string {
+	return p.SegmentSpec.Name
+}
+
 func (p *MessageSpecSegmentPart) String() string {
 	mandatoryStr := util.CustBoolStr(p.IsMandatory(), "mand.", "cond.")
 	return fmt.Sprintf("Segment %d %s %s", p.MaxCount(), mandatoryStr, p.SegmentSpec.Name)

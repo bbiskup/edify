@@ -39,6 +39,11 @@ func TestParseINVOICFile(t *testing.T) {
 	assert.Equal(t, "UN", spec.ContrAgency)
 	assert.Equal(t, "16", spec.Revision)
 	assert.Equal(t, time.Date(2014, time.November, 17, 0, 0, 0, 0, time.UTC), spec.Date)
+
+	fmt.Printf("Top level parts: " + spec.Dump())
+	assert.Equal(t, 32, spec.Count())
+	assert.Equal(t, "dummy_segment_spec-UNH", spec.Parts[0].Name())
+	assert.Equal(t, "dummy_segment_spec-GIR", spec.Parts[10].Name())
 }
 
 func TestParseAUTHORFile(t *testing.T) {

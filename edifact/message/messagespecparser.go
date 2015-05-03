@@ -134,10 +134,9 @@ func (p *MessageSpecParser) parseMessageSpecParts(lines []string) (messageSpecPa
 	segmentTableLines, err := p.getSegmentTableLines(lines)
 	currentNestingLevel := 0
 	var currentMessageSpecPart MessageSpecPart = nil
-	log.Printf("########## %d", len(segmentTableLines))
+	log.Printf("Processing %d segment table lines", len(segmentTableLines))
 	for index, line := range segmentTableLines {
 		line = strings.TrimRight(line, " \r\n")
-		log.Printf("line %d: '%s'\n", index, line)
 		if len(strings.TrimSpace(line)) == 0 {
 			continue
 		}
@@ -145,6 +144,8 @@ func (p *MessageSpecParser) parseMessageSpecParts(lines []string) (messageSpecPa
 		if p.matchHeaderOrEmptyInGroupSection(line) {
 			continue
 		}
+
+		// log.Printf("line %d: '%s'\n", index, line)
 
 		// Each line must either be a segment entry or segment group start
 
@@ -208,7 +209,17 @@ func (p *MessageSpecParser) parseMessageSpecParts(lines []string) (messageSpecPa
 				[]MessageSpecPart{}, sg.MaxCount,
 				sg.IsMandatory, currentMessageSpecPart)
 
-			messageSpecParts = append(messageSpecParts, group)
+			if currentMessageSpecPart == nil {
+				messageSpecParts = append(messageSpecParts, group)
+			} else {
+				parentGroup, ok := currentMessageSpecPart.(*MessageSpecSegmentGroupPart)
+				if !ok {
+					return nil, errors.New(fmt.Sprintf(
+						"Internal error: nesting incorrect; got: %#v",
+						currentMessageSpecPart))
+				}
+				parentGroup.Append(group)
+			}
 			currentMessageSpecPart = group
 			currentNestingLevel = sg.NestingLevel
 		} else {
