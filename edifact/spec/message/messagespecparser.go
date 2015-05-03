@@ -365,6 +365,10 @@ func (p *MessageSpecParser) ParseSpecFile(fileName string) (spec *MessageSpec, e
 	contrAgency := strings.TrimSpace(lines[36][detailCol:])
 	revision := strings.TrimSpace(lines[38][detailCol:])
 	date, err := p.parseDate(strings.TrimSpace(lines[39][detailCol:]))
+	if err != nil {
+		return
+	}
+
 	source, err := p.parseSource(lines[46])
 	if err != nil {
 		return
