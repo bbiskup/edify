@@ -65,6 +65,12 @@ type SegmentEntry struct {
 	NestingLevel int
 }
 
+// Used for parallel parsing of segment specs
+type FileSpec struct {
+	fileName string
+	contents []byte
+}
+
 // Parser for message specifications
 // e.g. d14b/edmd/AUTHOR_D.14B
 type MessageSpecParser struct {
@@ -463,7 +469,7 @@ func (p *MessageSpecParser) parseSpecDir_parallel(
 
 	numFiles := len(fileNames)
 
-	fileNameCh := make(chan string, 0)
+	fileSpecCh := make(chan FileSpec, 0)
 	resultCh := make(chan *MessageSpec, 0)
 	resultsCh := make(chan []*MessageSpec, 1)
 
@@ -481,8 +487,9 @@ func (p *MessageSpecParser) parseSpecDir_parallel(
 	// Parse in parallel
 	for i := 0; i < edifact.NumThreads; i++ {
 		go func() {
-			for fileName := range fileNameCh {
-				messageSpec, err := p.ParseSpecFile(fileName)
+			for fileSpec := range fileSpecCh {
+				messageSpec, err := p.ParseSpecFileContents(
+					fileSpec.fileName, fileSpec.contents)
 				if err != nil {
 					panic("TODO: handle err")
 				}
@@ -493,9 +500,15 @@ func (p *MessageSpecParser) parseSpecDir_parallel(
 
 	go func() {
 		for _, fileName := range fileNames {
-			fileNameCh <- dirName + pathSep + fileName
+			fullPath := dirName + pathSep + fileName
+			contents, err := p.getFileContents(fullPath)
+			if err != nil {
+				panic("TODO: handle err")
+			}
+			fileSpec := FileSpec{fullPath, contents}
+			fileSpecCh <- fileSpec
 		}
-		close(fileNameCh)
+		close(fileSpecCh)
 	}()
 
 	specs = <-resultsCh
