@@ -427,7 +427,6 @@ func (p *MessageSpecParser) parseSpecDir_sequential(dirName string, suffix strin
 
 	specs = []*MessageSpec{}
 	for _, entry := range entries {
-		fmt.Printf("===== %s", entry.Name())
 		fileName := entry.Name()
 		if !strings.HasSuffix(fileName, "."+suffix) {
 			continue
@@ -455,8 +454,6 @@ func (p *MessageSpecParser) parseSpecDir_parallel(
 
 	for _, entry := range entries {
 		fileName := entry.Name()
-		fmt.Printf("===== %s", entry.Name())
-		fileName = entry.Name()
 		if !strings.HasSuffix(fileName, "."+suffix) {
 			continue
 		}
