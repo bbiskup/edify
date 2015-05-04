@@ -22,6 +22,8 @@ type MessageSpec struct {
 	Parts  []MessageSpecPart
 }
 
+type MessageSpecs []*MessageSpec
+
 func (m *MessageSpec) String() string {
 	return fmt.Sprintf(
 		"Message %s (%s %s): %d parts",
@@ -42,6 +44,21 @@ func (m *MessageSpec) Dump() string {
 // Number of parts
 func (m *MessageSpec) Count() int {
 	return len(m.Parts)
+}
+
+// from sort.Interface
+func (m MessageSpecs) Len() int {
+	return len(m)
+}
+
+// from sort.Interface
+func (m MessageSpecs) Less(i, j int) bool {
+	return m[i].Id < m[j].Id
+}
+
+// from sort.Interface
+func (m MessageSpecs) Swap(i, j int) {
+	m[i], m[j] = m[j], m[i]
 }
 
 func NewMessageSpec(

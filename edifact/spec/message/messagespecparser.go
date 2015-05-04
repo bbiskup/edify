@@ -3,6 +3,7 @@ package message
 import (
 	"errors"
 	"fmt"
+	"github.com/bbiskup/edify/edifact"
 	"github.com/bbiskup/edify/edifact/spec/segment"
 	"io/ioutil"
 	"log"
@@ -109,8 +110,8 @@ func (p *MessageSpecParser) getSegmentTableLines(lines []string) (segmentTable [
 
 func (p *MessageSpecParser) logNestingLevelChange(currentNestingLevel int, newNestingLevel int) {
 	if currentNestingLevel != newNestingLevel {
-		log.Printf("  Nesting level %d ---> %d",
-			currentNestingLevel, newNestingLevel)
+		// log.Printf("  Nesting level %d ---> %d",
+		//	currentNestingLevel, newNestingLevel)
 	} else {
 		// log.Printf("  Nesting level remains at %d", currentNestingLevel)
 	}
@@ -172,7 +173,7 @@ func (p *MessageSpecParser) parseMessageSpecParts(lines []string) (messageSpecPa
 
 		// Are we dealing with a segment entry?
 		if segmentEntry != nil {
-			log.Printf("Found %#v", segmentEntry)
+			// log.Printf("Found %#v", segmentEntry)
 			p.logNestingLevelChange(currentNestingLevel, segmentEntry.NestingLevel)
 			nestingDelta := currentNestingLevel - segmentEntry.NestingLevel
 
@@ -201,8 +202,8 @@ func (p *MessageSpecParser) parseMessageSpecParts(lines []string) (messageSpecPa
 				for level := 0; level < nestingDelta; level++ {
 					currentMessageSpecPart = currentMessageSpecPart.Parent()
 				}
-				log.Printf("Parent now %#v after navigating up %d levels",
-					currentMessageSpecPart, nestingDelta)
+				//log.Printf("Parent now %#v after navigating up %d levels",
+				//	currentMessageSpecPart, nestingDelta)
 			}
 
 			currentNestingLevel = segmentEntry.NestingLevel
@@ -217,7 +218,7 @@ func (p *MessageSpecParser) parseMessageSpecParts(lines []string) (messageSpecPa
 
 		sg := segmentGroupStartSpec
 		if sg != nil {
-			log.Printf("Found %#v", sg)
+			// log.Printf("Found %#v", sg)
 			p.logNestingLevelChange(currentNestingLevel, sg.NestingLevel)
 
 			group := NewMessageSpecSegmentGroupPart(
@@ -402,6 +403,11 @@ func (p *MessageSpecParser) ParseSpecFile(fileName string) (spec *MessageSpec, e
 }
 
 func (p *MessageSpecParser) ParseSpecDir(dirName string, suffix string) (specs []*MessageSpec, err error) {
+	return p.parseSpecDir_parallel(dirName, suffix)
+}
+
+// Parse segment spec directory sequentially
+func (p *MessageSpecParser) parseSpecDir_sequential(dirName string, suffix string) (specs []*MessageSpec, err error) {
 	entries, err := ioutil.ReadDir(dirName)
 
 	specs = []*MessageSpec{}
@@ -423,6 +429,69 @@ func (p *MessageSpecParser) ParseSpecDir(dirName string, suffix string) (specs [
 		}
 		specs = append(specs, spec)
 	}
+	return
+}
+
+func (p *MessageSpecParser) parseSpecDir_parallel(
+	dirName string, suffix string) (specs []*MessageSpec, err error) {
+
+	entries, err := ioutil.ReadDir(dirName)
+	fileNames := []string{}
+
+	for _, entry := range entries {
+		fileName := entry.Name()
+		fmt.Printf("===== %s", entry.Name())
+		fileName = entry.Name()
+		if !strings.HasSuffix(fileName, "."+suffix) {
+			continue
+		}
+
+		if strings.HasPrefix(fileName, "EDMDI") {
+			// message index file
+			continue
+		}
+		fileNames = append(fileNames, fileName)
+	}
+
+	numFiles := len(fileNames)
+
+	fileNameCh := make(chan string, 0)
+	resultCh := make(chan *MessageSpec, 0)
+	resultsCh := make(chan []*MessageSpec, 1)
+
+	// Collect results
+	go func() {
+		resultSpecs := []*MessageSpec{}
+		for i := 0; i < numFiles; i++ {
+			newSpec := <-resultCh
+			resultSpecs = append(resultSpecs, newSpec)
+		}
+		resultsCh <- resultSpecs
+		close(resultCh)
+	}()
+
+	// Parse in parallel
+	for i := 0; i < edifact.NumThreads; i++ {
+		go func() {
+			for fileName := range fileNameCh {
+				messageSpec, err := p.ParseSpecFile(fileName)
+				if err != nil {
+					panic("TODO: handle err")
+				}
+				resultCh <- messageSpec
+			}
+		}()
+	}
+
+	go func() {
+		for _, fileName := range fileNames {
+			fileNameCh <- dirName + pathSep + fileName
+		}
+		close(fileNameCh)
+	}()
+
+	specs = <-resultsCh
+	close(resultsCh)
 	return
 }
 

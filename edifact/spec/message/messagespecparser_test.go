@@ -5,6 +5,7 @@ import (
 	"github.com/bbiskup/edify/edifact/spec/segment"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
+	"sort"
 	"testing"
 	"time"
 )
@@ -86,9 +87,15 @@ func TestParseDir(t *testing.T) {
 	require.NotNil(t, specs)
 	fmt.Printf("Message specs: %s", specs)
 
+	// cast necessary so sort.Interface methods will be recognized
+	// on []*MessageSpec
+	var mSpecs MessageSpecs
+	mSpecs = specs
+	sort.Sort(mSpecs)
+
 	// ioutil.ReadDir sorts entries alphabetically
-	assert.Equal(t, "BALANC", specs[0].Id)
-	assert.Equal(t, "JOBCON", specs[1].Id)
+	assert.Equal(t, "BALANC", mSpecs[0].Id)
+	assert.Equal(t, "JOBCON", mSpecs[1].Id)
 }
 
 var segmentGroupStartSpec = []struct {
