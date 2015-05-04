@@ -8,6 +8,7 @@ import (
 	"io/ioutil"
 	"log"
 	"os"
+	"path"
 	"regexp"
 	"strconv"
 	"strings"
@@ -500,7 +501,7 @@ func (p *MessageSpecParser) parseSpecDir_parallel(
 
 	go func() {
 		for _, fileName := range fileNames {
-			fullPath := dirName + pathSep + fileName
+			fullPath := path.Clean(dirName + pathSep + fileName)
 			contents, err := p.getFileContents(fullPath)
 			if err != nil {
 				panic("TODO: handle err")
