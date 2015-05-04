@@ -345,6 +345,18 @@ func (p *MessageSpecParser) matchHeaderOrEmptyInGroupSection(line string) (match
 	return strings.HasPrefix(line, "            ")
 }
 
+func (p *MessageSpecParser) getFileContents(fileName string) (contents []byte, err error) {
+	return ioutil.ReadFile(fileName)
+}
+
+func (p *MessageSpecParser) ParseSpecFile(fileName string) (spec *MessageSpec, err error) {
+	contents, err := p.getFileContents(fileName)
+	if err != nil {
+		return nil, err
+	}
+	return p.ParseSpecFileContents(fileName, contents)
+}
+
 // One spec file contains the spec for a single message type
 /*
                                 UN/EDIFACT
@@ -363,15 +375,11 @@ func (p *MessageSpecParser) matchHeaderOrEmptyInGroupSection(line string) (match
 ...
 SOURCE: TBG1 Supply Chain
 */
-func (p *MessageSpecParser) ParseSpecFile(fileName string) (spec *MessageSpec, err error) {
+func (p *MessageSpecParser) ParseSpecFileContents(fileName string, contents []byte) (spec *MessageSpec, err error) {
 	// The largest standard message file has 321k (about 6800 lines), so
 	// we can read it at once
 
-	log.Printf("Parsing message spec file '%s'", fileName)
-	contents, err := ioutil.ReadFile(fileName)
-	if err != nil {
-		return
-	}
+	log.Printf("Parsing message spec file contents'%s'", fileName)
 
 	lines := strings.Split(string(contents), "\n")
 	name := strings.TrimSpace(lines[4])
