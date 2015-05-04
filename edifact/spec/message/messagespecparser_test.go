@@ -209,3 +209,14 @@ func TestParseHeaderSection(t *testing.T) {
 	assert.Equal(t, true, parser.matchHeaderOrEmptyInGroupSection("            HEADER SECTION  "))
 	assert.Equal(t, false, parser.matchHeaderOrEmptyInGroupSection("           HEADER SECTION"))
 }
+
+func BenchmarkParseDir(b *testing.B) {
+	parser := NewMessageSpecParser(&MockSegmentSpecProviderImpl{})
+
+	for i := 0; i < b.N; i++ {
+		specs, err := parser.ParseSpecDir("../../../testdata/message_specs", "14B")
+		assert.Nil(b, err)
+		require.NotNil(b, specs)
+		fmt.Printf("Message specs: %s", specs)
+	}
+}
