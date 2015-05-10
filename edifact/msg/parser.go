@@ -118,7 +118,7 @@ func (p *Parser) ParseMessage(edifactMessage string) (message *Message, err erro
 		return nil, p.err
 	}
 
-	message = NewMessage("dummyname")
+	message = NewMessage("dummyname", segments)
 
 	return message, p.err
 }

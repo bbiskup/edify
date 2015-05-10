@@ -18,6 +18,6 @@ func (m *Message) AddSegment(segment *Segment) {
 	m.Segments = append(m.Segments, segment)
 }
 
-func NewMessage(name string) *Message {
-	return &Message{name, []*Segment{}}
+func NewMessage(name string, segments []*Segment) *Message {
+	return &Message{name, segments}
 }

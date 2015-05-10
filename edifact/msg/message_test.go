@@ -6,14 +6,14 @@ import (
 )
 
 func TestStringEmpty(t *testing.T) {
-	msg := NewMessage("ABC")
+	msg := NewMessage("ABC", []*Segment{})
 	assert.Equal(t, "ABC\n", msg.String())
 }
 
 func TestStringWithSegments(t *testing.T) {
-	msg := NewMessage("ABC")
+
 	segment1 := NewSegment("XYZ")
-	msg.AddSegment(segment1)
+	msg := NewMessage("ABC", []*Segment{segment1})
 	assert.Equal(t, 1, len(msg.Segments))
 	assert.Equal(t, "ABC\n\tXYZ\n\n", msg.String())
 }

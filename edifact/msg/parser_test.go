@@ -1,6 +1,8 @@
 package msg
 
 import (
+	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 	"testing"
 )
 
@@ -20,11 +22,7 @@ func TestParser1(t *testing.T) {
 
 	p := NewParser()
 	message, err := p.ParseMessage(msg1)
-	if err != nil {
-		t.Fatalf("Parse error: %s", err)
-	}
-
-	if message == nil {
-		t.Fatalf("Parser returned nil message")
-	}
+	require.NotNil(t, message)
+	require.Nil(t, err)
+	assert.Equal(t, 9, len(message.Segments))
 }
