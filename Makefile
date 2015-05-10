@@ -15,3 +15,9 @@ check:
 
 get-deps:
 	go get -t ./...
+
+get-test-deps:
+	go get golang.org/x/tools/cmd/cover
+
+cover:
+	go test -cover ./...

@@ -15,6 +15,7 @@ install:
 script:
   - go clean
   - make get-deps
+  - make get-test-deps
   - go vet
   - go build
   - make check
@@ -27,3 +28,5 @@ script:
   - time ./edify ./edify full_parse testdata/d14b/
   # - time ./edify ./edify parse testdata/EDED.14B
   # - time ./edify ./edify parse testdata/EDCD.14B
+
+  - make cover
