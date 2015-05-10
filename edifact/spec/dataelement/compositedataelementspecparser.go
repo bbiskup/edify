@@ -23,7 +23,10 @@ type CompositeDataElementSpecParser struct {
 func (p *CompositeDataElementSpecParser) ParseComponentDataElemenSpec(specLine string) (spec *ComponentDataElementSpec, err error) {
 	specMatch := p.componentElemRE.FindStringSubmatch(specLine)
 	if specMatch == nil {
-		err = errors.New(fmt.Sprintf("Failed to match component data element spec '%s'", specLine))
+		err = errors.New(
+			fmt.Sprintf(
+				"Failed to match component data element spec '%s'",
+				specLine))
 		return
 	}
 
@@ -62,7 +65,10 @@ func (p *CompositeDataElementSpecParser) ParseComponentDataElemenSpec(specLine s
 func (p *CompositeDataElementSpecParser) ParseHeader(header string) (id string, name string, err error) {
 	headerMatch := p.headerRE.FindStringSubmatch(header)
 	if headerMatch == nil {
-		err = errors.New(fmt.Sprintf("Missing header section (header: '%s'", header))
+		err = errors.New(
+			fmt.Sprintf(
+				"Missing header section (header: '%s'",
+				header))
 		return
 	}
 
@@ -125,7 +131,10 @@ or multi-line:
 func (p *CompositeDataElementSpecParser) ParseDescription(lines []string) (string, error) {
 	lines = util.JoinByHangingIndent(lines, 7, true)
 	if len(lines) != 1 {
-		return "", errors.New(fmt.Sprintf("Failed to parse description '%s'", lines))
+		return "", errors.New(
+			fmt.Sprintf(
+				"Failed to parse description '%s'",
+				lines))
 	}
 	line := lines[0]
 
@@ -166,7 +175,10 @@ func (p *CompositeDataElementSpecParser) ParseSpec(specLines []string) (spec *Co
 
 	headerGroup := groups[0]
 	if len(headerGroup) != 1 {
-		return nil, errors.New(fmt.Sprintf("Header group must contain a single line (%s)", headerGroup))
+		return nil, errors.New(
+			fmt.Sprintf(
+				"Header group must contain a single line (%s)",
+				headerGroup))
 	}
 	header := headerGroup[0]
 
@@ -225,6 +237,7 @@ func NewCompositeDataElementSpecParser(simpleDataElemSpecs SimpleDataElementSpec
 
 		headerRE: regexp.MustCompile(`^[ ]{7}(C[0-9]{3}) ([A-Z/& -]+) *$`),
 		// OBSOLETE componentElemRE: regexp.MustCompile(`^[ ]{7}(\d{4})  ([A-Za-z ]{41}) ([CM]) .+$`),
-		componentElemRE: regexp.MustCompile(`^([0-9]{3})[ ]{4}([0-9]{4})  [A-Za-z- ]+ ([CM]) .+$`),
+		componentElemRE: regexp.MustCompile(
+			`^([0-9]{3})[ ]{4}([0-9]{4})  [A-Za-z- ]+ ([CM]) .+$`),
 	}
 }

@@ -15,7 +15,10 @@ type ComponentDataElementSpec struct {
 
 func (s *ComponentDataElementSpec) String() string {
 	isMandatoryStr := util.CustBoolStr(s.IsMandatory, "mand.", "cond.")
-	return fmt.Sprintf("Component %s/%s @ %d (%s)", s.DataElemSpec.Id(), s.DataElemSpec.Name(), s.Position, isMandatoryStr)
+	return fmt.Sprintf(
+		"Component %s/%s @ %d (%s)",
+		s.DataElemSpec.Id(), s.DataElemSpec.Name(),
+		s.Position, isMandatoryStr)
 }
 
 func NewComponentDataElementSpec(position int, isMandatory bool, dataElementSpec DataElementSpec) *ComponentDataElementSpec {
