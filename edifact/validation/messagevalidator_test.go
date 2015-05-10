@@ -1,6 +1,7 @@
 package validation
 
 import (
+	"fmt"
 	"github.com/bbiskup/edify/edifact/spec/message"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
@@ -136,5 +137,33 @@ func BenchmarkNewMessageValidator(b *testing.B) {
 		validator, err := NewMessageValidator(messageSpec)
 		require.Nil(b, err)
 		require.NotNil(b, validator)
+	}
+}
+
+func BenchmarkValidateAuthorSegments(b *testing.B) {
+	validator, err := NewMessageValidator(getMessageSpec())
+	require.Nil(b, err)
+	segmentIDs := []string{
+		"UNH", "BGM",
+		"DTM", "BUS",
+		// Group 4
+		"LIN", "LIN", "LIN", "LIN",
+		// Group 7
+		"FII", "CTA", "COM", "COM", "COM",
+		"FII", "CTA", "COM", "COM", "COM",
+
+		"UNT"}
+
+	b.ResetTimer()
+
+	for i := 0; i < b.N; i++ {
+		valid, err := validator.ValidateSegmentList(segmentIDs)
+		if i == 0 {
+			assert.True(b, valid)
+			assert.Nil(b, err)
+		}
+		if err != nil {
+			fmt.Println(err)
+		}
 	}
 }
