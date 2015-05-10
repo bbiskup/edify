@@ -11,7 +11,7 @@ func createLargeRegexpStr() string {
 	var buffer bytes.Buffer
 	buffer.WriteString("^")
 	for i := 0; i < 1000; i++ {
-		buffer.WriteString("(AAA:){0,3}(BBB:){0,2}")
+		buffer.WriteString("(AAA:){0,3}(BBB:){0,2}(CCC:)")
 	}
 	buffer.WriteString("$")
 	return buffer.String()
@@ -46,6 +46,7 @@ func BenchmarkMatchLargeRegexp(b *testing.B) {
 			next = "BBB:BBB:"
 		}
 		buffer.WriteString(next)
+		buffer.WriteString("CCC:")
 	}
 	strToMatch := buffer.String()
 
@@ -58,7 +59,7 @@ func BenchmarkMatchLargeRegexp(b *testing.B) {
 			assert.NotNil(b, m)
 
 			// + 1 for group 0 (full match)
-			assert.Equal(b, numSegments+1, len(m))
+			assert.Equal(b, numSegments*3+1, len(m))
 		}
 	}
 }
