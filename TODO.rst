@@ -1,7 +1,9 @@
 TODO
 ====
 
-- Parallel parsing of segment specs
+- Separate postprocessing step or match callback to validate higher repeat
+  counts of segments in message spec (repeat counts that are too high
+  for the golang regexp parser)
 
 - Obtain UNH and other missing definitions from EDIFACT spec? (missing from UNCE specs)
   - 2015-05-03: UNH, UNT, UNS, UGH, UGT missing
