@@ -80,7 +80,9 @@ func buildMessageSpecPartRegexpStr(msgSpecPart msgspec.MessageSpecPart) string {
 	case *msgspec.MessageSpecSegmentGroupPart:
 		groupPartRegexpStrs := []string{}
 		for _, groupChild := range msgSpecPart.Children() {
-			groupPartRegexpStrs = append(groupPartRegexpStrs, buildMessageSpecPartRegexpStr(groupChild))
+			groupPartRegexpStrs = append(
+				groupPartRegexpStrs,
+				buildMessageSpecPartRegexpStr(groupChild))
 		}
 		inner = strings.Join(groupPartRegexpStrs, "")
 		regexpRepeatStr = getRegexpRepeatStr(specMinCount, specMaxCount, true)

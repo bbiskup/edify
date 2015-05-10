@@ -24,7 +24,10 @@ type CodesSpecParser struct {
 func (p *CodesSpecParser) ParseCodesSpecHeader(header string) (id string, name string, err error) {
 	headerMatch := p.codesHeaderRE.FindStringSubmatch(header)
 	if headerMatch == nil {
-		err = errors.New(fmt.Sprintf("Unable to parse codes header section (header: '%s'", header))
+		err = errors.New(
+			fmt.Sprintf(
+				"Unable to parse codes header section (header: '%s'",
+				header))
 		return
 	}
 
