@@ -12,8 +12,9 @@ import (
 )
 
 type MessageValidator struct {
-	messageSpec             *msgspec.MessageSpec
-	segmentValidationRegexp *regexp.Regexp
+	messageSpec                *msgspec.MessageSpec
+	segmentValidationRegexpStr string
+	segmentValidationRegexp    *regexp.Regexp
 }
 
 func (v *MessageValidator) String() string {
@@ -70,11 +71,11 @@ func buildMessageSpecPartsRegexpStr(msgSpecParts []msgspec.MessageSpecPart) stri
 // against the message specification.
 // Each segment is encoded as XXX: where XXX is the segment ID and ':'
 // is a separator to avoid misaligned matches
-func buildSegmentSeqValidationRegexp(msgSpec *msgspec.MessageSpec) (msgRegexp *regexp.Regexp, err error) {
+func buildSegmentSeqValidationRegexp(msgSpec *msgspec.MessageSpec) (msgRegexpStr string, msgRegexp *regexp.Regexp, err error) {
 	regexpStr := buildMessageSpecPartsRegexpStr(msgSpec.Parts)
-	log.Printf("regexp str: '%s'", regexpStr)
+	// log.Printf("regexp str: '%s'", regexpStr)
 	msgRegexp = regexp.MustCompile(regexpStr)
-	return msgRegexp, nil
+	return regexpStr, msgRegexp, nil
 }
 
 func (v *MessageValidator) Validate(message msg.Message) error {
@@ -82,12 +83,13 @@ func (v *MessageValidator) Validate(message msg.Message) error {
 }
 
 func NewMessageValidator(messageSpec *msgspec.MessageSpec) (validator *MessageValidator, err error) {
-	r, err := buildSegmentSeqValidationRegexp(messageSpec)
+	msgRegexpStr, msgRegexp, err := buildSegmentSeqValidationRegexp(messageSpec)
 	if err != nil {
 		return nil, err
 	}
 	return &MessageValidator{
-		messageSpec:             messageSpec,
-		segmentValidationRegexp: r,
+		messageSpec:                messageSpec,
+		segmentValidationRegexpStr: msgRegexpStr,
+		segmentValidationRegexp:    msgRegexp,
 	}, nil
 }
