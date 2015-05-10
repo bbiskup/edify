@@ -1,7 +1,6 @@
 package dataelement
 
 import (
-	"fmt"
 	"github.com/stretchr/testify/assert"
 	"testing"
 )
@@ -100,7 +99,7 @@ func TestParseFile(t *testing.T) {
 	parser := NewCompositeDataElementSpecParser(fixtureMultiSimpleDataElementSpecs())
 	res, err := parser.ParseSpecFile("../../../testdata/EDCD.14B_short")
 	assert.Nil(t, err)
-	fmt.Printf("res: %s", res)
+	// fmt.Printf("res: %s", res)
 	assert.Equal(t, 1, len(res))
 	assert.NotNil(t, res["C001"])
 }

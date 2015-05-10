@@ -6,7 +6,6 @@ import (
 	"github.com/bbiskup/edify/edifact"
 	"github.com/bbiskup/edify/edifact/spec/segment"
 	"io/ioutil"
-	"log"
 	"os"
 	"path"
 	"regexp"
@@ -148,7 +147,7 @@ func (p *MessageSpecParser) parseMessageSpecParts(lines []string) (messageSpecPa
 	currentNestingLevel := 0
 	var currentMessageSpecPart MessageSpecPart = nil
 	numLines := len(segmentTableLines)
-	log.Printf("Processing %d segment table lines", numLines)
+	// log.Printf("Processing %d segment table lines", numLines)
 	for index, line := range segmentTableLines {
 		line = strings.TrimRight(line, " \r\n")
 		if len(strings.TrimSpace(line)) == 0 {
@@ -164,7 +163,7 @@ func (p *MessageSpecParser) parseMessageSpecParts(lines []string) (messageSpecPa
 		if index < numLines-1 {
 			nextLine := segmentTableLines[index+1]
 			if strings.HasPrefix(nextLine, "               ") && !strings.HasPrefix(nextLine, "                      ") {
-				log.Printf("Joining multi-line")
+				// log.Printf("Joining multi-line")
 				firstLine := strings.TrimRight(line, "+| ")
 				line = firstLine + " " + strings.TrimSpace(nextLine)
 				index++
@@ -386,7 +385,7 @@ func (p *MessageSpecParser) ParseSpecFileContents(fileName string, contents []by
 	// The largest standard message file has 321k (about 6800 lines), so
 	// we can read it at once
 
-	log.Printf("Parsing message spec file contents'%s'", fileName)
+	// log.Printf("Parsing message spec file contents'%s'", fileName)
 
 	lines := strings.Split(string(contents), "\n")
 	name := strings.TrimSpace(lines[4])

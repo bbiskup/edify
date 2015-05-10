@@ -90,7 +90,7 @@ func (p *SegmentSpecParser) parseDataElementSpecs(
 		if len(group) == 0 {
 			return nil, errors.New(fmt.Sprintf("Malformed data element spec group: '%s'", group))
 		}
-		fmt.Printf("#### group %s\n", group)
+		// fmt.Printf("#### group %s\n", group)
 		specLine := util.JoinByHangingIndent(group, 8, true)[0]
 		if len(specLine) > 0 {
 			r, _ := utf8.DecodeRuneInString(specLine)

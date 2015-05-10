@@ -3,7 +3,6 @@ package specutil
 import (
 	"bufio"
 	"fmt"
-	"log"
 	"os"
 	"runtime"
 	"strings"
@@ -117,7 +116,7 @@ func NewSpecScannerFromReader(reader *bufio.Reader) (scanner *SpecScanner, err e
 }
 
 func finalizer(s *SpecScanner) {
-	log.Printf("Running finalizer for %#v", s)
+	// log.Printf("Running finalizer for %#v", s)
 	if s.file != nil {
 		s.file.Close()
 		s.file = nil
@@ -142,7 +141,7 @@ func ParseSpecFile(fileName string, parseSection ParseSection) error {
 		}
 
 		if !scanner.HasMore && len(specLines) == 0 {
-			log.Println("No more lines")
+			// log.Println("No more lines")
 			break
 		}
 

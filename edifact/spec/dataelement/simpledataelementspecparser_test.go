@@ -2,7 +2,6 @@ package dataelement
 
 import (
 	"github.com/stretchr/testify/assert"
-	"log"
 	"strings"
 	"testing"
 )
@@ -24,16 +23,16 @@ const specLines = `
 
 func TestParseSpecLines(t *testing.T) {
 	p := NewSimpleDataElementSpecParser(fixtureTextCodesSpecMap())
-	res, err := p.ParseSpec(strings.Split(specLines, "\n"))
+	_, err := p.ParseSpec(strings.Split(specLines, "\n"))
 	assert.Nil(t, err)
-	log.Printf("res: %s", res)
+	// log.Printf("res: %s", res)
 }
 
 func BenchmarkParseSpecLines(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		p := NewSimpleDataElementSpecParser(fixtureTextCodesSpecMap())
-		specs, err := p.ParseSpecFile("../../../testdata/EDED.14B")
+		_, err := p.ParseSpecFile("../../../testdata/EDED.14B")
 		assert.Nil(b, err)
-		log.Printf("Parsed %d specs\n", len(specs))
+		// log.Printf("Parsed %d specs\n", len(specs))
 	}
 }
