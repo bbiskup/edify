@@ -16,18 +16,18 @@ func NewParser() *Parser {
 	return &Parser{err: nil}
 }
 
-func (p *Parser) ParseElement(elementStr string) (element *Element) {
+func (p *Parser) ParseElement(elementStr string) (element *DataElement) {
 	parts := strings.Split(elementStr, CompDataElemSepStr)
-	return NewElement(parts)
+	return NewDataElement(parts)
 }
 
-func (p *Parser) ParseElements(elementStrs []string) (elements []*Element) {
+func (p *Parser) ParseElements(elementStrs []string) (elements []*DataElement) {
 	fmt.Printf("ParseElements %s", elementStrs)
 	if p.err != nil {
 		return nil
 	}
 
-	elements = []*Element{}
+	elements = []*DataElement{}
 	for _, elementStr := range elementStrs {
 		element := p.ParseElement(elementStr)
 		if element == nil {
