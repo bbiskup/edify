@@ -47,14 +47,22 @@ func buildMessageSpecPartRegexpStr(msgSpecPart msgspec.MessageSpecPart) string {
 	} else {
 		maxRegexpRepeatCountStr = strconv.Itoa(maxSpecRepeatCount)
 	}
-	return fmt.Sprintf("(%s){%d,%s}", inner, msgSpecPart.MinCount(), maxRegexpRepeatCountStr)
+
+	minRegexpRepeatCount := msgSpecPart.MinCount()
+	if minRegexpRepeatCount == 1 && maxSpecRepeatCount == 1 {
+		return fmt.Sprintf("(%s)", inner)
+	} else {
+		return fmt.Sprintf("(%s){%d,%s}", inner, minRegexpRepeatCount, maxRegexpRepeatCountStr)
+	}
 }
 
 func buildMessageSpecPartsRegexpStr(msgSpecParts []msgspec.MessageSpecPart) string {
 	var buf bytes.Buffer
+	buf.WriteString("^")
 	for _, part := range msgSpecParts {
 		buf.WriteString(buildMessageSpecPartRegexpStr(part))
 	}
+	buf.WriteString("$")
 	return buf.String()
 }
 
