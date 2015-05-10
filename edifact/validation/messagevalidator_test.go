@@ -131,8 +131,9 @@ func TestValidateSegmentList(t *testing.T) {
 
 // Benchmark creation of validation regexp
 func BenchmarkNewMessageValidator(b *testing.B) {
+	messageSpec := getMessageSpec()
 	for i := 0; i < b.N; i++ {
-		validator, err := NewMessageValidator(getMessageSpec())
+		validator, err := NewMessageValidator(messageSpec)
 		require.Nil(b, err)
 		require.NotNil(b, validator)
 	}
