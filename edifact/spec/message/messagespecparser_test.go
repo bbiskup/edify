@@ -1,27 +1,12 @@
 package message
 
 import (
-	"fmt"
-	"github.com/bbiskup/edify/edifact/spec/segment"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 	"sort"
 	"testing"
 	"time"
 )
-
-type MockSegmentSpecProviderImpl struct {
-}
-
-func (p *MockSegmentSpecProviderImpl) Get(id string) *segment.SegmentSpec {
-	return segment.NewSegmentSpec(
-		id, fmt.Sprintf("dummy_segment_spec-%s", id), "dummy_function", nil)
-}
-
-func (p *MockSegmentSpecProviderImpl) Len() int {
-	// Dummy value; unused
-	return 100
-}
 
 // Example of small file with 3 levels of nesting: TPFREP; multiple nesting levels end simulateously
 // Bigger file, 3 levels, up/down: ORDRSP
