@@ -2,6 +2,7 @@ package validation
 
 import (
 	"bytes"
+	"errors"
 	"fmt"
 	msg "github.com/bbiskup/edify/edifact/msg"
 	msgspec "github.com/bbiskup/edify/edifact/spec/message"
@@ -92,8 +93,11 @@ func (v *MessageValidator) Validate(message msg.Message) (isValid bool, err erro
 
 // Validate a list of segment names as they occur in a message
 func (v *MessageValidator) ValidateSegmentList(segmentIDs []string) (isValid bool, err error) {
+	if len(segmentIDs) == 0 {
+		return false, errors.New("No segments")
+	}
 	match := v.segmentValidationRegexp.FindStringSubmatch(buildSegmentListStr(segmentIDs))
-	return match != nil, nil
+	return len(match) != 0, nil
 }
 
 func NewMessageValidator(messageSpec *msgspec.MessageSpec) (validator *MessageValidator, err error) {

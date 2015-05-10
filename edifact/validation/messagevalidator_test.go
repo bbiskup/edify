@@ -41,6 +41,86 @@ func TestBuildSegmentListStr(t *testing.T) {
 	}
 }
 
+var authorSegSeqSpec = []struct {
+	segmentIDs  []string
+	valid       bool
+	expectError bool
+}{
+	// minimal message (only mandatory segments)
+	{[]string{
+		"UNH", "BGM",
+		// Group 1
+		"LIN",
+		"UNT",
+	}, true, false},
+
+	// Mostly mandatory
+	{[]string{
+		"UNH", "BGM",
+		"DTM", "BUS", // both conditional
+		// Group 4
+		"LIN",
+		"UNT",
+	}, true, false},
+
+	// Mostly mandatory; one conditional group
+	{[]string{
+		"UNH", "BGM",
+		"DTM", "BUS",
+		// Group 1
+		"LIN",
+		// Group 2
+		"FII", "CTA", "COM",
+
+		"UNT",
+	}, true, false},
+
+	// Some repeat counts > 1
+	{[]string{
+		"UNH", "BGM",
+		"DTM", "BUS",
+		// Group 4
+		"LIN", "LIN", "LIN", "LIN",
+		// Group 7
+		"FII", "CTA", "COM", "COM", "COM",
+		"FII", "CTA", "COM", "COM", "COM",
+
+		"UNT",
+	}, true, false},
+
+	// No segments at all
+	{[]string{}, false, true},
+
+	// Missing mandatory segments
+	{[]string{"UNH"}, false, false},
+
+	// group 7 repeated too often
+	{[]string{
+		"UNH", "BGM",
+		"DTM", "BUS",
+		// Group 4
+		"LIN", "LIN", "LIN", "LIN",
+		// Group 7
+		"FII", "CTA", "COM", "COM", "COM",
+		"FII", "CTA", "COM", "COM", "COM",
+		"FII", "CTA", "COM", "COM", "COM",
+
+		"UNT",
+	}, false, false},
+}
+
+func TestValidateSegmentList(t *testing.T) {
+	validator, err := NewMessageValidator(getMessageSpec())
+	require.Nil(t, err)
+	// fmt.Printf("regexp str %s", validator.segmentValidationRegexpStr)
+	for _, spec := range authorSegSeqSpec {
+		// fmt.Printf("spec: %#v\n", spec)
+		result, err := validator.ValidateSegmentList(spec.segmentIDs)
+		assert.Equal(t, spec.valid, result)
+		assert.Equal(t, spec.expectError, err != nil)
+	}
+}
+
 // Benchmark creation of validation regexp
 func BenchmarkNewMessageValidator(b *testing.B) {
 	for i := 0; i < b.N; i++ {
