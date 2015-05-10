@@ -6,6 +6,7 @@ import (
 	"fmt"
 	msg "github.com/bbiskup/edify/edifact/msg"
 	msgspec "github.com/bbiskup/edify/edifact/spec/message"
+	"log"
 	"regexp"
 	"strings"
 )
@@ -41,6 +42,11 @@ func getRegexpRepeatStr(minSpecRepeat int, maxSpecRepeat int, isGroup bool) (res
 		return "*"
 	} else {
 		if maxSpecRepeat >= maxRepeat {
+			if maxSpecRepeat > maxRepeat {
+				log.Printf(
+					"Segment spec count %d exceeds implementation limit %d",
+					maxSpecRepeat, maxRepeat)
+			}
 			if minSpecRepeat == 0 {
 				return "*"
 			} else if minSpecRepeat == 1 {
