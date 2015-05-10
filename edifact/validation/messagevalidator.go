@@ -6,9 +6,7 @@ import (
 	"fmt"
 	msg "github.com/bbiskup/edify/edifact/msg"
 	msgspec "github.com/bbiskup/edify/edifact/spec/message"
-	"log"
 	"regexp"
-	"strconv"
 	"strings"
 )
 
@@ -22,40 +20,65 @@ func (v *MessageValidator) String() string {
 	return fmt.Sprintf("MessageValidator (%s)", v.String())
 }
 
+// Creates a repeat str for a regular expression. If possible, a
+// simple representation like the Kleene star *, or + is chosen
+// to avoid a golang ErrInvalidRepeatSize error in nested groups
+func getRegexpRepeatStr(minSpecRepeat int, maxSpecRepeat int, isGroup bool) (result string) {
+	var maxRepeat int
+	if isGroup {
+		maxRepeat = 99
+	} else {
+		maxRepeat = 99
+	}
+
+	if minSpecRepeat == 1 && maxSpecRepeat == 1 {
+		return ""
+	} else if minSpecRepeat == 0 && maxSpecRepeat == 1 {
+		return "*"
+	} else {
+		if maxSpecRepeat >= maxRepeat {
+			if minSpecRepeat == 0 {
+				return "*"
+			} else if minSpecRepeat == 1 {
+				return "+"
+			}
+		} else {
+			return fmt.Sprintf("{%d,%d}", minSpecRepeat, maxSpecRepeat)
+		}
+	}
+	panic("unreachable")
+}
+
+/*
+func buildMessageSegmentSpecPartRegexpStr(msgSpecPart msgspec.MessageSpecSegmentPart) string {
+	specMinCount := msgSpecPart.MinCount()
+	specMaxCount := msgSpecPart.MaxCount()
+	repeatStr := getRegexpRepeatStr(specMinCount, specMaxCount, msgSpecPart.IsGroup())
+	return repeatStr
+}*/
+
 func buildMessageSpecPartRegexpStr(msgSpecPart msgspec.MessageSpecPart) string {
 	var inner string
-	switch msgPart := msgSpecPart.(type) {
+	var regexpRepeatStr string
+	specMinCount := msgSpecPart.MinCount()
+	specMaxCount := msgSpecPart.MaxCount()
+
+	switch msgSpecPart := msgSpecPart.(type) {
 	case *msgspec.MessageSpecSegmentPart:
-		inner = msgPart.SegmentSpec.Id + ":"
+		inner = msgSpecPart.SegmentSpec.Id + ":"
+		regexpRepeatStr = getRegexpRepeatStr(specMinCount, specMaxCount, false)
 	case *msgspec.MessageSpecSegmentGroupPart:
 		groupPartRegexpStrs := []string{}
-		for _, groupChild := range msgPart.Children() {
+		for _, groupChild := range msgSpecPart.Children() {
 			groupPartRegexpStrs = append(groupPartRegexpStrs, buildMessageSpecPartRegexpStr(groupChild))
 		}
 		inner = strings.Join(groupPartRegexpStrs, "")
+		regexpRepeatStr = getRegexpRepeatStr(specMinCount, specMaxCount, true)
 	default:
 		panic("Not implemented")
 	}
 
-	// Regexp engine allows max. repeat count of 1000, whereas the UNCE
-	// EDIFACT spec allows 9999
-	var maxRegexpRepeatCountStr string
-	maxSpecRepeatCount := msgSpecPart.MaxCount()
-	if maxSpecRepeatCount == 9999 {
-		maxRegexpRepeatCountStr = "" //  unlimited
-	} else if maxSpecRepeatCount > 1000 {
-		log.Printf("Clamping max repeat count in regexp (msg part %s)", msgSpecPart.String())
-		maxRegexpRepeatCountStr = "1000"
-	} else {
-		maxRegexpRepeatCountStr = strconv.Itoa(maxSpecRepeatCount)
-	}
-
-	minRegexpRepeatCount := msgSpecPart.MinCount()
-	if minRegexpRepeatCount == 1 && maxSpecRepeatCount == 1 {
-		return fmt.Sprintf("(%s)", inner)
-	} else {
-		return fmt.Sprintf("(%s){%d,%s}", inner, minRegexpRepeatCount, maxRegexpRepeatCountStr)
-	}
+	return fmt.Sprintf("(%s)%s", inner, regexpRepeatStr)
 }
 
 func buildMessageSpecPartsRegexpStr(msgSpecParts []msgspec.MessageSpecPart) string {
