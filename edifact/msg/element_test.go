@@ -1,4 +1,4 @@
-package edifact
+package msg
 
 import (
 	"github.com/stretchr/testify/assert"
@@ -6,6 +6,11 @@ import (
 )
 
 func TestSimpleDataElementString(t *testing.T) {
-	elem := NewElement("testName", "testValue")
-	assert.Equal(t, "testName testValue", elem.String())
+	elem := NewElement([]string{"testValue"})
+	assert.Equal(t, "DataElement 'testValue'", elem.String())
+}
+
+func TestCompositeDataElementString(t *testing.T) {
+	elem := NewElement([]string{"testValue1", "testvalue2"})
+	assert.Equal(t, "DataElement 'testValue1' 'testvalue2'", elem.String())
 }

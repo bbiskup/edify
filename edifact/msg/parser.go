@@ -1,4 +1,4 @@
-package edifact
+package msg
 
 import (
 	"errors"
@@ -6,14 +6,6 @@ import (
 	"github.com/bbiskup/edify/edifact/util"
 	"log"
 	"strings"
-)
-
-const (
-	UNH               = "UNH"
-	UNT               = "UNT"
-	SegTerm           = '\''
-	SegTagDataElemSep = '+'
-	ReleaseChar       = '?'
 )
 
 type Parser struct {
@@ -25,10 +17,12 @@ func NewParser() *Parser {
 }
 
 func (p *Parser) ParseElement(elementStr string) (element *Element) {
-	panic("Not implemented")
+	parts := strings.Split(elementStr, CompDataElemSepStr)
+	return NewElement(parts)
 }
 
 func (p *Parser) ParseElements(elementStrs []string) (elements []*Element) {
+	fmt.Printf("ParseElements %s", elementStrs)
 	if p.err != nil {
 		return nil
 	}

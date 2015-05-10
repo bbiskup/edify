@@ -1,6 +1,5 @@
-package edifact
+package msg
 
-/* TODO implement
 import (
 	"testing"
 )
@@ -29,4 +28,3 @@ func TestParser1(t *testing.T) {
 		t.Fatalf("Parser returned nil message")
 	}
 }
-*/

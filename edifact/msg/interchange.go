@@ -1,4 +1,4 @@
-package edifact
+package msg
 
 type Interchange struct {
 	Messages []*Message
