@@ -19,7 +19,6 @@ UNT+9+1'
     `
 
 func TestParser1(t *testing.T) {
-
 	p := NewParser()
 	message, err := p.ParseMessage(msg1)
 	require.NotNil(t, message)
