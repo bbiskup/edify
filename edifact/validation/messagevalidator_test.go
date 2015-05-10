@@ -94,6 +94,14 @@ var authorSegSeqSpec = []struct {
 	// Missing mandatory segments
 	{[]string{"UNH"}, false, false},
 
+	// First mandatory segment repeated too often
+	{[]string{
+		"UNH", "UNH", "BGM",
+		// Group 1
+		"LIN",
+		"UNT",
+	}, false, false},
+
 	// group 7 repeated too often
 	{[]string{
 		"UNH", "BGM",
