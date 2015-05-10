@@ -21,3 +21,9 @@ get-test-deps:
 
 cover:
 	go test -cover ./...
+
+# Coverage for a particular package
+# go test -coverprofile=coverage.out ./...
+
+# Show package coverage in web browser
+# go tool cover -html=coverage.out
