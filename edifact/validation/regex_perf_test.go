@@ -7,10 +7,15 @@ import (
 	"testing"
 )
 
+// Check feasibility of using regexp matching to find valid sequences
+// segments according to a message spec
 func createLargeRegexpStr() string {
 	var buffer bytes.Buffer
 	buffer.WriteString("^")
 	for i := 0; i < 1000; i++ {
+
+		// CCC with count 1 makes huge difference: 1000 x faster
+		// than pattern with only optional AAA and BBB
 		buffer.WriteString("(AAA:){0,3}(BBB:){0,2}(CCC:)")
 	}
 	buffer.WriteString("$")
