@@ -10,6 +10,10 @@ type Element struct {
 	Values []string
 }
 
+func (e *Element) IsSimple() bool {
+	return len(e.Values) == 1
+}
+
 func (e *Element) buildComponentStr() string {
 	result := []string{}
 	for _, value := range e.Values {
