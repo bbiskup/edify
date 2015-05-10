@@ -78,8 +78,22 @@ func buildSegmentSeqValidationRegexp(msgSpec *msgspec.MessageSpec) (msgRegexpStr
 	return regexpStr, msgRegexp, nil
 }
 
-func (v *MessageValidator) Validate(message msg.Message) error {
+func buildSegmentListStr(segmentIDs []string) string {
+	var buf bytes.Buffer
+	for _, id := range segmentIDs {
+		buf.WriteString(fmt.Sprintf("%s:", id))
+	}
+	return buf.String()
+}
+
+func (v *MessageValidator) Validate(message msg.Message) (isValid bool, err error) {
 	panic("Not implemented")
+}
+
+// Validate a list of segment names as they occur in a message
+func (v *MessageValidator) ValidateSegmentList(segmentIDs []string) (isValid bool, err error) {
+	match := v.segmentValidationRegexp.FindStringSubmatch(buildSegmentListStr(segmentIDs))
+	return match != nil, nil
 }
 
 func NewMessageValidator(messageSpec *msgspec.MessageSpec) (validator *MessageValidator, err error) {

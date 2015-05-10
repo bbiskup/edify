@@ -25,6 +25,22 @@ func TestMessageValidator(t *testing.T) {
 	assert.Equal(t, expected, validator.segmentValidationRegexpStr)
 }
 
+var segListStrSpec = []struct {
+	segmentIDs []string
+	expected   string
+}{
+	{[]string{}, ""},
+	{[]string{"AAA"}, "AAA:"},
+	{[]string{"AAA", "BBB"}, "AAA:BBB:"},
+}
+
+func TestBuildSegmentListStr(t *testing.T) {
+	for _, spec := range segListStrSpec {
+		result := buildSegmentListStr(spec.segmentIDs)
+		assert.Equal(t, spec.expected, result)
+	}
+}
+
 // Benchmark creation of validation regexp
 func BenchmarkNewMessageValidator(b *testing.B) {
 	for i := 0; i < b.N; i++ {
