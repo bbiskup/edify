@@ -25,6 +25,10 @@ func (v *MessageValidator) String() string {
 // to avoid a golang ErrInvalidRepeatSize error in nested groups
 func getRegexpRepeatStr(minSpecRepeat int, maxSpecRepeat int, isGroup bool) (result string) {
 	var maxRepeat int
+
+	// TODO: postprocessing step to check specified counts; actual counts can be higher
+	// than what is representable with regexp repeat counts (which uses a hard limit
+	// to avoid performance problem with quadratic behavior due to nesting of repeated groups)
 	if isGroup {
 		maxRepeat = 99
 	} else {
