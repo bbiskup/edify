@@ -17,8 +17,7 @@ func TestSpecScannerFromFile(t *testing.T) {
 	expectedHeader := []string{"one"}
 
 	expectedBody := [][]string{
-		[]string{"two"},
-		[]string{"three"},
+		{"two"}, {"three"},
 	}
 
 	assert.True(t, reflect.DeepEqual(scanner.HeaderLines, expectedHeader))
