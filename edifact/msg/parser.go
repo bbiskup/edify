@@ -57,8 +57,8 @@ func (p *Parser) ParseSegment(segmentStr string) (segment *Segment) {
 		p.err = errors.New(fmt.Sprintf("Segment too short (%#v)", parts))
 		return nil
 	}
-	segmentName := parts[0]
-	segment = NewSegment(segmentName)
+	segmentId := parts[0]
+	segment = NewSegment(segmentId)
 
 	elements := p.ParseElements(parts[1:])
 	segment.AddElements(elements)
@@ -105,12 +105,12 @@ func (p *Parser) ParseMessage(edifactMessage string) (message *Message, err erro
 		return nil, p.err
 	}
 
-	if segments[0].Name != UNH {
+	if segments[0].Id != UNH {
 		p.err = errors.New("No message header (UNH)")
 		return nil, p.err
 	}
 
-	tailName := segments[len(segments)-1].Name
+	tailName := segments[len(segments)-1].Id
 	if tailName != UNT {
 		log.Print("tail segment: ", tailName)
 

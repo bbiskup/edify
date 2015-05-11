@@ -1,7 +1,7 @@
 package msg
 
 type Segment struct {
-	Name     string
+	Id       string
 	Elements []*DataElement
 }
 
@@ -10,7 +10,7 @@ func (s *Segment) String() string {
 	for _, e := range s.Elements {
 		elementsStr += "\t\t" + e.String() + "\n"
 	}
-	return s.Name + "\n" + elementsStr
+	return s.Id + "\n" + elementsStr
 }
 
 func (s *Segment) AddElement(element *DataElement) {
@@ -21,6 +21,6 @@ func (s *Segment) AddElements(elements []*DataElement) {
 	s.Elements = elements
 }
 
-func NewSegment(name string) *Segment {
-	return &Segment{name, []*DataElement{}}
+func NewSegment(id string) *Segment {
+	return &Segment{id, []*DataElement{}}
 }

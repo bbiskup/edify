@@ -18,6 +18,16 @@ func (m *Message) AddSegment(segment *Segment) {
 	m.Segments = append(m.Segments, segment)
 }
 
-func NewMessage(name string, segments []*Segment) *Message {
-	return &Message{name, segments}
+// List of IDs of segments, in the order of their appearance.
+// A separate entry is returned for each instance of a segment
+func (m *Message) SegmentIds() []string {
+	result := []string{}
+	for _, segment := range m.Segments {
+		result = append(result, segment.Id)
+	}
+	return result
+}
+
+func NewMessage(id string, segments []*Segment) *Message {
+	return &Message{id, segments}
 }
