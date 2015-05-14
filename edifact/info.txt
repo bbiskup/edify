@@ -1,6 +1,8 @@
 Ideas for path syntax for referencing elements or other parts of msg
 ====================================================================
 
+Specification
+-------------
 
 Spec archive: http://www.unece.org/fileadmin/DAM/trade/untdid/d14b/d14b.zip
 
@@ -8,7 +10,10 @@ Information about files contained in spec archive:
 .edify/downloads/d14b/_TextFiles/CONTENT.TXT
 
 
-Reference message:
+Reference message
+-----------------
+
+(Indentation for demonstration only)
 
 UNA:+.? '
 UNB+UNOC:3+Senderkennung+Empfaengerkennung+060620:0931+1++1234567'
@@ -23,16 +28,31 @@ UNB+UNOC:3+Senderkennung+Empfaengerkennung+060620:0931+1++1234567'
     UNT+9+1'
 UNZ+1+1234567'
 
+Query language
+--------------
 
-Paths:
+Querying using spec information
 
-# raw addressing
-BGM.010.2380
+msg:ORDERS[0]|seg:BGM[comp:C104:0]|[simp:1004]
 
-# using directory information
+ --> "B10001"
 
-BGM.dateTimePeriod
+msg:ORDERS[0]|seg:BGM[comp:C104:0]
+
+ --> CompositeDataElement (with )
+
+msg:ORDERS[0]
+
+  -> Message object
+
+msg:ORDERS[*]
+
+  -> [Message object]   (potentially many)
+
+TODO: addressing segment groups
 
 
-###### Web application
+Web application examples
+------------------------
+
 e.g. http://www.truugo.com/edifact/d14b/
