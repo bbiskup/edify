@@ -1,6 +1,7 @@
 package segment
 
 import (
+	"fmt"
 	"github.com/stretchr/testify/assert"
 	"testing"
 )
@@ -15,6 +16,10 @@ func (d *DummyElem) Id() string {
 
 func (d *DummyElem) Name() string {
 	return "dummy_name"
+}
+
+func (d *DummyElem) String() string {
+	return fmt.Sprintf("%s %s", d.Id(), d.Name())
 }
 
 func TestSegmentDataElementSpec(t *testing.T) {
