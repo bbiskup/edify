@@ -44,7 +44,9 @@ func TestParseINVOIC(t *testing.T) {
 
 	assert.Equal(t, "UNH", message.Segments[0].Id)
 	assert.Equal(t, "UNT", message.Segments[112].Id)
-	//assert.Equal(t, "xxx", message.Segments[4].Elements[3].Values[0])
+
+	expectedMultilineStr := "If 0% VAT is charged and your VAT ID number is displayed above, this is either an exempt or a reverse charge transaction."
+	assert.Equal(t, expectedMultilineStr, message.Segments[4].Elements[3].Values[0])
 }
 
 var elemSpecs = []struct {

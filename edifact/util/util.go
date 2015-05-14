@@ -21,6 +21,10 @@ func SplitEDIFACT(str string, sep rune, escapeChar rune) []string {
 	for _, c := range str {
 		// fmt.Printf("Pos: %d, rune: %c\n", i, c)
 
+		if c == '\n' {
+			c = ' '
+		}
+
 		if c == escapeChar {
 			isEscape = true
 		}
