@@ -3,7 +3,7 @@ BGM+380:::TAX INVOICE+0013550417+9'
 DTM+3:20070926:102'
 DTM+4:20061123:102'
 FTX+AAI+1++If 0% VAT is charged and your VAT ID number is displayed above, this
-i:s either an exempt or a reverse charge transaction.:This supply is exempt from VAT according to the
+is either an exempt or a reverse charge transaction.:This supply is exempt from VAT according to the
 section 64 of the Czec:h VAT Act.'
 RFF+ON:2080943S'
 RFF+VN:3474552'
