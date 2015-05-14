@@ -10,21 +10,21 @@ type ComponentDataElementSpec struct {
 	IsMandatory bool
 
 	// simple or composite data element spec
-	DataElemSpec DataElementSpec
+	SimpleDataElemSpec *SimpleDataElementSpec
 }
 
 func (s *ComponentDataElementSpec) String() string {
 	isMandatoryStr := util.CustBoolStr(s.IsMandatory, "mand.", "cond.")
 	return fmt.Sprintf(
 		"Component %s/%s @ %d (%s)",
-		s.DataElemSpec.Id(), s.DataElemSpec.Name(),
+		s.SimpleDataElemSpec.Id(), s.SimpleDataElemSpec.Name(),
 		s.Position, isMandatoryStr)
 }
 
-func NewComponentDataElementSpec(position int, isMandatory bool, dataElementSpec DataElementSpec) *ComponentDataElementSpec {
+func NewComponentDataElementSpec(position int, isMandatory bool, simpleDataElementSpec *SimpleDataElementSpec) *ComponentDataElementSpec {
 	return &ComponentDataElementSpec{
-		Position:     position,
-		IsMandatory:  isMandatory,
-		DataElemSpec: dataElementSpec,
+		Position:           position,
+		IsMandatory:        isMandatory,
+		SimpleDataElemSpec: simpleDataElementSpec,
 	}
 }

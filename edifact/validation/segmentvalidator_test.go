@@ -10,6 +10,7 @@ import (
 	"testing"
 )
 
+// fixture
 func getValidSegment(t *testing.T) *msg.Segment {
 	seg := msg.NewSegment("ABC")
 	seg.AddElement(
@@ -21,6 +22,40 @@ func getValidSegment(t *testing.T) *msg.Segment {
 	seg.AddElement(
 		msg.NewDataElement([]string{
 			"1",
+		}),
+	)
+	return seg
+}
+
+// fixture: non-existant code
+func getInvalidSegmentNonExistantCode(t *testing.T) *msg.Segment {
+	seg := msg.NewSegment("ABC")
+	seg.AddElement(
+		msg.NewDataElement([]string{
+			"abc",
+		}),
+	)
+
+	seg.AddElement(
+		msg.NewDataElement([]string{
+			"3", // does not exist
+		}),
+	)
+	return seg
+}
+
+// fixture: non-existant code
+func getInvalidSegmentIncorrectRepr(t *testing.T) *msg.Segment {
+	seg := msg.NewSegment("ABC")
+	seg.AddElement(
+		msg.NewDataElement([]string{
+			"abc",
+		}),
+	)
+
+	seg.AddElement(
+		msg.NewDataElement([]string{
+			"x", // should be numeric
 		}),
 	)
 	return seg
@@ -41,7 +76,7 @@ func getSegmentSpecMap(t *testing.T) segment.SegmentSpecMap {
 	require.Nil(t, err)
 
 	de1, err := de.NewSimpleDataElementSpec(
-		"simple_2", "simple_2_name", "simple_2_descr", de.NewRepr(de.AlphaNum, true, 1), de1Spec)
+		"simple_2", "simple_2_name", "simple_2_descr", de.NewRepr(de.Num, true, 1), de1Spec)
 	require.Nil(t, err)
 
 	segDataElemSpecs := []*segment.SegmentDataElementSpec{
@@ -61,3 +96,12 @@ func TestValidateValidSegment(t *testing.T) {
 	assert.True(t, valid)
 	assert.Nil(t, err)
 }
+
+/*func TestValidateInvalidSegmentNonExistantCode(t *testing.T) {
+	segSpecMap := getSegmentSpecMap(t)
+	segment := getInvalidSegmentNonExistantCode(t)
+	validator := NewSegmentValidator(segSpecMap)
+	valid, err := validator.Validate(segment)
+	assert.NotNil(t, err)
+	assert.False(t, valid)
+}*/
