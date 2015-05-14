@@ -488,7 +488,7 @@ func (p *MessageSpecParser) parseSpecDir_parallel(
 				messageSpec, err := p.ParseSpecFileContents(
 					fileSpec.fileName, fileSpec.contents)
 				if err != nil {
-					panic("TODO: handle err")
+					panic(fmt.Sprintf("TODO: handle err %s", err))
 				}
 				resultCh <- messageSpec
 			}
@@ -500,7 +500,7 @@ func (p *MessageSpecParser) parseSpecDir_parallel(
 			fullPath := path.Clean(dirName + pathSep + fileName)
 			contents, err := p.getFileContents(fullPath)
 			if err != nil {
-				panic("TODO: handle err")
+				panic(fmt.Sprintf("TODO: handle err %s", err))
 			}
 			fileSpec := FileSpec{fullPath, contents}
 			fileSpecCh <- fileSpec
