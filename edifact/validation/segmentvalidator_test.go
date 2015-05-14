@@ -10,29 +10,30 @@ import (
 	"testing"
 )
 
-func TestValidateSegment(t *testing.T) {
-	// message
-	segment1 := msg.NewSegment("ABC")
-	segment1.AddElement(
+func getValidSegment(t *testing.T) *msg.Segment {
+	seg := msg.NewSegment("ABC")
+	seg.AddElement(
 		msg.NewDataElement([]string{
 			"abc",
 		}),
 	)
 
-	segment1.AddElement(
+	seg.AddElement(
 		msg.NewDataElement([]string{
 			"1",
 		}),
 	)
+	return seg
+}
 
-	// spec
+func getSegmentSpecMap(t *testing.T) segment.SegmentSpecMap {
 	de1Spec := codes.NewCodesSpec("100", "testcode_1", "testcode_1_desc",
 		[]*codes.CodeSpec{
 			codes.NewCodeSpec("1", "value_1", "descr_1"),
 			codes.NewCodeSpec("2", "value_2", "descr_2"),
 		})
 	/*csMap := codes.CodesSpecMap{
-		"100": de1Spec,
+	    "100": de1Spec,
 	}*/
 
 	de0, err := de.NewSimpleDataElementSpec(
@@ -49,11 +50,14 @@ func TestValidateSegment(t *testing.T) {
 	}
 
 	segSpec := segment.NewSegmentSpec("ABC", "ABC_segment", "abc_function", segDataElemSpecs)
-	segSpecMap := segment.SegmentSpecMap{"ABC": segSpec}
+	return segment.SegmentSpecMap{"ABC": segSpec}
+}
 
+func TestValidateValidSegment(t *testing.T) {
+	segSpecMap := getSegmentSpecMap(t)
+	segment := getValidSegment(t)
 	validator := NewSegmentValidator(segSpecMap)
-
-	valid, err := validator.Validate(segment1)
+	valid, err := validator.Validate(segment)
 	assert.True(t, valid)
 	assert.Nil(t, err)
 }
