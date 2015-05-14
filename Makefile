@@ -2,6 +2,9 @@ test:
 	# Run test in current dir and all subdirectories
 	go test ./...
 
+test-multi-cpu:
+	time go test -cpu=1,2,3,4,5,6,7,8 ./...
+
 test-verbose:
 	go test -v ./...
 

@@ -19,7 +19,7 @@ script:
   - go vet
   - go build
   - make check
-  - make test
+  - make test-multi-cpu
   - make bench
   - time ./edify download_specs 14b
   - time ./edify extract_specs 14b
