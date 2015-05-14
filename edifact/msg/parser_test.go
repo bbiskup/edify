@@ -64,3 +64,15 @@ func TestParseElement(t *testing.T) {
 		assert.Equal(t, spec.expected, dataElem.Values)
 	}
 }
+
+const msgWithDataElemRepetition = `
+UNH+1+XYZ:D:96A:UN'
+ABC+220*221*222+B10001'
+UNT+9+1'`
+
+func TestMessageWithRepetitionSeparator(t *testing.T) {
+	p := NewParser()
+	message, err := p.ParseMessage(msgWithDataElemRepetition)
+	assert.NotNil(t, err)
+	assert.Nil(t, message)
+}

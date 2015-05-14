@@ -17,6 +17,10 @@ func NewParser() *Parser {
 }
 
 func (p *Parser) ParseElement(elementStr string) (element *DataElement) {
+	if strings.Index(elementStr, RepetitionSep) != -1 {
+		p.err = errors.New("Data element repetition currently not supported")
+		return nil
+	}
 	parts := strings.Split(elementStr, CompDataElemSepStr)
 	return NewDataElement(parts)
 }
