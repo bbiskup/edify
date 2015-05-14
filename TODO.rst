@@ -1,6 +1,8 @@
 TODO
 ====
 
+- Obtain separator chars from interchange UNA segment (UNA:+.? ')
+
 - Maintain segment group information for addressing via path
   - segment sequence regex: extract group information
 
