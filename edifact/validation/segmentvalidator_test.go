@@ -69,9 +69,6 @@ func getSegmentSpecMap(t testing.TB) segment.SegmentSpecMap {
 			codes.NewCodeSpec("2", "value_2", "descr_2"),
 		})
 	fmt.Printf("######## %#v", de1Spec)
-	/*csMap := codes.CodesSpecMap{
-	    "100": de1Spec,
-	}*/
 
 	de0, err := de.NewSimpleDataElementSpec(
 		"simple_1", "simple_1_name", "simple_1_descr", de.NewRepr(de.Alpha, true, 10), nil)
