@@ -1,7 +1,6 @@
 package validation
 
 import (
-	"fmt"
 	"github.com/bbiskup/edify/edifact/msg"
 	"github.com/bbiskup/edify/edifact/spec/codes"
 	de "github.com/bbiskup/edify/edifact/spec/dataelement"
@@ -68,7 +67,6 @@ func getSegmentSpecMap(t testing.TB) segment.SegmentSpecMap {
 			codes.NewCodeSpec("1", "value_1", "descr_1"),
 			codes.NewCodeSpec("2", "value_2", "descr_2"),
 		})
-	fmt.Printf("######## %#v", de1Spec)
 
 	de0, err := de.NewSimpleDataElementSpec(
 		"simple_1", "simple_1_name", "simple_1_descr", de.NewRepr(de.Alpha, true, 10), nil)
