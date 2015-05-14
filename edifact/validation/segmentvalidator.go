@@ -8,16 +8,20 @@ import (
 	spec_seg "github.com/bbiskup/edify/edifact/spec/segment"
 )
 
+type SegmentValidator interface {
+	Validate(seg *msg.Segment) error
+}
+
 // Validation of segments and their data elements
 // The following aspects are validated:
 // - cardinality of elements
 // - correctness of representation (repr)
 // - if a code mapping exists: validity of code
-type SegmentValidator struct {
+type SegmentValidatorImpl struct {
 	segmentSpecMap spec_seg.SegmentSpecMap
 }
 
-func (v *SegmentValidator) Validate(seg *msg.Segment) error {
+func (v *SegmentValidatorImpl) Validate(seg *msg.Segment) error {
 	spec := v.segmentSpecMap[seg.Id]
 	if spec == nil {
 		return errors.New(fmt.Sprintf("No spec for segment ID '%s'", seg.Id))
@@ -35,7 +39,7 @@ func (v *SegmentValidator) Validate(seg *msg.Segment) error {
 		spec.SegmentDataElementSpecs, seg.Elements)
 }
 
-func (v *SegmentValidator) validateDataElems(
+func (v *SegmentValidatorImpl) validateDataElems(
 	segmentDataElemSpecs []*spec_seg.SegmentDataElementSpec,
 	dataElems []*msg.DataElement) error {
 
@@ -50,7 +54,7 @@ func (v *SegmentValidator) validateDataElems(
 	return nil
 }
 
-func (v *SegmentValidator) validateSimpleDataElem(
+func (v *SegmentValidatorImpl) validateSimpleDataElem(
 	simpleDataElemSpec *de.SimpleDataElementSpec,
 	value string) error {
 
@@ -67,7 +71,7 @@ func (v *SegmentValidator) validateSimpleDataElem(
 	return nil
 }
 
-func (v *SegmentValidator) validateDataElem(
+func (v *SegmentValidatorImpl) validateDataElem(
 	dataElemSpec de.DataElementSpec, dataElem *msg.DataElement) error {
 
 	// TODO validate codes
@@ -88,6 +92,6 @@ func (v *SegmentValidator) validateDataElem(
 	}
 }
 
-func NewSegmentValidator(segmentSpecMap spec_seg.SegmentSpecMap) *SegmentValidator {
-	return &SegmentValidator{segmentSpecMap: segmentSpecMap}
+func NewSegmentValidatorImpl(segmentSpecMap spec_seg.SegmentSpecMap) *SegmentValidatorImpl {
+	return &SegmentValidatorImpl{segmentSpecMap: segmentSpecMap}
 }

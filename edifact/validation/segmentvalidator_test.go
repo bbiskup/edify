@@ -88,7 +88,7 @@ func getSegmentSpecMap(t testing.TB) segment.SegmentSpecMap {
 func TestValidateValidSegment(t *testing.T) {
 	segSpecMap := getSegmentSpecMap(t)
 	segment := getValidSegment(t)
-	validator := NewSegmentValidator(segSpecMap)
+	validator := NewSegmentValidatorImpl(segSpecMap)
 	err := validator.Validate(segment)
 	assert.Nil(t, err)
 }
@@ -96,7 +96,7 @@ func TestValidateValidSegment(t *testing.T) {
 func TestValidateInvalidSegmentNonExistantCode(t *testing.T) {
 	segSpecMap := getSegmentSpecMap(t)
 	segment := getInvalidSegmentNonExistantCode(t)
-	validator := NewSegmentValidator(segSpecMap)
+	validator := NewSegmentValidatorImpl(segSpecMap)
 	err := validator.Validate(segment)
 	assert.NotNil(t, err)
 }
@@ -104,7 +104,7 @@ func TestValidateInvalidSegmentNonExistantCode(t *testing.T) {
 func TestValidateInvalidSegmentIncorrectRepr(t *testing.T) {
 	segSpecMap := getSegmentSpecMap(t)
 	segment := getInvalidSegmentIncorrectRepr(t)
-	validator := NewSegmentValidator(segSpecMap)
+	validator := NewSegmentValidatorImpl(segSpecMap)
 	err := validator.Validate(segment)
 	assert.NotNil(t, err)
 }
@@ -115,7 +115,7 @@ func BenchmarkParseValidSegment(b *testing.B) {
 	b.ResetTimer()
 
 	for i := 0; i < b.N; i++ {
-		validator := NewSegmentValidator(segSpecMap)
+		validator := NewSegmentValidatorImpl(segSpecMap)
 		err := validator.Validate(segment)
 		assert.NotNil(b, err)
 	}
