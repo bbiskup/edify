@@ -105,3 +105,12 @@ func TestValidateValidSegment(t *testing.T) {
 	assert.NotNil(t, err)
 	assert.False(t, valid)
 }*/
+
+func TestValidateInvalidSegmentIncorrectRepr(t *testing.T) {
+	segSpecMap := getSegmentSpecMap(t)
+	segment := getInvalidSegmentIncorrectRepr(t)
+	validator := NewSegmentValidator(segSpecMap)
+	valid, err := validator.Validate(segment)
+	assert.NotNil(t, err)
+	assert.False(t, valid)
+}
