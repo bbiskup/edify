@@ -1,6 +1,9 @@
 TODO
 ====
 
+- Repeating data elements (r1241.txt, ch. 8.7.3; other occurences)
+  - "repetition separator"
+
 - Separate postprocessing step or match callback to validate higher repeat
   counts of segments in message spec (repeat counts that are too high
   for the golang regexp parser)
