@@ -9,6 +9,11 @@ import (
 	"log"
 )
 
+// Validation of segments and their data elements
+// The following aspects are validated:
+// - cardinality of elements
+// - correctness of representation (repr)
+// - if a code mapping exists: validity of code
 type SegmentValidator struct {
 	segmentSpecMap spec_seg.SegmentSpecMap
 }
