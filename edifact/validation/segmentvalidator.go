@@ -6,7 +6,6 @@ import (
 	"github.com/bbiskup/edify/edifact/msg"
 	de "github.com/bbiskup/edify/edifact/spec/dataelement"
 	spec_seg "github.com/bbiskup/edify/edifact/spec/segment"
-	"log"
 )
 
 // Validation of segments and their data elements
@@ -41,7 +40,6 @@ func (v *SegmentValidator) validateDataElems(
 	dataElems []*msg.DataElement) error {
 
 	for i, segDataElemSpec := range segmentDataElemSpecs {
-		log.Printf(" \t parsing data element %s", segDataElemSpec.String())
 		dataElem := dataElems[i]
 		dataElemSpec := segDataElemSpec.DataElemSpec
 		err := v.validateDataElem(dataElemSpec, dataElem)
@@ -71,8 +69,6 @@ func (v *SegmentValidator) validateSimpleDataElem(
 
 func (v *SegmentValidator) validateDataElem(
 	dataElemSpec de.DataElementSpec, dataElem *msg.DataElement) error {
-	log.Printf("## dataElemSpec: %#v, dataElem: %v",
-		dataElemSpec, dataElem)
 
 	// TODO validate codes
 	switch dataElemSpec := dataElemSpec.(type) {
