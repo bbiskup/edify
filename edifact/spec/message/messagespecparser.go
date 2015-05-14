@@ -142,7 +142,7 @@ func (p *MessageSpecParser) logNestingLevelChange(currentNestingLevel int, newNe
 00110   COM Communication contact                    C   5----------------+
 ...
 */
-func (p *MessageSpecParser) parseMessageSpecParts(lines []string) (messageSpecParts []MessageSpecPart, err error) {
+func (p *MessageSpecParser) parseMessageSpecParts(fileName string, lines []string) (messageSpecParts []MessageSpecPart, err error) {
 	segmentTableLines, err := p.getSegmentTableLines(lines)
 	currentNestingLevel := 0
 	var currentMessageSpecPart MessageSpecPart = nil
@@ -247,8 +247,8 @@ func (p *MessageSpecParser) parseMessageSpecParts(lines []string) (messageSpecPa
 			currentNestingLevel = sg.NestingLevel
 		} else {
 			return nil, errors.New(
-				fmt.Sprintf("Parse error at index %d ('%s')",
-					index, line))
+				fmt.Sprintf("Parse error int file %s at index %d ('%s')",
+					fileName, index, line))
 		}
 	}
 	return
@@ -416,7 +416,7 @@ func (p *MessageSpecParser) ParseSpecFileContents(fileName string, contents []by
 		return
 	}
 
-	specParts, err := p.parseMessageSpecParts(lines[47:])
+	specParts, err := p.parseMessageSpecParts(fileName, lines[47:])
 	if err != nil {
 		return
 	}
