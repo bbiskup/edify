@@ -31,3 +31,19 @@ func TestParser1(t *testing.T) {
 	assert.Equal(t, "D", message.Segments[0].Elements[1].Values[1])
 	assert.Equal(t, "9", message.Segments[8].Elements[0].Values[0])
 }
+
+var elemSpecs = []struct {
+	elemStr  string
+	expected []string
+}{
+	{"a", []string{"a"}},
+	{"a:b", []string{"a", "b"}},
+}
+
+func TestParseElement(t *testing.T) {
+	for _, spec := range elemSpecs {
+		p := NewParser()
+		dataElem := p.ParseElement(spec.elemStr)
+		assert.Equal(t, spec.expected, dataElem.Values)
+	}
+}
