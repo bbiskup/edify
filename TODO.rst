@@ -1,6 +1,9 @@
 TODO
 ====
 
+- Maintain segment group information for addressing via path
+  - segment sequence regex: extract group information
+
 - Repeating data elements (r1241.txt, ch. 8.7.3; other occurences)
   - "repetition separator"
 
