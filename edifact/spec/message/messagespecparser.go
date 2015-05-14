@@ -388,6 +388,14 @@ func (p *MessageSpecParser) ParseSpecFileContents(fileName string, contents []by
 	// log.Printf("Parsing message spec file contents'%s'", fileName)
 
 	lines := strings.Split(string(contents), "\n")
+	minLines := 48
+	numLines := len(lines)
+	if numLines < minLines {
+		return nil, errors.New(
+			fmt.Sprintf("Spec file does not contain enough lines (got %d, expected %d)",
+				numLines, minLines))
+	}
+
 	name := strings.TrimSpace(lines[4])
 	fmt.Printf("id-line: '%s'", lines[33])
 
