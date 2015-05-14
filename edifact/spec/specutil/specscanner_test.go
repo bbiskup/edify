@@ -2,6 +2,7 @@ package specutil
 
 import (
 	"bufio"
+	"fmt"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 	"reflect"
@@ -25,6 +26,7 @@ func TestSpecScannerFromFile(t *testing.T) {
 	allLines, err := scanner.GetAllSpecLines(true)
 	assert.Nil(t, err)
 	assert.True(t, reflect.DeepEqual(allLines, expectedBody))
+	assert.Nil(t, scanner.Err())
 }
 
 func TestSpecScannerFileNotExistent(t *testing.T) {
@@ -85,4 +87,16 @@ func TestSpecScannerFromReader(t *testing.T) {
 		assert.Nil(t, err)
 		assert.True(t, reflect.DeepEqual(allLines, spec.expected))
 	}
+}
+
+func TestSpecScannerParseSpecFile(t *testing.T) {
+	callCount := 0
+	var parseSpecSection = func(line []string) error {
+		fmt.Printf("parseSpecSection: %s", line)
+		callCount++
+		return nil
+	}
+	err := ParseSpecFile("../../../testdata/specscanner/1", parseSpecSection)
+	assert.Nil(t, err)
+	assert.Equal(t, 2, callCount)
 }
