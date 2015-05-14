@@ -12,7 +12,7 @@ import (
 )
 
 // fixture
-func getValidSegment(t *testing.T) *msg.Segment {
+func getValidSegment(t testing.TB) *msg.Segment {
 	seg := msg.NewSegment("ABC")
 	seg.AddElement(
 		msg.NewDataElement([]string{
@@ -29,7 +29,7 @@ func getValidSegment(t *testing.T) *msg.Segment {
 }
 
 // fixture: non-existant code
-func getInvalidSegmentNonExistantCode(t *testing.T) *msg.Segment {
+func getInvalidSegmentNonExistantCode(t testing.TB) *msg.Segment {
 	seg := msg.NewSegment("ABC")
 	seg.AddElement(
 		msg.NewDataElement([]string{
@@ -46,7 +46,7 @@ func getInvalidSegmentNonExistantCode(t *testing.T) *msg.Segment {
 }
 
 // fixture: non-existant code
-func getInvalidSegmentIncorrectRepr(t *testing.T) *msg.Segment {
+func getInvalidSegmentIncorrectRepr(t testing.TB) *msg.Segment {
 	seg := msg.NewSegment("ABC")
 	seg.AddElement(
 		msg.NewDataElement([]string{
@@ -62,7 +62,7 @@ func getInvalidSegmentIncorrectRepr(t *testing.T) *msg.Segment {
 	return seg
 }
 
-func getSegmentSpecMap(t *testing.T) segment.SegmentSpecMap {
+func getSegmentSpecMap(t testing.TB) segment.SegmentSpecMap {
 	de1Spec := codes.NewCodesSpec("100", "testcode_1", "testcode_1_desc",
 		[]*codes.CodeSpec{
 			codes.NewCodeSpec("1", "value_1", "descr_1"),
@@ -112,4 +112,16 @@ func TestValidateInvalidSegmentIncorrectRepr(t *testing.T) {
 	validator := NewSegmentValidator(segSpecMap)
 	err := validator.Validate(segment)
 	assert.NotNil(t, err)
+}
+
+func BenchmarkParseValidSegment(b *testing.B) {
+	segSpecMap := getSegmentSpecMap(b)
+	segment := getInvalidSegmentNonExistantCode(b)
+	b.ResetTimer()
+
+	for i := 0; i < b.N; i++ {
+		validator := NewSegmentValidator(segSpecMap)
+		err := validator.Validate(segment)
+		assert.NotNil(b, err)
+	}
 }
