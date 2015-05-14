@@ -6,19 +6,25 @@ import (
 	"strings"
 )
 
+type CodeSpecMap map[string]*CodeSpec
+
 // EDIFACT Codes as defined e.g. in UNCL.14B
 type CodesSpec struct {
 	Id          string
 	Name        string
 	Description string
-	CodeSpecs   []*CodeSpec
+	codeSpecMap CodeSpecMap
 }
 
 type CodesSpecMap map[string]*CodesSpec
 
+func (s *CodesSpec) Contains(code string) bool {
+	return s.codeSpecMap[code] != nil
+}
+
 func (s *CodesSpec) String() string {
 	specsStrs := []string{}
-	for _, spec := range s.CodeSpecs {
+	for _, spec := range s.codeSpecMap {
 		specsStrs = append(specsStrs, fmt.Sprintf("\t%s", spec.String()))
 	}
 	codeSpecsStr := strings.Join(specsStrs, "\n")
@@ -28,18 +34,23 @@ func (s *CodesSpec) String() string {
 }
 
 func (s *CodesSpec) Len() int {
-	if s.CodeSpecs == nil {
+	if s.codeSpecMap == nil {
 		return 0
 	} else {
-		return len(s.CodeSpecs)
+		return len(s.codeSpecMap)
 	}
 }
 
 func NewCodesSpec(id string, name string, description string, codeSpecs []*CodeSpec) *CodesSpec {
+	codeSpecMap := CodeSpecMap{}
+	for _, codeSpec := range codeSpecs {
+		codeSpecMap[codeSpec.Id] = codeSpec
+	}
+
 	return &CodesSpec{
 		Id:          id,
 		Name:        name,
 		Description: description,
-		CodeSpecs:   codeSpecs,
+		codeSpecMap: codeSpecMap,
 	}
 }

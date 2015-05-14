@@ -11,4 +11,5 @@ func TestCodesSpec(t *testing.T) {
 	})
 	expected := "10 codesspec_name codespe...\n\t10 codespec_name codespe..."
 	assert.Equal(t, expected, spec.String())
+	assert.True(t, spec.Contains("10"))
 }

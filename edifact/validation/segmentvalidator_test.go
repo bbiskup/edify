@@ -1,6 +1,7 @@
 package validation
 
 import (
+	"fmt"
 	"github.com/bbiskup/edify/edifact/msg"
 	"github.com/bbiskup/edify/edifact/spec/codes"
 	de "github.com/bbiskup/edify/edifact/spec/dataelement"
@@ -67,6 +68,7 @@ func getSegmentSpecMap(t *testing.T) segment.SegmentSpecMap {
 			codes.NewCodeSpec("1", "value_1", "descr_1"),
 			codes.NewCodeSpec("2", "value_2", "descr_2"),
 		})
+	fmt.Printf("######## %#v", de1Spec)
 	/*csMap := codes.CodesSpecMap{
 	    "100": de1Spec,
 	}*/
@@ -92,8 +94,7 @@ func TestValidateValidSegment(t *testing.T) {
 	segSpecMap := getSegmentSpecMap(t)
 	segment := getValidSegment(t)
 	validator := NewSegmentValidator(segSpecMap)
-	valid, err := validator.Validate(segment)
-	assert.True(t, valid)
+	err := validator.Validate(segment)
 	assert.Nil(t, err)
 }
 
@@ -101,16 +102,14 @@ func TestValidateValidSegment(t *testing.T) {
 	segSpecMap := getSegmentSpecMap(t)
 	segment := getInvalidSegmentNonExistantCode(t)
 	validator := NewSegmentValidator(segSpecMap)
-	valid, err := validator.Validate(segment)
+	err := validator.Validate(segment)
 	assert.NotNil(t, err)
-	assert.False(t, valid)
 }*/
 
 func TestValidateInvalidSegmentIncorrectRepr(t *testing.T) {
 	segSpecMap := getSegmentSpecMap(t)
 	segment := getInvalidSegmentIncorrectRepr(t)
 	validator := NewSegmentValidator(segSpecMap)
-	valid, err := validator.Validate(segment)
+	err := validator.Validate(segment)
 	assert.NotNil(t, err)
-	assert.False(t, valid)
 }
