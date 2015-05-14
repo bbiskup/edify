@@ -5,5 +5,5 @@ import (
 )
 
 func fixtureSimpleSegmentSpec() *segment.SegmentSpec {
-	return segment.NewSegmentSpec("TESTSEGMENT_ID", "TESTSEGMENT_NAME", "tesfunctiont", nil)
+	return segment.NewSegmentSpec("TESTSEGMENT_ID", "TESTSEGMENT_NAME", "testfunction", nil)
 }
