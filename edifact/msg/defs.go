@@ -1,10 +1,15 @@
 package msg
 
+// Special segment identifiers
+const (
+	UNH = "UNH"
+	UNT = "UNT"
+)
+
+// Service characters
 // http://www.unece.org/trade/untdid/texts/d423.htm
 // Chapter 2.2 "Syntax separators, terminator and release character"
 const (
-	UNH               = "UNH"
-	UNT               = "UNT"
 	SegTerm           = '\''
 	SegTagDataElemSep = '+'
 
