@@ -210,6 +210,7 @@ func BenchmarkParseDir(b *testing.B) {
 		specs, err := parser.ParseSpecDir("../../../testdata/message_specs", "14B")
 		assert.Nil(b, err)
 		require.NotNil(b, specs)
+		assert.Equal(b, 2, len(specs))
 		// fmt.Printf("Message specs: %s", specs)
 	}
 }
