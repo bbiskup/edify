@@ -70,6 +70,7 @@ func TestParseDir(t *testing.T) {
 	specs, err := parser.ParseSpecDir("../../../testdata/message_specs", "14B")
 	assert.Nil(t, err)
 	require.NotNil(t, specs)
+	assert.Equal(t, 2, len(specs))
 	// fmt.Printf("Message specs: %s", specs)
 
 	// cast necessary so sort.Interface methods will be recognized
