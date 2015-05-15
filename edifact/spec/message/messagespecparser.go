@@ -360,7 +360,7 @@ func (p *MessageSpecParser) ParseSpecFile(fileName string) (spec *MessageSpec, e
 	if err != nil {
 		return nil, err
 	}
-	return p.ParseSpecFileContents(fileName, contents)
+	return p.ParseSpecFileContents(fileName, string(contents))
 }
 
 // One spec file contains the spec for a single message type
@@ -381,13 +381,13 @@ func (p *MessageSpecParser) ParseSpecFile(fileName string) (spec *MessageSpec, e
 ...
 SOURCE: TBG1 Supply Chain
 */
-func (p *MessageSpecParser) ParseSpecFileContents(fileName string, contents []byte) (spec *MessageSpec, err error) {
+func (p *MessageSpecParser) ParseSpecFileContents(fileName string, contents string) (spec *MessageSpec, err error) {
 	// The largest standard message file has 321k (about 6800 lines), so
 	// we can read it at once
 
 	// log.Printf("Parsing message spec file contents'%s'", fileName)
 
-	lines := strings.Split(string(contents), "\n")
+	lines := strings.Split(contents, "\n")
 	minLines := 48
 	numLines := len(lines)
 	if numLines < minLines {
@@ -494,7 +494,7 @@ func (p *MessageSpecParser) parseSpecDir_parallel(
 		go func() {
 			for fileSpec := range fileSpecCh {
 				messageSpec, err := p.ParseSpecFileContents(
-					fileSpec.fileName, fileSpec.contents)
+					fileSpec.fileName, string(fileSpec.contents))
 				if err != nil {
 					panic(fmt.Sprintf("TODO: handle err %s", err))
 				}
