@@ -9,6 +9,7 @@ import (
 	"os"
 	"path"
 	"regexp"
+	"runtime"
 	"strconv"
 	"strings"
 	"time"
@@ -455,6 +456,8 @@ func (p *MessageSpecParser) parseSpecDir_sequential(dirName string, suffix strin
 
 func (p *MessageSpecParser) parseSpecDir_parallel(
 	dirName string, suffix string) (specs []*MessageSpec, err error) {
+	fmt.Printf("NumThreads: %d; num go routines %d\n",
+		edifact.NumThreads, runtime.NumGoroutine())
 
 	entries, err := ioutil.ReadDir(dirName)
 	fileNames := []string{}
