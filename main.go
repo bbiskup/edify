@@ -1,4 +1,4 @@
-package main
+package main // import "github.com/bbiskup/edify"
 
 import (
 	"github.com/bbiskup/edify/commands"
