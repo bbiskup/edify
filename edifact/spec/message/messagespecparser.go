@@ -433,6 +433,9 @@ func (p *MessageSpecParser) ParseSpecDir(dirName string, suffix string) (specs [
 // Parse segment spec directory sequentially
 func (p *MessageSpecParser) parseSpecDir_sequential(dirName string, suffix string) (specs []*MessageSpec, err error) {
 	entries, err := ioutil.ReadDir(dirName)
+	if err != nil {
+		return nil, err
+	}
 
 	specs = []*MessageSpec{}
 	for _, entry := range entries {
@@ -463,6 +466,10 @@ func (p *MessageSpecParser) parseSpecDir_parallel(
 	var wg sync.WaitGroup
 
 	entries, err := ioutil.ReadDir(dirName)
+	if err != nil {
+		return nil, err
+	}
+
 	fileNames := []string{}
 
 	for _, entry := range entries {
