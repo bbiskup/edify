@@ -100,7 +100,7 @@ func buildMessageSpecPartsRegexpStr(msgSpecParts []msgspec.MessageSpecPart) stri
 	return buf.String()
 }
 
-// Build a regular expression for validation sequences of segments
+// Build a regular expression for validating sequences of segments
 // against the message specification.
 // Each segment is encoded as XXX: where XXX is the segment ID and ':'
 // is a separator to avoid misaligned matches
