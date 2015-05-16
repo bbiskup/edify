@@ -114,6 +114,10 @@ func buildSegmentSeqValidationRegexp(msgSpec *msgspec.MessageSpec) (msgRegexpStr
 	return regexpStr, msgRegexp, nil
 }
 
+// Contructs a string out of the segment sequence, so regexp matching can be
+// used to validate the segment sequence.
+// Also constructs a mapping of integer indices to segments, which can be
+// used to locate a particular segment by index
 func buildSegmentListStr(segments []*msg.Segment) (segmentListStr string, indexSegmentMap IndexSegmentMap) {
 	var buf bytes.Buffer
 	indexSegmentMap = map[int]*msg.Segment{}
