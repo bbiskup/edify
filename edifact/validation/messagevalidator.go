@@ -61,6 +61,7 @@ func getRegexpRepeatStr(minSpecRepeat int, maxSpecRepeat int, isGroup bool) (res
 
 func buildMessageSpecPartRegexpStr(msgSpecPart msgspec.MessageSpecPart) string {
 	var inner string
+	subMatchNameStr := ""
 	var regexpRepeatStr string
 	specMinCount := msgSpecPart.MinCount()
 	specMaxCount := msgSpecPart.MaxCount()
@@ -78,11 +79,15 @@ func buildMessageSpecPartRegexpStr(msgSpecPart msgspec.MessageSpecPart) string {
 		}
 		inner = strings.Join(groupPartRegexpStrs, "")
 		regexpRepeatStr = getRegexpRepeatStr(specMinCount, specMaxCount, true)
+		subMatchNameStr = msgSpecPart.Name()
 	default:
 		panic("Not implemented")
 	}
 
-	return fmt.Sprintf("(%s)%s", inner, regexpRepeatStr)
+	if subMatchNameStr != "" {
+		subMatchNameStr = fmt.Sprintf("?P<%s>", subMatchNameStr)
+	}
+	return fmt.Sprintf("(%s%s)%s", subMatchNameStr, inner, regexpRepeatStr)
 }
 
 func buildMessageSpecPartsRegexpStr(msgSpecParts []msgspec.MessageSpecPart) string {

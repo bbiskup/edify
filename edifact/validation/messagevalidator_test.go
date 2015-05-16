@@ -23,7 +23,8 @@ func TestMessageValidator(t *testing.T) {
 	require.NotNil(t, validator)
 
 	//expected := "^(UNH:)(BGM:)(DTM:){0,1}(BUS:){0,1}((RFF:)(DTM:){0,1}){0,2}((FII:)(CTA:){0,1}(COM:){0,5}){0,5}((NAD:)(CTA:){0,1}(COM:){0,5}){0,3}((LIN:)((RFF:)(DTM:){0,1}){0,5}((SEQ:)(GEI:)(DTM:){0,2}(MOA:){0,1}(DOC:){0,5}){0,}((FII:)(CTA:){0,1}(COM:){0,5}){0,2}((NAD:)(CTA:){0,1}(COM:){0,5}){0,2}){1,}(CNT:){0,5}((AUT:)(DTM:){0,1}){0,5}(UNT:)$"
-	expected := "^(UNH:)(BGM:)(DTM:)*(BUS:)*((RFF:)(DTM:)*){0,2}((FII:)(CTA:)*(COM:){0,5}){0,5}((NAD:)(CTA:)*(COM:){0,5}){0,3}((LIN:)((RFF:)(DTM:)*){0,5}((SEQ:)(GEI:)(DTM:){0,2}(MOA:)*(DOC:){0,5})*((FII:)(CTA:)*(COM:){0,5}){0,2}((NAD:)(CTA:)*(COM:){0,5}){0,2})+(CNT:){0,5}((AUT:)(DTM:)*){0,5}(UNT:)$"
+	//expected := "^(UNH:)(BGM:)(DTM:)*(BUS:)*((RFF:)(DTM:)*){0,2}((FII:)(CTA:)*(COM:){0,5}){0,5}((NAD:)(CTA:)*(COM:){0,5}){0,3}((LIN:)((RFF:)(DTM:)*){0,5}((SEQ:)(GEI:)(DTM:){0,2}(MOA:)*(DOC:){0,5})*((FII:)(CTA:)*(COM:){0,5}){0,2}((NAD:)(CTA:)*(COM:){0,5}){0,2})+(CNT:){0,5}((AUT:)(DTM:)*){0,5}(UNT:)$"
+	expected := "^(UNH:)(BGM:)(DTM:)*(BUS:)*(?P<Group_1>(RFF:)(DTM:)*){0,2}(?P<Group_2>(FII:)(CTA:)*(COM:){0,5}){0,5}(?P<Group_3>(NAD:)(CTA:)*(COM:){0,5}){0,3}(?P<Group_4>(LIN:)(?P<Group_5>(RFF:)(DTM:)*){0,5}(?P<Group_6>(SEQ:)(GEI:)(DTM:){0,2}(MOA:)*(DOC:){0,5})*(?P<Group_7>(FII:)(CTA:)*(COM:){0,5}){0,2}(?P<Group_8>(NAD:)(CTA:)*(COM:){0,5}){0,2})+(CNT:){0,5}(?P<Group_9>(AUT:)(DTM:)*){0,5}(UNT:)$"
 	assert.Equal(t, expected, validator.segmentValidationRegexpStr)
 }
 
