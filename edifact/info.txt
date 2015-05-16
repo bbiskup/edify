@@ -39,7 +39,7 @@ msg:ORDERS[0]|seg:BGM[comp:C104:0]|[simp:1004]
 
 msg:ORDERS[0]|seg:BGM[comp:C104:0]
 
- --> CompositeDataElement (with )
+ --> CompositeDataElement (with component elements)
 
 msg:ORDERS[0]
 
@@ -50,6 +50,13 @@ msg:ORDERS[*]
   -> [Message object]   (potentially many)
 
 TODO: addressing segment groups
+
+- Precompute paths?
+  - only a small subset of data elements may ever get requested
+  - message layout might change (e.g. by adding groups)
+  --> better: on-the fly
+
+- only fully qualified (abs.) paths; selection only by data element amost never makes sense
 
 
 Web application examples
