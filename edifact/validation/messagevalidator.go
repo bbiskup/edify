@@ -59,14 +59,6 @@ func getRegexpRepeatStr(minSpecRepeat int, maxSpecRepeat int, isGroup bool) (res
 	panic("unreachable")
 }
 
-/*
-func buildMessageSegmentSpecPartRegexpStr(msgSpecPart msgspec.MessageSpecSegmentPart) string {
-	specMinCount := msgSpecPart.MinCount()
-	specMaxCount := msgSpecPart.MaxCount()
-	repeatStr := getRegexpRepeatStr(specMinCount, specMaxCount, msgSpecPart.IsGroup())
-	return repeatStr
-}*/
-
 func buildMessageSpecPartRegexpStr(msgSpecPart msgspec.MessageSpecPart) string {
 	var inner string
 	var regexpRepeatStr string
