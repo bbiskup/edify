@@ -12,6 +12,7 @@ import (
 	"runtime"
 	"strconv"
 	"strings"
+	"sync"
 	"time"
 )
 
@@ -459,6 +460,8 @@ func (p *MessageSpecParser) parseSpecDir_parallel(
 	fmt.Printf("NumThreads: %d; num go routines %d\n",
 		edifact.NumThreads, runtime.NumGoroutine())
 
+	var wg sync.WaitGroup
+
 	entries, err := ioutil.ReadDir(dirName)
 	fileNames := []string{}
 
@@ -494,7 +497,9 @@ func (p *MessageSpecParser) parseSpecDir_parallel(
 
 	// Parse in parallel
 	for i := 0; i < edifact.NumThreads; i++ {
+		wg.Add(1)
 		go func() {
+			defer wg.Done()
 			for fileSpec := range fileSpecCh {
 				messageSpec, err := p.ParseSpecFileContents(
 					fileSpec.fileName, string(fileSpec.contents))
@@ -506,7 +511,9 @@ func (p *MessageSpecParser) parseSpecDir_parallel(
 		}()
 	}
 
+	wg.Add(1)
 	go func() {
+		defer wg.Done()
 		for _, fileName := range fileNames {
 			fullPath := path.Clean(dirName + pathSep + fileName)
 			contents, err := p.getFileContents(fullPath)
@@ -521,6 +528,7 @@ func (p *MessageSpecParser) parseSpecDir_parallel(
 
 	specs = <-resultsCh
 	close(resultsCh)
+	wg.Wait()
 	return
 }
 
