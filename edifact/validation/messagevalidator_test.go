@@ -42,8 +42,8 @@ var segListStrSpec = []struct {
 func TestBuildSegmentListStr(t *testing.T) {
 	for _, spec := range segListStrSpec {
 		result, indexSegmentMap := buildSegmentListStr(mapToSegments(spec.segmentIDs))
-		assert.Equal(t, len(spec.segmentIDs), len(indexSegmentMap))
 		assert.Equal(t, spec.expected, result)
+		assert.Equal(t, len(spec.segmentIDs), len(indexSegmentMap))
 	}
 }
 
@@ -137,10 +137,9 @@ func TestValidateSegmentList(t *testing.T) {
 	// fmt.Printf("regexp str %s", validator.segmentValidationRegexpStr)
 	for _, spec := range authorSegSeqSpec {
 		// fmt.Printf("spec: %#v\n", spec)
-		result, indexSegmentMap, err := validator.ValidateSegmentList(mapToSegments(spec.segmentIDs))
+		result, err := validator.ValidateSegmentList(mapToSegments(spec.segmentIDs))
 		assert.Equal(t, spec.expectError, err != nil)
 		assert.Equal(t, spec.valid, result)
-		assert.Equal(t, len(spec.segmentIDs), len(indexSegmentMap))
 	}
 }
 
@@ -195,11 +194,10 @@ func BenchmarkValidateAuthorSegments(b *testing.B) {
 	b.ResetTimer()
 
 	for i := 0; i < b.N; i++ {
-		valid, indexSegmentMap, err := validator.ValidateSegmentList(mapToSegments(segmentIDs))
+		valid, err := validator.ValidateSegmentList(mapToSegments(segmentIDs))
 		if i == 0 {
 			assert.True(b, valid)
 			assert.Nil(b, err)
-			assert.NotNil(b, indexSegmentMap)
 		}
 		if err != nil {
 			fmt.Println(err)

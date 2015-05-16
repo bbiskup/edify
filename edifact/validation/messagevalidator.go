@@ -133,17 +133,19 @@ func (v *MessageValidator) Validate(message msg.Message) (isValid bool, err erro
 }
 
 // Validate a list of segment names as they occur in a message
-func (v *MessageValidator) ValidateSegmentList(segments []*msg.Segment) (isValid bool, indexSegmentMap IndexSegmentMap, err error) {
+func (v *MessageValidator) ValidateSegmentList(segments []*msg.Segment) (isValid bool, err error) {
 	if len(segments) == 0 {
-		return false, nil, errors.New("No segments")
+		return false, errors.New("No segments")
 	}
 	segmListStr, indexSegmentMap := buildSegmentListStr(segments)
-	// log.Printf("segmListStr: %s", segmListStr)
-	// log.Printf("regexp str: '%s'", v.segmentValidationRegexpStr)
-	// log.Printf("indexSegmentMap: %v", segmIndexMap)
+	// log.Printf("segmListStr: %s\n", segmListStr)
+	// log.Printf("regexp str: '%q'\n", v.segmentValidationRegexpStr)
+	// log.Printf("indexSegmentMap: %v\n", indexSegmentMap)
+	// log.Printf("group names: %q\n", v.segmentValidationRegexp.SubexpNames())
+	_ = indexSegmentMap
 	match := v.segmentValidationRegexp.FindStringSubmatch(segmListStr)
-	log.Printf("match: %s", match)
-	return len(match) != 0, indexSegmentMap, nil
+	log.Printf("match: %#v\n", match)
+	return len(match) != 0, nil
 }
 
 func NewMessageValidator(messageSpec *msgspec.MessageSpec) (validator *MessageValidator, err error) {
