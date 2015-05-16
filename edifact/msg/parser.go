@@ -102,7 +102,7 @@ func (p *Parser) ParseMessage(edifactMessage string) (message *Message, err erro
 		return nil, p.err
 	}
 
-	log.Printf("Segments: %s", segments)
+	// log.Printf("Segments: %s", segments)
 
 	if len(segments) < 2 {
 		p.err = errors.New("Message header and/or tail missing")
