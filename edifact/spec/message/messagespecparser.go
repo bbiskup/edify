@@ -70,7 +70,7 @@ type SegmentEntry struct {
 // Used for parallel parsing of segment specs
 type FileSpec struct {
 	fileName string
-	contents []byte
+	contents string
 }
 
 // Parser for message specifications
@@ -249,7 +249,7 @@ func (p *MessageSpecParser) parseMessageSpecParts(fileName string, lines []strin
 			currentNestingLevel = sg.NestingLevel
 		} else {
 			return nil, errors.New(
-				fmt.Sprintf("Parse error int file %s at index %d ('%s')",
+				fmt.Sprintf("Parse error in file %s at index %d ('%s')",
 					fileName, index, line))
 		}
 	}
@@ -502,7 +502,7 @@ func (p *MessageSpecParser) parseSpecDir_parallel(
 			defer wg.Done()
 			for fileSpec := range fileSpecCh {
 				messageSpec, err := p.ParseSpecFileContents(
-					fileSpec.fileName, string(fileSpec.contents))
+					fileSpec.fileName, fileSpec.contents)
 				if err != nil {
 					panic(fmt.Sprintf("TODO: handle err %s", err))
 				}
@@ -520,7 +520,7 @@ func (p *MessageSpecParser) parseSpecDir_parallel(
 			if err != nil {
 				panic(fmt.Sprintf("TODO: handle err %s", err))
 			}
-			fileSpec := FileSpec{fullPath, contents}
+			fileSpec := FileSpec{fullPath, string(contents)}
 			fileSpecCh <- fileSpec
 		}
 		close(fileSpecCh)
