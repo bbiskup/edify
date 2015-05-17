@@ -11,8 +11,11 @@ import (
 	"strings"
 )
 
-// For looking up segments e.g. in query
+// To correlate matching segments with segments in message
 type IndexSegmentMap map[int]*msg.Segment
+
+// For looking up segments e.g. in query
+type segExprToSegMap map[string]*msg.SegmentOrGroup
 
 type MessageValidator struct {
 	messageSpec                *msgspec.MessageSpec
@@ -122,7 +125,7 @@ func buildSegmentListStr(segments []*msg.Segment) (segmentListStr string, indexS
 	var buf bytes.Buffer
 	indexSegmentMap = map[int]*msg.Segment{}
 	for index, segment := range segments {
-		buf.WriteString(fmt.Sprintf("%s-%d:", segment.Id, index))
+		buf.WriteString(fmt.Sprintf("%s-%d:", segment.Id(), index))
 		indexSegmentMap[index] = segment
 	}
 	return buf.String(), indexSegmentMap

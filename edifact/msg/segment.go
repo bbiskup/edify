@@ -1,8 +1,13 @@
 package msg
 
 type Segment struct {
-	Id       string
+	id       string
 	Elements []*DataElement
+}
+
+// From interface SegmentOrGroup
+func (g *Segment) Id() string {
+	return g.id
 }
 
 func (s *Segment) String() string {
@@ -10,7 +15,7 @@ func (s *Segment) String() string {
 	for _, e := range s.Elements {
 		elementsStr += "\t\t" + e.String() + "\n"
 	}
-	return s.Id + "\n" + elementsStr
+	return s.id + "\n" + elementsStr
 }
 
 func (s *Segment) AddElement(element *DataElement) {

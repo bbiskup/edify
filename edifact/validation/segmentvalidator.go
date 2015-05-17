@@ -22,9 +22,9 @@ type SegmentValidatorImpl struct {
 }
 
 func (v *SegmentValidatorImpl) Validate(seg *msg.Segment) error {
-	spec := v.segmentSpecMap[seg.Id]
+	spec := v.segmentSpecMap[seg.Id()]
 	if spec == nil {
-		return errors.New(fmt.Sprintf("No spec for segment ID '%s'", seg.Id))
+		return errors.New(fmt.Sprintf("No spec for segment ID '%s'", seg.Id()))
 	}
 
 	numDataElementSpecs := len(spec.SegmentDataElementSpecs)

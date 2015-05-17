@@ -109,12 +109,12 @@ func (p *Parser) ParseMessage(edifactMessage string) (message *Message, err erro
 		return nil, p.err
 	}
 
-	if segments[0].Id != UNH {
+	if segments[0].Id() != UNH {
 		p.err = errors.New("No message header (UNH)")
 		return nil, p.err
 	}
 
-	tailName := segments[len(segments)-1].Id
+	tailName := segments[len(segments)-1].Id()
 	if tailName != UNT {
 		log.Print("tail segment: ", tailName)
 

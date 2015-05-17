@@ -25,8 +25,8 @@ func TestMessage1(t *testing.T) {
 	require.NotNil(t, message)
 	require.Nil(t, err)
 	assert.Equal(t, 9, len(message.Segments))
-	assert.Equal(t, "UNH", message.Segments[0].Id)
-	assert.Equal(t, "UNT", message.Segments[8].Id)
+	assert.Equal(t, "UNH", message.Segments[0].Id())
+	assert.Equal(t, "UNT", message.Segments[8].Id())
 	assert.Equal(t, "1", message.Segments[0].Elements[0].Values[0])
 	assert.Equal(t, "ORDERS", message.Segments[0].Elements[1].Values[0])
 	assert.Equal(t, "D", message.Segments[0].Elements[1].Values[1])
@@ -42,8 +42,8 @@ func TestParseINVOIC(t *testing.T) {
 	require.Nil(t, err)
 	require.NotNil(t, message)
 
-	assert.Equal(t, "UNH", message.Segments[0].Id)
-	assert.Equal(t, "UNT", message.Segments[112].Id)
+	assert.Equal(t, "UNH", message.Segments[0].Id())
+	assert.Equal(t, "UNT", message.Segments[112].Id())
 
 	expectedMultilineStr := "If 0% VAT is charged and your VAT ID number is displayed above, this is either an exempt or a reverse charge transaction."
 	assert.Equal(t, expectedMultilineStr, message.Segments[4].Elements[3].Values[0])

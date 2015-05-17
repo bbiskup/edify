@@ -23,7 +23,7 @@ func (m *Message) AddSegment(segment *Segment) {
 func (m *Message) SegmentIds() []string {
 	result := []string{}
 	for _, segment := range m.Segments {
-		result = append(result, segment.Id)
+		result = append(result, segment.Id())
 	}
 	return result
 }
