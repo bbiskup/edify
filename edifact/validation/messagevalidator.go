@@ -96,7 +96,7 @@ func buildMessageSpecPartRegexpStr(msgSpecPart msgspec.MessageSpecPart, groupNam
 	if subMatchNameStr != "" {
 		subMatchNameStr = fmt.Sprintf("?P<%s>", subMatchNameStr)
 	}
-	return fmt.Sprintf("(%s%s)%s", subMatchNameStr, inner, regexpRepeatStr)
+	return fmt.Sprintf("(%s(?:%s)%s)", subMatchNameStr, inner, regexpRepeatStr)
 }
 
 func buildMessageSpecPartsRegexpStr(msgSpecParts []msgspec.MessageSpecPart) string {
@@ -154,6 +154,17 @@ func (v *MessageValidator) buildSegExprToSegMap(indexSegmentMap IndexSegmentMap,
 	return result
 }*/
 
+func dumpMatches(matches []string, subexpNames []string) {
+	lenMatches := len(matches)
+	if lenMatches != len(subexpNames) {
+		panic("Mismatch between matches and subexpNames")
+	}
+	fmt.Printf("\nMatches:\n")
+	for i := 0; i < lenMatches; i++ {
+		fmt.Printf("%5d %-30q %-30q\n", i, matches[i], subexpNames[i])
+	}
+}
+
 // Validate a list of segment names as they occur in a message
 func (v *MessageValidator) ValidateSegmentList(segments []*msg.Segment) (isValid bool, err error) {
 	if len(segments) == 0 {
@@ -163,11 +174,16 @@ func (v *MessageValidator) ValidateSegmentList(segments []*msg.Segment) (isValid
 	// log.Printf("segmListStr: %s\n", segmListStr)
 	// log.Printf("regexp str: '%q'\n", v.segmentValidationRegexpStr)
 	log.Printf("indexSegmentMap: %v\n", indexSegmentMap)
-	log.Printf("group names: %q\n", v.segmentValidationRegexp.SubexpNames())
+	subexpNames := v.segmentValidationRegexp.SubexpNames()
+	log.Printf("group names: %q\n", subexpNames)
 	_ = indexSegmentMap
-	match := v.segmentValidationRegexp.FindStringSubmatch(segmListStr)
-	log.Printf("match: %#v\n", match)
-	return len(match) != 0, nil
+	matches := v.segmentValidationRegexp.FindStringSubmatch(segmListStr)
+	lenMatches := len(matches)
+	log.Printf("matches: %#v\n", matches)
+	if lenMatches > 0 {
+		dumpMatches(matches, subexpNames)
+	}
+	return lenMatches != 0, nil
 }
 
 func NewMessageValidator(messageSpec *msgspec.MessageSpec) (validator *MessageValidator, err error) {

@@ -28,7 +28,8 @@ func TestMessageValidatorAUTHOR(t *testing.T) {
 	//expected := "^(UNH:)(BGM:)(DTM:)*(BUS:)*(?P<Group_1>(RFF:)(DTM:)*){0,2}(?P<Group_2>(FII:)(CTA:)*(COM:){0,5}){0,5}(?P<Group_3>(NAD:)(CTA:)*(COM:){0,5}){0,3}(?P<Group_4>(LIN:)(?P<Group_5>(RFF:)(DTM:)*){0,5}(?P<Group_6>(SEQ:)(GEI:)(DTM:){0,2}(MOA:)*(DOC:){0,5})*(?P<Group_7>(FII:)(CTA:)*(COM:){0,5}){0,2}(?P<Group_8>(NAD:)(CTA:)*(COM:){0,5}){0,2})+(CNT:){0,5}(?P<Group_9>(AUT:)(DTM:)*){0,5}(UNT:)$"
 	//expected := `^(UNH-[0-9]+:)(BGM-[0-9]+:)(DTM-[0-9]+:)*(BUS-[0-9]+:)*(?P<Group_1>(RFF-[0-9]+:)(DTM-[0-9]+:)*){0,2}(?P<Group_2>(FII-[0-9]+:)(CTA-[0-9]+:)*(COM-[0-9]+:){0,5}){0,5}(?P<Group_3>(NAD-[0-9]+:)(CTA-[0-9]+:)*(COM-[0-9]+:){0,5}){0,3}(?P<Group_4>(LIN-[0-9]+:)(?P<Group_5>(RFF-[0-9]+:)(DTM-[0-9]+:)*){0,5}(?P<Group_6>(SEQ-[0-9]+:)(GEI-[0-9]+:)(DTM-[0-9]+:){0,2}(MOA-[0-9]+:)*(DOC-[0-9]+:){0,5})*(?P<Group_7>(FII-[0-9]+:)(CTA-[0-9]+:)*(COM-[0-9]+:){0,5}){0,2}(?P<Group_8>(NAD-[0-9]+:)(CTA-[0-9]+:)*(COM-[0-9]+:){0,5}){0,2})+(CNT-[0-9]+:){0,5}(?P<Group_9>(AUT-[0-9]+:)(DTM-[0-9]+:)*){0,5}(UNT-[0-9]+:)$`
 	//expected := `^(?P<toplevel__UNH>UNH-[0-9]+:)(?P<toplevel__BGM>BGM-[0-9]+:)(?P<toplevel__DTM>DTM-[0-9]+:)*(?P<toplevel__BUS>BUS-[0-9]+:)*((?P<Group_1__RFF>RFF-[0-9]+:)(?P<Group_1__DTM>DTM-[0-9]+:)*){0,2}((?P<Group_2__FII>FII-[0-9]+:)(?P<Group_2__CTA>CTA-[0-9]+:)*(?P<Group_2__COM>COM-[0-9]+:){0,5}){0,5}((?P<Group_3__NAD>NAD-[0-9]+:)(?P<Group_3__CTA>CTA-[0-9]+:)*(?P<Group_3__COM>COM-[0-9]+:){0,5}){0,3}((?P<Group_4__LIN>LIN-[0-9]+:)((?P<Group_5__RFF>RFF-[0-9]+:)(?P<Group_5__DTM>DTM-[0-9]+:)*){0,5}((?P<Group_6__SEQ>SEQ-[0-9]+:)(?P<Group_6__GEI>GEI-[0-9]+:)(?P<Group_6__DTM>DTM-[0-9]+:){0,2}(?P<Group_6__MOA>MOA-[0-9]+:)*(?P<Group_6__DOC>DOC-[0-9]+:){0,5})*((?P<Group_7__FII>FII-[0-9]+:)(?P<Group_7__CTA>CTA-[0-9]+:)*(?P<Group_7__COM>COM-[0-9]+:){0,5}){0,2}((?P<Group_8__NAD>NAD-[0-9]+:)(?P<Group_8__CTA>CTA-[0-9]+:)*(?P<Group_8__COM>COM-[0-9]+:){0,5}){0,2})+(?P<toplevel__CNT>CNT-[0-9]+:){0,5}((?P<Group_9__AUT>AUT-[0-9]+:)(?P<Group_9__DTM>DTM-[0-9]+:)*){0,5}(?P<toplevel__UNT>UNT-[0-9]+:)$`
-	expected := `^(?P<toplevel>UNH-[0-9]+:)(?P<toplevel>BGM-[0-9]+:)(?P<toplevel>DTM-[0-9]+:)*(?P<toplevel>BUS-[0-9]+:)*((?P<Group_1>RFF-[0-9]+:)(?P<Group_1>DTM-[0-9]+:)*){0,2}((?P<Group_2>FII-[0-9]+:)(?P<Group_2>CTA-[0-9]+:)*(?P<Group_2>COM-[0-9]+:)*)*((?P<Group_3>NAD-[0-9]+:)(?P<Group_3>CTA-[0-9]+:)*(?P<Group_3>COM-[0-9]+:)*){0,3}((?P<Group_4>LIN-[0-9]+:)((?P<Group_5>RFF-[0-9]+:)(?P<Group_5>DTM-[0-9]+:)*)*((?P<Group_6>SEQ-[0-9]+:)(?P<Group_6>GEI-[0-9]+:)(?P<Group_6>DTM-[0-9]+:){0,2}(?P<Group_6>MOA-[0-9]+:)*(?P<Group_6>DOC-[0-9]+:)*)*((?P<Group_7>FII-[0-9]+:)(?P<Group_7>CTA-[0-9]+:)*(?P<Group_7>COM-[0-9]+:)*){0,2}((?P<Group_8>NAD-[0-9]+:)(?P<Group_8>CTA-[0-9]+:)*(?P<Group_8>COM-[0-9]+:)*){0,2})+(?P<toplevel>CNT-[0-9]+:)*((?P<Group_9>AUT-[0-9]+:)(?P<Group_9>DTM-[0-9]+:)*)*(?P<toplevel>UNT-[0-9]+:)$`
+	//expected := `^(?P<toplevel>UNH-[0-9]+:)(?P<toplevel>BGM-[0-9]+:)(?P<toplevel>DTM-[0-9]+:)*(?P<toplevel>BUS-[0-9]+:)*((?P<Group_1>RFF-[0-9]+:)(?P<Group_1>DTM-[0-9]+:)*){0,2}((?P<Group_2>FII-[0-9]+:)(?P<Group_2>CTA-[0-9]+:)*(?P<Group_2>COM-[0-9]+:)*)*((?P<Group_3>NAD-[0-9]+:)(?P<Group_3>CTA-[0-9]+:)*(?P<Group_3>COM-[0-9]+:)*){0,3}((?P<Group_4>LIN-[0-9]+:)((?P<Group_5>RFF-[0-9]+:)(?P<Group_5>DTM-[0-9]+:)*)*((?P<Group_6>SEQ-[0-9]+:)(?P<Group_6>GEI-[0-9]+:)(?P<Group_6>DTM-[0-9]+:){0,2}(?P<Group_6>MOA-[0-9]+:)*(?P<Group_6>DOC-[0-9]+:)*)*((?P<Group_7>FII-[0-9]+:)(?P<Group_7>CTA-[0-9]+:)*(?P<Group_7>COM-[0-9]+:)*){0,2}((?P<Group_8>NAD-[0-9]+:)(?P<Group_8>CTA-[0-9]+:)*(?P<Group_8>COM-[0-9]+:)*){0,2})+(?P<toplevel>CNT-[0-9]+:)*((?P<Group_9>AUT-[0-9]+:)(?P<Group_9>DTM-[0-9]+:)*)*(?P<toplevel>UNT-[0-9]+:)$`
+	expected := `^(?P<toplevel>(?:UNH-[0-9]+:))(?P<toplevel>(?:BGM-[0-9]+:))(?P<toplevel>(?:DTM-[0-9]+:)*)(?P<toplevel>(?:BUS-[0-9]+:)*)((?:(?P<Group_1>(?:RFF-[0-9]+:))(?P<Group_1>(?:DTM-[0-9]+:)*)){0,2})((?:(?P<Group_2>(?:FII-[0-9]+:))(?P<Group_2>(?:CTA-[0-9]+:)*)(?P<Group_2>(?:COM-[0-9]+:)*))*)((?:(?P<Group_3>(?:NAD-[0-9]+:))(?P<Group_3>(?:CTA-[0-9]+:)*)(?P<Group_3>(?:COM-[0-9]+:)*)){0,3})((?:(?P<Group_4>(?:LIN-[0-9]+:))((?:(?P<Group_5>(?:RFF-[0-9]+:))(?P<Group_5>(?:DTM-[0-9]+:)*))*)((?:(?P<Group_6>(?:SEQ-[0-9]+:))(?P<Group_6>(?:GEI-[0-9]+:))(?P<Group_6>(?:DTM-[0-9]+:){0,2})(?P<Group_6>(?:MOA-[0-9]+:)*)(?P<Group_6>(?:DOC-[0-9]+:)*))*)((?:(?P<Group_7>(?:FII-[0-9]+:))(?P<Group_7>(?:CTA-[0-9]+:)*)(?P<Group_7>(?:COM-[0-9]+:)*)){0,2})((?:(?P<Group_8>(?:NAD-[0-9]+:))(?P<Group_8>(?:CTA-[0-9]+:)*)(?P<Group_8>(?:COM-[0-9]+:)*)){0,2}))+)(?P<toplevel>(?:CNT-[0-9]+:)*)((?:(?P<Group_9>(?:AUT-[0-9]+:))(?P<Group_9>(?:DTM-[0-9]+:)*))*)(?P<toplevel>(?:UNT-[0-9]+:))$`
 	assert.Equal(t, expected, validator.segmentValidationRegexpStr)
 }
 
@@ -64,79 +65,87 @@ func mapToSegments(segmentIDs []string) []*msg.Segment {
 }
 
 var authorSegSeqSpec = []struct {
+	descr       string
 	segmentIDs  []string
 	valid       bool
 	expectError bool
 }{
-	// minimal message (only mandatory segments)
-	{[]string{
-		"UNH", "BGM",
-		// Group 1
-		"LIN",
-		"UNT",
-	}, true, false},
+	{"minimal message (only mandatory segments)",
+		[]string{
+			"UNH", "BGM",
+			// Group 1
+			"LIN",
+			"UNT",
+		}, true, false},
 
-	// Mostly mandatory
-	{[]string{
-		"UNH", "BGM",
-		"DTM", "BUS", // both conditional
-		// Group 4
-		"LIN",
-		"UNT",
-	}, true, false},
+	{
+		"Mostly mandatory",
+		[]string{
+			"UNH", "BGM",
+			"DTM", "BUS", // both conditional
+			// Group 4
+			"LIN",
+			"UNT",
+		}, true, false},
 
-	// Mostly mandatory; one conditional group
-	{[]string{
-		"UNH", "BGM",
-		"DTM", "BUS",
-		// Group 1
-		"LIN",
-		// Group 2
-		"FII", "CTA", "COM",
+	{
+		"Mostly mandatory; one conditional group",
+		[]string{
+			"UNH", "BGM",
+			"DTM", "BUS",
+			// Group 1
+			"LIN",
+			// Group 2
+			"FII", "CTA", "COM",
 
-		"UNT",
-	}, true, false},
+			"UNT",
+		}, true, false},
 
-	// Some repeat counts > 1
-	{[]string{
-		"UNH", "BGM",
-		"DTM", "BUS",
-		// Group 4
-		"LIN", "LIN", "LIN", "LIN",
-		// Group 7
-		"FII", "CTA", "COM", "COM", "COM",
-		"FII", "CTA", "COM", "COM", "COM",
+	{
+		"Some repeat counts > 1",
+		[]string{
+			"UNH", "BGM",
+			"DTM", "BUS",
+			// Group 4
+			"LIN", "LIN", "LIN", "LIN",
+			// Group 7
+			"FII", "CTA", "COM", "COM", "COM",
+			"FII", "CTA", "COM", "COM", "COM",
 
-		"UNT",
-	}, true, false},
+			"UNT",
+		}, true, false},
 
-	// No segments at all
-	{[]string{}, false, true},
+	{
+		"No segments at all",
+		[]string{}, false, true},
 
-	// Missing mandatory segments
-	{[]string{"UNH"}, false, false},
+	{
+		"Missing mandatory segments",
+		[]string{"UNH"}, false, false},
 
-	// First mandatory segment repeated too often
-	{[]string{
-		"UNH", "UNH", "BGM",
-		// Group 1
-		"LIN",
-		"UNT",
-	}, false, false},
+	{
+		"First mandatory segment repeated too often",
+		[]string{
+			"UNH", "UNH", "BGM",
+			// Group 1
+			"LIN",
+			"UNT",
+		}, false, false},
 
-	// group 7 repeated too often
-	{[]string{
-		"UNH", "BGM",
-		"DTM", "BUS",
-		// Group 4
-		"LIN", "LIN", "LIN", "LIN",
-		// Group 7
-		"FII", "CTA", "COM", "COM", "COM",
-		"FII", "CTA", "COM", "COM", "COM",
-		"FII", "CTA", "COM", "COM", "COM",
+	{
+		"group 7 repeated too often",
+		[]string{
+			"UNH", "BGM",
+			"DTM", "BUS",
+			// Group 4
+			"LIN", "LIN", "LIN", "LIN",
+			// Group 7
+			"FII", "CTA", "COM", "COM", "COM",
+			"FII", "CTA", "COM", "COM", "COM",
+			"FII", "CTA", "COM", "COM", "COM",
 
-		"UNT",
-	}, false, false},
+			"UNT",
+		}, false, false},
 }
 
 func TestValidateSegmentList(t *testing.T) {
@@ -144,7 +153,7 @@ func TestValidateSegmentList(t *testing.T) {
 	require.Nil(t, err)
 	// fmt.Printf("regexp str %s", validator.segmentValidationRegexpStr)
 	for _, spec := range authorSegSeqSpec {
-		// fmt.Printf("spec: %#v\n", spec)
+		fmt.Printf("spec: %#v\n", spec)
 		result, err := validator.ValidateSegmentList(mapToSegments(spec.segmentIDs))
 		assert.Equal(t, spec.expectError, err != nil)
 		assert.Equal(t, spec.valid, result)
