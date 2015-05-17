@@ -18,7 +18,7 @@ func getMessageSpec(fileName string) *message.MessageSpec {
 	return messageSpec
 }
 
-func TestMessageValidator(t *testing.T) {
+func TestMessageValidatorAUTHOR(t *testing.T) {
 	validator, err := NewMessageValidator(getMessageSpec("AUTHOR_D.14B"))
 	require.Nil(t, err)
 	require.NotNil(t, validator)
@@ -26,8 +26,16 @@ func TestMessageValidator(t *testing.T) {
 	//expected := "^(UNH:)(BGM:)(DTM:){0,1}(BUS:){0,1}((RFF:)(DTM:){0,1}){0,2}((FII:)(CTA:){0,1}(COM:){0,5}){0,5}((NAD:)(CTA:){0,1}(COM:){0,5}){0,3}((LIN:)((RFF:)(DTM:){0,1}){0,5}((SEQ:)(GEI:)(DTM:){0,2}(MOA:){0,1}(DOC:){0,5}){0,}((FII:)(CTA:){0,1}(COM:){0,5}){0,2}((NAD:)(CTA:){0,1}(COM:){0,5}){0,2}){1,}(CNT:){0,5}((AUT:)(DTM:){0,1}){0,5}(UNT:)$"
 	//expected := "^(UNH:)(BGM:)(DTM:)*(BUS:)*((RFF:)(DTM:)*){0,2}((FII:)(CTA:)*(COM:){0,5}){0,5}((NAD:)(CTA:)*(COM:){0,5}){0,3}((LIN:)((RFF:)(DTM:)*){0,5}((SEQ:)(GEI:)(DTM:){0,2}(MOA:)*(DOC:){0,5})*((FII:)(CTA:)*(COM:){0,5}){0,2}((NAD:)(CTA:)*(COM:){0,5}){0,2})+(CNT:){0,5}((AUT:)(DTM:)*){0,5}(UNT:)$"
 	//expected := "^(UNH:)(BGM:)(DTM:)*(BUS:)*(?P<Group_1>(RFF:)(DTM:)*){0,2}(?P<Group_2>(FII:)(CTA:)*(COM:){0,5}){0,5}(?P<Group_3>(NAD:)(CTA:)*(COM:){0,5}){0,3}(?P<Group_4>(LIN:)(?P<Group_5>(RFF:)(DTM:)*){0,5}(?P<Group_6>(SEQ:)(GEI:)(DTM:){0,2}(MOA:)*(DOC:){0,5})*(?P<Group_7>(FII:)(CTA:)*(COM:){0,5}){0,2}(?P<Group_8>(NAD:)(CTA:)*(COM:){0,5}){0,2})+(CNT:){0,5}(?P<Group_9>(AUT:)(DTM:)*){0,5}(UNT:)$"
-	expected := `^(UNH-[0-9]+:)(BGM-[0-9]+:)(DTM-[0-9]+:)*(BUS-[0-9]+:)*(?P<Group_1>(RFF-[0-9]+:)(DTM-[0-9]+:)*){0,2}(?P<Group_2>(FII-[0-9]+:)(CTA-[0-9]+:)*(COM-[0-9]+:){0,5}){0,5}(?P<Group_3>(NAD-[0-9]+:)(CTA-[0-9]+:)*(COM-[0-9]+:){0,5}){0,3}(?P<Group_4>(LIN-[0-9]+:)(?P<Group_5>(RFF-[0-9]+:)(DTM-[0-9]+:)*){0,5}(?P<Group_6>(SEQ-[0-9]+:)(GEI-[0-9]+:)(DTM-[0-9]+:){0,2}(MOA-[0-9]+:)*(DOC-[0-9]+:){0,5})*(?P<Group_7>(FII-[0-9]+:)(CTA-[0-9]+:)*(COM-[0-9]+:){0,5}){0,2}(?P<Group_8>(NAD-[0-9]+:)(CTA-[0-9]+:)*(COM-[0-9]+:){0,5}){0,2})+(CNT-[0-9]+:){0,5}(?P<Group_9>(AUT-[0-9]+:)(DTM-[0-9]+:)*){0,5}(UNT-[0-9]+:)$`
+	//expected := `^(UNH-[0-9]+:)(BGM-[0-9]+:)(DTM-[0-9]+:)*(BUS-[0-9]+:)*(?P<Group_1>(RFF-[0-9]+:)(DTM-[0-9]+:)*){0,2}(?P<Group_2>(FII-[0-9]+:)(CTA-[0-9]+:)*(COM-[0-9]+:){0,5}){0,5}(?P<Group_3>(NAD-[0-9]+:)(CTA-[0-9]+:)*(COM-[0-9]+:){0,5}){0,3}(?P<Group_4>(LIN-[0-9]+:)(?P<Group_5>(RFF-[0-9]+:)(DTM-[0-9]+:)*){0,5}(?P<Group_6>(SEQ-[0-9]+:)(GEI-[0-9]+:)(DTM-[0-9]+:){0,2}(MOA-[0-9]+:)*(DOC-[0-9]+:){0,5})*(?P<Group_7>(FII-[0-9]+:)(CTA-[0-9]+:)*(COM-[0-9]+:){0,5}){0,2}(?P<Group_8>(NAD-[0-9]+:)(CTA-[0-9]+:)*(COM-[0-9]+:){0,5}){0,2})+(CNT-[0-9]+:){0,5}(?P<Group_9>(AUT-[0-9]+:)(DTM-[0-9]+:)*){0,5}(UNT-[0-9]+:)$`
+	//expected := `^(?P<toplevel__UNH>UNH-[0-9]+:)(?P<toplevel__BGM>BGM-[0-9]+:)(?P<toplevel__DTM>DTM-[0-9]+:)*(?P<toplevel__BUS>BUS-[0-9]+:)*((?P<Group_1__RFF>RFF-[0-9]+:)(?P<Group_1__DTM>DTM-[0-9]+:)*){0,2}((?P<Group_2__FII>FII-[0-9]+:)(?P<Group_2__CTA>CTA-[0-9]+:)*(?P<Group_2__COM>COM-[0-9]+:){0,5}){0,5}((?P<Group_3__NAD>NAD-[0-9]+:)(?P<Group_3__CTA>CTA-[0-9]+:)*(?P<Group_3__COM>COM-[0-9]+:){0,5}){0,3}((?P<Group_4__LIN>LIN-[0-9]+:)((?P<Group_5__RFF>RFF-[0-9]+:)(?P<Group_5__DTM>DTM-[0-9]+:)*){0,5}((?P<Group_6__SEQ>SEQ-[0-9]+:)(?P<Group_6__GEI>GEI-[0-9]+:)(?P<Group_6__DTM>DTM-[0-9]+:){0,2}(?P<Group_6__MOA>MOA-[0-9]+:)*(?P<Group_6__DOC>DOC-[0-9]+:){0,5})*((?P<Group_7__FII>FII-[0-9]+:)(?P<Group_7__CTA>CTA-[0-9]+:)*(?P<Group_7__COM>COM-[0-9]+:){0,5}){0,2}((?P<Group_8__NAD>NAD-[0-9]+:)(?P<Group_8__CTA>CTA-[0-9]+:)*(?P<Group_8__COM>COM-[0-9]+:){0,5}){0,2})+(?P<toplevel__CNT>CNT-[0-9]+:){0,5}((?P<Group_9__AUT>AUT-[0-9]+:)(?P<Group_9__DTM>DTM-[0-9]+:)*){0,5}(?P<toplevel__UNT>UNT-[0-9]+:)$`
+	expected := `^(?P<toplevel>UNH-[0-9]+:)(?P<toplevel>BGM-[0-9]+:)(?P<toplevel>DTM-[0-9]+:)*(?P<toplevel>BUS-[0-9]+:)*((?P<Group_1>RFF-[0-9]+:)(?P<Group_1>DTM-[0-9]+:)*){0,2}((?P<Group_2>FII-[0-9]+:)(?P<Group_2>CTA-[0-9]+:)*(?P<Group_2>COM-[0-9]+:)*)*((?P<Group_3>NAD-[0-9]+:)(?P<Group_3>CTA-[0-9]+:)*(?P<Group_3>COM-[0-9]+:)*){0,3}((?P<Group_4>LIN-[0-9]+:)((?P<Group_5>RFF-[0-9]+:)(?P<Group_5>DTM-[0-9]+:)*)*((?P<Group_6>SEQ-[0-9]+:)(?P<Group_6>GEI-[0-9]+:)(?P<Group_6>DTM-[0-9]+:){0,2}(?P<Group_6>MOA-[0-9]+:)*(?P<Group_6>DOC-[0-9]+:)*)*((?P<Group_7>FII-[0-9]+:)(?P<Group_7>CTA-[0-9]+:)*(?P<Group_7>COM-[0-9]+:)*){0,2}((?P<Group_8>NAD-[0-9]+:)(?P<Group_8>CTA-[0-9]+:)*(?P<Group_8>COM-[0-9]+:)*){0,2})+(?P<toplevel>CNT-[0-9]+:)*((?P<Group_9>AUT-[0-9]+:)(?P<Group_9>DTM-[0-9]+:)*)*(?P<toplevel>UNT-[0-9]+:)$`
 	assert.Equal(t, expected, validator.segmentValidationRegexpStr)
+}
+
+func TestMessageValidatorGOVCBR(t *testing.T) {
+	validator, err := NewMessageValidator(getMessageSpec("GOVCBR_D.14B"))
+	require.Nil(t, err)
+	require.NotNil(t, validator)
 }
 
 var segListStrSpec = []struct {

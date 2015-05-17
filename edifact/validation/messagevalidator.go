@@ -11,6 +11,8 @@ import (
 	"strings"
 )
 
+const topLevelStr = "toplevel"
+
 // To correlate matching segments with segments in message
 type IndexSegmentMap map[int]*msg.Segment
 
@@ -37,9 +39,9 @@ func getRegexpRepeatStr(minSpecRepeat int, maxSpecRepeat int, isGroup bool) (res
 	// than what is representable with regexp repeat counts (which uses a hard limit
 	// to avoid performance problem with quadratic behavior due to nesting of repeated groups)
 	if isGroup {
-		maxRepeat = 99
+		maxRepeat = 5
 	} else {
-		maxRepeat = 99
+		maxRepeat = 5
 	}
 
 	if minSpecRepeat == 1 && maxSpecRepeat == 1 {
@@ -65,7 +67,7 @@ func getRegexpRepeatStr(minSpecRepeat int, maxSpecRepeat int, isGroup bool) (res
 	panic("unreachable")
 }
 
-func buildMessageSpecPartRegexpStr(msgSpecPart msgspec.MessageSpecPart) string {
+func buildMessageSpecPartRegexpStr(msgSpecPart msgspec.MessageSpecPart, groupName string) string {
 	var inner string
 	subMatchNameStr := ""
 	var regexpRepeatStr string
@@ -76,16 +78,17 @@ func buildMessageSpecPartRegexpStr(msgSpecPart msgspec.MessageSpecPart) string {
 	case *msgspec.MessageSpecSegmentPart:
 		inner = msgSpecPart.SegmentSpec.Id + `-[0-9]+:`
 		regexpRepeatStr = getRegexpRepeatStr(specMinCount, specMaxCount, false)
+		subMatchNameStr = groupName
 	case *msgspec.MessageSpecSegmentGroupPart:
 		groupPartRegexpStrs := []string{}
 		for _, groupChild := range msgSpecPart.Children() {
 			groupPartRegexpStrs = append(
 				groupPartRegexpStrs,
-				buildMessageSpecPartRegexpStr(groupChild))
+				buildMessageSpecPartRegexpStr(groupChild, msgSpecPart.Name()))
 		}
 		inner = strings.Join(groupPartRegexpStrs, "")
 		regexpRepeatStr = getRegexpRepeatStr(specMinCount, specMaxCount, true)
-		subMatchNameStr = msgSpecPart.Name()
+		// subMatchNameStr = msgSpecPart.Name()
 	default:
 		panic("Not implemented")
 	}
@@ -100,7 +103,7 @@ func buildMessageSpecPartsRegexpStr(msgSpecParts []msgspec.MessageSpecPart) stri
 	var buf bytes.Buffer
 	buf.WriteString("^")
 	for _, part := range msgSpecParts {
-		buf.WriteString(buildMessageSpecPartRegexpStr(part))
+		buf.WriteString(buildMessageSpecPartRegexpStr(part, topLevelStr))
 	}
 	buf.WriteString("$")
 	return buf.String()
@@ -135,6 +138,22 @@ func (v *MessageValidator) Validate(message msg.Message) (isValid bool, err erro
 	panic("Not implemented")
 }
 
+/*// Builds a map for looking up either stand-alone segments or segment groups
+func (v *MessageValidator) buildSegExprToSegMap(indexSegmentMap IndexSegmentMap, segSeqMatch []string) segExprToSegMap {
+	result = IndexSegmentMap{}
+	segMap := map[string]
+	for matchIndex, matchName := range segSeqMatch {
+		if matchName == "" {
+			panic("Internal error: unnamed submatch")
+		}
+		if !strings.HasPrefix(matchName, "Group") {
+
+
+		}
+	}
+	return result
+}*/
+
 // Validate a list of segment names as they occur in a message
 func (v *MessageValidator) ValidateSegmentList(segments []*msg.Segment) (isValid bool, err error) {
 	if len(segments) == 0 {
@@ -143,8 +162,8 @@ func (v *MessageValidator) ValidateSegmentList(segments []*msg.Segment) (isValid
 	segmListStr, indexSegmentMap := buildSegmentListStr(segments)
 	// log.Printf("segmListStr: %s\n", segmListStr)
 	// log.Printf("regexp str: '%q'\n", v.segmentValidationRegexpStr)
-	// log.Printf("indexSegmentMap: %v\n", indexSegmentMap)
-	// log.Printf("group names: %q\n", v.segmentValidationRegexp.SubexpNames())
+	log.Printf("indexSegmentMap: %v\n", indexSegmentMap)
+	log.Printf("group names: %q\n", v.segmentValidationRegexp.SubexpNames())
 	_ = indexSegmentMap
 	match := v.segmentValidationRegexp.FindStringSubmatch(segmListStr)
 	log.Printf("match: %#v\n", match)
