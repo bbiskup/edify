@@ -37,6 +37,20 @@ func (p *MessageSpecSegmentGroupPart) Append(messageSpecPart MessageSpecPart) {
 	p.children = append(p.children, messageSpecPart)
 }
 
+// First segment spec contained in group. This is by definition
+// a segment spec, not a new group.
+func (p *MessageSpecSegmentGroupPart) TriggerSegmentPart() *MessageSpecSegmentPart {
+	if len(p.children) > 0 {
+		triggerSegmentPart, ok := p.children[0].(*MessageSpecSegmentPart)
+		if !ok {
+			panic(fmt.Sprintf("Unexpected type %T", triggerSegmentPart))
+		}
+		return triggerSegmentPart
+	} else {
+		return nil
+	}
+}
+
 func NewMessageSpecSegmentGroupPart(
 	name string, children []MessageSpecPart,
 	maxCount int, isMandatory bool, parent MessageSpecPart) *MessageSpecSegmentGroupPart {
