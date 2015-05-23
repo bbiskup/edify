@@ -33,16 +33,15 @@ var authorSegSeqSpec = []struct {
 			"BGM", "UNT",
 		}, true, missingMandatorySegment,
 	},
-	/*
-				{"Missing mandatory group 4",
-					[]string{
-						"UNH",
-						"BGM",
-						"DTM", // optional
-						"UNT",
-					}, true, missingGroup
-		            },
-	*/
+
+	{"Missing mandatory group 4",
+		[]string{
+			"UNH",
+			"BGM",
+			"DTM", // optional
+			"UNT",
+		}, true, missingGroup,
+	},
 
 	/*{"minimal message (only mandatory segments)",
 	[]string{
@@ -127,7 +126,7 @@ func TestSegSeqValidator1(t *testing.T) {
 	msgSpec := getMessageSpec("AUTHOR_D.14B")
 
 	for _, spec := range authorSegSeqSpec {
-		fmt.Printf("spec: %#v\n", spec)
+		fmt.Printf(">>>>>>>>>>>>>>>>>>> spec: %#v\n", spec)
 		validator, err := NewSegSeqValidator(msgSpec)
 		require.Nil(t, err)
 		require.NotNil(t, validator)

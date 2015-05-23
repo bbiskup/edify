@@ -106,6 +106,15 @@ func (s *SegSeqValidator) advance(segIndex int, segID string) error {
 
 		case *msgspec.MessageSpecSegmentGroupPart:
 			log.Printf("At group spec %s", segSpecPart)
+			triggerSegmentPart := segSpecPart.TriggerSegmentPart()
+			log.Printf("### %s: %s", triggerSegmentPart, segSpecPart.Children())
+			if triggerSegmentPart.SegmentSpec.Id != segID {
+				if triggerSegmentPart.IsMandatory() {
+					return s.createError(
+						missingGroup,
+						fmt.Sprintf("Missing mandatory group segment '%s'", triggerSegmentPart))
+				}
+			}
 		default:
 			panic(fmt.Sprintf("Unsupported spec part type: %T", segSpecPart))
 
