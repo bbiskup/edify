@@ -143,7 +143,7 @@ func TestSegSeqValidator1(t *testing.T) {
 
 		if spec.expectError {
 			require.NotNil(t, err)
-			fmt.Printf("Expected error was: %s", err)
+			fmt.Printf("Expected error was: %s\n", err)
 			err, ok := err.(SegSeqError)
 			require.True(t, ok)
 			assert.Equal(t, spec.errorKind, err.kind)
