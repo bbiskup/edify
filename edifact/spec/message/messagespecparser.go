@@ -427,7 +427,7 @@ func (p *MessageSpecParser) ParseSpecFileContents(fileName string, contents stri
 }
 
 func (p *MessageSpecParser) ParseSpecDir(dirName string, suffix string) (specs []*MessageSpec, err error) {
-	return p.parseSpecDir_parallel(dirName, suffix)
+	return p.parseSpecDir_sequential(dirName, suffix)
 }
 
 // Parse segment spec directory sequentially
