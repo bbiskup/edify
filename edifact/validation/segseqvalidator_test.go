@@ -25,6 +25,12 @@ var authorSegSeqSpec = []struct {
 			"UNH",
 			// no BGM
 		}, true, missingMandatorySegment},
+	{
+		"Max. repeat count exeeded",
+		[]string{
+			"UNH",
+			"UNH", // max. repeat count is 1
+		}, true, maxRepeatCountExceeded},
 
 	{"Optional segment in incorrect position",
 		[]string{
