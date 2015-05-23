@@ -26,10 +26,19 @@ var authorSegSeqSpec = []struct {
 			// no BGM
 		}, true, missingMandatorySegment},
 	{
-		"Max. repeat count exeeded",
+		"Max. repeat count of mandatory segment exeeded",
 		[]string{
 			"UNH",
 			"UNH", // max. repeat count is 1
+		}, true, maxRepeatCountExceeded},
+
+	{
+		"Max. repeat count of optional segment exeeded",
+		[]string{
+			"UNH",
+			"BGM",
+			"DTM", // max. repeat count is 1
+			"DTM",
 		}, true, maxRepeatCountExceeded},
 
 	{"Optional segment in incorrect position",
@@ -42,17 +51,13 @@ var authorSegSeqSpec = []struct {
 
 	{"Optional segment in correct position",
 		[]string{
-			"DTM",
-			"UNH",
-			"BGM",
-			"UNT",
+			"DTM", "UNH", "BGM", "UNT",
 		}, true, missingMandatorySegment,
 	},
 
 	{"Missing mandatory group 4",
 		[]string{
-			"UNH",
-			"BGM",
+			"UNH", "BGM",
 			"DTM", // optional
 			"UNT",
 		}, true, missingGroup,
@@ -63,6 +68,7 @@ var authorSegSeqSpec = []struct {
 		"UNH", "BGM",
 		// Group 4
 		"LIN",
+
 		"UNT",
 	}, false, ""},
 	*/
