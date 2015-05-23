@@ -108,11 +108,14 @@ func (s *SegSeqValidator) advance(segIndex int, segID string) error {
 			log.Printf("At group spec %s", segSpecPart)
 			triggerSegmentPart := segSpecPart.TriggerSegmentPart()
 			log.Printf("### %s: %s", triggerSegmentPart, segSpecPart.Children())
-			if triggerSegmentPart.SegmentSpec.Id != segID {
-				if triggerSegmentPart.IsMandatory() {
-					return s.createError(
-						missingGroup,
-						fmt.Sprintf("Missing mandatory group segment '%s'", triggerSegmentPart))
+			if segSpecPart.IsMandatory() {
+				if triggerSegmentPart.SegmentSpec.Id != segID {
+					if triggerSegmentPart.IsMandatory() {
+						return s.createError(
+							missingGroup,
+							fmt.Sprintf("Missing mandatory trigger segment '%s' for group %s",
+								triggerSegmentPart, segSpecPart.Name()))
+					}
 				}
 			}
 		default:
