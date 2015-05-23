@@ -52,10 +52,11 @@ var authorSegSeqSpec = []struct {
 	/*{"minimal message (only mandatory segments)",
 	[]string{
 		"UNH", "BGM",
-		// Group 1
+		// Group 4
 		"LIN",
 		"UNT",
-	}, false},*/
+	}, false, ""},
+	*/
 	/*
 
 		{

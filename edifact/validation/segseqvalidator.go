@@ -142,12 +142,6 @@ func (s *SegSeqValidator) Validate(message *msg.Message) error {
 
 	log.Printf("Message ended; checking if spec has been fulfilled")
 	return s.advance(s.currentSegmentIndex+1, "___")
-	/*remainderSegSeqErr := remainderErr.(SegSeqError)
-	if remainderSegSeqErr.kind != noMoreSegments {
-		return s.createError(unexpectedErr, remainderSegSeqErr.Error())
-	}
-	fmt.Printf("Spec ok")
-	return nil*/
 }
 
 func NewSegSeqValidator(messageSpec *msgspec.MessageSpec) (segSeqValidator *SegSeqValidator, err error) {
