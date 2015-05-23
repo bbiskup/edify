@@ -1,7 +1,6 @@
 package validation
 
 import (
-	"errors"
 	"fmt"
 	msg "github.com/bbiskup/edify/edifact/msg"
 	msgspec "github.com/bbiskup/edify/edifact/spec/message"
@@ -28,6 +27,9 @@ const (
 	noMoreSegments          SegSeqErrorKind = "no_more_segments"
 	maxRepeatCountExceeded  SegSeqErrorKind = "max_repeat_count_exceeded"
 	missingGroup            SegSeqErrorKind = "missing_group"
+	noSegmentSpecs          SegSeqErrorKind = "no_segment_specs"
+	noSegments              SegSeqErrorKind = "no_segments"
+	unexpectedErr           SegSeqErrorKind = "unexpected_err"
 )
 
 // An exception that provides an error kind to check for specific error conditions
@@ -41,6 +43,9 @@ func (e SegSeqError) Error() string {
 }
 
 func NewSegSeqError(kind SegSeqErrorKind, message string) SegSeqError {
+	if message == "" {
+		message = string(kind)
+	}
 	return SegSeqError{kind, message}
 }
 
@@ -62,17 +67,18 @@ func (s *SegSeqValidator) advance(segIndex int, segID string) error {
 
 		switch segSpecPart := segSpecPart.(type) {
 		case *msgspec.MessageSpecSegmentPart:
-			// Simple case: repetition
 			segSpecID := segSpecPart.SegmentSpec.Id
 			log.Printf("segSpecID: %s", segSpecID)
 			if segID == s.previousSegmentId {
+				// Simple case: repetition
 				s.repeatCount++
 				log.Printf("Repeating segment type %s (count: %d)",
 					segID, s.repeatCount)
 				if s.repeatCount > segSpecPart.MaxCount() {
 					return s.createError(
 						maxRepeatCountExceeded,
-						fmt.Sprintf("Max repeat count %d exceeded", s.repeatCount))
+						fmt.Sprintf("Max repeat count %d exceeded: %d",
+							segSpecPart.MaxCount(), s.repeatCount))
 				}
 				return nil
 			} else {
@@ -89,6 +95,8 @@ func (s *SegSeqValidator) advance(segIndex int, segID string) error {
 						return s.createError(
 							missingMandatorySegment,
 							fmt.Sprintf("Missing mandatory segment '%s'", segSpecID))
+					} else {
+						log.Printf("Skipping optional spec segment %s", segSpecID)
 					}
 				}
 			}
@@ -104,6 +112,9 @@ func (s *SegSeqValidator) advance(segIndex int, segID string) error {
 
 // TODO: return mapping of spec to message segments to allow querying
 func (s *SegSeqValidator) Validate(message *msg.Message) error {
+	if len(message.Segments) == 0 {
+		return NewSegSeqError(noSegments, "")
+	}
 	for segIndex, segment := range message.Segments {
 		s.currentSegmentIndex = segIndex
 		segID := segment.Id()
@@ -112,12 +123,20 @@ func (s *SegSeqValidator) Validate(message *msg.Message) error {
 			return err
 		}
 	}
-	return nil
+
+	log.Printf("Message ended; checking if spec has been fulfilled")
+	return s.advance(s.currentSegmentIndex+1, "___")
+	/*remainderSegSeqErr := remainderErr.(SegSeqError)
+	if remainderSegSeqErr.kind != noMoreSegments {
+		return s.createError(unexpectedErr, remainderSegSeqErr.Error())
+	}
+	fmt.Printf("Spec ok")
+	return nil*/
 }
 
 func NewSegSeqValidator(messageSpec *msgspec.MessageSpec) (segSeqValidator *SegSeqValidator, err error) {
 	if len(messageSpec.Parts) == 0 {
-		return nil, errors.New("No segment specs")
+		return nil, NewSegSeqError(noSegmentSpecs, "")
 	}
 	return &SegSeqValidator{
 		messageSpec:             messageSpec,

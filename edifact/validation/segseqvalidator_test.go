@@ -14,20 +14,35 @@ var authorSegSeqSpec = []struct {
 	expectError bool
 	errorKind   SegSeqErrorKind
 }{
-	{"Optional segment in incorrect position",
+	/*{
+			"No segments at all",
+			[]string{}, true, noSegments
+	        },*/
+
+	{
+		"Missing mandatory segments",
 		[]string{
 			"UNH",
-			"DTM", // Should come after BGM
-			"BGM", "UNT",
+			// no BGM
 		}, true, missingMandatorySegment},
 
-	{"Missing mandatory group 4",
-		[]string{
-			"UNH",
-			"BGM",
-			"DTM", // optional
-			"UNT",
-		}, true, missingGroup},
+	/*{"Optional segment in incorrect position",
+				[]string{
+					"UNH",
+					"DTM", // Should come after BGM
+					"BGM", "UNT",
+				}, true, missingMandatorySegment
+		        },
+
+			{"Missing mandatory group 4",
+				[]string{
+					"UNH",
+					"BGM",
+					"DTM", // optional
+					"UNT",
+				}, true, missingGroup
+	            },
+	*/
 
 	/*{"minimal message (only mandatory segments)",
 	[]string{
@@ -121,13 +136,13 @@ func TestSegSeqValidator1(t *testing.T) {
 		err := validator.Validate(message)
 
 		if spec.expectError {
-			assert.NotNil(t, err)
-			err, ok := err.(SegSeqError)
-			assert.True(t, ok)
-			assert.Equal(t, spec.errorKind, err.kind)
+			require.NotNil(t, err)
 			fmt.Printf("Expected error was: %s", err)
+			err, ok := err.(SegSeqError)
+			require.True(t, ok)
+			assert.Equal(t, spec.errorKind, err.kind)
 		} else {
-			assert.Nil(t, err)
+			require.Nil(t, err)
 		}
 	}
 }
