@@ -14,10 +14,10 @@ var authorSegSeqSpec = []struct {
 	expectError bool
 	errorKind   SegSeqErrorKind
 }{
-	/*{
-			"No segments at all",
-			[]string{}, true, noSegments
-	        },*/
+	{
+		"No segments at all",
+		[]string{}, true, noSegments,
+	},
 
 	{
 		"Missing mandatory segments",
@@ -26,22 +26,22 @@ var authorSegSeqSpec = []struct {
 			// no BGM
 		}, true, missingMandatorySegment},
 
-	/*{"Optional segment in incorrect position",
-				[]string{
-					"UNH",
-					"DTM", // Should come after BGM
-					"BGM", "UNT",
-				}, true, missingMandatorySegment
-		        },
-
-			{"Missing mandatory group 4",
-				[]string{
-					"UNH",
-					"BGM",
-					"DTM", // optional
-					"UNT",
-				}, true, missingGroup
-	            },
+	{"Optional segment in incorrect position",
+		[]string{
+			"UNH",
+			"DTM", // Should come after BGM
+			"BGM", "UNT",
+		}, true, missingMandatorySegment,
+	},
+	/*
+				{"Missing mandatory group 4",
+					[]string{
+						"UNH",
+						"BGM",
+						"DTM", // optional
+						"UNT",
+					}, true, missingGroup
+		            },
 	*/
 
 	/*{"minimal message (only mandatory segments)",
@@ -125,15 +125,15 @@ var authorSegSeqSpec = []struct {
 
 func TestSegSeqValidator1(t *testing.T) {
 	msgSpec := getMessageSpec("AUTHOR_D.14B")
-	validator, err := NewSegSeqValidator(msgSpec)
-	require.Nil(t, err)
-	require.NotNil(t, validator)
 
 	for _, spec := range authorSegSeqSpec {
 		fmt.Printf("spec: %#v\n", spec)
+		validator, err := NewSegSeqValidator(msgSpec)
+		require.Nil(t, err)
+		require.NotNil(t, validator)
 		segments := mapToSegments(spec.segmentIDs)
 		message := msg.NewMessage("AUTHOR", segments)
-		err := validator.Validate(message)
+		err = validator.Validate(message)
 
 		if spec.expectError {
 			require.NotNil(t, err)

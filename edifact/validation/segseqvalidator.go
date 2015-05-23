@@ -29,7 +29,8 @@ const (
 	missingGroup            SegSeqErrorKind = "missing_group"
 	noSegmentSpecs          SegSeqErrorKind = "no_segment_specs"
 	noSegments              SegSeqErrorKind = "no_segments"
-	unexpectedErr           SegSeqErrorKind = "unexpected_err"
+	//unexpectedSegment       SegSeqErrorKind = "unexpected_segment"
+	unexpectedErr SegSeqErrorKind = "unexpected_err"
 )
 
 // An exception that provides an error kind to check for specific error conditions
@@ -67,6 +68,7 @@ func (s *SegSeqValidator) advance(segIndex int, segID string) error {
 
 		switch segSpecPart := segSpecPart.(type) {
 		case *msgspec.MessageSpecSegmentPart:
+			log.Printf("At segment spec %s", segSpecPart)
 			segSpecID := segSpecPart.SegmentSpec.Id
 			log.Printf("segSpecID: %s", segSpecID)
 			if segID == s.previousSegmentId {
@@ -80,6 +82,7 @@ func (s *SegSeqValidator) advance(segIndex int, segID string) error {
 						fmt.Sprintf("Max repeat count %d exceeded: %d",
 							segSpecPart.MaxCount(), s.repeatCount))
 				}
+				s.currentPartIndex = i + 1
 				return nil
 			} else {
 				log.Printf("New segment type %s", segID)
@@ -102,6 +105,7 @@ func (s *SegSeqValidator) advance(segIndex int, segID string) error {
 			}
 
 		case *msgspec.MessageSpecSegmentGroupPart:
+			log.Printf("At group spec %s", segSpecPart)
 		default:
 			panic(fmt.Sprintf("Unsupported spec part type: %T", segSpecPart))
 
