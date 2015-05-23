@@ -1,22 +1,12 @@
 package validation
 
+/*
 import (
 	"fmt"
-	"github.com/bbiskup/edify/edifact/msg"
-	"github.com/bbiskup/edify/edifact/spec/message"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 	"testing"
 )
-
-func getMessageSpec(fileName string) *message.MessageSpec {
-	parser := message.NewMessageSpecParser(&message.MockSegmentSpecProviderImpl{})
-	messageSpec, err := parser.ParseSpecFile("../../testdata/d14b/edmd/" + fileName)
-	if err != nil {
-		panic("spec is nil")
-	}
-	return messageSpec
-}
 
 func TestMessageValidatorAUTHOR(t *testing.T) {
 	validator, err := NewMessageValidator(getMessageSpec("AUTHOR_D.14B"))
@@ -56,15 +46,7 @@ func TestBuildSegmentListStr(t *testing.T) {
 	}
 }
 
-func mapToSegments(segmentIDs []string) []*msg.Segment {
-	result := []*msg.Segment{}
-	for _, segmentID := range segmentIDs {
-		result = append(result, msg.NewSegment(segmentID))
-	}
-	return result
-}
-
-var authorSegSeqSpec = []struct {
+var authorSegSeqSpec_OLD = []struct {
 	descr       string
 	segmentIDs  []string
 	valid       bool
@@ -152,7 +134,7 @@ func TestValidateSegmentList(t *testing.T) {
 	validator, err := NewMessageValidator(getMessageSpec("AUTHOR_D.14B"))
 	require.Nil(t, err)
 	// fmt.Printf("regexp str %s", validator.segmentValidationRegexpStr)
-	for _, spec := range authorSegSeqSpec {
+	for _, spec := range authorSegSeqSpec_OLD {
 		fmt.Printf("spec: %#v\n", spec)
 		result, err := validator.ValidateSegmentList(mapToSegments(spec.segmentIDs))
 		assert.Equal(t, spec.expectError, err != nil)
@@ -180,19 +162,19 @@ func BenchmarkNewMessageValidatorLargeSpec(b *testing.B) {
 	}
 }
 
-/** Does not work; invalid repeat count when parsing regexp
-	same holds for (descending size order)
-	IFCSUM, ORDRSP, ORDERS, ORDCHG,
-
-// Benchmark creation of validation regexp for largest UNCE message spec
-func BenchmarkNewMessageValidatorLargestSpec(b *testing.B) {
-	messageSpec := getMessageSpec("GOVCBR_D.14B")
-	for i := 0; i < b.N; i++ {
-		validator, err := NewMessageValidator(messageSpec)
-		require.Nil(b, err)
-		require.NotNil(b, validator)
-	}
-}*/
+// Does not work; invalid repeat count when parsing regexp
+// 	same holds for (descending size order)
+// 	IFCSUM, ORDRSP, ORDERS, ORDCHG,
+//
+// // Benchmark creation of validation regexp for largest UNCE message spec
+// func BenchmarkNewMessageValidatorLargestSpec(b *testing.B) {
+// 	messageSpec := getMessageSpec("GOVCBR_D.14B")
+// 	for i := 0; i < b.N; i++ {
+// 		validator, err := NewMessageValidator(messageSpec)
+// 		require.Nil(b, err)
+// 		require.NotNil(b, validator)
+// 	}
+// }
 
 func BenchmarkValidateAuthorSegments(b *testing.B) {
 	validator, err := NewMessageValidator(getMessageSpec("AUTHOR_D.14B"))
@@ -249,3 +231,4 @@ var getRegexpRepeatStrSpec = []struct {
 	{2, 1, false, "", true},    // max > min
 	{1, 1000, false, "", true}, // max > allowed max 99 for segment specs
 }
+*/
