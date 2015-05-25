@@ -54,6 +54,6 @@ func TestSegGroupDumpWithGroupParts(t *testing.T) {
 	msg := getNestedMsgWithGroupPart()
 	assert.Equal(
 		t,
-		"ABC\ngroup_1\n    DEF\n    GHI\n    group_2\n        JKL\nMNO\n",
+		"ABC\ngroup_1\n\tDEF\n\tGHI\n\tgroup_2\n\t\tJKL\nMNO\n",
 		msg.SegGroupDump())
 }

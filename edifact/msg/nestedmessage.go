@@ -7,8 +7,7 @@ import (
 )
 
 const (
-	indentFactor = 4
-	noPartsText  = "<no msg parts>"
+	noPartsText = "<no msg parts>"
 )
 
 // An EDIFACT message consisting of individual segments
@@ -24,7 +23,7 @@ func (m *NestedMessage) String() string {
 }
 
 func (m *NestedMessage) segGroupDump(indent int, part SegmentOrGroup, buf *bytes.Buffer) {
-	indentStr := strings.Repeat(" ", indent*indentFactor)
+	indentStr := strings.Repeat("\t", indent)
 	switch part := part.(type) {
 	case *Segment:
 		buf.WriteString(fmt.Sprintf("%s%s\n", indentStr, part.Id()))
