@@ -3,8 +3,8 @@ package msg
 // A group of segments. Groups are not identified during message parsing,
 // but during validation, when message specification is available
 type SegmentGroup struct {
-	id       string
-	Segments []*Segment
+	id    string
+	Parts []SegmentOrGroup
 }
 
 // From interface SegmentOrGroup
