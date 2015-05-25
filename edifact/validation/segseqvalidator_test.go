@@ -145,9 +145,9 @@ func TestSegSeqValidator1(t *testing.T) {
 		require.NotNil(t, validator)
 		segments := mapToSegments(spec.segmentIDs)
 		require.NotNil(t, segments)
-		message := msg.NewMessage("AUTHOR", segments)
-		fmt.Printf("Validating message: %s", message)
-		err = validator.Validate(message)
+		rawMessage := msg.NewRawMessage("AUTHOR", segments)
+		fmt.Printf("Validating raw message: %s", rawMessage)
+		err = validator.Validate(rawMessage)
 
 		if spec.expectError {
 			assert.NotNil(t, err)

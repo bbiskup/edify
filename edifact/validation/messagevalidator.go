@@ -134,7 +134,7 @@ func buildSegmentListStr(segments []*msg.Segment) (segmentListStr string, indexS
 	return buf.String(), indexSegmentMap
 }
 
-func (v *MessageValidator) Validate(message msg.Message) (isValid bool, err error) {
+func (v *MessageValidator) Validate(message msg.RawMessage) (isValid bool, err error) {
 	panic("Not implemented")
 }
 

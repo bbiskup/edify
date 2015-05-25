@@ -89,8 +89,8 @@ func (p *Parser) ParseSegments(segmentStrs []string) []*Segment {
 	return result
 }
 
-func (p *Parser) ParseMessage(edifactMessage string) (message *Message, err error) {
-	log.Printf("Parsing message")
+func (p *Parser) ParseRawMessage(edifactMessage string) (rawMessage *RawMessage, err error) {
+	log.Printf("Parsing raw message")
 	// reset error
 	p.err = nil
 
@@ -105,7 +105,7 @@ func (p *Parser) ParseMessage(edifactMessage string) (message *Message, err erro
 	// log.Printf("Segments: %s", segments)
 
 	if len(segments) < 2 {
-		p.err = errors.New("Message header and/or tail missing")
+		p.err = errors.New("Raw message header and/or tail missing")
 		return nil, p.err
 	}
 
@@ -122,7 +122,7 @@ func (p *Parser) ParseMessage(edifactMessage string) (message *Message, err erro
 		return nil, p.err
 	}
 
-	message = NewMessage("dummyname", segments)
+	rawMessage = NewRawMessage("dummyname", segments)
 
-	return message, p.err
+	return rawMessage, p.err
 }

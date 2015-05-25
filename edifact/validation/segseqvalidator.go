@@ -123,9 +123,15 @@ func (s *SegSeqValidator) processSegment(segment *msg.Segment) error {
 		if cg.AtEnd() {
 			log.Printf("No more parts in current group spec")
 			if s.groupStack.Len() > 1 {
-				log.Printf("LEAVING GROUP %s", cg.groupSpecPart.Name())
-				s.groupStack.Pop()
-				s.currentGroupContext().partIndex++
+				if segment.Id() == cg.groupSpecPart.Id() {
+					log.Printf("TODO Group repetition")
+					s.currentGroupContext().partIndex = 0
+				} else {
+					log.Printf("LEAVING GROUP %s", cg.groupSpecPart.Name())
+					s.groupStack.Pop()
+					s.currentGroupContext().partIndex++
+				}
+
 				continue
 			} else {
 				log.Printf("Returning from top level")
@@ -226,11 +232,11 @@ func (s *SegSeqValidator) checkRemainingMandatorySegments() error {
 }
 
 // TODO: return mapping of spec to message segments to allow querying
-func (s *SegSeqValidator) Validate(message *msg.Message) error {
-	if len(message.Segments) == 0 {
+func (s *SegSeqValidator) Validate(rawMessage *msg.RawMessage) error {
+	if len(rawMessage.Segments) == 0 {
 		return NewSegSeqError(noSegments, "")
 	}
-	for _, segment := range message.Segments {
+	for _, segment := range rawMessage.Segments {
 		err := s.processSegment(segment)
 		if err != nil {
 			return err
