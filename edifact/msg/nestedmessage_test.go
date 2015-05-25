@@ -16,6 +16,20 @@ func getNestedMsgWithParts() *NestedMessage {
 	})
 }
 
+func getNestedMsgWithGroupPart() *NestedMessage {
+	return NewNestedMessage("testname", []SegmentOrGroup{
+		NewSegment("ABC"),
+		NewSegmentGroup("group_1", []SegmentOrGroup{
+			NewSegment("DEF"),
+			NewSegment("GHI"),
+			NewSegmentGroup("group_2", []SegmentOrGroup{
+				NewSegment("JKL"),
+			}),
+		}),
+		NewSegment("MNO"),
+	})
+}
+
 func TestStringEmptyMsg(t *testing.T) {
 	msg := getEmptyNestedMsg()
 	assert.Equal(t, "NestedMessage testname (0 1st-level parts)", msg.String())
@@ -34,4 +48,12 @@ func TestStringMsgWithParts(t *testing.T) {
 func TestSegGroupDumpWithParts(t *testing.T) {
 	msg := getNestedMsgWithParts()
 	assert.Equal(t, "ABC\nDEF\n", msg.SegGroupDump())
+}
+
+func TestSegGroupDumpWithGroupParts(t *testing.T) {
+	msg := getNestedMsgWithGroupPart()
+	assert.Equal(
+		t,
+		"ABC\ngroup_1\n    DEF\n    GHI\n    group_2\n        JKL\nMNO\n",
+		msg.SegGroupDump())
 }

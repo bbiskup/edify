@@ -29,7 +29,7 @@ func (m *NestedMessage) segGroupDump(indent int, part SegmentOrGroup, buf *bytes
 	case *Segment:
 		buf.WriteString(fmt.Sprintf("%s%s\n", indentStr, part.Id()))
 	case *SegmentGroup:
-		buf.WriteString(fmt.Sprintf("%s%s\n", indentStr, part))
+		buf.WriteString(fmt.Sprintf("%s%s\n", indentStr, part.Id()))
 		for _, groupPart := range part.Parts {
 			m.segGroupDump(indent+1, groupPart, buf)
 		}
