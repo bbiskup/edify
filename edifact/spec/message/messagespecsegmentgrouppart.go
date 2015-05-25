@@ -12,6 +12,10 @@ type MessageSpecSegmentGroupPart struct {
 	children []MessageSpecPart
 }
 
+func (p *MessageSpecSegmentGroupPart) Id() string {
+	return p.TriggerSegmentPart().SegmentSpec.Id
+}
+
 func (p *MessageSpecSegmentGroupPart) Name() string {
 	return p.name
 }
