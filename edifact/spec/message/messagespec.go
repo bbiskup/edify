@@ -3,6 +3,7 @@ package message
 import (
 	"bytes"
 	"fmt"
+	"strings"
 	"time"
 )
 
@@ -25,9 +26,13 @@ type MessageSpec struct {
 type MessageSpecs []*MessageSpec
 
 func (m *MessageSpec) String() string {
+	var partsStr = m.PartsStr()
+	if len(partsStr) > 0 {
+		partsStr = " - " + partsStr
+	}
 	return fmt.Sprintf(
-		"Message %s (%s %s): %d parts",
-		m.Id, m.Name, m.Release, m.Count())
+		"Message %s (%s %s): %d parts%s",
+		m.Id, m.Name, m.Release, m.Count(), partsStr)
 }
 
 // Verbose output fo debugging
@@ -39,6 +44,14 @@ func (m *MessageSpec) Dump() string {
 		buffer.WriteString(m.Parts[i].String() + "\n")
 	}
 	return buffer.String()
+}
+
+func (m *MessageSpec) PartsStr() string {
+	result := []string{}
+	for _, part := range m.Parts {
+		result = append(result, part.Id())
+	}
+	return strings.Join(result, ", ")
 }
 
 // Number of parts
