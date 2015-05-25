@@ -4,126 +4,206 @@ import (
 	"fmt"
 	msg "github.com/bbiskup/edify/edifact/msg"
 	msgspec "github.com/bbiskup/edify/edifact/spec/message"
-	//segspec "github.com/bbiskup/edify/edifact/spec/segment"
+	"github.com/bbiskup/edify/edifact/util"
 	"log"
 )
 
 // Validates segment sequence
 // builds structure for navigation/query
 type SegSeqValidator struct {
-	messageSpec             *msgspec.MessageSpec
-	message                 *msg.Message
-	currentSegmentIndex     int
-	currentPartIndex        int // index in current group (or at top level)
-	currentMessageSpecParts []msgspec.MessageSpecPart
-	repeatCount             int
-	previousSegmentId       string
+	currentSegmentIndex int
+	messageSpec         *msgspec.MessageSpec
+	currentSegSpecID    string
+	state               SegSeqState
+	currentSegID        string
+	groupStack          *util.Stack
 }
 
-type SegSeqErrorKind string
-
-const (
-	missingMandatorySegment SegSeqErrorKind = "missing_mandatory_segment"
-	noMoreSegments          SegSeqErrorKind = "no_more_segments"
-	maxRepeatCountExceeded  SegSeqErrorKind = "max_repeat_count_exceeded"
-	missingGroup            SegSeqErrorKind = "missing_group"
-	noSegmentSpecs          SegSeqErrorKind = "no_segment_specs"
-	noSegments              SegSeqErrorKind = "no_segments"
-	//unexpectedSegment       SegSeqErrorKind = "unexpected_segment"
-	unexpectedErr SegSeqErrorKind = "unexpected_err"
-)
-
-// An exception that provides an error kind to check for specific error conditions
-type SegSeqError struct {
-	kind    SegSeqErrorKind
-	message string
-}
-
-func (e SegSeqError) Error() string {
-	return fmt.Sprintf("%s: %s", e.kind, e.message)
-}
-
-func NewSegSeqError(kind SegSeqErrorKind, message string) SegSeqError {
-	if message == "" {
-		message = string(kind)
-	}
-	return SegSeqError{kind, message}
+func (s *SegSeqValidator) currentGroupContext() *SegSeqGroupContext {
+	result := s.groupStack.Peek().(*SegSeqGroupContext)
+	return result
 }
 
 func (s *SegSeqValidator) createError(kind SegSeqErrorKind, msg string) error {
-	return NewSegSeqError(kind, fmt.Sprintf("Error at segment #%d (%s)",
-		s.currentSegmentIndex, msg))
+	return NewSegSeqError(
+		kind, fmt.Sprintf("Error at segment #%d (%s)",
+			s.currentSegmentIndex, msg))
 }
 
-// Searches for given segment ID, and returns the first segment spec part
-// with this ID. If a mandatory segment is found before, an error is raised,
-// meaning that the segment sequence is incorrect
-func (s *SegSeqValidator) advance(segIndex int, segID string) error {
-	currentMessageSpecPartsLen := len(s.currentMessageSpecParts)
-	log.Printf("advance segIndex = %d, segID = %s, currentMessageSpecPartsLen = %d",
-		segIndex, segID, currentMessageSpecPartsLen)
-	for i := s.currentPartIndex; i < currentMessageSpecPartsLen; i++ {
-		segSpecPart := s.currentMessageSpecParts[i]
-		log.Printf("Current segSpecPart: %s", segSpecPart)
+func (s *SegSeqValidator) setNewState(newState SegSeqState) {
+	log.Printf("State transition %s --> %s", s.state, newState)
+	s.state = newState
+}
 
-		switch segSpecPart := segSpecPart.(type) {
-		case *msgspec.MessageSpecSegmentPart:
-			log.Printf("At segment spec %s", segSpecPart)
-			segSpecID := segSpecPart.SegmentSpec.Id
-			log.Printf("segSpecID: %s", segSpecID)
-			if segID == s.previousSegmentId {
-				// Simple case: repetition
-				s.repeatCount++
-				log.Printf("Repeating segment type %s (count: %d)",
-					segID, s.repeatCount)
-				if s.repeatCount > segSpecPart.MaxCount() {
-					return s.createError(
-						maxRepeatCountExceeded,
-						fmt.Sprintf("Max repeat count %d exceeded: %d",
-							segSpecPart.MaxCount(), s.repeatCount))
-				}
-				s.currentPartIndex = i + 1
-				return nil
+func (s *SegSeqValidator) handleRepeat(segment *msg.Segment) error {
+	log.Printf("handleRepeat %s", segment)
+	gc := s.currentGroupContext()
+	gc.repeatCount++
+	maxCount := s.getCurrentMsgSpecPart().MaxCount()
+	if gc.repeatCount > maxCount {
+		return s.createError(
+			maxRepeatCountExceeded,
+			fmt.Sprintf("Max. repeat count of segment %s (%d) exceeded: %d",
+				s.currentSegID, maxCount, gc.repeatCount))
+	} else {
+		log.Printf("Repeating segment %s for %dth time", s.currentSegID, gc.repeatCount)
+		return nil
+	}
+}
+
+func (s *SegSeqValidator) handleSegment(segment *msg.Segment) (matched bool, err error) {
+	currentMsgSpecPart := s.getCurrentMsgSpecPart()
+	log.Printf("handleSegment %s; current spec: %s",
+		segment.Id(), currentMsgSpecPart)
+	s.currentGroupContext().repeatCount = 1
+
+	if s.currentSegSpecID != segment.Id() {
+		if currentMsgSpecPart.IsMandatory() {
+			return false, s.createError(unexpectedSegment,
+				fmt.Sprintf("Got segment %s", segment.Id()))
+		} else {
+			s.incrementCurrentMsgSpecPartIndex()
+			return false, nil
+		}
+
+	}
+
+	s.setNewState(seqStateSeg)
+	return true, nil
+}
+
+func (s *SegSeqValidator) getCurrentMsgSpecPart() msgspec.MessageSpecPart {
+	//return s.messageSpec.Parts[s.currentMsgSpecPartIndex]
+	return s.currentGroupContext().currentPart()
+}
+
+func (s *SegSeqValidator) nextCurrentMsgSpecPart() msgspec.MessageSpecPart {
+	return s.currentGroupContext().nextPart()
+}
+
+func (s *SegSeqValidator) incrementCurrentMsgSpecPartIndex() bool {
+	currentGroupContext := s.currentGroupContext()
+	if currentGroupContext.AtEnd() {
+		log.Printf("Group context %s at end; no increment possible", currentGroupContext)
+		return false
+	} else {
+		currentMsgPart := currentGroupContext.currentPart()
+		log.Printf("incr currentMsgSpecPartIndex: %d (%s) --> %d (%s)",
+			currentGroupContext.partIndex, currentMsgPart.Name(),
+			currentGroupContext.partIndex+1, currentGroupContext.nextPart().Name())
+		currentGroupContext.partIndex++
+		s.currentSegSpecID = s.getCurrentMsgSpecPart().Id()
+		return true
+	}
+}
+
+// Advance in spec according to current segment
+// Processes a single segment
+func (s *SegSeqValidator) processSegment(segment *msg.Segment) error {
+	log.Printf("############## processSegment %s", segment.Id())
+	log.Printf("\tmessage spec: %s", s.messageSpec)
+	segID := segment.Id()
+	s.currentSegmentIndex++
+
+	for {
+		if s.currentGroupContext().AtEnd() {
+			log.Printf("No more parts in current group spec")
+			if s.groupStack.Len() > 1 {
+				log.Printf("Leaving group")
+				s.groupStack.Pop()
+				s.currentGroupContext().partIndex++
+				continue
 			} else {
-				log.Printf("New segment type %s", segID)
-				s.repeatCount = 1
+				log.Printf("Returning from top level")
+				return nil
+			}
+		}
+		messageSpecPart := s.currentGroupContext().currentPart()
+		log.Printf("\tLooping: (state: %s) (stack size: %d, group context: %s) (seg: %s) (%dth); seg spec: %s",
+			s.state, s.groupStack.Len(), s.currentGroupContext(), segID, s.currentSegmentIndex, messageSpecPart)
+		s.currentSegSpecID = messageSpecPart.Id()
 
-				if segSpecID == segID {
-					log.Printf("Found segment '%s'", segID)
-					s.currentPartIndex = i + 1
-					s.previousSegmentId = segID
-					return nil
+		switch messageSpecPart := messageSpecPart.(type) {
+		case *msgspec.MessageSpecSegmentPart:
+			log.Printf("seg spec ID: %s", s.currentSegSpecID)
+
+			switch s.state {
+			case seqStateInitial:
+				s.setNewState(seqStateSearching)
+
+			case seqStateGroupStart:
+				s.setNewState(seqStateSeg)
+
+			case seqStateSeg:
+				if messageSpecPart.SegmentSpec.Id == segID {
+					return s.handleRepeat(segment)
 				} else {
-					if segSpecPart.IsMandatory() {
-						return s.createError(
-							missingMandatorySegment,
-							fmt.Sprintf("Missing mandatory segment '%s'", segSpecID))
-					} else {
-						log.Printf("Skipping optional spec segment %s", segSpecID)
+					s.incrementCurrentMsgSpecPartIndex()
+					found, err := s.handleSegment(segment)
+					if err != nil {
+						return err
+					}
+					if found {
+						return nil
 					}
 				}
+
+			case seqStateSearching:
+				if messageSpecPart.SegmentSpec.Id == segID {
+					s.setNewState(seqStateSeg)
+				} else {
+					if messageSpecPart.IsMandatory() {
+						return s.createError(
+							missingMandatorySegment,
+							fmt.Sprintf("Mandatory segment %s is missing",
+								messageSpecPart.SegmentSpec.Id))
+					}
+					s.incrementCurrentMsgSpecPartIndex()
+				}
+
+			default:
+				panic(fmt.Sprintf("Unhandled case: %d", s.state))
 			}
 
 		case *msgspec.MessageSpecSegmentGroupPart:
-			log.Printf("At group spec %s", segSpecPart)
-			triggerSegmentPart := segSpecPart.TriggerSegmentPart()
-			log.Printf("### %s: %s", triggerSegmentPart, segSpecPart.Children())
-			if segSpecPart.IsMandatory() {
-				if triggerSegmentPart.SegmentSpec.Id != segID {
-					if triggerSegmentPart.IsMandatory() {
-						return s.createError(
-							missingGroup,
-							fmt.Sprintf("Missing mandatory trigger segment '%s' for group %s",
-								triggerSegmentPart, segSpecPart.Name()))
-					}
+			triggerSegmentId := messageSpecPart.TriggerSegmentPart().SegmentSpec.Id
+			if triggerSegmentId == segID {
+				log.Printf("Entering group %s", messageSpecPart.Name())
+				groupContext := &SegSeqGroupContext{
+					messageSpecPart, messageSpecPart.Children(), 0, 0}
+				s.groupStack.Push(groupContext)
+			} else {
+				if messageSpecPart.IsMandatory() {
+					return s.createError(
+						missingGroup,
+						fmt.Sprintf("mandatory group %s missing", triggerSegmentId))
+				} else {
+					log.Printf("Skipping group %s", triggerSegmentId)
+					s.incrementCurrentMsgSpecPartIndex()
 				}
 			}
-		default:
-			panic(fmt.Sprintf("Unsupported spec part type: %T", segSpecPart))
 
+		default:
+			panic(fmt.Sprintf("Unknown type %T", messageSpecPart))
 		}
 	}
-	return s.createError(noMoreSegments, "No more segments")
+}
+
+func (s *SegSeqValidator) checkRemainingMandatorySegments() error {
+	numSegSpecParts := len(s.messageSpec.Parts)
+	currentMsgSpecPartIndex := s.currentGroupContext().partIndex
+	log.Printf("Checking for mandatory segments after message starting at spec index %d",
+		currentMsgSpecPartIndex)
+	for i := currentMsgSpecPartIndex + 1; i < numSegSpecParts; i++ {
+		specPart := s.messageSpec.Parts[i]
+		if specPart.IsMandatory() {
+			return s.createError(
+				missingMandatorySegment,
+				fmt.Sprintf("Mandatory segment %s after end of message",
+					specPart.Id()))
+		}
+	}
+	return nil
 }
 
 // TODO: return mapping of spec to message segments to allow querying
@@ -131,25 +211,30 @@ func (s *SegSeqValidator) Validate(message *msg.Message) error {
 	if len(message.Segments) == 0 {
 		return NewSegSeqError(noSegments, "")
 	}
-	for segIndex, segment := range message.Segments {
-		s.currentSegmentIndex = segIndex
-		segID := segment.Id()
-		err := s.advance(segIndex, segID)
+	for _, segment := range message.Segments {
+		err := s.processSegment(segment)
 		if err != nil {
 			return err
 		}
 	}
 
-	log.Printf("Message ended; checking if spec has been fulfilled")
-	return s.advance(s.currentSegmentIndex+1, "___")
+	log.Printf("Message ended; TODO check if spec has been fulfilled")
+	s.incrementCurrentMsgSpecPartIndex()
+	return s.checkRemainingMandatorySegments()
 }
 
 func NewSegSeqValidator(messageSpec *msgspec.MessageSpec) (segSeqValidator *SegSeqValidator, err error) {
 	if len(messageSpec.Parts) == 0 {
 		return nil, NewSegSeqError(noSegmentSpecs, "")
 	}
+
+	groupContext := &SegSeqGroupContext{nil, messageSpec.Parts, 0, 0}
+	groupStack := &util.Stack{}
+	groupStack.Push(groupContext)
+
 	return &SegSeqValidator{
-		messageSpec:             messageSpec,
-		currentMessageSpecParts: messageSpec.Parts,
+		messageSpec: messageSpec,
+		state:       seqStateInitial,
+		groupStack:  groupStack,
 	}, nil
 }
