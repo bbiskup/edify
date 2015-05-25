@@ -63,3 +63,21 @@ Web application examples
 ------------------------
 
 e.g. http://www.truugo.com/edifact/d14b/
+
+Validation & Navigation
+=======================
+
+Message segment sequence validation
+-----------------------------------
+
+Basic operations while matching message sequence:
+
+- match segment       -> XX, increment current segment spec index
+- repeat segment      -> increment repeat count 
+- skip segment        -> increment current segment index
+- descend into group  -> recursive call findSeg
+- finish group (when: end of msg or segment not found in current group) -> return from findSeg
+- repeat group        -> loop within findSeg
+- skip group          -> increment current segment spec index
+- (msg end ?          -> spec complete (no more mandatory segment/group) -> ok
+                         incomplete:                                     -> error missing_mandatory_segment
