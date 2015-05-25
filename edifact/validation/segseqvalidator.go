@@ -166,7 +166,7 @@ func (s *SegSeqValidator) processSegment(segment *msg.Segment) error {
 			}
 
 		case *msgspec.MessageSpecSegmentGroupPart:
-			triggerSegmentId := messageSpecPart.TriggerSegmentPart().SegmentSpec.Id
+			triggerSegmentId := messageSpecPart.Id()
 			if triggerSegmentId == segID {
 				log.Printf("Entering group %s", messageSpecPart.Name())
 				groupContext := &SegSeqGroupContext{

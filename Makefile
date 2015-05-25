@@ -2,6 +2,10 @@ test:
 	# Run test in current dir and all subdirectories
 	go test ./...
 
+test-race:
+	# Run test in current dir and all subdirectories
+	go test -race -bench . ./...
+
 test-multi-cpu:
 	go test -cpu=1,2,3,4,5,6,7,8 ./...
 
