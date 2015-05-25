@@ -61,7 +61,7 @@ func (s *SegSeqValidator) handleRepeatGroup(segment *msg.Segment) error {
 	} else {
 		cg.groupRepeatCount++
 		log.Printf("Group repeat count now %d", cg.groupRepeatCount)
-		s.incrementCurrentMsgSpecPartIndex()
+		//s.incrementCurrentMsgSpecPartIndex()
 		return nil
 	}
 }
@@ -128,6 +128,7 @@ func (s *SegSeqValidator) processSegment(segment *msg.Segment) error {
 				continue
 			} else {
 				log.Printf("Returning from top level")
+				s.currentGroupContext().partIndex++
 				return nil
 			}
 		}
@@ -151,7 +152,7 @@ func (s *SegSeqValidator) processSegment(segment *msg.Segment) error {
 				if messageSpecPart.SegmentSpec.Id == segID {
 					if s.groupStack.Len() > 1 && s.currentGroupContext().groupSpecPart.Id() == segID {
 						log.Printf("%%%%%% repeating segment %s", segID)
-						s.handleRepeatGroup(segment)
+						return s.handleRepeatGroup(segment)
 					} else {
 						return s.handleRepeatSegment(segment)
 					}
@@ -195,7 +196,7 @@ func (s *SegSeqValidator) processSegment(segment *msg.Segment) error {
 						missingGroup,
 						fmt.Sprintf("mandatory group %s missing", triggerSegmentId))
 				} else {
-					log.Printf("Skipping group %s", triggerSegmentId)
+					log.Printf("Skipping group %s (%s)", messageSpecPart.Name(), triggerSegmentId)
 					s.incrementCurrentMsgSpecPartIndex()
 				}
 			}

@@ -14,79 +14,79 @@ var authorSegSeqSpec = []struct {
 	expectError bool
 	errorKind   SegSeqErrorKind
 }{
-	{
-		"No segments at all",
-		[]string{}, true, noSegments,
-	},
+	// {
+	// 	"No segments at all",
+	// 	[]string{}, true, noSegments,
+	// },
 
-	{
-		"Missing mandatory segments",
-		[]string{
-			"UNH", // no BGM
-		}, true, missingMandatorySegment,
-	},
+	// {
+	// 	"Missing mandatory segments",
+	// 	[]string{
+	// 		"UNH", // no BGM
+	// 	}, true, missingMandatorySegment,
+	// },
 
-	{
-		"Max. repeat count of mandatory segment exeeded",
-		[]string{
-			"UNH", "UNH", // max. repeat count is 1
-		}, true, maxSegmentRepeatCountExceeded},
+	// {
+	// 	"Max. repeat count of mandatory segment exeeded",
+	// 	[]string{
+	// 		"UNH", "UNH", // max. repeat count is 1
+	// 	}, true, maxSegmentRepeatCountExceeded},
 
-	{
-		"Max. repeat count of optional segment exeeded",
-		[]string{
-			"UNH", "BGM", "DTM" /* max. repeat count is 1 */, "DTM",
-		}, true, maxSegmentRepeatCountExceeded},
+	// {
+	// 	"Max. repeat count of optional segment exeeded",
+	// 	[]string{
+	// 		"UNH", "BGM", "DTM" /* max. repeat count is 1 */, "DTM",
+	// 	}, true, maxSegmentRepeatCountExceeded},
 
-	{"Optional segment in incorrect position",
-		[]string{
-			"UNH",
-			"DTM" /* Should appear after BGM */, "BGM", "UNT",
-		}, true, unexpectedSegment,
-	},
+	// {"Optional segment in incorrect position",
+	// 	[]string{
+	// 		"UNH",
+	// 		"DTM" /* Should appear after BGM */, "BGM", "UNT",
+	// 	}, true, unexpectedSegment,
+	// },
 
-	{"Optional segment in incorrect position",
-		[]string{
-			"DTM", "UNH", "BGM", "UNT",
-		}, true, missingMandatorySegment,
-	},
+	// {"Optional segment in incorrect position",
+	// 	[]string{
+	// 		"DTM", "UNH", "BGM", "UNT",
+	// 	}, true, missingMandatorySegment,
+	// },
 
-	{"Missing mandatory group 4",
-		[]string{
-			"UNH", "BGM", "DTM" /* optional */, "UNT",
-		}, true, missingGroup,
-	},
+	// {"Missing mandatory group 4",
+	// 	[]string{
+	// 		"UNH", "BGM", "DTM" /* optional */, "UNT",
+	// 	}, true, missingGroup,
+	// },
 
-	{"minimal message (only mandatory segments)",
-		[]string{
-			"UNH", "BGM" /* Group 4 */, "LIN",
+	// {"minimal message (only mandatory segments)",
+	// 	[]string{
+	// 		"UNH", "BGM" /* Group 4 */, "LIN",
 
-			"UNT",
-		}, false, "",
-	},
+	// 		"UNT",
+	// 	}, false, "",
+	// },
 
-	{
-		"Mostly mandatory",
-		[]string{
-			"UNH", "BGM",
-			"DTM", "BUS", // both conditional
-			// Group 4
-			"LIN",
-			"UNT",
-		}, false, ""},
+	// {
+	// 	"Mostly mandatory",
+	// 	[]string{
+	// 		"UNH", "BGM",
+	// 		"DTM", "BUS", // both conditional
+	// 		// Group 4
+	// 		"LIN",
+	// 		"UNT",
+	// 	}, false, ""},
 
-	{
-		"Mostly mandatory; one conditional group",
-		[]string{
-			"UNH", "BGM",
-			"DTM", "BUS",
-			// Group 1
-			"LIN",
-			// Group 2
-			"FII", "CTA", "COM",
+	// {
+	// 	"Mostly mandatory; one conditional group",
+	// 	[]string{
+	// 		"UNH", "BGM",
+	// 		"DTM", "BUS",
+	// 		// Group 1
+	// 		"LIN",
+	// 		// Group 2
+	// 		"FII", "CTA", "COM",
 
-			"UNT",
-		}, false, ""},
+	// 		"UNT",
+	// 	}, false, ""},
 
 	{
 		"Some repeat counts > 1",
