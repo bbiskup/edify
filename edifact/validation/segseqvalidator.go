@@ -119,10 +119,11 @@ func (s *SegSeqValidator) processSegment(segment *msg.Segment) error {
 	s.currentSegmentIndex++
 
 	for {
-		if s.currentGroupContext().AtEnd() {
+		cg := s.currentGroupContext()
+		if cg.AtEnd() {
 			log.Printf("No more parts in current group spec")
 			if s.groupStack.Len() > 1 {
-				log.Printf("Leaving group")
+				log.Printf("LEAVING GROUP %s", cg.groupSpecPart.Name())
 				s.groupStack.Pop()
 				s.currentGroupContext().partIndex++
 				continue
@@ -187,7 +188,7 @@ func (s *SegSeqValidator) processSegment(segment *msg.Segment) error {
 		case *msgspec.MessageSpecSegmentGroupPart:
 			triggerSegmentId := messageSpecPart.Id()
 			if triggerSegmentId == segID {
-				log.Printf("Entering group %s", messageSpecPart.Name())
+				log.Printf("ENTERING GROUP %s", messageSpecPart.Name())
 				groupContext := NewSegSeqGroupContext(messageSpecPart, messageSpecPart.Children())
 				s.groupStack.Push(groupContext)
 			} else {
