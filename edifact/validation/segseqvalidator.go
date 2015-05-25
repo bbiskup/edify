@@ -35,27 +35,41 @@ func (s *SegSeqValidator) setNewState(newState SegSeqState) {
 	s.state = newState
 }
 
-func (s *SegSeqValidator) handleRepeat(segment *msg.Segment) error {
-	log.Printf("handleRepeat %s", segment)
+func (s *SegSeqValidator) handleRepeatSegment(segment *msg.Segment) error {
+	log.Printf("handleRepeatSegment %s", segment)
 	gc := s.currentGroupContext()
-	gc.repeatCount++
+	gc.segmentRepeatCount++
 	maxCount := s.getCurrentMsgSpecPart().MaxCount()
-	if gc.repeatCount > maxCount {
+	if gc.segmentRepeatCount > maxCount {
 		return s.createError(
-			maxRepeatCountExceeded,
+			maxSegmentRepeatCountExceeded,
 			fmt.Sprintf("Max. repeat count of segment %s (%d) exceeded: %d",
-				s.currentSegID, maxCount, gc.repeatCount))
+				segment.Id(), maxCount, gc.segmentRepeatCount))
 	} else {
-		log.Printf("Repeating segment %s for %dth time", s.currentSegID, gc.repeatCount)
+		log.Printf("Repeating segment %s for %dth time", s.currentSegID, gc.segmentRepeatCount)
 		return nil
 	}
 }
 
+func (s *SegSeqValidator) handleRepeatGroup(segment *msg.Segment) error {
+	log.Printf("handleRepeatGroup %s", segment)
+	cg := s.currentGroupContext()
+	if cg.groupRepeatCount >= cg.groupSpecPart.MaxCount() {
+		return s.createError(
+			maxGroupRepeatCountExceeded,
+			fmt.Sprintf("Group segment %s exceeds max group count", segment.Id()))
+	} else {
+		cg.groupRepeatCount++
+		log.Printf("Group repeat count now %d", cg.groupRepeatCount)
+		s.incrementCurrentMsgSpecPartIndex()
+		return nil
+	}
+}
 func (s *SegSeqValidator) handleSegment(segment *msg.Segment) (matched bool, err error) {
 	currentMsgSpecPart := s.getCurrentMsgSpecPart()
 	log.Printf("handleSegment %s; current spec: %s",
 		segment.Id(), currentMsgSpecPart)
-	s.currentGroupContext().repeatCount = 1
+	s.currentGroupContext().segmentRepeatCount = 1
 
 	if s.currentSegSpecID != segment.Id() {
 		if currentMsgSpecPart.IsMandatory() {
@@ -65,7 +79,6 @@ func (s *SegSeqValidator) handleSegment(segment *msg.Segment) (matched bool, err
 			s.incrementCurrentMsgSpecPartIndex()
 			return false, nil
 		}
-
 	}
 
 	s.setNewState(seqStateSeg)
@@ -136,7 +149,12 @@ func (s *SegSeqValidator) processSegment(segment *msg.Segment) error {
 
 			case seqStateSeg:
 				if messageSpecPart.SegmentSpec.Id == segID {
-					return s.handleRepeat(segment)
+					if s.groupStack.Len() > 1 && s.currentGroupContext().groupSpecPart.Id() == segID {
+						log.Printf("%%%%%% repeating segment %s", segID)
+						s.handleRepeatGroup(segment)
+					} else {
+						return s.handleRepeatSegment(segment)
+					}
 				} else {
 					s.incrementCurrentMsgSpecPartIndex()
 					found, err := s.handleSegment(segment)
@@ -169,8 +187,7 @@ func (s *SegSeqValidator) processSegment(segment *msg.Segment) error {
 			triggerSegmentId := messageSpecPart.Id()
 			if triggerSegmentId == segID {
 				log.Printf("Entering group %s", messageSpecPart.Name())
-				groupContext := &SegSeqGroupContext{
-					messageSpecPart, messageSpecPart.Children(), 0, 0}
+				groupContext := NewSegSeqGroupContext(messageSpecPart, messageSpecPart.Children())
 				s.groupStack.Push(groupContext)
 			} else {
 				if messageSpecPart.IsMandatory() {
@@ -228,7 +245,7 @@ func NewSegSeqValidator(messageSpec *msgspec.MessageSpec) (segSeqValidator *SegS
 		return nil, NewSegSeqError(noSegmentSpecs, "")
 	}
 
-	groupContext := &SegSeqGroupContext{nil, messageSpec.Parts, 0, 0}
+	groupContext := NewSegSeqGroupContext(nil, messageSpec.Parts)
 	groupStack := &util.Stack{}
 	groupStack.Push(groupContext)
 

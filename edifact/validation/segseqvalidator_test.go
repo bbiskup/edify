@@ -30,13 +30,13 @@ var authorSegSeqSpec = []struct {
 		"Max. repeat count of mandatory segment exeeded",
 		[]string{
 			"UNH", "UNH", // max. repeat count is 1
-		}, true, maxRepeatCountExceeded},
+		}, true, maxSegmentRepeatCountExceeded},
 
 	{
 		"Max. repeat count of optional segment exeeded",
 		[]string{
 			"UNH", "BGM", "DTM" /* max. repeat count is 1 */, "DTM",
-		}, true, maxRepeatCountExceeded},
+		}, true, maxSegmentRepeatCountExceeded},
 
 	{"Optional segment in incorrect position",
 		[]string{
@@ -84,6 +84,20 @@ var authorSegSeqSpec = []struct {
 			"LIN",
 			// Group 2
 			"FII", "CTA", "COM",
+
+			"UNT",
+		}, false, ""},
+
+	{
+		"Some repeat counts > 1",
+		[]string{
+			"UNH", "BGM",
+			"DTM", "BUS",
+			// Group 4
+			"LIN", "LIN", "LIN", "LIN",
+			// Group 7
+			"FII", "CTA", "COM", "COM", "COM",
+			"FII", "CTA", "COM", "COM", "COM",
 
 			"UNT",
 		}, false, ""},

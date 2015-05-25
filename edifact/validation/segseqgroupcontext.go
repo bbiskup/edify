@@ -17,7 +17,10 @@ type SegSeqGroupContext struct {
 	partIndex int
 
 	// repeat count of current segment
-	repeatCount int
+	segmentRepeatCount int
+
+	// repeat count of current group
+	groupRepeatCount int
 }
 
 func (c *SegSeqGroupContext) String() string {
@@ -45,4 +48,12 @@ func (c *SegSeqGroupContext) currentPart() msgspec.MessageSpecPart {
 
 func (c *SegSeqGroupContext) nextPart() msgspec.MessageSpecPart {
 	return c.parts[c.partIndex+1]
+}
+
+func NewSegSeqGroupContext(
+	groupSpecPart *msgspec.MessageSpecSegmentGroupPart,
+	parts []msgspec.MessageSpecPart) *SegSeqGroupContext {
+
+	return &SegSeqGroupContext{
+		groupSpecPart, parts, 0, 0, 0}
 }
