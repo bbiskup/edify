@@ -11,3 +11,7 @@ type SegmentGroup struct {
 func (g *SegmentGroup) Id() string {
 	return g.id
 }
+
+func NewSegmentGroup(id string, parts []SegmentOrGroup) *SegmentGroup {
+	return &SegmentGroup{id, parts}
+}
