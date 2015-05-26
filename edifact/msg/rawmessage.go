@@ -1,5 +1,10 @@
 package msg
 
+import (
+	"bytes"
+	"fmt"
+)
+
 // A raw message contains a sequence of segments without
 // the notion of segment groups, i.e. without nesting
 type RawMessage struct {
@@ -8,12 +13,17 @@ type RawMessage struct {
 }
 
 func (m *RawMessage) String() string {
-	segmentsStr := ""
+	var buf bytes.Buffer
 	for _, s := range m.Segments {
-		segmentsStr += "\t" + s.String() + "\n"
+		buf.WriteString(fmt.Sprintf("\t%s\n", s.String()))
 	}
-	return m.Name + "\n" + segmentsStr
 
+	segmentsStr := buf.String()
+	if len(segmentsStr) > 0 {
+		return fmt.Sprintf("%s\n%s", m.Name, segmentsStr)
+	} else {
+		return m.Name
+	}
 }
 
 func (m *RawMessage) AddSegment(segment *Segment) {

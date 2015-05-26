@@ -7,7 +7,7 @@ import (
 
 func TestStringEmpty(t *testing.T) {
 	msg := NewRawMessage("ABC", []*Segment{})
-	assert.Equal(t, "ABC\n", msg.String())
+	assert.Equal(t, "ABC", msg.String())
 }
 
 func TestStringWithSegments(t *testing.T) {
