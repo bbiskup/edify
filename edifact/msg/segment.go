@@ -1,5 +1,10 @@
 package msg
 
+import (
+	"bytes"
+	"fmt"
+)
+
 type Segment struct {
 	id       string
 	Elements []*DataElement
@@ -11,11 +16,11 @@ func (g *Segment) Id() string {
 }
 
 func (s *Segment) String() string {
-	elementsStr := ""
+	var buf bytes.Buffer
 	for _, e := range s.Elements {
-		elementsStr += "\t\t" + e.String() + "\n"
+		buf.WriteString(fmt.Sprintf("\t\t%s\n", e.String()))
 	}
-	return s.id + "\n" + elementsStr
+	return fmt.Sprintf("%s\n%s", s.id, buf.String())
 }
 
 func (s *Segment) AddElement(element *DataElement) {
