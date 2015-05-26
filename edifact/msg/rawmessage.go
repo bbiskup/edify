@@ -15,7 +15,7 @@ type RawMessage struct {
 func (m *RawMessage) String() string {
 	var buf bytes.Buffer
 	for _, s := range m.Segments {
-		buf.WriteString(fmt.Sprintf("\t%s\n", s.String()))
+		buf.WriteString(fmt.Sprintf("\t%s", s.String()))
 	}
 
 	segmentsStr := buf.String()

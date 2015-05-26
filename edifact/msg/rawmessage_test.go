@@ -14,7 +14,7 @@ func TestStringWithSegments(t *testing.T) {
 	segment1 := NewSegment("XYZ")
 	msg := NewRawMessage("ABC", []*Segment{segment1})
 	assert.Equal(t, 1, len(msg.Segments))
-	assert.Equal(t, "ABC\n\tXYZ\n\n", msg.String())
+	assert.Equal(t, "ABC\n\tXYZ\n", msg.String())
 }
 
 func TestSegmentIds(t *testing.T) {
