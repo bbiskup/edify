@@ -160,3 +160,30 @@ func TestSegSeqValidator1(t *testing.T) {
 		}
 	}
 }
+
+func BenchmarkValidateSeq(b *testing.B) {
+	segmentIDs := []string{
+		"UNH", "BGM",
+		"DTM", "BUS",
+		// Group 4
+		"LIN", "LIN", "LIN", "LIN",
+		// Group 7
+		"FII", "CTA", "COM", "COM", "COM",
+		"FII", "CTA", "COM", "COM", "COM",
+
+		"UNT",
+	}
+	msgSpec := getMessageSpec("AUTHOR_D.14B")
+	validator, err := NewSegSeqValidator(msgSpec)
+	require.Nil(b, err)
+	require.NotNil(b, validator)
+	segments := mapToSegments(segmentIDs)
+	require.NotNil(b, segments)
+	rawMessage := msg.NewRawMessage("AUTHOR", segments)
+	b.ResetTimer()
+
+	for i := 0; i < b.N; i++ {
+		err = validator.Validate(rawMessage)
+		require.Nil(b, err)
+	}
+}
