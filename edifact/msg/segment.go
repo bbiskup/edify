@@ -31,6 +31,11 @@ func (s *Segment) AddElements(elements []*DataElement) {
 	s.Elements = elements
 }
 
+func (s *Segment) Dump(indent int) string {
+	indentStr := getIndentStr(indent)
+	return fmt.Sprintf("%sSegment %s\n", indentStr, s.Id())
+}
+
 func NewSegment(id string) *Segment {
 	return &Segment{id, []*DataElement{}}
 }

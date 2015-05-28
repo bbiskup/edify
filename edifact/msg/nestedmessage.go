@@ -3,7 +3,6 @@ package msg
 import (
 	"bytes"
 	"fmt"
-	"strings"
 )
 
 const (
@@ -15,40 +14,26 @@ const (
 // A nested message is suitable for element navigation
 type NestedMessage struct {
 	Name  string
-	parts []SegmentOrGroup
+	parts []RepeatMsgPart
 }
 
 func (m *NestedMessage) String() string {
 	return fmt.Sprintf("NestedMessage %s (%d 1st-level parts)", m.Name, len(m.parts))
 }
 
-func (m *NestedMessage) segGroupDump(indent int, part SegmentOrGroup, buf *bytes.Buffer) {
-	indentStr := strings.Repeat("\t", indent)
-	switch part := part.(type) {
-	case *Segment:
-		buf.WriteString(fmt.Sprintf("%s%s\n", indentStr, part.Id()))
-	case *SegmentGroup:
-		buf.WriteString(fmt.Sprintf("%s%s\n", indentStr, part.Id()))
-		for _, groupPart := range part.Parts {
-			m.segGroupDump(indent+1, groupPart, buf)
-		}
-	default:
-		panic(fmt.Sprintf("Unexpected type %T", part))
-	}
-}
-
 // Comprehensive dump of segment/group structure
-func (m *NestedMessage) SegGroupDump() string {
+func (m *NestedMessage) Dump(indent int) string {
+	var buf bytes.Buffer
 	if len(m.parts) == 0 {
 		return noPartsText
 	}
-	var buf bytes.Buffer
+	buf.WriteString(fmt.Sprintf("%sMessage %s\n", getIndentStr(indent), m.Name))
 	for _, part := range m.parts {
-		m.segGroupDump(0, part, &buf)
+		buf.WriteString(part.Dump(indent + 1))
 	}
 	return buf.String()
 }
 
-func NewNestedMessage(name string, parts []SegmentOrGroup) *NestedMessage {
+func NewNestedMessage(name string, parts []RepeatMsgPart) *NestedMessage {
 	return &NestedMessage{name, parts}
 }
