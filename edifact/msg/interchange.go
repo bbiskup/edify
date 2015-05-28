@@ -1,15 +1,20 @@
 package msg
 
+import (
+	"bytes"
+	"fmt"
+)
+
 type Interchange struct {
 	RawMessages []*RawMessage
 }
 
 func (i *Interchange) String() string {
-	result := ""
+	var buf bytes.Buffer
 	for _, m := range i.RawMessages {
-		result += "\n" + m.String() + "\n"
+		buf.WriteString(fmt.Sprintf("\n%s\n", m.String()))
 	}
-	return result
+	return buf.String()
 }
 
 func (i *Interchange) AddMessage(message *RawMessage) {
