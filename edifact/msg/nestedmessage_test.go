@@ -50,7 +50,6 @@ func getNestedMsgWithGroupPart() *NestedMessage {
 							NewRepeatSegment(
 								NewSegment("JKL"),
 							)})),
-
 					NewRepeatSegment(NewSegment("MNO")),
 				}),
 			),
@@ -85,8 +84,5 @@ func TestDumpWithGroupParts(t *testing.T) {
 	msg := getNestedMsgWithGroupPart()
 	dump := msg.Dump(0)
 	fmt.Printf("Dump:\n%s\n", dump)
-	assert.Equal(
-		t,
-		expectedDumpNestedMsgWithGroupPart,
-		dump)
+	assert.Equal(t, expectedDumpNestedMsgWithGroupPart, dump)
 }
