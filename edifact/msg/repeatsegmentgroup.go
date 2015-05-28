@@ -29,7 +29,7 @@ func (g *RepeatSegmentGroup) Dump(indent int) string {
 	indentStr := getIndentStr(indent)
 	//buf.WriteString(fmt.Sprintf("%s%s\n", indentStr, g.groups[0].Id()))
 	for repeat, group := range g.groups {
-		buf.WriteString(fmt.Sprintf("%s[%d] %s\n", indentStr, repeat, group.Dump(indent)))
+		buf.WriteString(fmt.Sprintf("%s[%d] %s", indentStr, repeat, group.Dump(indent)))
 		//buf.WriteString(fmt.Sprintf("%s", group.Dump(indent+1)))
 	}
 	return buf.String()

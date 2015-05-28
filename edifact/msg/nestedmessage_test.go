@@ -17,6 +17,17 @@ func getNestedMsgWithParts() *NestedMessage {
 	})
 }
 
+const expectedDumpNestedMsgWithGroupPart = `Message testname
+  [0] ABC
+  [1] ABC
+  [0] Group group_1
+        [0] DEF
+        [0] GHI
+        [0] Group group_2
+            [0] JKL
+        [0] MNO
+`
+
 func getNestedMsgWithGroupPart() *NestedMessage {
 	return NewNestedMessage(
 		"testname",
@@ -69,8 +80,8 @@ func TestDumpWithGroupParts(t *testing.T) {
 	msg := getNestedMsgWithGroupPart()
 	dump := msg.Dump(0)
 	fmt.Printf("Dump:\n%s\n", dump)
-	//assert.Equal(
-	//	t,
-	//	"ABC\ngroup_1\n\tDEF\n\tGHI\n\tgroup_2\n\t\tJKL\nMNO\n",
-	//	dump)
+	assert.Equal(
+		t,
+		expectedDumpNestedMsgWithGroupPart,
+		dump)
 }
