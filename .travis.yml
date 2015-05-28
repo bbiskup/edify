@@ -20,7 +20,10 @@ script:
   - go build
   - make check
   - make test-multi-cpu
-  - make bench
+
+  - # avoid excessive output
+  - make bench 2> bench.log
+  
   - time ./edify download_specs 14b
   - time ./edify extract_specs 14b
   - time ./edify purge_specs 14b
