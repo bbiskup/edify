@@ -10,6 +10,11 @@ func getEmptyNestedMsg() *NestedMessage {
 	return NewNestedMessage("testname", []RepeatMsgPart{})
 }
 
+const expectedDumpNestedMsgWithParts = `Message testname
+  [0] ABC
+  [0] DEF
+`
+
 func getNestedMsgWithParts() *NestedMessage {
 	return NewNestedMessage("testname", []RepeatMsgPart{
 		NewRepeatSegment(NewSegment("ABC")),
@@ -73,7 +78,7 @@ func TestDumpWithParts(t *testing.T) {
 	msg := getNestedMsgWithParts()
 	dump := msg.Dump(0)
 	t.Logf("Dump:\n%s\n", dump)
-	//assert.Equal(t, "ABC\nDEF\n", dump)
+	assert.Equal(t, expectedDumpNestedMsgWithParts, dump)
 }
 
 func TestDumpWithGroupParts(t *testing.T) {
