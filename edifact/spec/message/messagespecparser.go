@@ -125,6 +125,35 @@ func (p *MessageSpecParser) logNestingLevelChange(currentNestingLevel int, newNe
 	}
 }
 
+func (p *MessageSpecParser) shouldSkipSegTableLine(line string) bool {
+	if len(strings.TrimSpace(line)) == 0 {
+		return true
+	}
+
+	if p.matchHeaderOrEmptyInGroupSection(line) {
+		return true
+	}
+	return false
+}
+
+// Join multi-line segment definition
+func (p *MessageSpecParser) joinMultiLineSegmentDef(
+	line string, index int,
+	numLines int, segmentTableLines []string) (joinedLine string, newIndex int) {
+
+	joinedLine = line
+	if index < numLines-1 {
+		nextLine := segmentTableLines[index+1]
+		if strings.HasPrefix(nextLine, "               ") && !strings.HasPrefix(nextLine, "                      ") {
+			// log.Printf("Joining multi-line")
+			firstLine := strings.TrimRight(line, "+| ")
+			line = firstLine + " " + strings.TrimSpace(nextLine)
+			index++
+		}
+	}
+	return joinedLine, index
+}
+
 /*
  Get sequence of segments/segment groups
  e.g.
@@ -149,31 +178,16 @@ func (p *MessageSpecParser) parseMessageSpecParts(fileName string, lines []strin
 	currentNestingLevel := 0
 	var currentMessageSpecPart MessageSpecPart = nil
 	numLines := len(segmentTableLines)
-	// log.Printf("Processing %d segment table lines", numLines)
+
 	for index, line := range segmentTableLines {
 		line = strings.TrimRight(line, " \r\n")
-		if len(strings.TrimSpace(line)) == 0 {
+		if p.shouldSkipSegTableLine(line) {
 			continue
 		}
 
-		if p.matchHeaderOrEmptyInGroupSection(line) {
-			continue
-		}
-
-		// Join multi-line segment definition
-		// multiLineStartMatch := segmentMultiLineRE.FindStringSubmatch(line)
-		if index < numLines-1 {
-			nextLine := segmentTableLines[index+1]
-			if strings.HasPrefix(nextLine, "               ") && !strings.HasPrefix(nextLine, "                      ") {
-				// log.Printf("Joining multi-line")
-				firstLine := strings.TrimRight(line, "+| ")
-				line = firstLine + " " + strings.TrimSpace(nextLine)
-				index++
-			}
-		}
+		line, index := p.joinMultiLineSegmentDef(line, index, numLines, segmentTableLines)
 
 		// Each line must either be a segment entry or segment group start
-
 		segmentEntry, err := p.parseSegmentEntry(line)
 		if err != nil {
 			return nil, err
@@ -181,7 +195,6 @@ func (p *MessageSpecParser) parseMessageSpecParts(fileName string, lines []strin
 
 		// Are we dealing with a segment entry?
 		if segmentEntry != nil {
-			// log.Printf("Found %#v", segmentEntry)
 			p.logNestingLevelChange(currentNestingLevel, segmentEntry.NestingLevel)
 			nestingDelta := currentNestingLevel - segmentEntry.NestingLevel
 
@@ -210,8 +223,6 @@ func (p *MessageSpecParser) parseMessageSpecParts(fileName string, lines []strin
 				for level := 0; level < nestingDelta; level++ {
 					currentMessageSpecPart = currentMessageSpecPart.Parent()
 				}
-				//log.Printf("Parent now %#v after navigating up %d levels",
-				//	currentMessageSpecPart, nestingDelta)
 			}
 
 			currentNestingLevel = segmentEntry.NestingLevel
@@ -226,7 +237,6 @@ func (p *MessageSpecParser) parseMessageSpecParts(fileName string, lines []strin
 
 		sg := segmentGroupStartSpec
 		if sg != nil {
-			// log.Printf("Found %#v", sg)
 			p.logNestingLevelChange(currentNestingLevel, sg.NestingLevel)
 
 			group := NewMessageSpecSegmentGroupPart(
