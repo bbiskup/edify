@@ -110,6 +110,93 @@ func (s *SegSeqValidator) incrementCurrentMsgSpecPartIndex() bool {
 	}
 }
 
+func (s *SegSeqValidator) handleStateSeg(
+	segID string, segment *msg.Segment,
+	messageSpecPart *msgspec.MessageSpecSegmentPart) (ret bool, err error) {
+
+	if messageSpecPart.SegmentSpec.Id == segID {
+		if s.groupStack.Len() > 1 && s.currentGroupContext().groupSpecPart.Id() == segID {
+			log.Printf("%%%%%% repeating segment %s", segID)
+			return true, s.handleRepeatGroup(segment)
+		} else {
+			return true, s.handleRepeatSegment(segment)
+		}
+	} else {
+		s.incrementCurrentMsgSpecPartIndex()
+		found, err := s.handleSegment(segment)
+		if err != nil {
+			return true, err
+		}
+		if found {
+			return true, nil
+		}
+	}
+	return false, nil
+}
+
+func (s *SegSeqValidator) handleSegGroup(
+	segID string,
+	messageSpecPart *msgspec.MessageSpecSegmentGroupPart) (ret bool, err error) {
+
+	triggerSegmentId := messageSpecPart.Id()
+	if triggerSegmentId == segID {
+		log.Printf("ENTERING GROUP %s", messageSpecPart.Name())
+		groupContext := NewSegSeqGroupContext(messageSpecPart, messageSpecPart.Children())
+		s.groupStack.Push(groupContext)
+	} else {
+		if messageSpecPart.IsMandatory() {
+			return true, s.createError(
+				missingGroup,
+				fmt.Sprintf("mandatory group %s missing", triggerSegmentId))
+		} else {
+			log.Printf("Skipping group %s (%s)", messageSpecPart.Name(), triggerSegmentId)
+			s.incrementCurrentMsgSpecPartIndex()
+		}
+	}
+	return false, nil
+}
+
+func (s *SegSeqValidator) checkGroupStack(segment *msg.Segment) (ret bool) {
+	cg := s.currentGroupContext()
+	if cg.AtEnd() {
+		log.Printf("No more parts in current group spec")
+		if s.groupStack.Len() > 1 {
+			if segment.Id() == cg.groupSpecPart.Id() {
+				log.Printf("TODO Group repetition")
+				s.currentGroupContext().partIndex = 0
+			} else {
+				log.Printf("LEAVING GROUP %s", cg.groupSpecPart.Name())
+				s.groupStack.Pop()
+				s.currentGroupContext().partIndex++
+			}
+
+			return false
+		} else {
+			log.Printf("Returning from top level")
+			s.currentGroupContext().partIndex++
+			return true
+		}
+	}
+	return false
+}
+
+func (s *SegSeqValidator) handleStateSearching(
+	segID string, messageSpecPart *msgspec.MessageSpecSegmentPart) (ret bool, err error) {
+
+	if messageSpecPart.SegmentSpec.Id == segID {
+		s.setNewState(seqStateSeg)
+	} else {
+		if messageSpecPart.IsMandatory() {
+			return true, s.createError(
+				missingMandatorySegment,
+				fmt.Sprintf("Mandatory segment %s is missing",
+					messageSpecPart.SegmentSpec.Id))
+		}
+		s.incrementCurrentMsgSpecPartIndex()
+	}
+	return false, nil
+}
+
 // Advance in spec according to current segment
 // Processes a single segment
 func (s *SegSeqValidator) processSegment(segment *msg.Segment) error {
@@ -119,29 +206,16 @@ func (s *SegSeqValidator) processSegment(segment *msg.Segment) error {
 	s.currentSegmentIndex++
 
 	for {
-		cg := s.currentGroupContext()
-		if cg.AtEnd() {
-			log.Printf("No more parts in current group spec")
-			if s.groupStack.Len() > 1 {
-				if segment.Id() == cg.groupSpecPart.Id() {
-					log.Printf("TODO Group repetition")
-					s.currentGroupContext().partIndex = 0
-				} else {
-					log.Printf("LEAVING GROUP %s", cg.groupSpecPart.Name())
-					s.groupStack.Pop()
-					s.currentGroupContext().partIndex++
-				}
-
-				continue
-			} else {
-				log.Printf("Returning from top level")
-				s.currentGroupContext().partIndex++
-				return nil
-			}
+		ret := s.checkGroupStack(segment)
+		if ret {
+			return nil
 		}
+
 		messageSpecPart := s.currentGroupContext().currentPart()
-		log.Printf("\tLooping: (state: %s) (stack size: %d, group context: %s) (seg: %s) (%dth); seg spec: %s",
-			s.state, s.groupStack.Len(), s.currentGroupContext(), segID, s.currentSegmentIndex, messageSpecPart)
+		log.Printf(
+			"\tLooping: (state: %s) (stack size: %d, group context: %s) (seg: %s) (%dth); seg spec: %s",
+			s.state, s.groupStack.Len(), s.currentGroupContext(), segID,
+			s.currentSegmentIndex, messageSpecPart)
 		s.currentSegSpecID = messageSpecPart.Id()
 
 		switch messageSpecPart := messageSpecPart.(type) {
@@ -156,58 +230,25 @@ func (s *SegSeqValidator) processSegment(segment *msg.Segment) error {
 				s.setNewState(seqStateSeg)
 
 			case seqStateSeg:
-				if messageSpecPart.SegmentSpec.Id == segID {
-					if s.groupStack.Len() > 1 && s.currentGroupContext().groupSpecPart.Id() == segID {
-						log.Printf("%%%%%% repeating segment %s", segID)
-						return s.handleRepeatGroup(segment)
-					} else {
-						return s.handleRepeatSegment(segment)
-					}
-				} else {
-					s.incrementCurrentMsgSpecPartIndex()
-					found, err := s.handleSegment(segment)
-					if err != nil {
-						return err
-					}
-					if found {
-						return nil
-					}
+				ret, err := s.handleStateSeg(segID, segment, messageSpecPart)
+				if ret || err != nil {
+					return err
 				}
 
 			case seqStateSearching:
-				if messageSpecPart.SegmentSpec.Id == segID {
-					s.setNewState(seqStateSeg)
-				} else {
-					if messageSpecPart.IsMandatory() {
-						return s.createError(
-							missingMandatorySegment,
-							fmt.Sprintf("Mandatory segment %s is missing",
-								messageSpecPart.SegmentSpec.Id))
-					}
-					s.incrementCurrentMsgSpecPartIndex()
+				ret, err := s.handleStateSearching(segID, messageSpecPart)
+				if ret || err != nil {
+					return err
 				}
-
 			default:
 				panic(fmt.Sprintf("Unhandled case: %d", s.state))
 			}
 
 		case *msgspec.MessageSpecSegmentGroupPart:
-			triggerSegmentId := messageSpecPart.Id()
-			if triggerSegmentId == segID {
-				log.Printf("ENTERING GROUP %s", messageSpecPart.Name())
-				groupContext := NewSegSeqGroupContext(messageSpecPart, messageSpecPart.Children())
-				s.groupStack.Push(groupContext)
-			} else {
-				if messageSpecPart.IsMandatory() {
-					return s.createError(
-						missingGroup,
-						fmt.Sprintf("mandatory group %s missing", triggerSegmentId))
-				} else {
-					log.Printf("Skipping group %s (%s)", messageSpecPart.Name(), triggerSegmentId)
-					s.incrementCurrentMsgSpecPartIndex()
-				}
+			ret, err := s.handleSegGroup(segID, messageSpecPart)
+			if ret || err != nil {
+				return err
 			}
-
 		default:
 			panic(fmt.Sprintf("Unknown type %T", messageSpecPart))
 		}
