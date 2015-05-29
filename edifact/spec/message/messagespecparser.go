@@ -141,7 +141,6 @@ func (p *MessageSpecParser) joinMultiLineSegmentDef(
 	line string, index int,
 	numLines int, segmentTableLines []string) (joinedLine string, newIndex int) {
 
-	joinedLine = line
 	if index < numLines-1 {
 		nextLine := segmentTableLines[index+1]
 		if strings.HasPrefix(nextLine, "               ") && !strings.HasPrefix(nextLine, "                      ") {
@@ -151,7 +150,7 @@ func (p *MessageSpecParser) joinMultiLineSegmentDef(
 			index++
 		}
 	}
-	return joinedLine, index
+	return line, index
 }
 
 /*
