@@ -25,6 +25,8 @@ get-deps:
 
 get-test-deps:
 	go get golang.org/x/tools/cmd/cover
+	go get github.com/fzipp/gocyclo
+
 
 cover:
 	go test -cover ./...
@@ -34,3 +36,8 @@ cover:
 
 # Show package coverage in web browser
 # go tool cover -html=coverage.out
+
+quality: mccabe
+
+mccabe:
+	gocyclo -over 9 .
