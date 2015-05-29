@@ -86,3 +86,12 @@ func TestDumpWithGroupParts(t *testing.T) {
 	fmt.Printf("Dump:\n%s\n", dump)
 	assert.Equal(t, expectedDumpNestedMsgWithGroupPart, dump)
 }
+
+func BenchmarkDumpWithGroupParts(b *testing.B) {
+	msg := getNestedMsgWithGroupPart()
+	b.ResetTimer()
+	for i := 0; i < b.N; i++ {
+		dump := msg.Dump(0)
+		assert.NotNil(b, dump)
+	}
+}
