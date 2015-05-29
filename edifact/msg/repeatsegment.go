@@ -2,7 +2,7 @@ package msg
 
 import (
 	"bytes"
-	"fmt"
+	"strconv"
 )
 
 // A segment that is repeated 1 to n times
@@ -28,7 +28,8 @@ func (s *RepeatSegment) Dump(indent int) string {
 	var buf bytes.Buffer
 	indentStr := getIndentStr(indent)
 	for repeat, segment := range s.segments {
-		buf.WriteString(fmt.Sprintf("%s[%d] %s\n", indentStr, repeat, segment.Id()))
+		buf.WriteString(indentStr + "[" + strconv.FormatInt(int64(repeat), 10) + "] " +
+			segment.Id() + "\n")
 	}
 	return buf.String()
 }

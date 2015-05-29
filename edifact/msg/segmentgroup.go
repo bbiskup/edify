@@ -28,7 +28,7 @@ func (g *SegmentGroup) Dump(indent int) string {
 	// Indentation of group name handled by parent RepeatSegmentGroup
 	buf.WriteString(fmt.Sprintf("Group %s\n", g.Id()))
 	for _, part := range g.Parts {
-		buf.WriteString(fmt.Sprintf("%s  %s", indentStr, part.Dump(indent+1)))
+		buf.WriteString(indentStr + "  " + part.Dump(indent+1))
 	}
 	return buf.String()
 }

@@ -18,7 +18,7 @@ func (g *Segment) Id() string {
 func (s *Segment) String() string {
 	var buf bytes.Buffer
 	for _, e := range s.Elements {
-		buf.WriteString(fmt.Sprintf("\t\t%s\n", e.String()))
+		buf.WriteString("\t\t" + e.String() + "\n")
 	}
 	return fmt.Sprintf("%s\n%s", s.id, buf.String())
 }
