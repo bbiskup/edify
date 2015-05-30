@@ -11,17 +11,29 @@ import (
 // Validates segment sequence
 // builds structure for navigation/query
 type SegSeqValidator struct {
+	// index in raw message
 	currentSegmentIndex int
-	messageSpec         *msgspec.MessageSpec
-	currentSegSpecID    string
-	state               SegSeqState
-	currentSegID        string
-	groupStack          *util.Stack
-	nestedMsg           *msg.NestedMessage
+
+	// Specification for message type under validation
+	messageSpec *msgspec.MessageSpec
+
+	// ID of the segment specification currently checked
+	currentSegSpecID string
+	state            SegSeqState
+
+	// Id of current raw message segment
+	currentSegID string
+
+	// Manages nesting of groups
+	groupStack *util.Stack
+
+	nestedMsgBuilder *NestedMsgBuilder
 }
 
+// There is always a current group context (the validator starts
+// out with a top-level group context)
 func (s *SegSeqValidator) currentGroupContext() *SegSeqGroupContext {
-	result := s.groupStack.Peek().(*SegSeqGroupContext)
+	result := (s.groupStack).Peek().(*SegSeqGroupContext)
 	return result
 }
 
@@ -31,6 +43,7 @@ func (s *SegSeqValidator) createError(kind SegSeqErrorKind, msg string) error {
 			s.currentSegmentIndex, msg))
 }
 
+// Sets new state and logs state transition
 func (s *SegSeqValidator) setNewState(newState SegSeqState) {
 	log.Printf("State transition %s --> %s", s.state, newState)
 	s.state = newState
@@ -62,25 +75,41 @@ func (s *SegSeqValidator) handleRepeatGroup(segment *msg.Segment) error {
 	} else {
 		gc.groupRepeatCount++
 		log.Printf("Group repeat count now %d", gc.groupRepeatCount)
+		s.nestedMsgBuilder.AddSegment(segment)
+
 		//s.incrementCurrentMsgSpecPartIndex()
 		return nil
 	}
 }
+
+/*func (s *SegSeqValidator) appendRepeatSegment(gc *SegSeqGroupContext, segment *msg.Segment) {
+	repeatSegment := msg.NewRepeatSegment(segment)
+	log.Printf("Appending repeat segment %s to %d parts",
+		repeatSegment.Id(), len(*gc.repeatMsgParts))
+	*gc.repeatMsgParts = append(
+		*gc.repeatMsgParts, repeatSegment)
+}*/
+
 func (s *SegSeqValidator) handleSegment(segment *msg.Segment) (matched bool, err error) {
 	currentMsgSpecPart := s.getCurrentMsgSpecPart()
 	log.Printf("handleSegment %s; current spec: %s",
 		segment.Id(), currentMsgSpecPart)
-	s.currentGroupContext().segmentRepeatCount = 1
+	gc := s.currentGroupContext()
+	gc.segmentRepeatCount = 1
 
 	if s.currentSegSpecID != segment.Id() {
 		if currentMsgSpecPart.IsMandatory() {
 			return false, s.createError(unexpectedSegment,
-				fmt.Sprintf("Got segment %s", segment.Id()))
+				fmt.Sprintf("Got unexpected segment %s", segment.Id()))
 		} else {
 			s.incrementCurrentMsgSpecPartIndex()
 			return false, nil
 		}
+	} else {
+		log.Printf("Specs are equal: %s", segment.Id())
 	}
+
+	s.nestedMsgBuilder.AddSegment(segment)
 
 	s.setNewState(seqStateSeg)
 	return true, nil
@@ -117,7 +146,6 @@ func (s *SegSeqValidator) handleStateSeg(
 
 	if messageSpecPart.SegmentSpec.Id == segID {
 		if !s.isAtTopLevel() && s.currentGroupContext().groupSpecPart.Id() == segID {
-			log.Printf("%%%%%% repeating segment %s", segID)
 			return true, s.handleRepeatGroup(segment)
 		} else {
 			return true, s.handleRepeatSegment(segment)
@@ -135,24 +163,15 @@ func (s *SegSeqValidator) handleStateSeg(
 	return false, nil
 }
 
-func (s *SegSeqValidator) enterGroup(messageSpecPart *msgspec.MessageSpecSegmentGroupPart) {
-	log.Printf("ENTERING GROUP %s", messageSpecPart.Name())
+func (s *SegSeqValidator) enterGroup(
+	messageSpecPart *msgspec.MessageSpecSegmentGroupPart) {
 
-	log.Printf("Creating new segment group")
-	repeatSegGroup := msg.NewRepeatSegmentGroup(
-		msg.NewSegmentGroup(messageSpecPart.Id(), []msg.RepeatMsgPart{}))
-	gc := s.currentGroupContext()
-	if s.isAtTopLevel() {
-		log.Printf("Appending segment group to nested msg %s", s.nestedMsg.Name)
-		s.nestedMsg.AppendPart(repeatSegGroup)
-	} else {
-		log.Printf("Appending segment group to %d parts", len(gc.nestedMsgParts))
-		gc.nestedMsgParts = append(gc.nestedMsgParts, repeatSegGroup)
-	}
+	log.Printf("ENTERING GROUP %s", messageSpecPart.Name())
+	repeatSegGroup := s.nestedMsgBuilder.AddSegmentGroup(messageSpecPart.Name())
 
 	groupContext := NewSegSeqGroupContext(
 		messageSpecPart, messageSpecPart.Children(),
-		[]msg.NestedMsgPart{repeatSegGroup})
+		repeatSegGroup)
 	s.groupStack.Push(groupContext)
 }
 
@@ -307,8 +326,12 @@ func (s *SegSeqValidator) Validate(rawMessage *msg.RawMessage) error {
 	if len(rawMessage.Segments) == 0 {
 		return NewSegSeqError(noSegments, "")
 	}
+	s.nestedMsgBuilder = NewNestedMsgBuilder(rawMessage.Name, s.groupStack)
 
-	s.nestedMsg = msg.NewNestedMessage(rawMessage.Name, []msg.RepeatMsgPart{})
+	//gc := s.currentGroupContext()
+	//s.nestedMsg = msg.NewNestedMessage(rawMessage.Name, []msg.RepeatMsgPart{})
+	//	repeatSegPart := &s.nestedMsg.Parts
+	//	gc.repeatMsgParts = repeatSegPart
 
 	for _, segment := range rawMessage.Segments {
 		err := s.processSegment(segment)
@@ -324,8 +347,9 @@ func (s *SegSeqValidator) Validate(rawMessage *msg.RawMessage) error {
 		return err
 	}
 
-	log.Printf("Dump of nested segment")
-	log.Printf(s.nestedMsg.Dump())
+	log.Printf("Dump of nested message")
+	log.Printf(s.nestedMsgBuilder.nestedMsg.Dump())
+	log.Printf("%#v", s.nestedMsgBuilder.nestedMsg)
 	return nil
 }
 
@@ -335,13 +359,14 @@ func NewSegSeqValidator(messageSpec *msgspec.MessageSpec) (segSeqValidator *SegS
 	}
 
 	groupContext := NewSegSeqGroupContext(
-		nil, messageSpec.Parts, []msg.NestedMsgPart{})
+		nil, messageSpec.Parts, nil)
 	groupStack := &util.Stack{}
 	groupStack.Push(groupContext)
 
 	return &SegSeqValidator{
-		messageSpec: messageSpec,
-		state:       seqStateInitial,
-		groupStack:  groupStack,
+		messageSpec:      messageSpec,
+		state:            seqStateInitial,
+		groupStack:       groupStack,
+		nestedMsgBuilder: nil,
 	}, nil
 }

@@ -17,6 +17,10 @@ func (g *SegmentGroup) Id() string {
 	return g.id
 }
 
+func (g *SegmentGroup) AppendSegment(segment *Segment) {
+	g.Parts = append(g.Parts, NewRepeatSegment(segment))
+}
+
 func NewSegmentGroup(id string, parts []RepeatMsgPart) *SegmentGroup {
 	return &SegmentGroup{id, parts}
 }

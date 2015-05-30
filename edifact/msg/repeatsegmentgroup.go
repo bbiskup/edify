@@ -20,6 +20,10 @@ func (g *RepeatSegmentGroup) Id() string {
 	return g.groups[0].Id()
 }
 
+func (g *RepeatSegmentGroup) Last() *SegmentGroup {
+	return g.groups[len(g.groups)-1]
+}
+
 func (g *RepeatSegmentGroup) AddSegmentGroup(group *SegmentGroup) {
 	g.groups = append(g.groups, group)
 }

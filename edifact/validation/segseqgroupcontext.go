@@ -23,9 +23,8 @@ type SegSeqGroupContext struct {
 	// repeat count of current group
 	groupRepeatCount int
 
-	// Parts of message under construction, on a given level
-	// (message or group)
-	nestedMsgParts []msg.NestedMsgPart
+	// current group; nil if top-level
+	repeatSegGroup *msg.RepeatSegmentGroup
 }
 
 func (c *SegSeqGroupContext) String() string {
@@ -58,8 +57,9 @@ func (c *SegSeqGroupContext) nextPart() msgspec.MessageSpecPart {
 func NewSegSeqGroupContext(
 	groupSpecPart *msgspec.MessageSpecSegmentGroupPart,
 	parts []msgspec.MessageSpecPart,
-	nestedMsgParts []msg.NestedMsgPart) *SegSeqGroupContext {
+	repeatSegGroup *msg.RepeatSegmentGroup,
+) *SegSeqGroupContext {
 
 	return &SegSeqGroupContext{
-		groupSpecPart, parts, 0, 0, 0, nestedMsgParts}
+		groupSpecPart, parts, 0, 0, 0, repeatSegGroup}
 }

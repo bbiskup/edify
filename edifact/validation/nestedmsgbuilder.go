@@ -1,0 +1,76 @@
+package validation
+
+import (
+	"fmt"
+	msg "github.com/bbiskup/edify/edifact/msg"
+	"github.com/bbiskup/edify/edifact/util"
+	"log"
+)
+
+// Builds a nested message
+// Used in conjunction with SegSeqValidator
+// Shares group stack with SegSeqValidator
+type NestedMsgBuilder struct {
+	groupStack *util.Stack
+
+	// Nested (hierarchical) message under construction
+	nestedMsg *msg.NestedMessage
+}
+
+func (s *NestedMsgBuilder) currentGroupContext() *SegSeqGroupContext {
+	result := s.groupStack.Peek().(*SegSeqGroupContext)
+	return result
+}
+
+func (s *NestedMsgBuilder) isAtTopLevel() bool {
+	return s.groupStack.Len() < 2
+}
+
+func (b *NestedMsgBuilder) String() string {
+	return fmt.Sprintf("%T msg: %s groupStack: %d elements",
+		b, b.nestedMsg.Name, b.groupStack.Len())
+}
+
+func (b *NestedMsgBuilder) AddSegment(segment *msg.Segment) {
+	log.Printf("BUILD: AddSegment %s", segment.Id())
+	gc := b.currentGroupContext()
+	if b.isAtTopLevel() {
+		b.nestedMsg.AppendPart(msg.NewRepeatSegment(segment))
+	} else {
+		gc.repeatSegGroup.Last().AppendSegment(segment)
+	}
+}
+
+func (b *NestedMsgBuilder) RepeatSegment(segment *msg.Segment) {
+	log.Printf("BUILD: RepeatSegment %s", segment.Id())
+
+}
+
+func (b *NestedMsgBuilder) AddSegmentGroup(name string) *msg.RepeatSegmentGroup {
+	log.Printf("BUILD: AddSegmentGroup %s", name)
+	newRepeatMsgPart := []msg.RepeatMsgPart{}
+	repeatSegGroup := msg.NewRepeatSegmentGroup(
+		msg.NewSegmentGroup(name, newRepeatMsgPart))
+	gc := b.currentGroupContext()
+	if b.isAtTopLevel() {
+		log.Printf("Appending segment group %s to nested msg %s (%d parts)",
+			repeatSegGroup.Id(), b.nestedMsg.Name, b.nestedMsg.Count())
+		//s.nestedMsg.AppendPart(repeatSegGroup)
+	} else {
+		log.Printf("Appending segment group %s to %d parts of %s",
+			repeatSegGroup.Id(), gc.repeatSegGroup.Count(), gc.repeatSegGroup.Id())
+	}
+	log.Printf("### msg parts count %d", b.nestedMsg.Count())
+	return repeatSegGroup
+}
+
+func (b *NestedMsgBuilder) RepeatSegmentGroup(segmentGroup *msg.SegmentGroup) {
+	log.Printf("BUILD: RepeatSegmentGroup %s", segmentGroup.Id())
+}
+
+func NewNestedMsgBuilder(msgName string, groupStack *util.Stack) *NestedMsgBuilder {
+	return &NestedMsgBuilder{
+		groupStack: groupStack,
+		nestedMsg:  msg.NewNestedMessage(msgName, []msg.RepeatMsgPart{}),
+	}
+}
