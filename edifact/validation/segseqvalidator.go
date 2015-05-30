@@ -17,6 +17,7 @@ type SegSeqValidator struct {
 	state               SegSeqState
 	currentSegID        string
 	groupStack          *util.Stack
+	nestedMsg           *msg.NestedMessage
 }
 
 func (s *SegSeqValidator) currentGroupContext() *SegSeqGroupContext {
@@ -115,7 +116,7 @@ func (s *SegSeqValidator) handleStateSeg(
 	messageSpecPart *msgspec.MessageSpecSegmentPart) (ret bool, err error) {
 
 	if messageSpecPart.SegmentSpec.Id == segID {
-		if s.groupStack.Len() > 1 && s.currentGroupContext().groupSpecPart.Id() == segID {
+		if !s.isAtTopLevel() && s.currentGroupContext().groupSpecPart.Id() == segID {
 			log.Printf("%%%%%% repeating segment %s", segID)
 			return true, s.handleRepeatGroup(segment)
 		} else {
@@ -134,15 +135,40 @@ func (s *SegSeqValidator) handleStateSeg(
 	return false, nil
 }
 
+func (s *SegSeqValidator) enterGroup(messageSpecPart *msgspec.MessageSpecSegmentGroupPart) {
+	log.Printf("ENTERING GROUP %s", messageSpecPart.Name())
+
+	log.Printf("Creating new segment group")
+	repeatSegGroup := msg.NewRepeatSegmentGroup(
+		msg.NewSegmentGroup(messageSpecPart.Id(), []msg.RepeatMsgPart{}))
+	gc := s.currentGroupContext()
+	if s.isAtTopLevel() {
+		log.Printf("Appending segment group to nested msg %s", s.nestedMsg.Name)
+		s.nestedMsg.AppendPart(repeatSegGroup)
+	} else {
+		log.Printf("Appending segment group to %d parts", len(gc.nestedMsgParts))
+		gc.nestedMsgParts = append(gc.nestedMsgParts, repeatSegGroup)
+	}
+
+	groupContext := NewSegSeqGroupContext(
+		messageSpecPart, messageSpecPart.Children(),
+		[]msg.NestedMsgPart{repeatSegGroup})
+	s.groupStack.Push(groupContext)
+}
+
+// Whether validation/construction is currently operation
+// at the first level, i.e. not in a group
+func (s *SegSeqValidator) isAtTopLevel() bool {
+	return s.groupStack.Len() < 2
+}
+
 func (s *SegSeqValidator) handleSegGroup(
 	segID string,
 	messageSpecPart *msgspec.MessageSpecSegmentGroupPart) (ret bool, err error) {
 
 	triggerSegmentId := messageSpecPart.Id()
 	if triggerSegmentId == segID {
-		log.Printf("ENTERING GROUP %s", messageSpecPart.Name())
-		groupContext := NewSegSeqGroupContext(messageSpecPart, messageSpecPart.Children())
-		s.groupStack.Push(groupContext)
+		s.enterGroup(messageSpecPart)
 	} else {
 		if messageSpecPart.IsMandatory() {
 			return true, s.createError(
@@ -160,7 +186,7 @@ func (s *SegSeqValidator) checkGroupStack(segment *msg.Segment) (ret bool) {
 	cg := s.currentGroupContext()
 	if cg.AtEnd() {
 		log.Printf("No more parts in current group spec")
-		if s.groupStack.Len() > 1 {
+		if !s.isAtTopLevel() {
 			if segment.Id() == cg.groupSpecPart.Id() {
 				log.Printf("TODO Group repetition")
 				s.currentGroupContext().partIndex = 0
@@ -277,6 +303,9 @@ func (s *SegSeqValidator) Validate(rawMessage *msg.RawMessage) error {
 	if len(rawMessage.Segments) == 0 {
 		return NewSegSeqError(noSegments, "")
 	}
+
+	s.nestedMsg = msg.NewNestedMessage(rawMessage.Name, []msg.RepeatMsgPart{})
+
 	for _, segment := range rawMessage.Segments {
 		err := s.processSegment(segment)
 		if err != nil {
@@ -286,7 +315,14 @@ func (s *SegSeqValidator) Validate(rawMessage *msg.RawMessage) error {
 
 	log.Printf("Message ended; TODO check if spec has been fulfilled")
 	s.incrementCurrentMsgSpecPartIndex()
-	return s.checkRemainingMandatorySegments()
+	err := s.checkRemainingMandatorySegments()
+	if err != nil {
+		return err
+	}
+
+	log.Printf("Dump of nested segment")
+	log.Printf(s.nestedMsg.Dump())
+	return nil
 }
 
 func NewSegSeqValidator(messageSpec *msgspec.MessageSpec) (segSeqValidator *SegSeqValidator, err error) {
@@ -294,7 +330,8 @@ func NewSegSeqValidator(messageSpec *msgspec.MessageSpec) (segSeqValidator *SegS
 		return nil, NewSegSeqError(noSegmentSpecs, "")
 	}
 
-	groupContext := NewSegSeqGroupContext(nil, messageSpec.Parts)
+	groupContext := NewSegSeqGroupContext(
+		nil, messageSpec.Parts, []msg.NestedMsgPart{})
 	groupStack := &util.Stack{}
 	groupStack.Push(groupContext)
 

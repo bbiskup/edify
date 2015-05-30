@@ -2,6 +2,7 @@ package validation
 
 import (
 	"fmt"
+	"github.com/bbiskup/edify/edifact/msg"
 	msgspec "github.com/bbiskup/edify/edifact/spec/message"
 )
 
@@ -21,6 +22,10 @@ type SegSeqGroupContext struct {
 
 	// repeat count of current group
 	groupRepeatCount int
+
+	// Parts of message under construction, on a given level
+	// (message or group)
+	nestedMsgParts []msg.NestedMsgPart
 }
 
 func (c *SegSeqGroupContext) String() string {
@@ -52,8 +57,9 @@ func (c *SegSeqGroupContext) nextPart() msgspec.MessageSpecPart {
 
 func NewSegSeqGroupContext(
 	groupSpecPart *msgspec.MessageSpecSegmentGroupPart,
-	parts []msgspec.MessageSpecPart) *SegSeqGroupContext {
+	parts []msgspec.MessageSpecPart,
+	nestedMsgParts []msg.NestedMsgPart) *SegSeqGroupContext {
 
 	return &SegSeqGroupContext{
-		groupSpecPart, parts, 0, 0, 0}
+		groupSpecPart, parts, 0, 0, 0, nestedMsgParts}
 }
