@@ -75,7 +75,7 @@ func (s *SegSeqValidator) handleRepeatGroup(segment *msg.Segment) error {
 	} else {
 		gc.groupRepeatCount++
 		log.Printf("Group repeat count now %d", gc.groupRepeatCount)
-		s.nestedMsgBuilder.AddSegment(segment)
+		s.nestedMsgBuilder.AddSegmentGroup(segment.Id())
 
 		//s.incrementCurrentMsgSpecPartIndex()
 		return nil
@@ -139,6 +139,7 @@ func (s *SegSeqValidator) handleStateSeg(
 		if !s.isAtTopLevel() && s.currentGroupContext().groupSpecPart.Id() == segID {
 			return true, s.handleRepeatGroup(segment)
 		} else {
+			s.nestedMsgBuilder.AddSegment(segment)
 			return true, s.handleRepeatSegment(segment)
 		}
 	} else {
