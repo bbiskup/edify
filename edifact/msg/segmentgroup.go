@@ -9,7 +9,7 @@ import (
 // but during validation, when message specification is available
 type SegmentGroup struct {
 	id    string
-	Parts []RepeatMsgPart
+	parts []RepeatMsgPart
 }
 
 // From interface SegmentOrGroup
@@ -18,7 +18,7 @@ func (g *SegmentGroup) Id() string {
 }
 
 func (g *SegmentGroup) AppendSegment(segment *Segment) {
-	g.Parts = append(g.Parts, NewRepeatSegment(segment))
+	g.parts = append(g.parts, NewRepeatSegment(segment))
 }
 
 func NewSegmentGroup(id string, parts []RepeatMsgPart) *SegmentGroup {
@@ -31,7 +31,7 @@ func (g *SegmentGroup) Dump(indent int) string {
 
 	// Indentation of group name handled by parent RepeatSegmentGroup
 	buf.WriteString(fmt.Sprintf("Group %s\n", g.Id()))
-	for _, part := range g.Parts {
+	for _, part := range g.parts {
 		buf.WriteString(indentStr + "  " + part.Dump(indent+1))
 	}
 	return buf.String()
