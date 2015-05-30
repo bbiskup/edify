@@ -27,8 +27,8 @@ func (s *NestedMsgBuilder) isAtTopLevel() bool {
 }
 
 func (b *NestedMsgBuilder) String() string {
-	return fmt.Sprintf("%T msg: %s groupStack: %d elements",
-		b, b.nestedMsg.Name, b.groupStack.Len())
+	return fmt.Sprintf("NestedMsgBuilder msg: %s groupStack: %d elements",
+		b.nestedMsg.Name, b.groupStack.Len())
 }
 
 func (b *NestedMsgBuilder) AddSegment(segment *msg.Segment) {
