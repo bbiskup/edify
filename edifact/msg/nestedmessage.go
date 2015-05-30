@@ -21,6 +21,18 @@ func (m *NestedMessage) String() string {
 	return fmt.Sprintf("NestedMessage %s (%d 1st-level parts)", m.Name, len(m.parts))
 }
 
+func (m *NestedMessage) Count() int {
+	return len(m.parts)
+}
+
+func (m *NestedMessage) GetPart(index int) RepeatMsgPart {
+	return m.parts[index]
+}
+
+func (m *NestedMessage) AppendPart(part RepeatMsgPart) {
+	m.parts = append(m.parts, part)
+}
+
 // Comprehensive dump of segment/group structure
 func (m *NestedMessage) Dump(indent int) string {
 	var buf bytes.Buffer

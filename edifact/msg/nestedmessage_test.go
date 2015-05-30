@@ -87,6 +87,14 @@ func TestDumpWithGroupParts(t *testing.T) {
 	assert.Equal(t, expectedDumpNestedMsgWithGroupPart, dump)
 }
 
+func TestAppend(t *testing.T) {
+	msg := getNestedMsgWithParts()
+	assert.Equal(t, 2, msg.Count())
+	msg.AppendPart(NewRepeatSegment(NewSegment("ABC")))
+	assert.Equal(t, 3, msg.Count())
+	assert.Equal(t, "ABC", msg.GetPart(2).Id())
+}
+
 func BenchmarkDumpWithGroupParts(b *testing.B) {
 	msg := getNestedMsgWithGroupPart()
 	b.ResetTimer()
