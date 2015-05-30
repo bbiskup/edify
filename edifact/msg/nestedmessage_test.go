@@ -63,7 +63,7 @@ func TestStringEmptyMsg(t *testing.T) {
 
 func SegGroupyMsg(t *testing.T) {
 	msg := getEmptyNestedMsg()
-	dump := msg.Dump(0)
+	dump := msg.Dump()
 	t.Logf("Dump:\n%s\n", dump)
 	assert.Equal(t, "<no msg parts>", dump)
 }
@@ -75,14 +75,14 @@ func TestStringMsgWithParts(t *testing.T) {
 
 func TestDumpWithParts(t *testing.T) {
 	msg := getNestedMsgWithParts()
-	dump := msg.Dump(0)
+	dump := msg.Dump()
 	t.Logf("Dump:\n%s\n", dump)
 	assert.Equal(t, expectedDumpNestedMsgWithParts, dump)
 }
 
 func TestDumpWithGroupParts(t *testing.T) {
 	msg := getNestedMsgWithGroupPart()
-	dump := msg.Dump(0)
+	dump := msg.Dump()
 	fmt.Printf("Dump:\n%s\n", dump)
 	assert.Equal(t, expectedDumpNestedMsgWithGroupPart, dump)
 }
@@ -99,7 +99,7 @@ func BenchmarkDumpWithGroupParts(b *testing.B) {
 	msg := getNestedMsgWithGroupPart()
 	b.ResetTimer()
 	for i := 0; i < b.N; i++ {
-		dump := msg.Dump(0)
+		dump := msg.Dump()
 		assert.NotNil(b, dump)
 	}
 }

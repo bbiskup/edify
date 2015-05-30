@@ -34,14 +34,14 @@ func (m *NestedMessage) AppendPart(part RepeatMsgPart) {
 }
 
 // Comprehensive dump of segment/group structure
-func (m *NestedMessage) Dump(indent int) string {
+func (m *NestedMessage) Dump() string {
 	var buf bytes.Buffer
 	if len(m.parts) == 0 {
 		return noPartsText
 	}
-	buf.WriteString(fmt.Sprintf("%sMessage %s\n", getIndentStr(indent), m.Name))
+	buf.WriteString(fmt.Sprintf("Message %s\n", m.Name))
 	for _, part := range m.parts {
-		buf.WriteString(part.Dump(indent + 1))
+		buf.WriteString(part.Dump(1))
 	}
 	return buf.String()
 }
