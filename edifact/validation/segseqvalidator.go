@@ -54,14 +54,14 @@ func (s *SegSeqValidator) handleRepeatSegment(segment *msg.Segment) error {
 
 func (s *SegSeqValidator) handleRepeatGroup(segment *msg.Segment) error {
 	log.Printf("handleRepeatGroup %s", segment)
-	cg := s.currentGroupContext()
-	if cg.groupRepeatCount >= cg.groupSpecPart.MaxCount() {
+	gc := s.currentGroupContext()
+	if gc.groupRepeatCount >= gc.groupSpecPart.MaxCount() {
 		return s.createError(
 			maxGroupRepeatCountExceeded,
 			fmt.Sprintf("Group segment %s exceeds max group count", segment.Id()))
 	} else {
-		cg.groupRepeatCount++
-		log.Printf("Group repeat count now %d", cg.groupRepeatCount)
+		gc.groupRepeatCount++
+		log.Printf("Group repeat count now %d", gc.groupRepeatCount)
 		//s.incrementCurrentMsgSpecPartIndex()
 		return nil
 	}
@@ -182,18 +182,22 @@ func (s *SegSeqValidator) handleSegGroup(
 	return false, nil
 }
 
+func (s *SegSeqValidator) leaveGroup(gc *SegSeqGroupContext) {
+	log.Printf("LEAVING GROUP %s", gc.groupSpecPart.Name())
+	s.groupStack.Pop()
+	s.currentGroupContext().partIndex++
+}
+
 func (s *SegSeqValidator) checkGroupStack(segment *msg.Segment) (ret bool) {
-	cg := s.currentGroupContext()
-	if cg.AtEnd() {
+	gc := s.currentGroupContext()
+	if gc.AtEnd() {
 		log.Printf("No more parts in current group spec")
 		if !s.isAtTopLevel() {
-			if segment.Id() == cg.groupSpecPart.Id() {
+			if segment.Id() == gc.groupSpecPart.Id() {
 				log.Printf("TODO Group repetition")
 				s.currentGroupContext().partIndex = 0
 			} else {
-				log.Printf("LEAVING GROUP %s", cg.groupSpecPart.Name())
-				s.groupStack.Pop()
-				s.currentGroupContext().partIndex++
+				s.leaveGroup(gc)
 			}
 
 			return false
