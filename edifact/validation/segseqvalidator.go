@@ -82,14 +82,6 @@ func (s *SegSeqValidator) handleRepeatGroup(segment *msg.Segment) error {
 	}
 }
 
-/*func (s *SegSeqValidator) appendRepeatSegment(gc *SegSeqGroupContext, segment *msg.Segment) {
-	repeatSegment := msg.NewRepeatSegment(segment)
-	log.Printf("Appending repeat segment %s to %d parts",
-		repeatSegment.Id(), len(*gc.repeatMsgParts))
-	*gc.repeatMsgParts = append(
-		*gc.repeatMsgParts, repeatSegment)
-}*/
-
 func (s *SegSeqValidator) handleSegment(segment *msg.Segment) (matched bool, err error) {
 	currentMsgSpecPart := s.getCurrentMsgSpecPart()
 	log.Printf("handleSegment %s; current spec: %s",
@@ -116,7 +108,6 @@ func (s *SegSeqValidator) handleSegment(segment *msg.Segment) (matched bool, err
 }
 
 func (s *SegSeqValidator) getCurrentMsgSpecPart() msgspec.MessageSpecPart {
-	//return s.messageSpec.Parts[s.currentMsgSpecPartIndex]
 	return s.currentGroupContext().currentPart()
 }
 
@@ -251,6 +242,7 @@ func (s *SegSeqValidator) handleStateSearching(
 func (s *SegSeqValidator) processSegment(segment *msg.Segment) error {
 	log.Printf("############## processSegment %s", segment.Id())
 	log.Printf("\tmessage spec: %s", s.messageSpec)
+	log.Printf("\tnested message: %s", s.nestedMsgBuilder.nestedMsg.Dump())
 	segID := segment.Id()
 	s.currentSegmentIndex++
 
@@ -327,11 +319,6 @@ func (s *SegSeqValidator) Validate(rawMessage *msg.RawMessage) error {
 		return NewSegSeqError(noSegments, "")
 	}
 	s.nestedMsgBuilder = NewNestedMsgBuilder(rawMessage.Name, s.groupStack)
-
-	//gc := s.currentGroupContext()
-	//s.nestedMsg = msg.NewNestedMessage(rawMessage.Name, []msg.RepeatMsgPart{})
-	//	repeatSegPart := &s.nestedMsg.Parts
-	//	gc.repeatMsgParts = repeatSegPart
 
 	for _, segment := range rawMessage.Segments {
 		err := s.processSegment(segment)
