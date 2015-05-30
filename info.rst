@@ -4,6 +4,11 @@ Ideas for path syntax for referencing elements or other parts of msg
 Specification
 -------------
 
+Main specification documents
+
+- http://www.unece.org/trade/untdid/texts/d423.htm
+- http://www.unece.org/trade/untdid/download/r1241.txt
+
 Spec archive: http://www.unece.org/fileadmin/DAM/trade/untdid/d14b/d14b.zip
 
 Information about files contained in spec archive: 
