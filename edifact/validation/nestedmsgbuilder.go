@@ -55,10 +55,11 @@ func (b *NestedMsgBuilder) AddSegmentGroup(name string) *msg.RepeatSegmentGroup 
 	if b.isAtTopLevel() {
 		log.Printf("Appending segment group %s to nested msg %s (%d parts)",
 			repeatSegGroup.Id(), b.nestedMsg.Name, b.nestedMsg.Count())
-		//s.nestedMsg.AppendPart(repeatSegGroup)
+		b.nestedMsg.AppendPart(repeatSegGroup)
 	} else {
 		log.Printf("Appending segment group %s to %d parts of %s",
 			repeatSegGroup.Id(), gc.repeatSegGroup.Count(), gc.repeatSegGroup.Id())
+		gc.repeatSegGroup.AppendSegmentGroupToLast(repeatSegGroup)
 	}
 	log.Printf("### msg parts count %d", b.nestedMsg.Count())
 	return repeatSegGroup
