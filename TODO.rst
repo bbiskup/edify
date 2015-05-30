@@ -1,6 +1,8 @@
 TODO
 ====
 
+- Propagate annotated error messages (http://rogpeppe.neocities.org/error-loving-talk/#26)
+
 - Obtain separator chars from interchange UNA segment (UNA:+.? ')
 
 - Maintain segment group information for addressing via path
