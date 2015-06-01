@@ -46,7 +46,7 @@ func NewSegSeqError(kind SegSeqErrorKind, message string) SegSeqError {
 
 func (s *SegSeqValidator) createError(kind SegSeqErrorKind, msg string) error {
 	return NewSegSeqError(kind, fmt.Sprintf("Error at segment #%d (%s)",
-		s.currentSegmentIndex, msg))
+		s.currentSegIndex, msg))
 }
 
 // TODO: return mapping of spec to message segments to allow querying

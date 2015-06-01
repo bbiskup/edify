@@ -9,7 +9,7 @@ type ItemKind int
 
 const (
 	MessageKind ItemKind = iota
-	SegmentKind
+	SegKind
 	CompositeDataElemKind
 	SimpleDataElemKind
 )
@@ -28,7 +28,7 @@ func (q *QueryPart) itemKindStr() string {
 	switch q.ItemKind {
 	case MessageKind:
 		return "msg"
-	case SegmentKind:
+	case SegKind:
 		return "seg"
 	case CompositeDataElemKind:
 		return "cmp"

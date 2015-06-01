@@ -48,7 +48,7 @@ func TestParseValidQueryStringTwoPartsWithIndex(t *testing.T) {
 	assert.Equal(t, noIndex, part0.Index)
 
 	part1 := parser.queryParts[1]
-	assert.Equal(t, SegmentKind, part1.ItemKind)
+	assert.Equal(t, SegKind, part1.ItemKind)
 	assert.Equal(t, "def", part1.Id)
 	assert.Equal(t, noIndex, part1.Index)
 }

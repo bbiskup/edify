@@ -12,7 +12,7 @@ import (
 // builds structure for navigation/query
 type SegSeqValidator struct {
 	// index in raw message
-	currentSegmentIndex int
+	currentSegIndex int
 
 	// Specification for message type under validation
 	msgSpec *msgspec.MsgSpec
@@ -40,7 +40,7 @@ func (s *SegSeqValidator) currentGroupContext() *SegSeqGroupContext {
 func (s *SegSeqValidator) createError(kind SegSeqErrorKind, msg string) error {
 	return NewSegSeqError(
 		kind, fmt.Sprintf("Error at segment #%d (%s)",
-			s.currentSegmentIndex, msg))
+			s.currentSegIndex, msg))
 }
 
 // Sets new state and logs state transition
@@ -245,7 +245,7 @@ func (s *SegSeqValidator) processSegment(segment *msg.Segment) error {
 	log.Printf("\tmessage spec: %s", s.msgSpec)
 	log.Printf("\tnested message: %s", s.nestedMsgBuilder.nestedMsg.Dump())
 	segID := segment.Id()
-	s.currentSegmentIndex++
+	s.currentSegIndex++
 
 	for {
 		ret := s.checkGroupStack(segment)
@@ -257,7 +257,7 @@ func (s *SegSeqValidator) processSegment(segment *msg.Segment) error {
 		log.Printf(
 			"\tLooping: (state: %s) (stack size: %d, group context: %s) (seg: %s) (%dth); seg spec: %s",
 			s.state, s.groupStack.Len(), s.currentGroupContext(), segID,
-			s.currentSegmentIndex, msgSpecPart)
+			s.currentSegIndex, msgSpecPart)
 		s.currentSegSpecID = msgSpecPart.Id()
 
 		switch msgSpecPart := msgSpecPart.(type) {

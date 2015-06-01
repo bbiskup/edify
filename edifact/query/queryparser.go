@@ -38,7 +38,7 @@ func parsePart(partStr string) (queryPart *QueryPart, err error) {
 	case "msg":
 		kind = MessageKind
 	case "seg":
-		kind = SegmentKind
+		kind = SegKind
 	case "cmp":
 		kind = CompositeDataElemKind
 	case "smp":
