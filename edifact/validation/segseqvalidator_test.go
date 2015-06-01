@@ -12,7 +12,7 @@ var authorSegSeqSpec = []struct {
 	descr       string
 	segmentIDs  []string
 	expectError bool
-	errorKind   SegSeqErrorKind
+	errorKind   SegSeqErrKind
 }{
 	// {
 	// 	"No segments at all",

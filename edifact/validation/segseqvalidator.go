@@ -37,7 +37,7 @@ func (s *SegSeqValidator) currentGroupContext() *SegSeqGroupContext {
 	return result
 }
 
-func (s *SegSeqValidator) createError(kind SegSeqErrorKind, msg string) error {
+func (s *SegSeqValidator) createError(kind SegSeqErrKind, msg string) error {
 	return NewSegSeqError(
 		kind, fmt.Sprintf("Error at segment #%d (%s)",
 			s.currentSegIndex, msg))
