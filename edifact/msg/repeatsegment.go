@@ -20,6 +20,10 @@ func (s *RepeatSegment) Id() string {
 	return s.segments[0].Id()
 }
 
+func (s *RepeatSegment) Get(index int) *Segment {
+	return s.segments[index]
+}
+
 func (s *RepeatSegment) AddSegment(segment *Segment) {
 	s.segments = append(s.segments, segment)
 }
