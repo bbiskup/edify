@@ -11,8 +11,8 @@ import (
 )
 
 // fixture
-func getValidSegment(t testing.TB) *msg.Segment {
-	seg := msg.NewSegment("ABC")
+func getValidSeg(t testing.TB) *msg.Seg {
+	seg := msg.NewSeg("ABC")
 	seg.AddElem(
 		msg.NewDataElem([]string{
 			"abc",
@@ -28,8 +28,8 @@ func getValidSegment(t testing.TB) *msg.Segment {
 }
 
 // fixture: non-existant code
-func getInvalidSegmentNonExistantCode(t testing.TB) *msg.Segment {
-	seg := msg.NewSegment("ABC")
+func getInvalidSegNonExistantCode(t testing.TB) *msg.Seg {
+	seg := msg.NewSeg("ABC")
 	seg.AddElem(
 		msg.NewDataElem([]string{
 			"abc",
@@ -45,8 +45,8 @@ func getInvalidSegmentNonExistantCode(t testing.TB) *msg.Segment {
 }
 
 // fixture: non-existant code
-func getInvalidSegmentIncorrectRepr(t testing.TB) *msg.Segment {
-	seg := msg.NewSegment("ABC")
+func getInvalidSegIncorrectRepr(t testing.TB) *msg.Seg {
+	seg := msg.NewSeg("ABC")
 	seg.AddElem(
 		msg.NewDataElem([]string{
 			"abc",
@@ -76,46 +76,46 @@ func getSegSpecMap(t testing.TB) segment.SegSpecMap {
 		"simple_2", "simple_2_name", "simple_2_descr", de.NewRepr(de.Num, true, 1), de1Spec)
 	require.Nil(t, err)
 
-	segDataElemSpecs := []*segment.SegmentDataElemSpec{
-		segment.NewSegmentDataElemSpec(de0, 1, true),
-		segment.NewSegmentDataElemSpec(de1, 1, true),
+	segDataElemSpecs := []*segment.SegDataElemSpec{
+		segment.NewSegDataElemSpec(de0, 1, true),
+		segment.NewSegDataElemSpec(de1, 1, true),
 	}
 
 	segSpec := segment.NewSegSpec("ABC", "ABC_segment", "abc_function", segDataElemSpecs)
 	return segment.SegSpecMap{"ABC": segSpec}
 }
 
-func TestValidateValidSegment(t *testing.T) {
+func TestValidateValidSeg(t *testing.T) {
 	segSpecMap := getSegSpecMap(t)
-	segment := getValidSegment(t)
-	validator := NewSegmentValidatorImpl(segSpecMap)
+	segment := getValidSeg(t)
+	validator := NewSegValidatorImpl(segSpecMap)
 	err := validator.Validate(segment)
 	assert.Nil(t, err)
 }
 
-func TestValidateInvalidSegmentNonExistantCode(t *testing.T) {
+func TestValidateInvalidSegNonExistantCode(t *testing.T) {
 	segSpecMap := getSegSpecMap(t)
-	segment := getInvalidSegmentNonExistantCode(t)
-	validator := NewSegmentValidatorImpl(segSpecMap)
+	segment := getInvalidSegNonExistantCode(t)
+	validator := NewSegValidatorImpl(segSpecMap)
 	err := validator.Validate(segment)
 	assert.NotNil(t, err)
 }
 
-func TestValidateInvalidSegmentIncorrectRepr(t *testing.T) {
+func TestValidateInvalidSegIncorrectRepr(t *testing.T) {
 	segSpecMap := getSegSpecMap(t)
-	segment := getInvalidSegmentIncorrectRepr(t)
-	validator := NewSegmentValidatorImpl(segSpecMap)
+	segment := getInvalidSegIncorrectRepr(t)
+	validator := NewSegValidatorImpl(segSpecMap)
 	err := validator.Validate(segment)
 	assert.NotNil(t, err)
 }
 
-func BenchmarkParseValidSegment(b *testing.B) {
+func BenchmarkParseValidSeg(b *testing.B) {
 	segSpecMap := getSegSpecMap(b)
-	segment := getInvalidSegmentNonExistantCode(b)
+	segment := getInvalidSegNonExistantCode(b)
 	b.ResetTimer()
 
 	for i := 0; i < b.N; i++ {
-		validator := NewSegmentValidatorImpl(segSpecMap)
+		validator := NewSegValidatorImpl(segSpecMap)
 		err := validator.Validate(segment)
 		assert.NotNil(b, err)
 	}

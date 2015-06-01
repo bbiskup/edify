@@ -16,39 +16,39 @@ var authorSegSeqSpec = []struct {
 }{
 	// {
 	// 	"No segments at all",
-	// 	[]string{}, true, noSegments,
+	// 	[]string{}, true, noSegs,
 	// },
 
 	// {
 	// 	"Missing mandatory segments",
 	// 	[]string{
 	// 		"UNH", // no BGM
-	// 	}, true, missingMandatorySegment,
+	// 	}, true, missingMandatorySeg,
 	// },
 
 	// {
 	// 	"Max. repeat count of mandatory segment exeeded",
 	// 	[]string{
 	// 		"UNH", "UNH", // max. repeat count is 1
-	// 	}, true, maxSegmentRepeatCountExceeded},
+	// 	}, true, maxSegRepeatCountExceeded},
 
 	// {
 	// 	"Max. repeat count of optional segment exeeded",
 	// 	[]string{
 	// 		"UNH", "BGM", "DTM" /* max. repeat count is 1 */, "DTM",
-	// 	}, true, maxSegmentRepeatCountExceeded},
+	// 	}, true, maxSegRepeatCountExceeded},
 
 	// {"Optional segment in incorrect position",
 	// 	[]string{
 	// 		"UNH",
 	// 		"DTM" /* Should appear after BGM */, "BGM", "UNT",
-	// 	}, true, unexpectedSegment,
+	// 	}, true, unexpectedSeg,
 	// },
 
 	// {"Optional segment in incorrect position",
 	// 	[]string{
 	// 		"DTM", "UNH", "BGM", "UNT",
-	// 	}, true, missingMandatorySegment,
+	// 	}, true, missingMandatorySeg,
 	// },
 
 	// {"Missing mandatory group 4",
@@ -143,7 +143,7 @@ func TestSegSeqValidator1(t *testing.T) {
 		validator, err := NewSegSeqValidator(msgSpec)
 		require.Nil(t, err)
 		require.NotNil(t, validator)
-		segments := mapToSegments(spec.segmentIDs)
+		segments := mapToSegs(spec.segmentIDs)
 		require.NotNil(t, segments)
 		rawMessage := msg.NewRawMessage("AUTHOR", segments)
 		fmt.Printf("Validating raw message: %s", rawMessage)
@@ -177,7 +177,7 @@ func BenchmarkValidateSeq(b *testing.B) {
 	validator, err := NewSegSeqValidator(msgSpec)
 	require.Nil(b, err)
 	require.NotNil(b, validator)
-	segments := mapToSegments(segmentIDs)
+	segments := mapToSegs(segmentIDs)
 	require.NotNil(b, segments)
 	rawMessage := msg.NewRawMessage("AUTHOR", segments)
 	b.ResetTimer()

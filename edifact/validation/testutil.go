@@ -14,10 +14,10 @@ func getMsgSpec(fileName string) *message.MsgSpec {
 	return msgSpec
 }
 
-func mapToSegments(segmentIDs []string) []*msg.Segment {
-	result := []*msg.Segment{}
+func mapToSegs(segmentIDs []string) []*msg.Seg {
+	result := []*msg.Seg{}
 	for _, segmentID := range segmentIDs {
-		result = append(result, msg.NewSegment(segmentID))
+		result = append(result, msg.NewSeg(segmentID))
 	}
 	return result
 }

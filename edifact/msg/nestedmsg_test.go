@@ -17,8 +17,8 @@ const expectedDumpNestedMsgWithParts = `Message testname
 
 func getNestedMsgWithParts() *NestedMsg {
 	return NewNestedMsg("testname", []RepeatMsgPart{
-		NewRepSeg(NewSegment("ABC")),
-		NewRepSeg(NewSegment("DEF")),
+		NewRepSeg(NewSeg("ABC")),
+		NewRepSeg(NewSeg("DEF")),
 	})
 }
 
@@ -38,19 +38,19 @@ func getNestedMsgWithGroupPart() *NestedMsg {
 		"testname",
 		[]RepeatMsgPart{
 			NewRepSeg(
-				NewSegment("ABC"),
-				NewSegment("ABC"),
+				NewSeg("ABC"),
+				NewSeg("ABC"),
 			),
 			NewRepeatSegGrp(
 				NewSegGrp("group_1", []RepeatMsgPart{
-					NewRepSeg(NewSegment("DEF")),
-					NewRepSeg(NewSegment("GHI")),
+					NewRepSeg(NewSeg("DEF")),
+					NewRepSeg(NewSeg("GHI")),
 					NewRepeatSegGrp(NewSegGrp("group_2",
 						[]RepeatMsgPart{
 							NewRepSeg(
-								NewSegment("JKL"),
+								NewSeg("JKL"),
 							)})),
-					NewRepSeg(NewSegment("MNO")),
+					NewRepSeg(NewSeg("MNO")),
 				}),
 			),
 		})
@@ -90,7 +90,7 @@ func TestDumpWithGroupParts(t *testing.T) {
 func TestAppend(t *testing.T) {
 	msg := getNestedMsgWithParts()
 	assert.Equal(t, 2, msg.Count())
-	msg.AppendPart(NewRepSeg(NewSegment("ABC")))
+	msg.AppendPart(NewRepSeg(NewSeg("ABC")))
 	assert.Equal(t, 3, msg.Count())
 	assert.Equal(t, "ABC", msg.GetPart(2).Id())
 }

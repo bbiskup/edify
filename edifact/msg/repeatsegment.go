@@ -7,7 +7,7 @@ import (
 
 // A segment that is repeated 1 to n times
 type RepSeg struct {
-	segments []*Segment
+	segments []*Seg
 }
 
 // From Interface RepeatMsgPart
@@ -15,16 +15,16 @@ func (s *RepSeg) Count() int {
 	return len(s.segments)
 }
 
-// From SegmentOrGroup
+// From SegOrGroup
 func (s *RepSeg) Id() string {
 	return s.segments[0].Id()
 }
 
-func (s *RepSeg) Get(index int) *Segment {
+func (s *RepSeg) Get(index int) *Seg {
 	return s.segments[index]
 }
 
-func (s *RepSeg) AddSegment(segment *Segment) {
+func (s *RepSeg) AddSeg(segment *Seg) {
 	s.segments = append(s.segments, segment)
 }
 
@@ -38,7 +38,7 @@ func (s *RepSeg) Dump(indent int) string {
 	return buf.String()
 }
 
-func NewRepSeg(segments ...*Segment) *RepSeg {
+func NewRepSeg(segments ...*Seg) *RepSeg {
 	return &RepSeg{
 		segments,
 	}

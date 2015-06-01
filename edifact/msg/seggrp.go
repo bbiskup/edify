@@ -12,12 +12,12 @@ type SegGrp struct {
 	parts []RepeatMsgPart
 }
 
-// From interface SegmentOrGroup
+// From interface SegOrGroup
 func (g *SegGrp) Id() string {
 	return g.id
 }
 
-func (g *SegGrp) AppendSeg(segment *Segment) {
+func (g *SegGrp) AppendSeg(segment *Seg) {
 	g.parts = append(g.parts, NewRepSeg(segment))
 }
 

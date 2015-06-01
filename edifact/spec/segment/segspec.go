@@ -4,28 +4,28 @@ import (
 	"fmt"
 )
 
-// Segment specification
+// Seg specification
 type SegSpec struct {
 	Id                      string
 	Name                    string
 	Function                string
-	SegmentDataElemSpecs []*SegmentDataElemSpec
+	SegDataElemSpecs []*SegDataElemSpec
 }
 
 func (s *SegSpec) String() string {
 	return fmt.Sprintf(
-		"Segment %s/%s (%d data elems)",
-		s.Id, s.Name, len(s.SegmentDataElemSpecs))
+		"Seg %s/%s (%d data elems)",
+		s.Id, s.Name, len(s.SegDataElemSpecs))
 }
 
 func NewSegSpec(
 	id string, name string, function string,
-	segmentDataElemSpecs []*SegmentDataElemSpec) *SegSpec {
+	segmentDataElemSpecs []*SegDataElemSpec) *SegSpec {
 
 	return &SegSpec{
 		Id:                      id,
 		Name:                    name,
 		Function:                function,
-		SegmentDataElemSpecs: segmentDataElemSpecs,
+		SegDataElemSpecs: segmentDataElemSpecs,
 	}
 }

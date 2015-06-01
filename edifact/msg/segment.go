@@ -5,17 +5,17 @@ import (
 	"fmt"
 )
 
-type Segment struct {
+type Seg struct {
 	id       string
 	Elems []*DataElem
 }
 
-// From interface SegmentOrGroup
-func (g *Segment) Id() string {
+// From interface SegOrGroup
+func (g *Seg) Id() string {
 	return g.id
 }
 
-func (s *Segment) String() string {
+func (s *Seg) String() string {
 	var buf bytes.Buffer
 	for _, e := range s.Elems {
 		buf.WriteString("\t\t" + e.String() + "\n")
@@ -23,19 +23,19 @@ func (s *Segment) String() string {
 	return fmt.Sprintf("%s\n%s", s.id, buf.String())
 }
 
-func (s *Segment) AddElem(element *DataElem) {
+func (s *Seg) AddElem(element *DataElem) {
 	s.Elems = append(s.Elems, element)
 }
 
-func (s *Segment) AddElems(elements []*DataElem) {
+func (s *Seg) AddElems(elements []*DataElem) {
 	s.Elems = elements
 }
 
-func (s *Segment) Dump(indent int) string {
+func (s *Seg) Dump(indent int) string {
 	indentStr := getIndentStr(indent)
-	return fmt.Sprintf("%sSegment %s\n", indentStr, s.Id())
+	return fmt.Sprintf("%sSeg %s\n", indentStr, s.Id())
 }
 
-func NewSegment(id string) *Segment {
-	return &Segment{id, []*DataElem{}}
+func NewSeg(id string) *Seg {
+	return &Seg{id, []*DataElem{}}
 }

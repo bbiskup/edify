@@ -45,7 +45,7 @@ func (p *Parser) ParseElems(elementStrs []string) (elements []*DataElem) {
 	return
 }
 
-func (p *Parser) ParseSegment(segmentStr string) (segment *Segment) {
+func (p *Parser) ParseSeg(segmentStr string) (segment *Seg) {
 	if p.err != nil {
 		return nil
 	}
@@ -58,25 +58,25 @@ func (p *Parser) ParseSegment(segmentStr string) (segment *Segment) {
 
 	parts := util.SplitEDIFACT(segmentStr, SegTagDataElemSep, ReleaseChar)
 	if len(parts) < 2 {
-		p.err = errors.New(fmt.Sprintf("Segment too short (%#v)", parts))
+		p.err = errors.New(fmt.Sprintf("Seg too short (%#v)", parts))
 		return nil
 	}
 	segmentId := parts[0]
-	segment = NewSegment(segmentId)
+	segment = NewSeg(segmentId)
 
 	elements := p.ParseElems(parts[1:])
 	segment.AddElems(elements)
 	return segment
 }
 
-func (p *Parser) ParseSegments(segmentStrs []string) []*Segment {
+func (p *Parser) ParseSegs(segmentStrs []string) []*Seg {
 	if p.err != nil {
 		return nil
 	}
-	result := []*Segment{}
+	result := []*Seg{}
 
 	for _, segmentStr := range segmentStrs {
-		segment := p.ParseSegment(segmentStr)
+		segment := p.ParseSeg(segmentStr)
 		if segment == nil {
 			continue
 		}
@@ -96,13 +96,13 @@ func (p *Parser) ParseRawMessage(edifactMessage string) (rawMessage *RawMessage,
 
 	segmentStrs := util.SplitEDIFACT(edifactMessage, SegTerm, ReleaseChar)
 	log.Print("segmentStrs: ", segmentStrs)
-	segments := p.ParseSegments(segmentStrs)
+	segments := p.ParseSegs(segmentStrs)
 
 	if p.err != nil {
 		return nil, p.err
 	}
 
-	// log.Printf("Segments: %s", segments)
+	// log.Printf("Segs: %s", segments)
 
 	if len(segments) < 2 {
 		p.err = errors.New("Raw message header and/or tail missing")

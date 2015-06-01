@@ -8,8 +8,8 @@ import (
 	spec_seg "github.com/bbiskup/edify/edifact/spec/segment"
 )
 
-type SegmentValidator interface {
-	Validate(seg *msg.Segment) error
+type SegValidator interface {
+	Validate(seg *msg.Seg) error
 }
 
 // Validation of segments and their data elements
@@ -17,17 +17,17 @@ type SegmentValidator interface {
 // - cardinality of elements
 // - correctness of representation (repr)
 // - if a code mapping exists: validity of code
-type SegmentValidatorImpl struct {
+type SegValidatorImpl struct {
 	segSpecMap spec_seg.SegSpecMap
 }
 
-func (v *SegmentValidatorImpl) Validate(seg *msg.Segment) error {
+func (v *SegValidatorImpl) Validate(seg *msg.Seg) error {
 	spec := v.segSpecMap[seg.Id()]
 	if spec == nil {
 		return errors.New(fmt.Sprintf("No spec for segment ID '%s'", seg.Id()))
 	}
 
-	numDataElemSpecs := len(spec.SegmentDataElemSpecs)
+	numDataElemSpecs := len(spec.SegDataElemSpecs)
 	numDataElems := len(seg.Elems)
 	if numDataElemSpecs != numDataElems {
 		return errors.New(
@@ -36,11 +36,11 @@ func (v *SegmentValidatorImpl) Validate(seg *msg.Segment) error {
 	}
 
 	return v.validateDataElems(
-		spec.SegmentDataElemSpecs, seg.Elems)
+		spec.SegDataElemSpecs, seg.Elems)
 }
 
-func (v *SegmentValidatorImpl) validateDataElems(
-	segmentDataElemSpecs []*spec_seg.SegmentDataElemSpec,
+func (v *SegValidatorImpl) validateDataElems(
+	segmentDataElemSpecs []*spec_seg.SegDataElemSpec,
 	dataElems []*msg.DataElem) error {
 
 	for i, segDataElemSpec := range segmentDataElemSpecs {
@@ -54,7 +54,7 @@ func (v *SegmentValidatorImpl) validateDataElems(
 	return nil
 }
 
-func (v *SegmentValidatorImpl) validateSimpleDataElem(
+func (v *SegValidatorImpl) validateSimpleDataElem(
 	simpleDataElemSpec *de.SimpleDataElemSpec,
 	value string) error {
 
@@ -71,7 +71,7 @@ func (v *SegmentValidatorImpl) validateSimpleDataElem(
 	return nil
 }
 
-func (v *SegmentValidatorImpl) validateDataElem(
+func (v *SegValidatorImpl) validateDataElem(
 	dataElemSpec de.DataElemSpec, dataElem *msg.DataElem) error {
 
 	// TODO validate codes
@@ -92,6 +92,6 @@ func (v *SegmentValidatorImpl) validateDataElem(
 	}
 }
 
-func NewSegmentValidatorImpl(segSpecMap spec_seg.SegSpecMap) *SegmentValidatorImpl {
-	return &SegmentValidatorImpl{segSpecMap: segSpecMap}
+func NewSegValidatorImpl(segSpecMap spec_seg.SegSpecMap) *SegValidatorImpl {
+	return &SegValidatorImpl{segSpecMap: segSpecMap}
 }

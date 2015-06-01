@@ -176,10 +176,10 @@ var segmentEntryStartSpec = []struct {
 	},
 }
 
-func TestParseSegmentEntry(t *testing.T) {
+func TestParseSegEntry(t *testing.T) {
 	parser := NewMsgSpecParser(&MockSegSpecProviderImpl{})
 	for _, spec := range segmentEntryStartSpec {
-		res, err := parser.parseSegmentEntry(spec.line)
+		res, err := parser.parseSegEntry(spec.line)
 		require.Nil(t, err)
 
 		if spec.shouldMatch {
@@ -189,8 +189,8 @@ func TestParseSegmentEntry(t *testing.T) {
 			continue
 		}
 		assert.Equal(t, spec.recordNum, res.RecordNum)
-		assert.Equal(t, spec.segmentId, res.SegmentId)
-		assert.Equal(t, spec.segmentName, res.SegmentName)
+		assert.Equal(t, spec.segmentId, res.SegId)
+		assert.Equal(t, spec.segmentName, res.SegName)
 		assert.Equal(t, spec.isMandatory, res.IsMandatory)
 		assert.Equal(t, spec.maxCount, res.MaxCount)
 		assert.Equal(t, spec.nestingLevel, res.NestingLevel)

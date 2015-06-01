@@ -17,13 +17,13 @@ type SegSeqValidator struct {
 type SegSeqErrKind string
 
 const (
-	missingMandatorySegment SegSeqErrKind = "missing_mandatory_segment"
-	noMoreSegments          SegSeqErrKind = "no_more_segments"
+	missingMandatorySeg SegSeqErrKind = "missing_mandatory_segment"
+	noMoreSegs          SegSeqErrKind = "no_more_segments"
 	maxRepeatCountExceeded  SegSeqErrKind = "max_repeat_count_exceeded"
 	missingGroup            SegSeqErrKind = "missing_group"
 	noSegSpecs          SegSeqErrKind = "no_segment_specs"
-	noSegments              SegSeqErrKind = "no_segments"
-	//unexpectedSegment       SegSeqErrKind = "unexpected_segment"
+	noSegs              SegSeqErrKind = "no_segments"
+	//unexpectedSeg       SegSeqErrKind = "unexpected_segment"
 	unexpectedErr SegSeqErrKind = "unexpected_err"
 )
 
@@ -51,8 +51,8 @@ func (s *SegSeqValidator) createError(kind SegSeqErrKind, msg string) error {
 
 // TODO: return mapping of spec to message segments to allow querying
 func (s *SegSeqValidator) Validate(message *msg.Message) error {
-	if len(message.Segments) == 0 {
-		return NewSegSeqError(noSegments, "")
+	if len(message.Segs) == 0 {
+		return NewSegSeqError(noSegs, "")
 	}
 	s.message = message
 	for _, part := range s.msgSpec.Parts {

@@ -31,8 +31,8 @@ func (b *NestedMsgBuilder) String() string {
 		b.nestedMsg.Name, b.groupStack.Len())
 }
 
-func (b *NestedMsgBuilder) AddSegment(segment *msg.Segment) {
-	log.Printf("BUILD: AddSegment %s", segment.Id())
+func (b *NestedMsgBuilder) AddSeg(segment *msg.Seg) {
+	log.Printf("BUILD: AddSeg %s", segment.Id())
 	gc := b.currentGroupContext()
 	if b.isAtTopLevel() {
 		b.nestedMsg.AppendPart(msg.NewRepSeg(segment))
@@ -41,7 +41,7 @@ func (b *NestedMsgBuilder) AddSegment(segment *msg.Segment) {
 	}
 }
 
-func (b *NestedMsgBuilder) RepSeg(segment *msg.Segment) {
+func (b *NestedMsgBuilder) RepSeg(segment *msg.Seg) {
 	log.Printf("BUILD: RepSeg %s NOT IMPLEMENTED", segment.Id())
 	//panic("Not implemented")
 	var repeatSeg *msg.RepSeg
@@ -54,7 +54,7 @@ func (b *NestedMsgBuilder) RepSeg(segment *msg.Segment) {
 	} else {
 		//repeatSeg = b.currentGroupContext().repeatSegGroup.GetLast().(*msg.RepSeg)
 	}
-	repeatSeg.AddSegment(segment)
+	repeatSeg.AddSeg(segment)
 }
 
 func (b *NestedMsgBuilder) AddSegGrp(name string) *msg.RepeatSegGrp {

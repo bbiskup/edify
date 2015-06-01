@@ -84,7 +84,7 @@ func (p *SegSpecParser) parseDataElemSpec(
 }
 
 func (p *SegSpecParser) parseDataElemSpecs(
-	dataElemSpecGroups [][]string) (dataElems []*SegmentDataElemSpec, err error) {
+	dataElemSpecGroups [][]string) (dataElems []*SegDataElemSpec, err error) {
 
 	for _, group := range dataElemSpecGroups {
 		if len(group) == 0 {
@@ -122,7 +122,7 @@ func (p *SegSpecParser) parseDataElemSpecs(
 			return nil, errors.New(fmt.Sprintf("Data element not found: %s", id))
 		}
 
-		segmentDataElemSpec := NewSegmentDataElemSpec(dataElemSpec, count, isMandatory)
+		segmentDataElemSpec := NewSegDataElemSpec(dataElemSpec, count, isMandatory)
 		dataElems = append(dataElems, segmentDataElemSpec)
 	}
 	return

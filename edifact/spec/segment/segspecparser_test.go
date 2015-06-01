@@ -46,6 +46,6 @@ func TestParseSpec(t *testing.T) {
 	assert.Equal(t, "PHYSICAL OR LOGICAL STATE", segSpec.Name)
 	assert.Equal(t, "To describe a physical or logical state.", segSpec.Function)
 
-	lenSegmentDataElemSpecs := len(segSpec.SegmentDataElemSpecs)
-	assert.Equal(t, 2, lenSegmentDataElemSpecs)
+	lenSegDataElemSpecs := len(segSpec.SegDataElemSpecs)
+	assert.Equal(t, 2, lenSegDataElemSpecs)
 }

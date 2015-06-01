@@ -22,8 +22,8 @@ func (d *DummyElem) String() string {
 	return fmt.Sprintf("%s %s", d.Id(), d.Name())
 }
 
-func TestSegmentDataElemSpec(t *testing.T) {
-	e := NewSegmentDataElemSpec(&DummyElem{}, 3, true)
-	const expected = "SegmentDataElem dummy_id 3x mand."
+func TestSegDataElemSpec(t *testing.T) {
+	e := NewSegDataElemSpec(&DummyElem{}, 3, true)
+	const expected = "SegDataElem dummy_id 3x mand."
 	assert.Equal(t, expected, e.String())
 }

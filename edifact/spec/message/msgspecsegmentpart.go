@@ -6,7 +6,7 @@ import (
 	"github.com/bbiskup/edify/edifact/util"
 )
 
-// Segment  specification in message specification
+// Seg  specification in message specification
 type MsgSpecSegPart struct {
 	MsgSpecPartBase
 	SegSpec *segment.SegSpec
@@ -22,7 +22,7 @@ func (p *MsgSpecSegPart) Name() string {
 
 func (p *MsgSpecSegPart) String() string {
 	mandatoryStr := util.CustBoolStr(p.IsMandatory(), "mand.", "cond.")
-	return fmt.Sprintf("Segment %d %s %s", p.MaxCount(), mandatoryStr, p.SegSpec.Name)
+	return fmt.Sprintf("Seg %d %s %s", p.MaxCount(), mandatoryStr, p.SegSpec.Name)
 }
 
 func (p *MsgSpecSegPart) IsGroup() bool {

@@ -8,20 +8,20 @@ import (
 
 // A data element which is part of a segment specification
 // (EDSD)
-type SegmentDataElemSpec struct {
+type SegDataElemSpec struct {
 	DataElemSpec de.DataElemSpec
 	Count        int
 	IsMandatory  bool
 }
 
-func (e *SegmentDataElemSpec) String() string {
+func (e *SegDataElemSpec) String() string {
 	mandatoryStr := util.CustBoolStr(e.IsMandatory, "mand.", "cond.")
-	return fmt.Sprintf("SegmentDataElem %s %dx %s", e.DataElemSpec.Id(), e.Count, mandatoryStr)
+	return fmt.Sprintf("SegDataElem %s %dx %s", e.DataElemSpec.Id(), e.Count, mandatoryStr)
 }
 
-func NewSegmentDataElemSpec(
-	dataElemSpec de.DataElemSpec, count int, isMandatory bool) *SegmentDataElemSpec {
-	return &SegmentDataElemSpec{
+func NewSegDataElemSpec(
+	dataElemSpec de.DataElemSpec, count int, isMandatory bool) *SegDataElemSpec {
+	return &SegDataElemSpec{
 		DataElemSpec: dataElemSpec,
 		Count:        count,
 		IsMandatory:  isMandatory,

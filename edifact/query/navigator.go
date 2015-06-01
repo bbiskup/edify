@@ -28,19 +28,19 @@ package query
 // 	return group, nil
 // }
 
-// func (n *Navigator) GetSegment(queryStr string, message *msg.NestedMsg) (*msg.Segment, error) {
+// func (n *Navigator) GetSeg(queryStr string, message *msg.NestedMsg) (*msg.Seg, error) {
 // 	msgPart, err := n.navigate(queryStr, message)
 // 	if err != nil {
 // 		return nil, err
 // 	}
-// 	segment, ok := msgPart.(*msg.Segment)
+// 	segment, ok := msgPart.(*msg.Seg)
 // 	if !ok {
 // 		return nil, errors.New(fmt.Sprintf("Unexpected type %T", segment))
 // 	}
 // 	return segment, nil
 // }
 
-// func (n *Navigator) GetSegmentDataElem(queryStr string, message *msg.NestedMsg) (*msg.DataElem, error) {
+// func (n *Navigator) GetSegDataElem(queryStr string, message *msg.NestedMsg) (*msg.DataElem, error) {
 // 	msgPart, err := n.navigate(queryStr, message)
 // 	if err != nil {
 // 		return nil, err

@@ -91,11 +91,11 @@ func main() {
 
 	/*
 		e := edi.NewElem("name1", "value1")
-		s := edi.NewSegment("segname1")
+		s := edi.NewSeg("segname1")
 		s.AddElem(e)
 
 		m := edi.NewMessage("messagename1")
-		m.AddSegment(s)
+		m.AddSeg(s)
 
 		i := edi.NewInterchange()
 		i.AddMessage(m)

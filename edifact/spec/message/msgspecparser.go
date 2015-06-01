@@ -55,10 +55,10 @@ type SegGrpStart struct {
 	NestingLevel int
 }
 
-type SegmentEntry struct {
+type SegEntry struct {
 	RecordNum   int
-	SegmentId   string
-	SegmentName string
+	SegId   string
+	SegName string
 	IsMandatory bool
 	MaxCount    int
 
@@ -99,7 +99,7 @@ func (p *MsgSpecParser) parseSource(sourceStr string) (source string, err error)
 }
 
 // lines: lines of message spec file (without header)
-func (p *MsgSpecParser) getSegmentTableLines(lines []string) (segmentTable []string, err error) {
+func (p *MsgSpecParser) getSegTableLines(lines []string) (segmentTable []string, err error) {
 	started := false
 	for _, line := range lines {
 		if strings.HasPrefix(line, "Pos     Tag Name") {
@@ -111,7 +111,7 @@ func (p *MsgSpecParser) getSegmentTableLines(lines []string) (segmentTable []str
 		}
 	}
 	if !started {
-		err = errors.New(fmt.Sprintf("Segment table not found"))
+		err = errors.New(fmt.Sprintf("Seg table not found"))
 	}
 	return
 }
@@ -137,7 +137,7 @@ func (p *MsgSpecParser) shouldSkipSegTableLine(line string) bool {
 }
 
 // Join multi-line segment definition
-func (p *MsgSpecParser) joinMultiLineSegmentDef(
+func (p *MsgSpecParser) joinMultiLineSegDef(
 	line string, index int,
 	numLines int, segmentTableLines []string) (joinedLine string, newIndex int) {
 
@@ -173,7 +173,7 @@ func (p *MsgSpecParser) joinMultiLineSegmentDef(
 ...
 */
 func (p *MsgSpecParser) parseMsgSpecParts(fileName string, lines []string) (msgSpecParts []MsgSpecPart, err error) {
-	segmentTableLines, err := p.getSegmentTableLines(lines)
+	segmentTableLines, err := p.getSegTableLines(lines)
 	currentNestingLevel := 0
 	var currentMsgSpecPart MsgSpecPart = nil
 	numLines := len(segmentTableLines)
@@ -184,10 +184,10 @@ func (p *MsgSpecParser) parseMsgSpecParts(fileName string, lines []string) (msgS
 			continue
 		}
 
-		line, index := p.joinMultiLineSegmentDef(line, index, numLines, segmentTableLines)
+		line, index := p.joinMultiLineSegDef(line, index, numLines, segmentTableLines)
 
 		// Each line must either be a segment entry or segment group start
-		segmentEntry, err := p.parseSegmentEntry(line)
+		segmentEntry, err := p.parseSegEntry(line)
 		if err != nil {
 			return nil, err
 		}
@@ -197,10 +197,10 @@ func (p *MsgSpecParser) parseMsgSpecParts(fileName string, lines []string) (msgS
 			p.logNestingLevelChange(currentNestingLevel, segmentEntry.NestingLevel)
 			nestingDelta := currentNestingLevel - segmentEntry.NestingLevel
 
-			segSpec := p.segSpecs.Get(segmentEntry.SegmentId)
+			segSpec := p.segSpecs.Get(segmentEntry.SegId)
 			if segSpec == nil {
 				return nil, errors.New(fmt.Sprintf("No segment spec for ID '%s'",
-					segmentEntry.SegmentId))
+					segmentEntry.SegId))
 			}
 			part := NewMsgSpecSegPart(
 				segSpec, segmentEntry.MaxCount, segmentEntry.IsMandatory, currentMsgSpecPart)
@@ -313,7 +313,7 @@ func (p *MsgSpecParser) parseSegGrpStart(line string) (segGrpStart *SegGrpStart,
 	}, nil
 }
 
-func (p *MsgSpecParser) parseSegmentEntry(line string) (segmentEntry *SegmentEntry, err error) {
+func (p *MsgSpecParser) parseSegEntry(line string) (segmentEntry *SegEntry, err error) {
 	match := segmentRE.FindStringSubmatch(line)
 	if match == nil {
 		return
@@ -344,10 +344,10 @@ func (p *MsgSpecParser) parseSegmentEntry(line string) (segmentEntry *SegmentEnt
 
 	bars := match[6]
 
-	return &SegmentEntry{
+	return &SegEntry{
 		RecordNum:    recordNum,
-		SegmentId:    match[2],
-		SegmentName:  strings.TrimSpace(match[3]),
+		SegId:    match[2],
+		SegName:  strings.TrimSpace(match[3]),
 		IsMandatory:  isMandatory,
 		MaxCount:     maxCount,
 		NestingLevel: len(bars),

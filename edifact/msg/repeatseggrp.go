@@ -15,7 +15,7 @@ func (g *RepeatSegGrp) Count() int {
 	return len(g.groups)
 }
 
-// From SegmentOrGroup
+// From SegOrGroup
 func (g *RepeatSegGrp) Id() string {
 	return g.groups[0].Id()
 }
