@@ -7,11 +7,11 @@ import (
 
 func getMsgSpec(fileName string) *message.MsgSpec {
 	parser := message.NewMsgSpecParser(&message.MockSegmentSpecProviderImpl{})
-	messageSpec, err := parser.ParseSpecFile("../../testdata/d14b/edmd/" + fileName)
+	msgSpec, err := parser.ParseSpecFile("../../testdata/d14b/edmd/" + fileName)
 	if err != nil {
 		panic("spec is nil")
 	}
-	return messageSpec
+	return msgSpec
 }
 
 func mapToSegments(segmentIDs []string) []*msg.Segment {

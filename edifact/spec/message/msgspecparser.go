@@ -172,7 +172,7 @@ func (p *MsgSpecParser) joinMultiLineSegmentDef(
 00110   COM Communication contact                    C   5----------------+
 ...
 */
-func (p *MsgSpecParser) parseMsgSpecParts(fileName string, lines []string) (messageSpecParts []MsgSpecPart, err error) {
+func (p *MsgSpecParser) parseMsgSpecParts(fileName string, lines []string) (msgSpecParts []MsgSpecPart, err error) {
 	segmentTableLines, err := p.getSegmentTableLines(lines)
 	currentNestingLevel := 0
 	var currentMsgSpecPart MsgSpecPart = nil
@@ -206,7 +206,7 @@ func (p *MsgSpecParser) parseMsgSpecParts(fileName string, lines []string) (mess
 				segmentSpec, segmentEntry.MaxCount, segmentEntry.IsMandatory, currentMsgSpecPart)
 
 			if currentNestingLevel == 0 {
-				messageSpecParts = append(messageSpecParts, part)
+				msgSpecParts = append(msgSpecParts, part)
 			} else {
 				group, ok := currentMsgSpecPart.(*MsgSpecSegmentGroupPart)
 				if !ok {
@@ -244,7 +244,7 @@ func (p *MsgSpecParser) parseMsgSpecParts(fileName string, lines []string) (mess
 				sg.IsMandatory, currentMsgSpecPart)
 
 			if currentMsgSpecPart == nil {
-				messageSpecParts = append(messageSpecParts, group)
+				msgSpecParts = append(msgSpecParts, group)
 			} else {
 				parentGroup, ok := currentMsgSpecPart.(*MsgSpecSegmentGroupPart)
 				if !ok {
@@ -517,12 +517,12 @@ func (p *MsgSpecParser) parseSpecDir_parallel(
 		go func() {
 			defer wg.Done()
 			for fileSpec := range fileSpecCh {
-				messageSpec, err := p.ParseSpecFileContents(
+				msgSpec, err := p.ParseSpecFileContents(
 					fileSpec.fileName, fileSpec.contents)
 				if err != nil {
 					panic(fmt.Sprintf("TODO: handle err %s", err))
 				}
-				resultCh <- messageSpec
+				resultCh <- msgSpec
 			}
 		}()
 	}

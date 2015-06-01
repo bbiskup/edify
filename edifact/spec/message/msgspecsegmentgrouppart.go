@@ -37,8 +37,8 @@ func (p *MsgSpecSegmentGroupPart) Children() []MsgSpecPart {
 	return p.children
 }
 
-func (p *MsgSpecSegmentGroupPart) Append(messageSpecPart MsgSpecPart) {
-	p.children = append(p.children, messageSpecPart)
+func (p *MsgSpecSegmentGroupPart) Append(msgSpecPart MsgSpecPart) {
+	p.children = append(p.children, msgSpecPart)
 }
 
 // First segment spec contained in group. This is by definition

@@ -15,7 +15,7 @@ type SegSeqValidator struct {
 	currentSegmentIndex int
 
 	// Specification for message type under validation
-	messageSpec *msgspec.MsgSpec
+	msgSpec *msgspec.MsgSpec
 
 	// ID of the segment specification currently checked
 	currentSegSpecID string
@@ -133,9 +133,9 @@ func (s *SegSeqValidator) incrementCurrentMsgSpecPartIndex() bool {
 
 func (s *SegSeqValidator) handleStateSeg(
 	segID string, segment *msg.Segment,
-	messageSpecPart *msgspec.MsgSpecSegmentPart) (ret bool, err error) {
+	msgSpecPart *msgspec.MsgSpecSegmentPart) (ret bool, err error) {
 
-	if messageSpecPart.SegmentSpec.Id == segID {
+	if msgSpecPart.SegmentSpec.Id == segID {
 		if !s.isAtTopLevel() && s.currentGroupContext().groupSpecPart.Id() == segID {
 			return true, s.handleRepeatGroup(segment)
 		} else {
@@ -156,13 +156,13 @@ func (s *SegSeqValidator) handleStateSeg(
 }
 
 func (s *SegSeqValidator) enterGroup(
-	messageSpecPart *msgspec.MsgSpecSegmentGroupPart) {
+	msgSpecPart *msgspec.MsgSpecSegmentGroupPart) {
 
-	log.Printf("ENTERING GROUP %s", messageSpecPart.Name())
-	repeatSegGroup := s.nestedMsgBuilder.AddSegmentGroup(messageSpecPart.Name())
+	log.Printf("ENTERING GROUP %s", msgSpecPart.Name())
+	repeatSegGroup := s.nestedMsgBuilder.AddSegmentGroup(msgSpecPart.Name())
 
 	groupContext := NewSegSeqGroupContext(
-		messageSpecPart, messageSpecPart.Children(),
+		msgSpecPart, msgSpecPart.Children(),
 		repeatSegGroup)
 	s.groupStack.Push(groupContext)
 }
@@ -175,18 +175,18 @@ func (s *SegSeqValidator) isAtTopLevel() bool {
 
 func (s *SegSeqValidator) handleSegGroup(
 	segID string,
-	messageSpecPart *msgspec.MsgSpecSegmentGroupPart) (ret bool, err error) {
+	msgSpecPart *msgspec.MsgSpecSegmentGroupPart) (ret bool, err error) {
 
-	triggerSegmentId := messageSpecPart.Id()
+	triggerSegmentId := msgSpecPart.Id()
 	if triggerSegmentId == segID {
-		s.enterGroup(messageSpecPart)
+		s.enterGroup(msgSpecPart)
 	} else {
-		if messageSpecPart.IsMandatory() {
+		if msgSpecPart.IsMandatory() {
 			return true, s.createError(
 				missingGroup,
 				fmt.Sprintf("mandatory group %s missing", triggerSegmentId))
 		} else {
-			log.Printf("Skipping group %s (%s)", messageSpecPart.Name(), triggerSegmentId)
+			log.Printf("Skipping group %s (%s)", msgSpecPart.Name(), triggerSegmentId)
 			s.incrementCurrentMsgSpecPartIndex()
 		}
 	}
@@ -222,16 +222,16 @@ func (s *SegSeqValidator) checkGroupStack(segment *msg.Segment) (ret bool) {
 }
 
 func (s *SegSeqValidator) handleStateSearching(
-	segID string, messageSpecPart *msgspec.MsgSpecSegmentPart) (ret bool, err error) {
+	segID string, msgSpecPart *msgspec.MsgSpecSegmentPart) (ret bool, err error) {
 
-	if messageSpecPart.SegmentSpec.Id == segID {
+	if msgSpecPart.SegmentSpec.Id == segID {
 		s.setNewState(seqStateSeg)
 	} else {
-		if messageSpecPart.IsMandatory() {
+		if msgSpecPart.IsMandatory() {
 			return true, s.createError(
 				missingMandatorySegment,
 				fmt.Sprintf("Mandatory segment %s is missing",
-					messageSpecPart.SegmentSpec.Id))
+					msgSpecPart.SegmentSpec.Id))
 		}
 		s.incrementCurrentMsgSpecPartIndex()
 	}
@@ -242,7 +242,7 @@ func (s *SegSeqValidator) handleStateSearching(
 // Processes a single segment
 func (s *SegSeqValidator) processSegment(segment *msg.Segment) error {
 	log.Printf("############## processSegment %s", segment.Id())
-	log.Printf("\tmessage spec: %s", s.messageSpec)
+	log.Printf("\tmessage spec: %s", s.msgSpec)
 	log.Printf("\tnested message: %s", s.nestedMsgBuilder.nestedMsg.Dump())
 	segID := segment.Id()
 	s.currentSegmentIndex++
@@ -253,14 +253,14 @@ func (s *SegSeqValidator) processSegment(segment *msg.Segment) error {
 			return nil
 		}
 
-		messageSpecPart := s.currentGroupContext().currentPart()
+		msgSpecPart := s.currentGroupContext().currentPart()
 		log.Printf(
 			"\tLooping: (state: %s) (stack size: %d, group context: %s) (seg: %s) (%dth); seg spec: %s",
 			s.state, s.groupStack.Len(), s.currentGroupContext(), segID,
-			s.currentSegmentIndex, messageSpecPart)
-		s.currentSegSpecID = messageSpecPart.Id()
+			s.currentSegmentIndex, msgSpecPart)
+		s.currentSegSpecID = msgSpecPart.Id()
 
-		switch messageSpecPart := messageSpecPart.(type) {
+		switch msgSpecPart := msgSpecPart.(type) {
 		case *msgspec.MsgSpecSegmentPart:
 			log.Printf("seg spec ID: %s", s.currentSegSpecID)
 
@@ -272,13 +272,13 @@ func (s *SegSeqValidator) processSegment(segment *msg.Segment) error {
 				s.setNewState(seqStateSeg)
 
 			case seqStateSeg:
-				ret, err := s.handleStateSeg(segID, segment, messageSpecPart)
+				ret, err := s.handleStateSeg(segID, segment, msgSpecPart)
 				if ret || err != nil {
 					return err
 				}
 
 			case seqStateSearching:
-				ret, err := s.handleStateSearching(segID, messageSpecPart)
+				ret, err := s.handleStateSearching(segID, msgSpecPart)
 				if ret || err != nil {
 					return err
 				}
@@ -287,23 +287,23 @@ func (s *SegSeqValidator) processSegment(segment *msg.Segment) error {
 			}
 
 		case *msgspec.MsgSpecSegmentGroupPart:
-			ret, err := s.handleSegGroup(segID, messageSpecPart)
+			ret, err := s.handleSegGroup(segID, msgSpecPart)
 			if ret || err != nil {
 				return err
 			}
 		default:
-			panic(fmt.Sprintf("Unknown type %T", messageSpecPart))
+			panic(fmt.Sprintf("Unknown type %T", msgSpecPart))
 		}
 	}
 }
 
 func (s *SegSeqValidator) checkRemainingMandatorySegments() error {
-	numSegSpecParts := len(s.messageSpec.TopLevelParts())
+	numSegSpecParts := len(s.msgSpec.TopLevelParts())
 	currentMsgSpecPartIndex := s.currentGroupContext().partIndex
 	log.Printf("Checking for mandatory segments after message starting at spec index %d",
 		currentMsgSpecPartIndex)
 	for i := currentMsgSpecPartIndex + 1; i < numSegSpecParts; i++ {
-		specPart := s.messageSpec.TopLevelPart(i)
+		specPart := s.msgSpec.TopLevelPart(i)
 		if specPart.IsMandatory() {
 			return s.createError(
 				missingMandatorySegment,
@@ -341,18 +341,18 @@ func (s *SegSeqValidator) Validate(rawMessage *msg.RawMessage) error {
 	return nil
 }
 
-func NewSegSeqValidator(messageSpec *msgspec.MsgSpec) (segSeqValidator *SegSeqValidator, err error) {
-	if len(messageSpec.TopLevelParts()) == 0 {
+func NewSegSeqValidator(msgSpec *msgspec.MsgSpec) (segSeqValidator *SegSeqValidator, err error) {
+	if len(msgSpec.TopLevelParts()) == 0 {
 		return nil, NewSegSeqError(noSegmentSpecs, "")
 	}
 
 	groupContext := NewSegSeqGroupContext(
-		messageSpec.TopLevelGroup, messageSpec.TopLevelGroup.Children(), nil)
+		msgSpec.TopLevelGroup, msgSpec.TopLevelGroup.Children(), nil)
 	groupStack := &util.Stack{}
 	groupStack.Push(groupContext)
 
 	return &SegSeqValidator{
-		messageSpec:      messageSpec,
+		msgSpec:      msgSpec,
 		state:            seqStateInitial,
 		groupStack:       groupStack,
 		nestedMsgBuilder: nil,
