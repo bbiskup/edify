@@ -20,7 +20,11 @@ func (g *RepeatSegmentGroup) Id() string {
 	return g.groups[0].Id()
 }
 
-func (g *RepeatSegmentGroup) Last() *SegmentGroup {
+func (g *RepeatSegmentGroup) Get(index int) *SegmentGroup {
+	return g.groups[index]
+}
+
+func (g *RepeatSegmentGroup) GetLast() *SegmentGroup {
 	return g.groups[len(g.groups)-1]
 }
 
