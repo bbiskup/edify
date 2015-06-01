@@ -298,12 +298,12 @@ func (s *SegSeqValidator) processSegment(segment *msg.Segment) error {
 }
 
 func (s *SegSeqValidator) checkRemainingMandatorySegments() error {
-	numSegSpecParts := len(s.messageSpec.Parts)
+	numSegSpecParts := len(s.messageSpec.TopLevelParts())
 	currentMsgSpecPartIndex := s.currentGroupContext().partIndex
 	log.Printf("Checking for mandatory segments after message starting at spec index %d",
 		currentMsgSpecPartIndex)
 	for i := currentMsgSpecPartIndex + 1; i < numSegSpecParts; i++ {
-		specPart := s.messageSpec.Parts[i]
+		specPart := s.messageSpec.TopLevelPart(i)
 		if specPart.IsMandatory() {
 			return s.createError(
 				missingMandatorySegment,
@@ -342,12 +342,12 @@ func (s *SegSeqValidator) Validate(rawMessage *msg.RawMessage) error {
 }
 
 func NewSegSeqValidator(messageSpec *msgspec.MessageSpec) (segSeqValidator *SegSeqValidator, err error) {
-	if len(messageSpec.Parts) == 0 {
+	if len(messageSpec.TopLevelParts()) == 0 {
 		return nil, NewSegSeqError(noSegmentSpecs, "")
 	}
 
 	groupContext := NewSegSeqGroupContext(
-		nil, messageSpec.Parts, nil)
+		messageSpec.TopLevelGroup, messageSpec.TopLevelGroup.Children(), nil)
 	groupStack := &util.Stack{}
 	groupStack.Push(groupContext)
 

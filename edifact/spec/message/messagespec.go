@@ -7,6 +7,8 @@ import (
 	"time"
 )
 
+const TopLevelSegGroupName = "_Group_0"
+
 // A message specification
 // (e.g. edmd/BALANC_D.14B)
 type MessageSpec struct {
@@ -19,8 +21,8 @@ type MessageSpec struct {
 	Revision    string
 	Date        time.Time
 
-	Source string
-	Parts  []MessageSpecPart
+	Source        string
+	TopLevelGroup *MessageSpecSegmentGroupPart
 }
 
 type MessageSpecs []*MessageSpec
@@ -35,20 +37,28 @@ func (m *MessageSpec) String() string {
 		m.Id, m.Name, m.Release, m.Count(), partsStr)
 }
 
+func (m *MessageSpec) TopLevelParts() []MessageSpecPart {
+	return m.TopLevelGroup.Children()
+}
+
+func (m *MessageSpec) TopLevelPart(index int) MessageSpecPart {
+	return m.TopLevelGroup.Children()[index]
+}
+
 // Verbose output fo debugging
 func (m *MessageSpec) Dump() string {
 	count := m.Count()
 	var buffer bytes.Buffer
 
 	for i := 0; i < count; i++ {
-		buffer.WriteString(m.Parts[i].String() + "\n")
+		buffer.WriteString(m.TopLevelParts()[i].String() + "\n")
 	}
 	return buffer.String()
 }
 
 func (m *MessageSpec) PartsStr() string {
 	result := []string{}
-	for _, part := range m.Parts {
+	for _, part := range m.TopLevelParts() {
 		result = append(result, part.Id())
 	}
 	return strings.Join(result, ", ")
@@ -56,7 +66,7 @@ func (m *MessageSpec) PartsStr() string {
 
 // Number of parts
 func (m *MessageSpec) Count() int {
-	return len(m.Parts)
+	return len(m.TopLevelParts())
 }
 
 // from sort.Interface
@@ -84,6 +94,7 @@ func NewMessageSpec(
 		Id: id, Name: name,
 		Version: version, Release: release, ContrAgency: contrAgency,
 		Revision: revision, Date: date, Source: source,
-		Parts: parts,
+		TopLevelGroup: NewMessageSpecSegmentGroupPart(
+			TopLevelSegGroupName, parts, 1, true, nil),
 	}
 }

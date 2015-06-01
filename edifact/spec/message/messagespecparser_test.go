@@ -1,6 +1,7 @@
 package message
 
 import (
+	"fmt"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 	"sort"
@@ -17,7 +18,6 @@ func TestParseINVOICFile(t *testing.T) {
 	spec, err := parser.ParseSpecFile("../../../testdata/INVOIC_D.14B")
 	assert.Nil(t, err)
 	require.NotNil(t, spec)
-	// fmt.Printf("Message spec: %s", spec)
 
 	assert.Equal(t, "INVOIC", spec.Id)
 	assert.Equal(t, "D", spec.Version)
@@ -26,14 +26,15 @@ func TestParseINVOICFile(t *testing.T) {
 	assert.Equal(t, "16", spec.Revision)
 	assert.Equal(t, time.Date(2014, time.November, 17, 0, 0, 0, 0, time.UTC), spec.Date)
 
-	// fmt.Printf("Top level parts: " + spec.Dump())
+	fmt.Printf("Top level parts: " + spec.Dump())
 	assert.Equal(t, 32, spec.Count())
-	assert.Equal(t, "dummy_segment_spec-UNH", spec.Parts[0].Name())
-	assert.Equal(t, "dummy_segment_spec-GIR", spec.Parts[10].Name())
-	assert.Equal(t, "Group_1", spec.Parts[11].Name())
-	assert.Equal(t, 99999, spec.Parts[11].MaxCount())
+	assert.Equal(t, "dummy_segment_spec-UNH", spec.TopLevelPart(0).Name())
+	assert.Equal(t, "dummy_segment_spec-GIR", spec.TopLevelPart(10).Name())
+	part11 := spec.TopLevelPart(11)
+	assert.Equal(t, "Group_1", part11.Name())
+	assert.Equal(t, 99999, part11.MaxCount())
 
-	group_1, ok := spec.Parts[11].(*MessageSpecSegmentGroupPart)
+	group_1, ok := part11.(*MessageSpecSegmentGroupPart)
 	assert.True(t, ok)
 	assert.Equal(t, group_1.Count(), 9)
 
