@@ -6,7 +6,7 @@ import (
 )
 
 func getMsgSpec(fileName string) *message.MsgSpec {
-	parser := message.NewMsgSpecParser(&message.MockSegmentSpecProviderImpl{})
+	parser := message.NewMsgSpecParser(&message.MockSegSpecProviderImpl{})
 	msgSpec, err := parser.ParseSpecFile("../../testdata/d14b/edmd/" + fileName)
 	if err != nil {
 		panic("spec is nil")

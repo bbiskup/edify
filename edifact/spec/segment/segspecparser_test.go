@@ -9,7 +9,7 @@ import (
 const dataElemSpecStr = "010    C817 ADDRESS USAGE                              C    1"
 
 func TestParseDataElemSpec(t *testing.T) {
-	p := NewSegmentSpecParser(nil, nil)
+	p := NewSegSpecParser(nil, nil)
 
 	pos, id, dataElementKind, count, isMandatory, err := p.parseDataElemSpec(dataElemSpecStr)
 	assert.Nil(t, err)
@@ -20,7 +20,7 @@ func TestParseDataElemSpec(t *testing.T) {
 	assert.Equal(t, Composite, dataElementKind)
 }
 
-const segmentSpec = `
+const segSpec = `
        CDI  PHYSICAL OR LOGICAL STATE
 
        Function: To describe a physical or logical state.
@@ -37,15 +37,15 @@ const segmentSpec = `
 `
 
 func TestParseSpec(t *testing.T) {
-	p := NewSegmentSpecParser(nil, nil)
-	specLines := strings.Split(segmentSpec, "\n")
-	segmentSpec, err := p.ParseSpec(specLines)
+	p := NewSegSpecParser(nil, nil)
+	specLines := strings.Split(segSpec, "\n")
+	segSpec, err := p.ParseSpec(specLines)
 
 	assert.Nil(t, err)
-	assert.Equal(t, "CDI", segmentSpec.Id)
-	assert.Equal(t, "PHYSICAL OR LOGICAL STATE", segmentSpec.Name)
-	assert.Equal(t, "To describe a physical or logical state.", segmentSpec.Function)
+	assert.Equal(t, "CDI", segSpec.Id)
+	assert.Equal(t, "PHYSICAL OR LOGICAL STATE", segSpec.Name)
+	assert.Equal(t, "To describe a physical or logical state.", segSpec.Function)
 
-	lenSegmentDataElementSpecs := len(segmentSpec.SegmentDataElementSpecs)
+	lenSegmentDataElementSpecs := len(segSpec.SegmentDataElementSpecs)
 	assert.Equal(t, 2, lenSegmentDataElementSpecs)
 }

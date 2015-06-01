@@ -5,15 +5,15 @@ import (
 	"github.com/bbiskup/edify/edifact/spec/segment"
 )
 
-type MockSegmentSpecProviderImpl struct {
+type MockSegSpecProviderImpl struct {
 }
 
-func (p *MockSegmentSpecProviderImpl) Get(id string) *segment.SegmentSpec {
-	return segment.NewSegmentSpec(
+func (p *MockSegSpecProviderImpl) Get(id string) *segment.SegSpec {
+	return segment.NewSegSpec(
 		id, fmt.Sprintf("dummy_segment_spec-%s", id), "dummy_function", nil)
 }
 
-func (p *MockSegmentSpecProviderImpl) Len() int {
+func (p *MockSegSpecProviderImpl) Len() int {
 	// Dummy value; unused
 	return 100
 }

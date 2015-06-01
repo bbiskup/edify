@@ -135,7 +135,7 @@ func (s *SegSeqValidator) handleStateSeg(
 	segID string, segment *msg.Segment,
 	msgSpecPart *msgspec.MsgSpecSegmentPart) (ret bool, err error) {
 
-	if msgSpecPart.SegmentSpec.Id == segID {
+	if msgSpecPart.SegSpec.Id == segID {
 		if !s.isAtTopLevel() && s.currentGroupContext().groupSpecPart.Id() == segID {
 			return true, s.handleRepeatGroup(segment)
 		} else {
@@ -224,14 +224,14 @@ func (s *SegSeqValidator) checkGroupStack(segment *msg.Segment) (ret bool) {
 func (s *SegSeqValidator) handleStateSearching(
 	segID string, msgSpecPart *msgspec.MsgSpecSegmentPart) (ret bool, err error) {
 
-	if msgSpecPart.SegmentSpec.Id == segID {
+	if msgSpecPart.SegSpec.Id == segID {
 		s.setNewState(seqStateSeg)
 	} else {
 		if msgSpecPart.IsMandatory() {
 			return true, s.createError(
 				missingMandatorySegment,
 				fmt.Sprintf("Mandatory segment %s is missing",
-					msgSpecPart.SegmentSpec.Id))
+					msgSpecPart.SegSpec.Id))
 		}
 		s.incrementCurrentMsgSpecPartIndex()
 	}
@@ -343,7 +343,7 @@ func (s *SegSeqValidator) Validate(rawMessage *msg.RawMessage) error {
 
 func NewSegSeqValidator(msgSpec *msgspec.MsgSpec) (segSeqValidator *SegSeqValidator, err error) {
 	if len(msgSpec.TopLevelParts()) == 0 {
-		return nil, NewSegSeqError(noSegmentSpecs, "")
+		return nil, NewSegSeqError(noSegSpecs, "")
 	}
 
 	groupContext := NewSegSeqGroupContext(

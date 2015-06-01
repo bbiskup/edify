@@ -61,7 +61,7 @@ func getInvalidSegmentIncorrectRepr(t testing.TB) *msg.Segment {
 	return seg
 }
 
-func getSegmentSpecMap(t testing.TB) segment.SegmentSpecMap {
+func getSegSpecMap(t testing.TB) segment.SegSpecMap {
 	de1Spec := codes.NewCodesSpec("100", "testcode_1", "testcode_1_desc",
 		[]*codes.CodeSpec{
 			codes.NewCodeSpec("1", "value_1", "descr_1"),
@@ -81,12 +81,12 @@ func getSegmentSpecMap(t testing.TB) segment.SegmentSpecMap {
 		segment.NewSegmentDataElementSpec(de1, 1, true),
 	}
 
-	segSpec := segment.NewSegmentSpec("ABC", "ABC_segment", "abc_function", segDataElemSpecs)
-	return segment.SegmentSpecMap{"ABC": segSpec}
+	segSpec := segment.NewSegSpec("ABC", "ABC_segment", "abc_function", segDataElemSpecs)
+	return segment.SegSpecMap{"ABC": segSpec}
 }
 
 func TestValidateValidSegment(t *testing.T) {
-	segSpecMap := getSegmentSpecMap(t)
+	segSpecMap := getSegSpecMap(t)
 	segment := getValidSegment(t)
 	validator := NewSegmentValidatorImpl(segSpecMap)
 	err := validator.Validate(segment)
@@ -94,7 +94,7 @@ func TestValidateValidSegment(t *testing.T) {
 }
 
 func TestValidateInvalidSegmentNonExistantCode(t *testing.T) {
-	segSpecMap := getSegmentSpecMap(t)
+	segSpecMap := getSegSpecMap(t)
 	segment := getInvalidSegmentNonExistantCode(t)
 	validator := NewSegmentValidatorImpl(segSpecMap)
 	err := validator.Validate(segment)
@@ -102,7 +102,7 @@ func TestValidateInvalidSegmentNonExistantCode(t *testing.T) {
 }
 
 func TestValidateInvalidSegmentIncorrectRepr(t *testing.T) {
-	segSpecMap := getSegmentSpecMap(t)
+	segSpecMap := getSegSpecMap(t)
 	segment := getInvalidSegmentIncorrectRepr(t)
 	validator := NewSegmentValidatorImpl(segSpecMap)
 	err := validator.Validate(segment)
@@ -110,7 +110,7 @@ func TestValidateInvalidSegmentIncorrectRepr(t *testing.T) {
 }
 
 func BenchmarkParseValidSegment(b *testing.B) {
-	segSpecMap := getSegmentSpecMap(b)
+	segSpecMap := getSegSpecMap(b)
 	segment := getInvalidSegmentNonExistantCode(b)
 	b.ResetTimer()
 

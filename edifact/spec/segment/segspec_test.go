@@ -6,14 +6,14 @@ import (
 	"testing"
 )
 
-func TestSegmentSpec(t *testing.T) {
-	spec := NewSegmentSpec("ADR", "ADDRESS", "To specify an address.", nil)
+func TestSegSpec(t *testing.T) {
+	spec := NewSegSpec("ADR", "ADDRESS", "To specify an address.", nil)
 
 	assert.Equal(t, "Segment ADR/ADDRESS (0 data elems)", spec.String(), "Incorrect String()")
 }
 
 func TestParseHeader(t *testing.T) {
-	spec := NewSegmentSpecParser(nil, nil)
+	spec := NewSegSpecParser(nil, nil)
 	id, name, err := spec.parseHeader("       ADR  ADDRESS")
 
 	assert.Nil(t, err)
@@ -27,7 +27,7 @@ const funcStr = `       Function: To provide information concerning pricing
 const expectedFun = `To provide information concerning pricing related to class of trade, price multiplier, and reason for change.`
 
 func TestParseFunction(t *testing.T) {
-	spec := NewSegmentSpecParser(nil, nil)
+	spec := NewSegSpecParser(nil, nil)
 	funcLines := strings.Split(funcStr, "\n")
 	fun, err := spec.parseFunction(funcLines)
 	assert.Nil(t, err)

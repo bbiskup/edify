@@ -4,6 +4,6 @@ import (
 	"github.com/bbiskup/edify/edifact/spec/segment"
 )
 
-func fixtureSimpleSegmentSpec() *segment.SegmentSpec {
-	return segment.NewSegmentSpec("TESTSEGMENT_ID", "TESTSEGMENT_NAME", "testfunction", nil)
+func fixtureSimpleSegSpec() *segment.SegSpec {
+	return segment.NewSegSpec("TESTSEGMENT_ID", "TESTSEGMENT_NAME", "testfunction", nil)
 }

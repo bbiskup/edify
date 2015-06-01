@@ -22,7 +22,7 @@ const (
 )
 
 // Parses segment specifications file (e.g. EDSD.14B)
-type SegmentSpecParser struct {
+type SegSpecParser struct {
 	SimpleDataElemSpecs    dataelement.SimpleDataElementSpecMap
 	CompositeDataElemSpecs dataelement.CompositeDataElementSpecMap
 	headerRE               *regexp.Regexp
@@ -31,7 +31,7 @@ type SegmentSpecParser struct {
 
 // Parse composite element spec of the form
 // "020    C138 PRICE MULTIPLIER INFORMATION               C    1"
-func (p *SegmentSpecParser) parseDataElemSpec(
+func (p *SegSpecParser) parseDataElemSpec(
 	specStr string) (pos int, id string,
 	dataElementKind DataElementKind,
 	count int, isMandatory bool,
@@ -83,7 +83,7 @@ func (p *SegmentSpecParser) parseDataElemSpec(
 	return
 }
 
-func (p *SegmentSpecParser) parseDataElementSpecs(
+func (p *SegSpecParser) parseDataElementSpecs(
 	dataElementSpecGroups [][]string) (dataElements []*SegmentDataElementSpec, err error) {
 
 	for _, group := range dataElementSpecGroups {
@@ -128,7 +128,7 @@ func (p *SegmentSpecParser) parseDataElementSpecs(
 	return
 }
 
-func (p *SegmentSpecParser) parseHeader(header string) (id string, name string, err error) {
+func (p *SegSpecParser) parseHeader(header string) (id string, name string, err error) {
 	headerMatch := p.headerRE.FindStringSubmatch(header)
 	if headerMatch == nil {
 		err = errors.New(fmt.Sprintf("Unable to parse header ('%s')", header))
@@ -143,7 +143,7 @@ func (p *SegmentSpecParser) parseHeader(header string) (id string, name string, 
 	return
 }
 
-func (p *SegmentSpecParser) parseFunction(functionLines []string) (fun string, err error) {
+func (p *SegSpecParser) parseFunction(functionLines []string) (fun string, err error) {
 	functionPart := util.TrimWhiteSpaceAndJoin(functionLines, " ")
 	const functionPrefix = "Function: "
 	if strings.HasPrefix(functionPart, functionPrefix) {
@@ -154,7 +154,7 @@ func (p *SegmentSpecParser) parseFunction(functionLines []string) (fun string, e
 }
 
 // Parse a single segment specification
-func (p *SegmentSpecParser) ParseSpec(specLines []string) (spec *SegmentSpec, err error) {
+func (p *SegSpecParser) ParseSpec(specLines []string) (spec *SegSpec, err error) {
 	specLines = util.RemoveLeadingAndTrailingEmptyLines(specLines)
 	groups := util.SplitMultipleLinesByEmptyLines(specLines)
 
@@ -177,11 +177,11 @@ func (p *SegmentSpecParser) ParseSpec(specLines []string) (spec *SegmentSpec, er
 		return
 	}
 
-	return NewSegmentSpec(id, name, fun, dataElementSpecs), nil
+	return NewSegSpec(id, name, fun, dataElementSpecs), nil
 }
 
-func (p *SegmentSpecParser) ParseSpecFile(fileName string) (specs SegmentSpecProvider, err error) {
-	result := SegmentSpecMap{}
+func (p *SegSpecParser) ParseSpecFile(fileName string) (specs SegSpecProvider, err error) {
+	result := SegSpecMap{}
 
 	parseSection := func(lines []string) error {
 		spec, err := p.ParseSpec(lines)
@@ -194,14 +194,14 @@ func (p *SegmentSpecParser) ParseSpecFile(fileName string) (specs SegmentSpecPro
 
 	err = specutil.ParseSpecFile(fileName, parseSection)
 
-	return &SegmentSpecProviderImpl{result}, err
+	return &SegSpecProviderImpl{result}, err
 }
 
-func NewSegmentSpecParser(
+func NewSegSpecParser(
 	simpleDataElemSpecs dataelement.SimpleDataElementSpecMap,
-	compositeDataElemSpecs dataelement.CompositeDataElementSpecMap) *SegmentSpecParser {
+	compositeDataElemSpecs dataelement.CompositeDataElementSpecMap) *SegSpecParser {
 
-	return &SegmentSpecParser{
+	return &SegSpecParser{
 		SimpleDataElemSpecs:    simpleDataElemSpecs,
 		CompositeDataElemSpecs: compositeDataElemSpecs,
 		headerRE:               regexp.MustCompile(`^[ ]{7}([A-Z]{3})  (.*) *$`),

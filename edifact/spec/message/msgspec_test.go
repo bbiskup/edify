@@ -19,11 +19,11 @@ var partsSpec = []struct {
 	{
 		parts: []MsgSpecPart{
 			NewMsgSpecSegmentPart(
-				segment.NewSegmentSpec("UNH", "testname1", "testfunc1", nil), 1, false, nil),
+				segment.NewSegSpec("UNH", "testname1", "testfunc1", nil), 1, false, nil),
 			NewMsgSpecSegmentPart(
-				segment.NewSegmentSpec("BGM", "testname1", "testfunc1", nil), 1, false, nil),
+				segment.NewSegSpec("BGM", "testname1", "testfunc1", nil), 1, false, nil),
 			NewMsgSpecSegmentPart(
-				segment.NewSegmentSpec("UNT", "testname1", "testfunc1", nil), 1, false, nil),
+				segment.NewSegSpec("UNT", "testname1", "testfunc1", nil), 1, false, nil),
 		},
 		expected: "Message testid (testname testrelease): 3 parts - UNH, BGM, UNT",
 	},

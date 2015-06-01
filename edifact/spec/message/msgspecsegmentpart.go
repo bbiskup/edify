@@ -9,20 +9,20 @@ import (
 // Segment  specification in message specification
 type MsgSpecSegmentPart struct {
 	MsgSpecPartBase
-	SegmentSpec *segment.SegmentSpec
+	SegSpec *segment.SegSpec
 }
 
 func (p *MsgSpecSegmentPart) Id() string {
-	return p.SegmentSpec.Id
+	return p.SegSpec.Id
 }
 
 func (p *MsgSpecSegmentPart) Name() string {
-	return p.SegmentSpec.Name
+	return p.SegSpec.Name
 }
 
 func (p *MsgSpecSegmentPart) String() string {
 	mandatoryStr := util.CustBoolStr(p.IsMandatory(), "mand.", "cond.")
-	return fmt.Sprintf("Segment %d %s %s", p.MaxCount(), mandatoryStr, p.SegmentSpec.Name)
+	return fmt.Sprintf("Segment %d %s %s", p.MaxCount(), mandatoryStr, p.SegSpec.Name)
 }
 
 func (p *MsgSpecSegmentPart) IsGroup() bool {
@@ -30,7 +30,7 @@ func (p *MsgSpecSegmentPart) IsGroup() bool {
 }
 
 func NewMsgSpecSegmentPart(
-	segmentSpec *segment.SegmentSpec,
+	segSpec *segment.SegSpec,
 	maxCount int, isMandatory bool, parent MsgSpecPart) *MsgSpecSegmentPart {
 
 	return &MsgSpecSegmentPart{
@@ -39,6 +39,6 @@ func NewMsgSpecSegmentPart(
 			isMandatory: isMandatory,
 			parent:      parent,
 		},
-		segmentSpec,
+		segSpec,
 	}
 }

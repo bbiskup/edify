@@ -14,7 +14,7 @@ import (
 // Most groups (258): GOVCBR; only msg type with > 99 groups
 
 func TestParseINVOICFile(t *testing.T) {
-	parser := NewMsgSpecParser(&MockSegmentSpecProviderImpl{})
+	parser := NewMsgSpecParser(&MockSegSpecProviderImpl{})
 	spec, err := parser.ParseSpecFile("../../../testdata/INVOIC_D.14B")
 	assert.Nil(t, err)
 	require.NotNil(t, spec)
@@ -40,11 +40,11 @@ func TestParseINVOICFile(t *testing.T) {
 
 	group_1_segm_0 := group_1.Children()[0].(*MsgSpecSegmentPart)
 	assert.True(t, ok)
-	assert.Equal(t, group_1_segm_0.SegmentSpec.Id, "RFF")
+	assert.Equal(t, group_1_segm_0.SegSpec.Id, "RFF")
 }
 
 func TestParseAUTHORFile(t *testing.T) {
-	parser := NewMsgSpecParser(&MockSegmentSpecProviderImpl{})
+	parser := NewMsgSpecParser(&MockSegSpecProviderImpl{})
 	spec, err := parser.ParseSpecFile("../../../testdata/AUTHOR_D.14B")
 	assert.Nil(t, err)
 	require.NotNil(t, spec)
@@ -59,14 +59,14 @@ func TestParseAUTHORFile(t *testing.T) {
 }
 
 func TestParseNonExistentFile(t *testing.T) {
-	parser := NewMsgSpecParser(&MockSegmentSpecProviderImpl{})
+	parser := NewMsgSpecParser(&MockSegSpecProviderImpl{})
 	spec, err := parser.ParseSpecFile("../../../testdata/NON_EXISTENT")
 	assert.NotNil(t, err)
 	assert.Nil(t, spec)
 }
 
 func TestParseDir(t *testing.T) {
-	parser := NewMsgSpecParser(&MockSegmentSpecProviderImpl{})
+	parser := NewMsgSpecParser(&MockSegSpecProviderImpl{})
 
 	specs, err := parser.ParseSpecDir("../../../testdata/message_specs", "14B")
 	assert.Nil(t, err)
@@ -127,7 +127,7 @@ var segGrpStartSpec = []struct {
 }
 
 func TestParseSegGrpStart(t *testing.T) {
-	parser := NewMsgSpecParser(&MockSegmentSpecProviderImpl{})
+	parser := NewMsgSpecParser(&MockSegSpecProviderImpl{})
 	for _, spec := range segGrpStartSpec {
 		res, err := parser.parseSegGrpStart(spec.line)
 		require.Nil(t, err)
@@ -177,7 +177,7 @@ var segmentEntryStartSpec = []struct {
 }
 
 func TestParseSegmentEntry(t *testing.T) {
-	parser := NewMsgSpecParser(&MockSegmentSpecProviderImpl{})
+	parser := NewMsgSpecParser(&MockSegSpecProviderImpl{})
 	for _, spec := range segmentEntryStartSpec {
 		res, err := parser.parseSegmentEntry(spec.line)
 		require.Nil(t, err)
@@ -198,14 +198,14 @@ func TestParseSegmentEntry(t *testing.T) {
 }
 
 func TestParseHeaderSection(t *testing.T) {
-	parser := NewMsgSpecParser(&MockSegmentSpecProviderImpl{})
+	parser := NewMsgSpecParser(&MockSegSpecProviderImpl{})
 	assert.Equal(t, true, parser.matchHeaderOrEmptyInGroupSection("            HEADER SECTION"))
 	assert.Equal(t, true, parser.matchHeaderOrEmptyInGroupSection("            HEADER SECTION  "))
 	assert.Equal(t, false, parser.matchHeaderOrEmptyInGroupSection("           HEADER SECTION"))
 }
 
 func BenchmarkParseDir(b *testing.B) {
-	parser := NewMsgSpecParser(&MockSegmentSpecProviderImpl{})
+	parser := NewMsgSpecParser(&MockSegSpecProviderImpl{})
 
 	for i := 0; i < b.N; i++ {
 		specs, err := parser.ParseSpecDir("../../../testdata/message_specs", "14B")

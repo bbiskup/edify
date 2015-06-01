@@ -5,24 +5,24 @@ import (
 )
 
 // Segment specification
-type SegmentSpec struct {
+type SegSpec struct {
 	Id                      string
 	Name                    string
 	Function                string
 	SegmentDataElementSpecs []*SegmentDataElementSpec
 }
 
-func (s *SegmentSpec) String() string {
+func (s *SegSpec) String() string {
 	return fmt.Sprintf(
 		"Segment %s/%s (%d data elems)",
 		s.Id, s.Name, len(s.SegmentDataElementSpecs))
 }
 
-func NewSegmentSpec(
+func NewSegSpec(
 	id string, name string, function string,
-	segmentDataElementSpecs []*SegmentDataElementSpec) *SegmentSpec {
+	segmentDataElementSpecs []*SegmentDataElementSpec) *SegSpec {
 
-	return &SegmentSpec{
+	return &SegSpec{
 		Id:                      id,
 		Name:                    name,
 		Function:                function,

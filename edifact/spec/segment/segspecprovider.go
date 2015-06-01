@@ -6,26 +6,26 @@ import (
 )
 
 // Provides segment spec by Id
-type SegmentSpecProvider interface {
-	Get(id string) *SegmentSpec
+type SegSpecProvider interface {
+	Get(id string) *SegSpec
 	Len() int
 }
 
-type SegmentSpecMap map[string]*SegmentSpec
+type SegSpecMap map[string]*SegSpec
 
-// Regular implementation of SegmentSpecProvider for production
-type SegmentSpecProviderImpl struct {
-	segmentSpecs SegmentSpecMap
+// Regular implementation of SegSpecProvider for production
+type SegSpecProviderImpl struct {
+	segSpecs SegSpecMap
 }
 
-func (p *SegmentSpecProviderImpl) Get(id string) *SegmentSpec {
-	result := p.segmentSpecs[id]
+func (p *SegSpecProviderImpl) Get(id string) *SegSpec {
+	result := p.segSpecs[id]
 	if result == nil {
 		// e.g. UNH, UNT are not defined in UNCE specs, because they
 		// are not part of the release cycle. Instead, they are defined
 		// in part 1 of ISO9735 (file testdata/r1241.txt)
 		log.Printf("######################## Missing segment spec: '%s'", id)
-		return NewSegmentSpec(
+		return NewSegSpec(
 			id, fmt.Sprintf("missing-%s", id),
 			"dummy_function", nil)
 	} else {
@@ -33,6 +33,6 @@ func (p *SegmentSpecProviderImpl) Get(id string) *SegmentSpec {
 	}
 }
 
-func (p *SegmentSpecProviderImpl) Len() int {
-	return len(p.segmentSpecs)
+func (p *SegSpecProviderImpl) Len() int {
+	return len(p.segSpecs)
 }

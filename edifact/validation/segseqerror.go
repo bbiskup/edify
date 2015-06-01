@@ -11,7 +11,7 @@ const (
 	maxSegmentRepeatCountExceeded SegSeqErrorKind = "max_segment_repeat_count_exceeded"
 	maxGroupRepeatCountExceeded   SegSeqErrorKind = "max_group_repeat_count_exceeded"
 	missingGroup                  SegSeqErrorKind = "missing_group"
-	noSegmentSpecs                SegSeqErrorKind = "no_segment_specs"
+	noSegSpecs                SegSeqErrorKind = "no_segment_specs"
 	noSegments                    SegSeqErrorKind = "no_segments"
 	unexpectedSegment             SegSeqErrorKind = "unexpected_segment"
 )

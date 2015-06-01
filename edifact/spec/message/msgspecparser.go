@@ -76,7 +76,7 @@ type FileSpec struct {
 // Parser for message specifications
 // e.g. d14b/edmd/AUTHOR_D.14B
 type MsgSpecParser struct {
-	segmentSpecs segment.SegmentSpecProvider
+	segSpecs segment.SegSpecProvider
 }
 
 func (p *MsgSpecParser) parseDate(dateStr string) (date time.Time, err error) {
@@ -197,13 +197,13 @@ func (p *MsgSpecParser) parseMsgSpecParts(fileName string, lines []string) (msgS
 			p.logNestingLevelChange(currentNestingLevel, segmentEntry.NestingLevel)
 			nestingDelta := currentNestingLevel - segmentEntry.NestingLevel
 
-			segmentSpec := p.segmentSpecs.Get(segmentEntry.SegmentId)
-			if segmentSpec == nil {
+			segSpec := p.segSpecs.Get(segmentEntry.SegmentId)
+			if segSpec == nil {
 				return nil, errors.New(fmt.Sprintf("No segment spec for ID '%s'",
 					segmentEntry.SegmentId))
 			}
 			part := NewMsgSpecSegmentPart(
-				segmentSpec, segmentEntry.MaxCount, segmentEntry.IsMandatory, currentMsgSpecPart)
+				segSpec, segmentEntry.MaxCount, segmentEntry.IsMandatory, currentMsgSpecPart)
 
 			if currentNestingLevel == 0 {
 				msgSpecParts = append(msgSpecParts, part)
@@ -548,8 +548,8 @@ func (p *MsgSpecParser) parseSpecDir_parallel(
 	return
 }
 
-func NewMsgSpecParser(segmentSpecs segment.SegmentSpecProvider) *MsgSpecParser {
+func NewMsgSpecParser(segSpecs segment.SegSpecProvider) *MsgSpecParser {
 	return &MsgSpecParser{
-		segmentSpecs: segmentSpecs,
+		segSpecs: segSpecs,
 	}
 }

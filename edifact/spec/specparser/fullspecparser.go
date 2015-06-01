@@ -80,11 +80,11 @@ func (p *FullSpecParser) parseCompositeDataElemSpecs(simpleDataElemSpecs dataele
 	return specs, nil
 }
 
-func (p *FullSpecParser) parseSegmentSpecs(
+func (p *FullSpecParser) parseSegSpecs(
 	simpleDataElemSpecs dataelement.SimpleDataElementSpecMap,
-	compositeDataElemSpecs dataelement.CompositeDataElementSpecMap) (specs segment.SegmentSpecProvider, err error) {
+	compositeDataElemSpecs dataelement.CompositeDataElementSpecMap) (specs segment.SegSpecProvider, err error) {
 
-	parser := segment.NewSegmentSpecParser(simpleDataElemSpecs, compositeDataElemSpecs)
+	parser := segment.NewSegSpecParser(simpleDataElemSpecs, compositeDataElemSpecs)
 	path := p.getPath("edsd", "EDSD")
 	specs, err = parser.ParseSpecFile(path)
 	if err != nil {
@@ -98,9 +98,9 @@ func (p *FullSpecParser) parseSegmentSpecs(
 	return specs, nil
 }
 
-func (p *FullSpecParser) parseMsgSpecs(segmentSpecs segment.SegmentSpecProvider) (msgSpecs []*message.MsgSpec, err error) {
+func (p *FullSpecParser) parseMsgSpecs(segSpecs segment.SegSpecProvider) (msgSpecs []*message.MsgSpec, err error) {
 	msgDir := p.Dir + pathSeparator + "edmd"
-	parser := message.NewMsgSpecParser(segmentSpecs)
+	parser := message.NewMsgSpecParser(segSpecs)
 	fmt.Printf("Parsing message specs with suffix '%s' in directory '%s'", p.Version, msgDir)
 	return parser.ParseSpecDir(msgDir, p.Version)
 }
@@ -121,12 +121,12 @@ func (p *FullSpecParser) Parse() error {
 		return err
 	}
 
-	segmentSpecs, err := p.parseSegmentSpecs(simpleDataElemSpecs, compositeDataElemSpecs)
+	segSpecs, err := p.parseSegSpecs(simpleDataElemSpecs, compositeDataElemSpecs)
 	if err != nil {
 		return err
 	}
 
-	msgSpecs, err := p.parseMsgSpecs(segmentSpecs)
+	msgSpecs, err := p.parseMsgSpecs(segSpecs)
 	if err != nil {
 		return err
 	}
