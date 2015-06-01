@@ -32,9 +32,9 @@ func (g *RepeatSegmentGroup) RepeatSegmentGroup(group *SegmentGroup) {
 	g.groups = append(g.groups, group)
 }
 
-func (g *RepeatSegmentGroup) AppendSegmentGroupToLast(group *RepeatSegmentGroup) {
+func (g *RepeatSegmentGroup) AppendSegGroupToLast(group *RepeatSegmentGroup) {
 	lastGroup := g.groups[len(g.groups)-1]
-	lastGroup.AppendSegmentGroup(group)
+	lastGroup.AppendSegGroup(group)
 }
 
 func (g *RepeatSegmentGroup) Dump(indent int) string {

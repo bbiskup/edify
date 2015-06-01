@@ -17,11 +17,11 @@ func (g *SegmentGroup) Id() string {
 	return g.id
 }
 
-func (g *SegmentGroup) AppendSegment(segment *Segment) {
+func (g *SegmentGroup) AppendSeg(segment *Segment) {
 	g.parts = append(g.parts, NewRepeatSegment(segment))
 }
 
-func (g *SegmentGroup) AppendSegmentGroup(segmentGroup *RepeatSegmentGroup) {
+func (g *SegmentGroup) AppendSegGroup(segmentGroup *RepeatSegmentGroup) {
 	g.parts = append(g.parts, segmentGroup)
 }
 
