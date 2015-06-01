@@ -27,10 +27,10 @@ func TestRawMessage1(t *testing.T) {
 	assert.Equal(t, 9, len(rawMessage.Segments))
 	assert.Equal(t, "UNH", rawMessage.Segments[0].Id())
 	assert.Equal(t, "UNT", rawMessage.Segments[8].Id())
-	assert.Equal(t, "1", rawMessage.Segments[0].Elements[0].Values[0])
-	assert.Equal(t, "ORDERS", rawMessage.Segments[0].Elements[1].Values[0])
-	assert.Equal(t, "D", rawMessage.Segments[0].Elements[1].Values[1])
-	assert.Equal(t, "9", rawMessage.Segments[8].Elements[0].Values[0])
+	assert.Equal(t, "1", rawMessage.Segments[0].Elems[0].Values[0])
+	assert.Equal(t, "ORDERS", rawMessage.Segments[0].Elems[1].Values[0])
+	assert.Equal(t, "D", rawMessage.Segments[0].Elems[1].Values[1])
+	assert.Equal(t, "9", rawMessage.Segments[8].Elems[0].Values[0])
 }
 
 func TestParseINVOIC(t *testing.T) {
@@ -46,7 +46,7 @@ func TestParseINVOIC(t *testing.T) {
 	assert.Equal(t, "UNT", rawMessage.Segments[112].Id())
 
 	expectedMultilineStr := "If 0% VAT is charged and your VAT ID number is displayed above, this is either an exempt or a reverse charge transaction."
-	assert.Equal(t, expectedMultilineStr, rawMessage.Segments[4].Elements[3].Values[0])
+	assert.Equal(t, expectedMultilineStr, rawMessage.Segments[4].Elems[3].Values[0])
 }
 
 var elemSpecs = []struct {
@@ -57,10 +57,10 @@ var elemSpecs = []struct {
 	{"a:b", []string{"a", "b"}},
 }
 
-func TestParseElement(t *testing.T) {
+func TestParseElem(t *testing.T) {
 	for _, spec := range elemSpecs {
 		p := NewParser()
-		dataElem := p.ParseElement(spec.elemStr)
+		dataElem := p.ParseElem(spec.elemStr)
 		assert.Equal(t, spec.expected, dataElem.Values)
 	}
 }

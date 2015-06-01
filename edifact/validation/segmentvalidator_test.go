@@ -13,13 +13,13 @@ import (
 // fixture
 func getValidSegment(t testing.TB) *msg.Segment {
 	seg := msg.NewSegment("ABC")
-	seg.AddElement(
+	seg.AddElem(
 		msg.NewDataElem([]string{
 			"abc",
 		}),
 	)
 
-	seg.AddElement(
+	seg.AddElem(
 		msg.NewDataElem([]string{
 			"1",
 		}),
@@ -30,13 +30,13 @@ func getValidSegment(t testing.TB) *msg.Segment {
 // fixture: non-existant code
 func getInvalidSegmentNonExistantCode(t testing.TB) *msg.Segment {
 	seg := msg.NewSegment("ABC")
-	seg.AddElement(
+	seg.AddElem(
 		msg.NewDataElem([]string{
 			"abc",
 		}),
 	)
 
-	seg.AddElement(
+	seg.AddElem(
 		msg.NewDataElem([]string{
 			"3", // does not exist
 		}),
@@ -47,13 +47,13 @@ func getInvalidSegmentNonExistantCode(t testing.TB) *msg.Segment {
 // fixture: non-existant code
 func getInvalidSegmentIncorrectRepr(t testing.TB) *msg.Segment {
 	seg := msg.NewSegment("ABC")
-	seg.AddElement(
+	seg.AddElem(
 		msg.NewDataElem([]string{
 			"abc",
 		}),
 	)
 
-	seg.AddElement(
+	seg.AddElem(
 		msg.NewDataElem([]string{
 			"x", // should be numeric
 		}),

@@ -28,15 +28,15 @@ func (v *SegmentValidatorImpl) Validate(seg *msg.Segment) error {
 	}
 
 	numDataElemSpecs := len(spec.SegmentDataElemSpecs)
-	numDataElems := len(seg.Elements)
+	numDataElems := len(seg.Elems)
 	if numDataElemSpecs != numDataElems {
 		return errors.New(
 			fmt.Sprintf("Incorrect number of data elements: got %d (%v), expected %d",
-				numDataElems, seg.Elements, numDataElemSpecs))
+				numDataElems, seg.Elems, numDataElemSpecs))
 	}
 
 	return v.validateDataElems(
-		spec.SegmentDataElemSpecs, seg.Elements)
+		spec.SegmentDataElemSpecs, seg.Elems)
 }
 
 func (v *SegmentValidatorImpl) validateDataElems(

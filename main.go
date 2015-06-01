@@ -90,9 +90,9 @@ func main() {
 	log.Printf("Duration: %d ms", duration.Nanoseconds()/1e6)
 
 	/*
-		e := edi.NewElement("name1", "value1")
+		e := edi.NewElem("name1", "value1")
 		s := edi.NewSegment("segname1")
-		s.AddElement(e)
+		s.AddElem(e)
 
 		m := edi.NewMessage("messagename1")
 		m.AddSegment(s)
