@@ -2,14 +2,14 @@ package message
 
 import (
 	"fmt"
-	"github.com/bbiskup/edify/edifact/spec/segment"
+	ssp "github.com/bbiskup/edify/edifact/spec/segment"
 )
 
 type MockSegSpecProviderImpl struct {
 }
 
-func (p *MockSegSpecProviderImpl) Get(id string) *segment.SegSpec {
-	return segment.NewSegSpec(
+func (p *MockSegSpecProviderImpl) Get(id string) *ssp.SegSpec {
+	return ssp.NewSegSpec(
 		id, fmt.Sprintf("dummy_segment_spec-%s", id), "dummy_function", nil)
 }
 

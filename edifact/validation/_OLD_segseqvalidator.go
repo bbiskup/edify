@@ -4,7 +4,7 @@ import (
 	"fmt"
 	msg "github.com/bbiskup/edify/edifact/msg"
 	msgspec "github.com/bbiskup/edify/edifact/spec/message"
-	segspec "github.com/bbiskup/edify/edifact/spec/segment"
+	ssp "github.com/bbiskup/edify/edifact/spec/segment"
 	"log"
 )
 
@@ -17,12 +17,12 @@ type SegSeqValidator struct {
 type SegSeqErrKind string
 
 const (
-	missingMandatorySeg SegSeqErrKind = "missing_mandatory_segment"
-	noMoreSegs          SegSeqErrKind = "no_more_segments"
-	maxRepeatCountExceeded  SegSeqErrKind = "max_repeat_count_exceeded"
-	missingGroup            SegSeqErrKind = "missing_group"
-	noSegSpecs          SegSeqErrKind = "no_segment_specs"
-	noSegs              SegSeqErrKind = "no_segments"
+	missingMandatorySeg    SegSeqErrKind = "missing_mandatory_segment"
+	noMoreSegs             SegSeqErrKind = "no_more_segments"
+	maxRepeatCountExceeded SegSeqErrKind = "max_repeat_count_exceeded"
+	missingGroup           SegSeqErrKind = "missing_group"
+	noSegSpecs             SegSeqErrKind = "no_segment_specs"
+	noSegs                 SegSeqErrKind = "no_segments"
 	//unexpectedSeg       SegSeqErrKind = "unexpected_segment"
 	unexpectedErr SegSeqErrKind = "unexpected_err"
 )

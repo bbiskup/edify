@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"github.com/bbiskup/edify/edifact/msg"
 	dsp "github.com/bbiskup/edify/edifact/spec/dataelement"
-	spec_seg "github.com/bbiskup/edify/edifact/spec/segment"
+	ssp "github.com/bbiskup/edify/edifact/spec/segment"
 )
 
 type SegValidator interface {
@@ -18,7 +18,7 @@ type SegValidator interface {
 // - correctness of representation (repr)
 // - if a code mapping exists: validity of code
 type SegValidatorImpl struct {
-	segSpecMap spec_seg.SegSpecMap
+	segSpecMap ssp.SegSpecMap
 }
 
 func (v *SegValidatorImpl) Validate(seg *msg.Seg) error {
@@ -40,7 +40,7 @@ func (v *SegValidatorImpl) Validate(seg *msg.Seg) error {
 }
 
 func (v *SegValidatorImpl) validateDataElems(
-	segDataElemSpecs []*spec_seg.SegDataElemSpec,
+	segDataElemSpecs []*ssp.SegDataElemSpec,
 	dataElems []*msg.DataElem) error {
 
 	for i, segDataElemSpec := range segDataElemSpecs {
@@ -92,6 +92,6 @@ func (v *SegValidatorImpl) validateDataElem(
 	}
 }
 
-func NewSegValidatorImpl(segSpecMap spec_seg.SegSpecMap) *SegValidatorImpl {
+func NewSegValidatorImpl(segSpecMap ssp.SegSpecMap) *SegValidatorImpl {
 	return &SegValidatorImpl{segSpecMap: segSpecMap}
 }

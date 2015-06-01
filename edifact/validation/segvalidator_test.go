@@ -4,7 +4,7 @@ import (
 	"github.com/bbiskup/edify/edifact/msg"
 	csp "github.com/bbiskup/edify/edifact/spec/codes"
 	dsp "github.com/bbiskup/edify/edifact/spec/dataelement"
-	"github.com/bbiskup/edify/edifact/spec/segment"
+	ssp "github.com/bbiskup/edify/edifact/spec/segment"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 	"testing"
@@ -61,7 +61,7 @@ func getInvalidSegIncorrectRepr(t testing.TB) *msg.Seg {
 	return seg
 }
 
-func getSegSpecMap(t testing.TB) segment.SegSpecMap {
+func getSegSpecMap(t testing.TB) ssp.SegSpecMap {
 	de1Spec := csp.NewCodesSpec("100", "testcode_1", "testcode_1_desc",
 		[]*csp.CodeSpec{
 			csp.NewCodeSpec("1", "value_1", "descr_1"),
@@ -76,13 +76,13 @@ func getSegSpecMap(t testing.TB) segment.SegSpecMap {
 		"simple_2", "simple_2_name", "simple_2_descr", dsp.NewRepr(dsp.Num, true, 1), de1Spec)
 	require.Nil(t, err)
 
-	segDataElemSpecs := []*segment.SegDataElemSpec{
-		segment.NewSegDataElemSpec(de0, 1, true),
-		segment.NewSegDataElemSpec(de1, 1, true),
+	segDataElemSpecs := []*ssp.SegDataElemSpec{
+		ssp.NewSegDataElemSpec(de0, 1, true),
+		ssp.NewSegDataElemSpec(de1, 1, true),
 	}
 
-	segSpec := segment.NewSegSpec("ABC", "ABC_segment", "abc_function", segDataElemSpecs)
-	return segment.SegSpecMap{"ABC": segSpec}
+	segSpec := ssp.NewSegSpec("ABC", "ABC_segment", "abc_function", segDataElemSpecs)
+	return ssp.SegSpecMap{"ABC": segSpec}
 }
 
 func TestValidateValidSeg(t *testing.T) {

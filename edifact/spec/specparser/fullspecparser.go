@@ -5,7 +5,7 @@ import (
 	csp "github.com/bbiskup/edify/edifact/spec/codes"
 	dsp "github.com/bbiskup/edify/edifact/spec/dataelement"
 	"github.com/bbiskup/edify/edifact/spec/message"
-	"github.com/bbiskup/edify/edifact/spec/segment"
+	ssp "github.com/bbiskup/edify/edifact/spec/segment"
 	"log"
 	"os"
 	"strings"
@@ -82,9 +82,9 @@ func (p *FullSpecParser) parseCompositeDataElemSpecs(simpleDataElemSpecs dsp.Sim
 
 func (p *FullSpecParser) parseSegSpecs(
 	simpleDataElemSpecs dsp.SimpleDataElemSpecMap,
-	compositeDataElemSpecs dsp.CompositeDataElemSpecMap) (specs segment.SegSpecProvider, err error) {
+	compositeDataElemSpecs dsp.CompositeDataElemSpecMap) (specs ssp.SegSpecProvider, err error) {
 
-	parser := segment.NewSegSpecParser(simpleDataElemSpecs, compositeDataElemSpecs)
+	parser := ssp.NewSegSpecParser(simpleDataElemSpecs, compositeDataElemSpecs)
 	path := p.getPath("edsd", "EDSD")
 	specs, err = parser.ParseSpecFile(path)
 	if err != nil {
@@ -98,7 +98,7 @@ func (p *FullSpecParser) parseSegSpecs(
 	return specs, nil
 }
 
-func (p *FullSpecParser) parseMsgSpecs(segSpecs segment.SegSpecProvider) (msgSpecs []*message.MsgSpec, err error) {
+func (p *FullSpecParser) parseMsgSpecs(segSpecs ssp.SegSpecProvider) (msgSpecs []*message.MsgSpec, err error) {
 	msgDir := p.Dir + pathSeparator + "edmd"
 	parser := message.NewMsgSpecParser(segSpecs)
 	fmt.Printf("Parsing message specs with suffix '%s' in directory '%s'", p.Version, msgDir)

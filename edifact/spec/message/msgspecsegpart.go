@@ -2,14 +2,14 @@ package message
 
 import (
 	"fmt"
-	"github.com/bbiskup/edify/edifact/spec/segment"
+	ssp "github.com/bbiskup/edify/edifact/spec/segment"
 	"github.com/bbiskup/edify/edifact/util"
 )
 
 // Seg  specification in message specification
 type MsgSpecSegPart struct {
 	MsgSpecPartBase
-	SegSpec *segment.SegSpec
+	SegSpec *ssp.SegSpec
 }
 
 func (p *MsgSpecSegPart) Id() string {
@@ -30,7 +30,7 @@ func (p *MsgSpecSegPart) IsGroup() bool {
 }
 
 func NewMsgSpecSegPart(
-	segSpec *segment.SegSpec,
+	segSpec *ssp.SegSpec,
 	maxCount int, isMandatory bool, parent MsgSpecPart) *MsgSpecSegPart {
 
 	return &MsgSpecSegPart{

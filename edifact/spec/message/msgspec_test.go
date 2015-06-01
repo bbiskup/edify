@@ -1,7 +1,7 @@
 package message
 
 import (
-	"github.com/bbiskup/edify/edifact/spec/segment"
+	ssp "github.com/bbiskup/edify/edifact/spec/segment"
 	"github.com/stretchr/testify/assert"
 	"testing"
 	"time"
@@ -19,11 +19,11 @@ var partsSpec = []struct {
 	{
 		parts: []MsgSpecPart{
 			NewMsgSpecSegPart(
-				segment.NewSegSpec("UNH", "testname1", "testfunc1", nil), 1, false, nil),
+				ssp.NewSegSpec("UNH", "testname1", "testfunc1", nil), 1, false, nil),
 			NewMsgSpecSegPart(
-				segment.NewSegSpec("BGM", "testname1", "testfunc1", nil), 1, false, nil),
+				ssp.NewSegSpec("BGM", "testname1", "testfunc1", nil), 1, false, nil),
 			NewMsgSpecSegPart(
-				segment.NewSegSpec("UNT", "testname1", "testfunc1", nil), 1, false, nil),
+				ssp.NewSegSpec("UNT", "testname1", "testfunc1", nil), 1, false, nil),
 		},
 		expected: "Message testid (testname testrelease): 3 parts - UNH, BGM, UNT",
 	},

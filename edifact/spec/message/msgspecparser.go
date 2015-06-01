@@ -4,7 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"github.com/bbiskup/edify/edifact"
-	"github.com/bbiskup/edify/edifact/spec/segment"
+	ssp "github.com/bbiskup/edify/edifact/spec/segment"
 	"io/ioutil"
 	"os"
 	"path"
@@ -57,8 +57,8 @@ type SegGrpStart struct {
 
 type SegEntry struct {
 	RecordNum   int
-	SegId   string
-	SegName string
+	SegId       string
+	SegName     string
 	IsMandatory bool
 	MaxCount    int
 
@@ -76,7 +76,7 @@ type FileSpec struct {
 // Parser for message specifications
 // e.g. d14b/edmd/AUTHOR_D.14B
 type MsgSpecParser struct {
-	segSpecs segment.SegSpecProvider
+	segSpecs ssp.SegSpecProvider
 }
 
 func (p *MsgSpecParser) parseDate(dateStr string) (date time.Time, err error) {
@@ -346,8 +346,8 @@ func (p *MsgSpecParser) parseSegEntry(line string) (segmentEntry *SegEntry, err 
 
 	return &SegEntry{
 		RecordNum:    recordNum,
-		SegId:    match[2],
-		SegName:  strings.TrimSpace(match[3]),
+		SegId:        match[2],
+		SegName:      strings.TrimSpace(match[3]),
 		IsMandatory:  isMandatory,
 		MaxCount:     maxCount,
 		NestingLevel: len(bars),
@@ -548,7 +548,7 @@ func (p *MsgSpecParser) parseSpecDir_parallel(
 	return
 }
 
-func NewMsgSpecParser(segSpecs segment.SegSpecProvider) *MsgSpecParser {
+func NewMsgSpecParser(segSpecs ssp.SegSpecProvider) *MsgSpecParser {
 	return &MsgSpecParser{
 		segSpecs: segSpecs,
 	}
