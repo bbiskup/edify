@@ -24,7 +24,7 @@ type SegSeqGroupContext struct {
 	groupRepeatCount int
 
 	// current group; nil if top-level
-	repeatSegGroup *msg.RepeatSegGrp
+	repeatSegGroup *msg.RepSegGrp
 }
 
 func (c *SegSeqGroupContext) String() string {
@@ -57,7 +57,7 @@ func (c *SegSeqGroupContext) nextPart() msgspec.MsgSpecPart {
 func NewSegSeqGroupContext(
 	groupSpecPart *msgspec.MsgSpecSegGrpPart,
 	parts []msgspec.MsgSpecPart,
-	repeatSegGroup *msg.RepeatSegGrp,
+	repeatSegGroup *msg.RepSegGrp,
 ) *SegSeqGroupContext {
 
 	return &SegSeqGroupContext{

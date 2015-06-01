@@ -6,38 +6,38 @@ import (
 )
 
 // A segment that is repeated 1 to n times
-type RepeatSegGrp struct {
+type RepSegGrp struct {
 	groups []*SegGrp
 }
 
 // From Interface RepeatMsgPart
-func (g *RepeatSegGrp) Count() int {
+func (g *RepSegGrp) Count() int {
 	return len(g.groups)
 }
 
 // From SegOrGroup
-func (g *RepeatSegGrp) Id() string {
+func (g *RepSegGrp) Id() string {
 	return g.groups[0].Id()
 }
 
-func (g *RepeatSegGrp) Get(index int) *SegGrp {
+func (g *RepSegGrp) Get(index int) *SegGrp {
 	return g.groups[index]
 }
 
-func (g *RepeatSegGrp) GetLast() *SegGrp {
+func (g *RepSegGrp) GetLast() *SegGrp {
 	return g.groups[len(g.groups)-1]
 }
 
-func (g *RepeatSegGrp) RepeatSegGrp(group *SegGrp) {
+func (g *RepSegGrp) RepSegGrp(group *SegGrp) {
 	g.groups = append(g.groups, group)
 }
 
-func (g *RepeatSegGrp) AppendSegGroupToLast(group *RepeatSegGrp) {
+func (g *RepSegGrp) AppendSegGroupToLast(group *RepSegGrp) {
 	lastGroup := g.groups[len(g.groups)-1]
 	lastGroup.AppendSegGroup(group)
 }
 
-func (g *RepeatSegGrp) Dump(indent int) string {
+func (g *RepSegGrp) Dump(indent int) string {
 	var buf bytes.Buffer
 	indentStr := getIndentStr(indent)
 	for repeat, group := range g.groups {
@@ -48,8 +48,8 @@ func (g *RepeatSegGrp) Dump(indent int) string {
 	return buf.String()
 }
 
-func NewRepeatSegGrp(groups ...*SegGrp) *RepeatSegGrp {
-	return &RepeatSegGrp{
+func NewRepSegGrp(groups ...*SegGrp) *RepSegGrp {
+	return &RepSegGrp{
 		groups,
 	}
 }

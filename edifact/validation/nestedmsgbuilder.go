@@ -57,10 +57,10 @@ func (b *NestedMsgBuilder) RepSeg(segment *msg.Seg) {
 	repeatSeg.AddSeg(segment)
 }
 
-func (b *NestedMsgBuilder) AddSegGrp(name string) *msg.RepeatSegGrp {
+func (b *NestedMsgBuilder) AddSegGrp(name string) *msg.RepSegGrp {
 	log.Printf("BUILD: AddSegGrp %s", name)
 	newRepeatMsgPart := []msg.RepeatMsgPart{}
-	repeatSegGroup := msg.NewRepeatSegGrp(
+	repeatSegGroup := msg.NewRepSegGrp(
 		msg.NewSegGrp(name, newRepeatMsgPart))
 	gc := b.currentGroupContext()
 	if b.isAtTopLevel() {
@@ -76,8 +76,8 @@ func (b *NestedMsgBuilder) AddSegGrp(name string) *msg.RepeatSegGrp {
 	return repeatSegGroup
 }
 
-func (b *NestedMsgBuilder) RepeatSegGrp(segGrp *msg.SegGrp) {
-	log.Printf("BUILD: RepeatSegGrp %s NOT IMPLEMENTED", segGrp.Id())
+func (b *NestedMsgBuilder) RepSegGrp(segGrp *msg.SegGrp) {
+	log.Printf("BUILD: RepSegGrp %s NOT IMPLEMENTED", segGrp.Id())
 }
 
 func NewNestedMsgBuilder(msgName string, groupStack *util.Stack) *NestedMsgBuilder {

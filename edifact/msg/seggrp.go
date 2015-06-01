@@ -21,7 +21,7 @@ func (g *SegGrp) AppendSeg(segment *Seg) {
 	g.parts = append(g.parts, NewRepSeg(segment))
 }
 
-func (g *SegGrp) AppendSegGroup(segGrp *RepeatSegGrp) {
+func (g *SegGrp) AppendSegGroup(segGrp *RepSegGrp) {
 	g.parts = append(g.parts, segGrp)
 }
 
@@ -33,7 +33,7 @@ func (g *SegGrp) Dump(indent int) string {
 	indentStr := getIndentStr(indent)
 	var buf bytes.Buffer
 
-	// Indentation of group name handled by parent RepeatSegGrp
+	// Indentation of group name handled by parent RepSegGrp
 	buf.WriteString(fmt.Sprintf("Group %s\n", g.Id()))
 	for _, part := range g.parts {
 		buf.WriteString(indentStr + "  " + part.Dump(indent+1))
