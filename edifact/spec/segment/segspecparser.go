@@ -3,7 +3,7 @@ package segment
 import (
 	"errors"
 	"fmt"
-	"github.com/bbiskup/edify/edifact/spec/dataelement"
+	dsp "github.com/bbiskup/edify/edifact/spec/dataelement"
 	"github.com/bbiskup/edify/edifact/spec/specutil"
 	"github.com/bbiskup/edify/edifact/util"
 	"log"
@@ -23,8 +23,8 @@ const (
 
 // Parses segment specifications file (e.g. EDSD.14B)
 type SegSpecParser struct {
-	SimpleDataElemSpecs    dataelement.SimpleDataElemSpecMap
-	CompositeDataElemSpecs dataelement.CompositeDataElemSpecMap
+	SimpleDataElemSpecs    dsp.SimpleDataElemSpecMap
+	CompositeDataElemSpecs dsp.CompositeDataElemSpecMap
 	headerRE               *regexp.Regexp
 	dataElemRE             *regexp.Regexp
 }
@@ -110,7 +110,7 @@ func (p *SegSpecParser) parseDataElemSpecs(
 			return nil, err
 		}
 
-		var dataElemSpec dataelement.DataElemSpec
+		var dataElemSpec dsp.DataElemSpec
 		switch kind {
 		case Simple:
 			dataElemSpec = p.SimpleDataElemSpecs[id]
@@ -198,8 +198,8 @@ func (p *SegSpecParser) ParseSpecFile(fileName string) (specs SegSpecProvider, e
 }
 
 func NewSegSpecParser(
-	simpleDataElemSpecs dataelement.SimpleDataElemSpecMap,
-	compositeDataElemSpecs dataelement.CompositeDataElemSpecMap) *SegSpecParser {
+	simpleDataElemSpecs dsp.SimpleDataElemSpecMap,
+	compositeDataElemSpecs dsp.CompositeDataElemSpecMap) *SegSpecParser {
 
 	return &SegSpecParser{
 		SimpleDataElemSpecs:    simpleDataElemSpecs,

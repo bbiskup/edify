@@ -4,7 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"github.com/bbiskup/edify/edifact/msg"
-	de "github.com/bbiskup/edify/edifact/spec/dataelement"
+	dsp "github.com/bbiskup/edify/edifact/spec/dataelement"
 	spec_seg "github.com/bbiskup/edify/edifact/spec/segment"
 )
 
@@ -55,7 +55,7 @@ func (v *SegValidatorImpl) validateDataElems(
 }
 
 func (v *SegValidatorImpl) validateSimpleDataElem(
-	simpleDataElemSpec *de.SimpleDataElemSpec,
+	simpleDataElemSpec *dsp.SimpleDataElemSpec,
 	value string) error {
 
 	_, err := simpleDataElemSpec.Repr.Validate(value)
@@ -72,13 +72,13 @@ func (v *SegValidatorImpl) validateSimpleDataElem(
 }
 
 func (v *SegValidatorImpl) validateDataElem(
-	dataElemSpec de.DataElemSpec, dataElem *msg.DataElem) error {
+	dataElemSpec dsp.DataElemSpec, dataElem *msg.DataElem) error {
 
 	// TODO validate codes
 	switch dataElemSpec := dataElemSpec.(type) {
-	case *de.SimpleDataElemSpec:
+	case *dsp.SimpleDataElemSpec:
 		return v.validateSimpleDataElem(dataElemSpec, dataElem.Values[0])
-	case *de.CompositeDataElemSpec:
+	case *dsp.CompositeDataElemSpec:
 		for componentIndex, componentSpec := range dataElemSpec.ComponentSpecs {
 			err := v.validateSimpleDataElem(
 				componentSpec.SimpleDataElemSpec, dataElem.Values[componentIndex])

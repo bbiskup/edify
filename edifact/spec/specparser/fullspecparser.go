@@ -3,7 +3,7 @@ package specparser
 import (
 	"fmt"
 	csp "github.com/bbiskup/edify/edifact/spec/codes"
-	"github.com/bbiskup/edify/edifact/spec/dataelement"
+	dsp "github.com/bbiskup/edify/edifact/spec/dataelement"
 	"github.com/bbiskup/edify/edifact/spec/message"
 	"github.com/bbiskup/edify/edifact/spec/segment"
 	"log"
@@ -36,9 +36,9 @@ func (p *FullSpecParser) parseCodeSpecs() (csp.CodesSpecMap, error) {
 	return specs, nil
 }
 
-func (p *FullSpecParser) parseSimpleDataElemSpecs(codesSpecs csp.CodesSpecMap) (dataelement.SimpleDataElemSpecMap, error) {
+func (p *FullSpecParser) parseSimpleDataElemSpecs(codesSpecs csp.CodesSpecMap) (dsp.SimpleDataElemSpecMap, error) {
 
-	parser := dataelement.NewSimpleDataElemSpecParser(codesSpecs)
+	parser := dsp.NewSimpleDataElemSpecParser(codesSpecs)
 	path := p.getPath("eded", "EDED")
 	specs, err := parser.ParseSpecFile(path)
 	if err != nil {
@@ -49,7 +49,7 @@ func (p *FullSpecParser) parseSimpleDataElemSpecs(codesSpecs csp.CodesSpecMap) (
 		log.Printf("Loaded %d simple data element specs", numSpecs)
 
 		// retrieve first element which uses codes (for display)
-		var firstVal *dataelement.SimpleDataElemSpec
+		var firstVal *dsp.SimpleDataElemSpec
 		for _, v := range specs {
 			firstVal = v
 			if firstVal.CodesSpecs != nil {
@@ -65,8 +65,8 @@ func (p *FullSpecParser) parseSimpleDataElemSpecs(codesSpecs csp.CodesSpecMap) (
 	return specs, nil
 }
 
-func (p *FullSpecParser) parseCompositeDataElemSpecs(simpleDataElemSpecs dataelement.SimpleDataElemSpecMap) (dataelement.CompositeDataElemSpecMap, error) {
-	parser := dataelement.NewCompositeDataElemSpecParser(simpleDataElemSpecs)
+func (p *FullSpecParser) parseCompositeDataElemSpecs(simpleDataElemSpecs dsp.SimpleDataElemSpecMap) (dsp.CompositeDataElemSpecMap, error) {
+	parser := dsp.NewCompositeDataElemSpecParser(simpleDataElemSpecs)
 	path := p.getPath("edcd", "EDCD")
 	specs, err := parser.ParseSpecFile(path)
 	if err != nil {
@@ -81,8 +81,8 @@ func (p *FullSpecParser) parseCompositeDataElemSpecs(simpleDataElemSpecs dataele
 }
 
 func (p *FullSpecParser) parseSegSpecs(
-	simpleDataElemSpecs dataelement.SimpleDataElemSpecMap,
-	compositeDataElemSpecs dataelement.CompositeDataElemSpecMap) (specs segment.SegSpecProvider, err error) {
+	simpleDataElemSpecs dsp.SimpleDataElemSpecMap,
+	compositeDataElemSpecs dsp.CompositeDataElemSpecMap) (specs segment.SegSpecProvider, err error) {
 
 	parser := segment.NewSegSpecParser(simpleDataElemSpecs, compositeDataElemSpecs)
 	path := p.getPath("edsd", "EDSD")

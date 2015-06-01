@@ -2,14 +2,14 @@ package segment
 
 import (
 	"fmt"
-	de "github.com/bbiskup/edify/edifact/spec/dataelement"
+	dsp "github.com/bbiskup/edify/edifact/spec/dataelement"
 	"github.com/bbiskup/edify/edifact/util"
 )
 
 // A data element which is part of a segment specification
 // (EDSD)
 type SegDataElemSpec struct {
-	DataElemSpec de.DataElemSpec
+	DataElemSpec dsp.DataElemSpec
 	Count        int
 	IsMandatory  bool
 }
@@ -20,7 +20,7 @@ func (e *SegDataElemSpec) String() string {
 }
 
 func NewSegDataElemSpec(
-	dataElemSpec de.DataElemSpec, count int, isMandatory bool) *SegDataElemSpec {
+	dataElemSpec dsp.DataElemSpec, count int, isMandatory bool) *SegDataElemSpec {
 	return &SegDataElemSpec{
 		DataElemSpec: dataElemSpec,
 		Count:        count,

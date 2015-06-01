@@ -3,7 +3,7 @@ package validation
 import (
 	"github.com/bbiskup/edify/edifact/msg"
 	csp "github.com/bbiskup/edify/edifact/spec/codes"
-	de "github.com/bbiskup/edify/edifact/spec/dataelement"
+	dsp "github.com/bbiskup/edify/edifact/spec/dataelement"
 	"github.com/bbiskup/edify/edifact/spec/segment"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
@@ -68,12 +68,12 @@ func getSegSpecMap(t testing.TB) segment.SegSpecMap {
 			csp.NewCodeSpec("2", "value_2", "descr_2"),
 		})
 
-	de0, err := de.NewSimpleDataElemSpec(
-		"simple_1", "simple_1_name", "simple_1_descr", de.NewRepr(de.Alpha, true, 10), nil)
+	de0, err := dsp.NewSimpleDataElemSpec(
+		"simple_1", "simple_1_name", "simple_1_descr", dsp.NewRepr(dsp.Alpha, true, 10), nil)
 	require.Nil(t, err)
 
-	de1, err := de.NewSimpleDataElemSpec(
-		"simple_2", "simple_2_name", "simple_2_descr", de.NewRepr(de.Num, true, 1), de1Spec)
+	de1, err := dsp.NewSimpleDataElemSpec(
+		"simple_2", "simple_2_name", "simple_2_descr", dsp.NewRepr(dsp.Num, true, 1), de1Spec)
 	require.Nil(t, err)
 
 	segDataElemSpecs := []*segment.SegDataElemSpec{
