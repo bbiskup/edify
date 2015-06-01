@@ -12,8 +12,8 @@ func fixtureTextCodesSpecMap() codes.CodesSpecMap {
 	return specMap
 }
 
-func fixtureSimpleDataElemSpec(id string) *SimpleDataElementSpec {
-	result, err := NewSimpleDataElementSpec(
+func fixtureSimpleDataElemSpec(id string) *SimpleDataElemSpec {
+	result, err := NewSimpleDataElemSpec(
 		id, fmt.Sprintf("name_%s", id), fmt.Sprintf("descr_%s", id),
 		NewRepr(AlphaNum, true, 3), nil)
 	if err != nil {
@@ -22,8 +22,8 @@ func fixtureSimpleDataElemSpec(id string) *SimpleDataElementSpec {
 	return result
 }
 
-func fixtureSimpleDataElems(ids ...string) SimpleDataElementSpecMap {
-	result := SimpleDataElementSpecMap{}
+func fixtureSimpleDataElems(ids ...string) SimpleDataElemSpecMap {
+	result := SimpleDataElemSpecMap{}
 	for _, id := range ids {
 		result[id] = fixtureSimpleDataElemSpec(id)
 	}
@@ -34,16 +34,16 @@ func fixtureSimpleDataElems(ids ...string) SimpleDataElementSpecMap {
 // Code specs are omitted, so this fixture is suitable only for
 // parsing, not validation.
 // Non-key attributes use dummy values
-func fixtureMultiSimpleDataElementSpecs() SimpleDataElementSpecMap {
+func fixtureMultiSimpleDataElemSpecs() SimpleDataElemSpecMap {
 	return fixtureSimpleDataElems("8179", "1131", "3055", "8178")
 }
 
-func fixtureCompositeDataElemSpec(id string) *CompositeDataElementSpec {
-	return NewCompositeDataElementSpec(id, fmt.Sprintf("name_%s", id), fmt.Sprintf("descr_%s", id), nil)
+func fixtureCompositeDataElemSpec(id string) *CompositeDataElemSpec {
+	return NewCompositeDataElemSpec(id, fmt.Sprintf("name_%s", id), fmt.Sprintf("descr_%s", id), nil)
 }
 
-func fixtureCompositeDataElems(ids ...string) CompositeDataElementSpecMap {
-	result := CompositeDataElementSpecMap{}
+func fixtureCompositeDataElems(ids ...string) CompositeDataElemSpecMap {
+	result := CompositeDataElemSpecMap{}
 	for _, id := range ids {
 		result[id] = fixtureCompositeDataElemSpec(id)
 	}
@@ -54,7 +54,7 @@ func fixtureCompositeDataElems(ids ...string) CompositeDataElementSpecMap {
 // Component data elements are omitted, so this fixture is suitable only for
 // parsing, not validation
 // Non-key attributes use dummy values
-func fixtureCompositeDataElemsForSegmentADR() CompositeDataElementSpecMap {
+func fixtureCompositeDataElemsForSegmentADR() CompositeDataElemSpecMap {
 	return fixtureCompositeDataElems("C817", "C090", "C819", "C517")
 }
 
@@ -62,6 +62,6 @@ func fixtureCompositeDataElemsForSegmentADR() CompositeDataElementSpecMap {
 // Component data elements are omitted, so this fixture is suitable only for
 // parsing, not validation
 // Non-key attributes use dummy values
-func fixtureSimpleDataElemsForSegmentADR() SimpleDataElementSpecMap {
+func fixtureSimpleDataElemsForSegmentADR() SimpleDataElemSpecMap {
 	return fixtureSimpleDataElems("3164", "3251", "3207")
 }

@@ -40,12 +40,12 @@ package query
 // 	return segment, nil
 // }
 
-// func (n *Navigator) GetSegmentDataElem(queryStr string, message *msg.NestedMsg) (*msg.DataElement, error) {
+// func (n *Navigator) GetSegmentDataElem(queryStr string, message *msg.NestedMsg) (*msg.DataElem, error) {
 // 	msgPart, err := n.navigate(queryStr, message)
 // 	if err != nil {
 // 		return nil, err
 // 	}
-// 	dataElem, ok := msgPart.(*msg.DataElement)
+// 	dataElem, ok := msgPart.(*msg.DataElem)
 // 	if !ok {
 // 		return nil, errors.New(fmt.Sprintf("Unexpected type %T", dataElem))
 // 	}

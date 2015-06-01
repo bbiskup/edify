@@ -27,21 +27,21 @@ func (v *SegmentValidatorImpl) Validate(seg *msg.Segment) error {
 		return errors.New(fmt.Sprintf("No spec for segment ID '%s'", seg.Id()))
 	}
 
-	numDataElementSpecs := len(spec.SegmentDataElementSpecs)
-	numDataElements := len(seg.Elements)
-	if numDataElementSpecs != numDataElements {
+	numDataElemSpecs := len(spec.SegmentDataElemSpecs)
+	numDataElems := len(seg.Elements)
+	if numDataElemSpecs != numDataElems {
 		return errors.New(
 			fmt.Sprintf("Incorrect number of data elements: got %d (%v), expected %d",
-				numDataElements, seg.Elements, numDataElementSpecs))
+				numDataElems, seg.Elements, numDataElemSpecs))
 	}
 
 	return v.validateDataElems(
-		spec.SegmentDataElementSpecs, seg.Elements)
+		spec.SegmentDataElemSpecs, seg.Elements)
 }
 
 func (v *SegmentValidatorImpl) validateDataElems(
-	segmentDataElemSpecs []*spec_seg.SegmentDataElementSpec,
-	dataElems []*msg.DataElement) error {
+	segmentDataElemSpecs []*spec_seg.SegmentDataElemSpec,
+	dataElems []*msg.DataElem) error {
 
 	for i, segDataElemSpec := range segmentDataElemSpecs {
 		dataElem := dataElems[i]
@@ -55,7 +55,7 @@ func (v *SegmentValidatorImpl) validateDataElems(
 }
 
 func (v *SegmentValidatorImpl) validateSimpleDataElem(
-	simpleDataElemSpec *de.SimpleDataElementSpec,
+	simpleDataElemSpec *de.SimpleDataElemSpec,
 	value string) error {
 
 	_, err := simpleDataElemSpec.Repr.Validate(value)
@@ -72,13 +72,13 @@ func (v *SegmentValidatorImpl) validateSimpleDataElem(
 }
 
 func (v *SegmentValidatorImpl) validateDataElem(
-	dataElemSpec de.DataElementSpec, dataElem *msg.DataElement) error {
+	dataElemSpec de.DataElemSpec, dataElem *msg.DataElem) error {
 
 	// TODO validate codes
 	switch dataElemSpec := dataElemSpec.(type) {
-	case *de.SimpleDataElementSpec:
+	case *de.SimpleDataElemSpec:
 		return v.validateSimpleDataElem(dataElemSpec, dataElem.Values[0])
-	case *de.CompositeDataElementSpec:
+	case *de.CompositeDataElemSpec:
 		for componentIndex, componentSpec := range dataElemSpec.ComponentSpecs {
 			err := v.validateSimpleDataElem(
 				componentSpec.SimpleDataElemSpec, dataElem.Values[componentIndex])

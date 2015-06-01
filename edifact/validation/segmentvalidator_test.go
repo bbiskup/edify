@@ -14,13 +14,13 @@ import (
 func getValidSegment(t testing.TB) *msg.Segment {
 	seg := msg.NewSegment("ABC")
 	seg.AddElement(
-		msg.NewDataElement([]string{
+		msg.NewDataElem([]string{
 			"abc",
 		}),
 	)
 
 	seg.AddElement(
-		msg.NewDataElement([]string{
+		msg.NewDataElem([]string{
 			"1",
 		}),
 	)
@@ -31,13 +31,13 @@ func getValidSegment(t testing.TB) *msg.Segment {
 func getInvalidSegmentNonExistantCode(t testing.TB) *msg.Segment {
 	seg := msg.NewSegment("ABC")
 	seg.AddElement(
-		msg.NewDataElement([]string{
+		msg.NewDataElem([]string{
 			"abc",
 		}),
 	)
 
 	seg.AddElement(
-		msg.NewDataElement([]string{
+		msg.NewDataElem([]string{
 			"3", // does not exist
 		}),
 	)
@@ -48,13 +48,13 @@ func getInvalidSegmentNonExistantCode(t testing.TB) *msg.Segment {
 func getInvalidSegmentIncorrectRepr(t testing.TB) *msg.Segment {
 	seg := msg.NewSegment("ABC")
 	seg.AddElement(
-		msg.NewDataElement([]string{
+		msg.NewDataElem([]string{
 			"abc",
 		}),
 	)
 
 	seg.AddElement(
-		msg.NewDataElement([]string{
+		msg.NewDataElem([]string{
 			"x", // should be numeric
 		}),
 	)
@@ -68,17 +68,17 @@ func getSegSpecMap(t testing.TB) segment.SegSpecMap {
 			codes.NewCodeSpec("2", "value_2", "descr_2"),
 		})
 
-	de0, err := de.NewSimpleDataElementSpec(
+	de0, err := de.NewSimpleDataElemSpec(
 		"simple_1", "simple_1_name", "simple_1_descr", de.NewRepr(de.Alpha, true, 10), nil)
 	require.Nil(t, err)
 
-	de1, err := de.NewSimpleDataElementSpec(
+	de1, err := de.NewSimpleDataElemSpec(
 		"simple_2", "simple_2_name", "simple_2_descr", de.NewRepr(de.Num, true, 1), de1Spec)
 	require.Nil(t, err)
 
-	segDataElemSpecs := []*segment.SegmentDataElementSpec{
-		segment.NewSegmentDataElementSpec(de0, 1, true),
-		segment.NewSegmentDataElementSpec(de1, 1, true),
+	segDataElemSpecs := []*segment.SegmentDataElemSpec{
+		segment.NewSegmentDataElemSpec(de0, 1, true),
+		segment.NewSegmentDataElemSpec(de1, 1, true),
 	}
 
 	segSpec := segment.NewSegSpec("ABC", "ABC_segment", "abc_function", segDataElemSpecs)

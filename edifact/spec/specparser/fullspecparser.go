@@ -36,9 +36,9 @@ func (p *FullSpecParser) parseCodeSpecs() (codes.CodesSpecMap, error) {
 	return specs, nil
 }
 
-func (p *FullSpecParser) parseSimpleDataElemSpecs(codesSpecs codes.CodesSpecMap) (dataelement.SimpleDataElementSpecMap, error) {
+func (p *FullSpecParser) parseSimpleDataElemSpecs(codesSpecs codes.CodesSpecMap) (dataelement.SimpleDataElemSpecMap, error) {
 
-	parser := dataelement.NewSimpleDataElementSpecParser(codesSpecs)
+	parser := dataelement.NewSimpleDataElemSpecParser(codesSpecs)
 	path := p.getPath("eded", "EDED")
 	specs, err := parser.ParseSpecFile(path)
 	if err != nil {
@@ -49,7 +49,7 @@ func (p *FullSpecParser) parseSimpleDataElemSpecs(codesSpecs codes.CodesSpecMap)
 		log.Printf("Loaded %d simple data element specs", numSpecs)
 
 		// retrieve first element which uses codes (for display)
-		var firstVal *dataelement.SimpleDataElementSpec
+		var firstVal *dataelement.SimpleDataElemSpec
 		for _, v := range specs {
 			firstVal = v
 			if firstVal.CodesSpecs != nil {
@@ -65,8 +65,8 @@ func (p *FullSpecParser) parseSimpleDataElemSpecs(codesSpecs codes.CodesSpecMap)
 	return specs, nil
 }
 
-func (p *FullSpecParser) parseCompositeDataElemSpecs(simpleDataElemSpecs dataelement.SimpleDataElementSpecMap) (dataelement.CompositeDataElementSpecMap, error) {
-	parser := dataelement.NewCompositeDataElementSpecParser(simpleDataElemSpecs)
+func (p *FullSpecParser) parseCompositeDataElemSpecs(simpleDataElemSpecs dataelement.SimpleDataElemSpecMap) (dataelement.CompositeDataElemSpecMap, error) {
+	parser := dataelement.NewCompositeDataElemSpecParser(simpleDataElemSpecs)
 	path := p.getPath("edcd", "EDCD")
 	specs, err := parser.ParseSpecFile(path)
 	if err != nil {
@@ -81,8 +81,8 @@ func (p *FullSpecParser) parseCompositeDataElemSpecs(simpleDataElemSpecs dataele
 }
 
 func (p *FullSpecParser) parseSegSpecs(
-	simpleDataElemSpecs dataelement.SimpleDataElementSpecMap,
-	compositeDataElemSpecs dataelement.CompositeDataElementSpecMap) (specs segment.SegSpecProvider, err error) {
+	simpleDataElemSpecs dataelement.SimpleDataElemSpecMap,
+	compositeDataElemSpecs dataelement.CompositeDataElemSpecMap) (specs segment.SegSpecProvider, err error) {
 
 	parser := segment.NewSegSpecParser(simpleDataElemSpecs, compositeDataElemSpecs)
 	path := p.getPath("edsd", "EDSD")

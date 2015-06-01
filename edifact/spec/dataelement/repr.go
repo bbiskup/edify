@@ -56,11 +56,11 @@ func IsEDIFACTAlphabetic(char rune) bool {
 	return !IsNumChar(char)
 }
 
-func (r *Repr) Validate(dataElementStr string) (valid bool, err error) {
+func (r *Repr) Validate(dataElemStr string) (valid bool, err error) {
 	var typ = r.Typ
 	var strLen uint32
 
-	for _, c := range dataElementStr {
+	for _, c := range dataElemStr {
 		strLen++
 		if typ == AlphaNum {
 			continue
@@ -76,12 +76,12 @@ func (r *Repr) Validate(dataElementStr string) (valid bool, err error) {
 	if r.Range {
 		if strLen > r.Max {
 			return false, errors.New(fmt.Sprintf("String too long: '%s' (max: %d)",
-				dataElementStr, r.Max))
+				dataElemStr, r.Max))
 		}
 	} else {
 		if strLen != r.Max {
 			return false, errors.New(fmt.Sprintf("String '%s' should have %d characters)",
-				dataElementStr, r.Max))
+				dataElemStr, r.Max))
 		}
 	}
 	return true, nil

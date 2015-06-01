@@ -7,7 +7,7 @@ import (
 
 type Segment struct {
 	id       string
-	Elements []*DataElement
+	Elements []*DataElem
 }
 
 // From interface SegmentOrGroup
@@ -23,11 +23,11 @@ func (s *Segment) String() string {
 	return fmt.Sprintf("%s\n%s", s.id, buf.String())
 }
 
-func (s *Segment) AddElement(element *DataElement) {
+func (s *Segment) AddElement(element *DataElem) {
 	s.Elements = append(s.Elements, element)
 }
 
-func (s *Segment) AddElements(elements []*DataElement) {
+func (s *Segment) AddElements(elements []*DataElem) {
 	s.Elements = elements
 }
 
@@ -37,5 +37,5 @@ func (s *Segment) Dump(indent int) string {
 }
 
 func NewSegment(id string) *Segment {
-	return &Segment{id, []*DataElement{}}
+	return &Segment{id, []*DataElem{}}
 }

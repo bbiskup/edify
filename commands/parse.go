@@ -36,11 +36,11 @@ func ParseFile(fileName string) error {
 	filePart := pathParts[len(pathParts)-1]
 
 	/*if strings.HasPrefix(filePart, "EDED") {
-		return ParseSimpleDataElements(fileName)
+		return ParseSimpleDataElems(fileName)
 	}
 
 	if strings.HasPrefix(filePart, "EDCD") {
-		return ParseCompositeDataElements(fileName)
+		return ParseCompositeDataElems(fileName)
 	}*/
 
 	if strings.HasPrefix(filePart, "UNCL") {
@@ -51,9 +51,9 @@ func ParseFile(fileName string) error {
 	return errors.New(fmt.Sprintf("Unrecognized file: %s", fileName))
 }
 
-// func ParseSimpleDataElements(fileName string) error {
-// 	log.Printf("ParseSimpleDataElements %s\n", fileName)
-// 	p := dataelement.NewSimpleDataElementSpecParser()
+// func ParseSimpleDataElems(fileName string) error {
+// 	log.Printf("ParseSimpleDataElems %s\n", fileName)
+// 	p := dataelement.NewSimpleDataElemSpecParser()
 // 	specs, err := p.ParseSpecFile(fileName)
 // 	if err != nil {
 // 		return err
@@ -63,9 +63,9 @@ func ParseFile(fileName string) error {
 // 	return nil
 // }
 
-// func ParseCompositeDataElements(fileName string) error {
-// 	log.Printf("ParseCompositeDataElements %s\n", fileName)
-// 	p := dataelement.NewCompositeDataElementSpecParser()
+// func ParseCompositeDataElems(fileName string) error {
+// 	log.Printf("ParseCompositeDataElems %s\n", fileName)
+// 	p := dataelement.NewCompositeDataElemSpecParser()
 // 	specs, err := p.ParseSpecFile(fileName)
 // 	if err != nil {
 // 		return err

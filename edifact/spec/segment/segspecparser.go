@@ -14,17 +14,17 @@ import (
 	"unicode/utf8"
 )
 
-type DataElementKind int
+type DataElemKind int
 
 const (
-	Simple DataElementKind = iota
+	Simple DataElemKind = iota
 	Composite
 )
 
 // Parses segment specifications file (e.g. EDSD.14B)
 type SegSpecParser struct {
-	SimpleDataElemSpecs    dataelement.SimpleDataElementSpecMap
-	CompositeDataElemSpecs dataelement.CompositeDataElementSpecMap
+	SimpleDataElemSpecs    dataelement.SimpleDataElemSpecMap
+	CompositeDataElemSpecs dataelement.CompositeDataElemSpecMap
 	headerRE               *regexp.Regexp
 	dataElemRE             *regexp.Regexp
 }
@@ -33,7 +33,7 @@ type SegSpecParser struct {
 // "020    C138 PRICE MULTIPLIER INFORMATION               C    1"
 func (p *SegSpecParser) parseDataElemSpec(
 	specStr string) (pos int, id string,
-	dataElementKind DataElementKind,
+	dataElemKind DataElemKind,
 	count int, isMandatory bool,
 	err error) {
 
@@ -58,9 +58,9 @@ func (p *SegSpecParser) parseDataElemSpec(
 	}
 
 	if id[0] == 'C' {
-		dataElementKind = Composite
+		dataElemKind = Composite
 	} else {
-		dataElementKind = Simple
+		dataElemKind = Simple
 	}
 
 	// name = strings.TrimSpace(dataElemMatch[3])
@@ -83,10 +83,10 @@ func (p *SegSpecParser) parseDataElemSpec(
 	return
 }
 
-func (p *SegSpecParser) parseDataElementSpecs(
-	dataElementSpecGroups [][]string) (dataElements []*SegmentDataElementSpec, err error) {
+func (p *SegSpecParser) parseDataElemSpecs(
+	dataElemSpecGroups [][]string) (dataElems []*SegmentDataElemSpec, err error) {
 
-	for _, group := range dataElementSpecGroups {
+	for _, group := range dataElemSpecGroups {
 		if len(group) == 0 {
 			return nil, errors.New(fmt.Sprintf("Malformed data element spec group: '%s'", group))
 		}
@@ -110,7 +110,7 @@ func (p *SegSpecParser) parseDataElementSpecs(
 			return nil, err
 		}
 
-		var dataElemSpec dataelement.DataElementSpec
+		var dataElemSpec dataelement.DataElemSpec
 		switch kind {
 		case Simple:
 			dataElemSpec = p.SimpleDataElemSpecs[id]
@@ -122,8 +122,8 @@ func (p *SegSpecParser) parseDataElementSpecs(
 			return nil, errors.New(fmt.Sprintf("Data element not found: %s", id))
 		}
 
-		segmentDataElementSpec := NewSegmentDataElementSpec(dataElemSpec, count, isMandatory)
-		dataElements = append(dataElements, segmentDataElementSpec)
+		segmentDataElemSpec := NewSegmentDataElemSpec(dataElemSpec, count, isMandatory)
+		dataElems = append(dataElems, segmentDataElemSpec)
 	}
 	return
 }
@@ -171,13 +171,13 @@ func (p *SegSpecParser) ParseSpec(specLines []string) (spec *SegSpec, err error)
 		return nil, err
 	}
 
-	dataElementSpecGroups := groups[2:]
-	dataElementSpecs, err := p.parseDataElementSpecs(dataElementSpecGroups)
+	dataElemSpecGroups := groups[2:]
+	dataElemSpecs, err := p.parseDataElemSpecs(dataElemSpecGroups)
 	if err != nil {
 		return
 	}
 
-	return NewSegSpec(id, name, fun, dataElementSpecs), nil
+	return NewSegSpec(id, name, fun, dataElemSpecs), nil
 }
 
 func (p *SegSpecParser) ParseSpecFile(fileName string) (specs SegSpecProvider, err error) {
@@ -198,8 +198,8 @@ func (p *SegSpecParser) ParseSpecFile(fileName string) (specs SegSpecProvider, e
 }
 
 func NewSegSpecParser(
-	simpleDataElemSpecs dataelement.SimpleDataElementSpecMap,
-	compositeDataElemSpecs dataelement.CompositeDataElementSpecMap) *SegSpecParser {
+	simpleDataElemSpecs dataelement.SimpleDataElemSpecMap,
+	compositeDataElemSpecs dataelement.CompositeDataElemSpecMap) *SegSpecParser {
 
 	return &SegSpecParser{
 		SimpleDataElemSpecs:    simpleDataElemSpecs,

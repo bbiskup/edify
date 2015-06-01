@@ -11,13 +11,13 @@ const dataElemSpecStr = "010    C817 ADDRESS USAGE                              
 func TestParseDataElemSpec(t *testing.T) {
 	p := NewSegSpecParser(nil, nil)
 
-	pos, id, dataElementKind, count, isMandatory, err := p.parseDataElemSpec(dataElemSpecStr)
+	pos, id, dataElemKind, count, isMandatory, err := p.parseDataElemSpec(dataElemSpecStr)
 	assert.Nil(t, err)
 	assert.Equal(t, 10, pos)
 	assert.Equal(t, "C817", id)
 	assert.Equal(t, 1, count)
 	assert.False(t, isMandatory)
-	assert.Equal(t, Composite, dataElementKind)
+	assert.Equal(t, Composite, dataElemKind)
 }
 
 const segSpec = `
@@ -46,6 +46,6 @@ func TestParseSpec(t *testing.T) {
 	assert.Equal(t, "PHYSICAL OR LOGICAL STATE", segSpec.Name)
 	assert.Equal(t, "To describe a physical or logical state.", segSpec.Function)
 
-	lenSegmentDataElementSpecs := len(segSpec.SegmentDataElementSpecs)
-	assert.Equal(t, 2, lenSegmentDataElementSpecs)
+	lenSegmentDataElemSpecs := len(segSpec.SegmentDataElemSpecs)
+	assert.Equal(t, 2, lenSegmentDataElemSpecs)
 }
