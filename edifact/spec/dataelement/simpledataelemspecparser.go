@@ -11,7 +11,7 @@ package dataelement
 import (
 	"errors"
 	"fmt"
-	"github.com/bbiskup/edify/edifact/spec/codes"
+	csp "github.com/bbiskup/edify/edifact/spec/codes"
 	"github.com/bbiskup/edify/edifact/spec/specutil"
 	"github.com/bbiskup/edify/edifact/util"
 	"log"
@@ -27,7 +27,7 @@ const (
 )
 
 type SimpleDataElemSpecParser struct {
-	codesSpecs codes.CodesSpecMap
+	codesSpecs csp.CodesSpecMap
 	numLineRE  *regexp.Regexp
 }
 
@@ -125,7 +125,7 @@ func (p *SimpleDataElemSpecParser) ParseSpecFile(fileName string) (specs SimpleD
 	return result, err
 }
 
-func NewSimpleDataElemSpecParser(codesSpecs codes.CodesSpecMap) *SimpleDataElemSpecParser {
+func NewSimpleDataElemSpecParser(codesSpecs csp.CodesSpecMap) *SimpleDataElemSpecParser {
 	return &SimpleDataElemSpecParser{
 		codesSpecs: codesSpecs,
 		numLineRE: regexp.MustCompile(

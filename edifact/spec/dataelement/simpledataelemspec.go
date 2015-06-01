@@ -3,7 +3,7 @@ package dataelement
 import (
 	"bytes"
 	"fmt"
-	"github.com/bbiskup/edify/edifact/spec/codes"
+	csp "github.com/bbiskup/edify/edifact/spec/codes"
 	"github.com/bbiskup/edify/edifact/util"
 )
 
@@ -13,7 +13,7 @@ type SimpleDataElemSpec struct {
 	name       string
 	Descr      string
 	Repr       *Repr
-	CodesSpecs *codes.CodesSpec
+	CodesSpecs *csp.CodesSpec
 }
 
 func (s *SimpleDataElemSpec) String() string {
@@ -30,7 +30,7 @@ func (s *SimpleDataElemSpec) Name() string {
 	return s.name
 }
 
-func NewSimpleDataElemSpec(id string, name string, descr string, repr *Repr, codes *codes.CodesSpec) (*SimpleDataElemSpec, error) {
+func NewSimpleDataElemSpec(id string, name string, descr string, repr *Repr, codes *csp.CodesSpec) (*SimpleDataElemSpec, error) {
 	err := util.CheckNotNil(id, name, descr, repr, codes)
 	if err != nil {
 		return nil, err

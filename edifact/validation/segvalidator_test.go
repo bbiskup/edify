@@ -2,7 +2,7 @@ package validation
 
 import (
 	"github.com/bbiskup/edify/edifact/msg"
-	"github.com/bbiskup/edify/edifact/spec/codes"
+	csp "github.com/bbiskup/edify/edifact/spec/codes"
 	de "github.com/bbiskup/edify/edifact/spec/dataelement"
 	"github.com/bbiskup/edify/edifact/spec/segment"
 	"github.com/stretchr/testify/assert"
@@ -62,10 +62,10 @@ func getInvalidSegIncorrectRepr(t testing.TB) *msg.Seg {
 }
 
 func getSegSpecMap(t testing.TB) segment.SegSpecMap {
-	de1Spec := codes.NewCodesSpec("100", "testcode_1", "testcode_1_desc",
-		[]*codes.CodeSpec{
-			codes.NewCodeSpec("1", "value_1", "descr_1"),
-			codes.NewCodeSpec("2", "value_2", "descr_2"),
+	de1Spec := csp.NewCodesSpec("100", "testcode_1", "testcode_1_desc",
+		[]*csp.CodeSpec{
+			csp.NewCodeSpec("1", "value_1", "descr_1"),
+			csp.NewCodeSpec("2", "value_2", "descr_2"),
 		})
 
 	de0, err := de.NewSimpleDataElemSpec(

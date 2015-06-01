@@ -2,13 +2,13 @@ package dataelement
 
 import (
 	"fmt"
-	"github.com/bbiskup/edify/edifact/spec/codes"
+	csp "github.com/bbiskup/edify/edifact/spec/codes"
 )
 
-func fixtureTextCodesSpecMap() codes.CodesSpecMap {
-	codeSpec := codes.NewCodeSpec("id1", "codename", "codedescr")
-	codesSpec := codes.NewCodesSpec("1000", "codesname", "codesdescr", []*codes.CodeSpec{codeSpec})
-	specMap := codes.CodesSpecMap{"1000": codesSpec}
+func fixtureTextCodesSpecMap() csp.CodesSpecMap {
+	codeSpec := csp.NewCodeSpec("id1", "codename", "codedescr")
+	codesSpec := csp.NewCodesSpec("1000", "codesname", "codesdescr", []*csp.CodeSpec{codeSpec})
+	specMap := csp.CodesSpecMap{"1000": codesSpec}
 	return specMap
 }
 

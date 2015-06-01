@@ -2,7 +2,7 @@ package specparser
 
 import (
 	"fmt"
-	"github.com/bbiskup/edify/edifact/spec/codes"
+	csp "github.com/bbiskup/edify/edifact/spec/codes"
 	"github.com/bbiskup/edify/edifact/spec/dataelement"
 	"github.com/bbiskup/edify/edifact/spec/message"
 	"github.com/bbiskup/edify/edifact/spec/segment"
@@ -25,8 +25,8 @@ func (p *FullSpecParser) getPath(subDir string, filePrefix string) string {
 	}, string(os.PathSeparator))
 }
 
-func (p *FullSpecParser) parseCodeSpecs() (codes.CodesSpecMap, error) {
-	parser := codes.NewCodesSpecParser()
+func (p *FullSpecParser) parseCodeSpecs() (csp.CodesSpecMap, error) {
+	parser := csp.NewCodesSpecParser()
 	path := p.getPath("uncl", "UNCL")
 	specs, err := parser.ParseSpecFile(path)
 	if err != nil {
@@ -36,7 +36,7 @@ func (p *FullSpecParser) parseCodeSpecs() (codes.CodesSpecMap, error) {
 	return specs, nil
 }
 
-func (p *FullSpecParser) parseSimpleDataElemSpecs(codesSpecs codes.CodesSpecMap) (dataelement.SimpleDataElemSpecMap, error) {
+func (p *FullSpecParser) parseSimpleDataElemSpecs(codesSpecs csp.CodesSpecMap) (dataelement.SimpleDataElemSpecMap, error) {
 
 	parser := dataelement.NewSimpleDataElemSpecParser(codesSpecs)
 	path := p.getPath("eded", "EDED")

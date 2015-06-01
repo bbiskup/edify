@@ -3,7 +3,7 @@ package commands
 import (
 	"errors"
 	"fmt"
-	"github.com/bbiskup/edify/edifact/spec/codes"
+	csp "github.com/bbiskup/edify/edifact/spec/codes"
 	// "github.com/bbiskup/edify/edifact/dataelement"
 	"log"
 	"os"
@@ -75,9 +75,9 @@ func ParseFile(fileName string) error {
 // 	return nil
 // }
 
-func ParseCodeList(fileName string) (codes.CodesSpecMap, error) {
+func ParseCodeList(fileName string) (csp.CodesSpecMap, error) {
 	log.Printf("ParseCodeList %s\n", fileName)
-	p := codes.NewCodesSpecParser()
+	p := csp.NewCodesSpecParser()
 	specs, err := p.ParseSpecFile(fileName)
 	if err != nil {
 		return nil, err
