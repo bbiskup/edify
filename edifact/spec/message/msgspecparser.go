@@ -25,7 +25,7 @@ var (
 
 	// e.g.
 	// "00210       ---- Segment group 6  ------------------ C   99-------------+||"
-	segmentGroupStartRE = regexp.MustCompile(
+	segGrpStartRE = regexp.MustCompile(
 		`^(\d{5})[ *]+-{4} Segment group (\d+)[ ]*[-]+ ([MC])[ ]*(\d+)[ ]*[-]+[+]+([|]*)$`)
 
 	// e.g. (top-level; not in group)
@@ -47,7 +47,7 @@ var (
 	// "               statistics                            C   1                |"
 )
 
-type SegmentGroupStart struct {
+type SegGrpStart struct {
 	RecordNum    int
 	GroupNum     int
 	IsMandatory  bool
@@ -208,7 +208,7 @@ func (p *MsgSpecParser) parseMsgSpecParts(fileName string, lines []string) (msgS
 			if currentNestingLevel == 0 {
 				msgSpecParts = append(msgSpecParts, part)
 			} else {
-				group, ok := currentMsgSpecPart.(*MsgSpecSegmentGroupPart)
+				group, ok := currentMsgSpecPart.(*MsgSpecSegGrpPart)
 				if !ok {
 					return nil, errors.New(fmt.Sprintf(
 						"Internal error: nesting incorrect; got: %#v",
@@ -229,16 +229,16 @@ func (p *MsgSpecParser) parseMsgSpecParts(fileName string, lines []string) (msgS
 		}
 
 		// Next alternative: segment group start
-		segmentGroupStartSpec, err := p.parseSegmentGroupStart(line)
+		segGrpStartSpec, err := p.parseSegGrpStart(line)
 		if err != nil {
 			return nil, err
 		}
 
-		sg := segmentGroupStartSpec
+		sg := segGrpStartSpec
 		if sg != nil {
 			p.logNestingLevelChange(currentNestingLevel, sg.NestingLevel)
 
-			group := NewMsgSpecSegmentGroupPart(
+			group := NewMsgSpecSegGrpPart(
 				fmt.Sprintf("Group_%d", sg.GroupNum),
 				[]MsgSpecPart{}, sg.MaxCount,
 				sg.IsMandatory, currentMsgSpecPart)
@@ -246,7 +246,7 @@ func (p *MsgSpecParser) parseMsgSpecParts(fileName string, lines []string) (msgS
 			if currentMsgSpecPart == nil {
 				msgSpecParts = append(msgSpecParts, group)
 			} else {
-				parentGroup, ok := currentMsgSpecPart.(*MsgSpecSegmentGroupPart)
+				parentGroup, ok := currentMsgSpecPart.(*MsgSpecSegGrpPart)
 				if !ok {
 					return nil, errors.New(fmt.Sprintf(
 						"Internal error: nesting incorrect; got: %#v",
@@ -265,8 +265,8 @@ func (p *MsgSpecParser) parseMsgSpecParts(fileName string, lines []string) (msgS
 	return
 }
 
-func (p *MsgSpecParser) parseSegmentGroupStart(line string) (segmentGroupStart *SegmentGroupStart, err error) {
-	match := segmentGroupStartRE.FindStringSubmatch(line)
+func (p *MsgSpecParser) parseSegGrpStart(line string) (segGrpStart *SegGrpStart, err error) {
+	match := segGrpStartRE.FindStringSubmatch(line)
 	if match == nil {
 		// not an error; other pattern might still match
 		return
@@ -302,7 +302,7 @@ func (p *MsgSpecParser) parseSegmentGroupStart(line string) (segmentGroupStart *
 
 	bars := match[5]
 
-	return &SegmentGroupStart{
+	return &SegGrpStart{
 		RecordNum:   recordNum,
 		GroupNum:    groupNum,
 		IsMandatory: isMandatory,

@@ -22,7 +22,7 @@ type MsgSpec struct {
 	Date        time.Time
 
 	Source        string
-	TopLevelGroup *MsgSpecSegmentGroupPart
+	TopLevelGroup *MsgSpecSegGrpPart
 }
 
 type MsgSpecs []*MsgSpec
@@ -94,7 +94,7 @@ func NewMsgSpec(
 		Id: id, Name: name,
 		Version: version, Release: release, ContrAgency: contrAgency,
 		Revision: revision, Date: date, Source: source,
-		TopLevelGroup: NewMsgSpecSegmentGroupPart(
+		TopLevelGroup: NewMsgSpecSegGrpPart(
 			TopLevelSegGroupName, parts, 1, true, nil),
 	}
 }

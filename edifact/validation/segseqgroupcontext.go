@@ -9,7 +9,7 @@ import (
 // To be stored on stack while traversing group hierarchy
 type SegSeqGroupContext struct {
 	// may be nil (at top level)
-	groupSpecPart *msgspec.MsgSpecSegmentGroupPart
+	groupSpecPart *msgspec.MsgSpecSegGrpPart
 
 	// top-level parts or children of current group
 	parts []msgspec.MsgSpecPart
@@ -24,7 +24,7 @@ type SegSeqGroupContext struct {
 	groupRepeatCount int
 
 	// current group; nil if top-level
-	repeatSegGroup *msg.RepeatSegmentGroup
+	repeatSegGroup *msg.RepeatSegGrp
 }
 
 func (c *SegSeqGroupContext) String() string {
@@ -55,9 +55,9 @@ func (c *SegSeqGroupContext) nextPart() msgspec.MsgSpecPart {
 }
 
 func NewSegSeqGroupContext(
-	groupSpecPart *msgspec.MsgSpecSegmentGroupPart,
+	groupSpecPart *msgspec.MsgSpecSegGrpPart,
 	parts []msgspec.MsgSpecPart,
-	repeatSegGroup *msg.RepeatSegmentGroup,
+	repeatSegGroup *msg.RepeatSegGrp,
 ) *SegSeqGroupContext {
 
 	return &SegSeqGroupContext{

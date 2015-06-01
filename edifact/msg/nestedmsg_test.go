@@ -41,11 +41,11 @@ func getNestedMsgWithGroupPart() *NestedMsg {
 				NewSegment("ABC"),
 				NewSegment("ABC"),
 			),
-			NewRepeatSegmentGroup(
-				NewSegmentGroup("group_1", []RepeatMsgPart{
+			NewRepeatSegGrp(
+				NewSegGrp("group_1", []RepeatMsgPart{
 					NewRepeatSegment(NewSegment("DEF")),
 					NewRepeatSegment(NewSegment("GHI")),
-					NewRepeatSegmentGroup(NewSegmentGroup("group_2",
+					NewRepeatSegGrp(NewSegGrp("group_2",
 						[]RepeatMsgPart{
 							NewRepeatSegment(
 								NewSegment("JKL"),

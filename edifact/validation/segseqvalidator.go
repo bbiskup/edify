@@ -75,7 +75,7 @@ func (s *SegSeqValidator) handleRepeatGroup(segment *msg.Segment) error {
 	} else {
 		gc.groupRepeatCount++
 		log.Printf("Group repeat count now %d", gc.groupRepeatCount)
-		s.nestedMsgBuilder.AddSegmentGroup(segment.Id())
+		s.nestedMsgBuilder.AddSegGrp(segment.Id())
 
 		//s.incrementCurrentMsgSpecPartIndex()
 		return nil
@@ -156,10 +156,10 @@ func (s *SegSeqValidator) handleStateSeg(
 }
 
 func (s *SegSeqValidator) enterGroup(
-	msgSpecPart *msgspec.MsgSpecSegmentGroupPart) {
+	msgSpecPart *msgspec.MsgSpecSegGrpPart) {
 
 	log.Printf("ENTERING GROUP %s", msgSpecPart.Name())
-	repeatSegGroup := s.nestedMsgBuilder.AddSegmentGroup(msgSpecPart.Name())
+	repeatSegGroup := s.nestedMsgBuilder.AddSegGrp(msgSpecPart.Name())
 
 	groupContext := NewSegSeqGroupContext(
 		msgSpecPart, msgSpecPart.Children(),
@@ -175,7 +175,7 @@ func (s *SegSeqValidator) isAtTopLevel() bool {
 
 func (s *SegSeqValidator) handleSegGroup(
 	segID string,
-	msgSpecPart *msgspec.MsgSpecSegmentGroupPart) (ret bool, err error) {
+	msgSpecPart *msgspec.MsgSpecSegGrpPart) (ret bool, err error) {
 
 	triggerSegmentId := msgSpecPart.Id()
 	if triggerSegmentId == segID {
@@ -286,7 +286,7 @@ func (s *SegSeqValidator) processSegment(segment *msg.Segment) error {
 				panic(fmt.Sprintf("Unhandled case: %d", s.state))
 			}
 
-		case *msgspec.MsgSpecSegmentGroupPart:
+		case *msgspec.MsgSpecSegGrpPart:
 			ret, err := s.handleSegGroup(segID, msgSpecPart)
 			if ret || err != nil {
 				return err

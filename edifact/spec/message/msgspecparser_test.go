@@ -34,7 +34,7 @@ func TestParseINVOICFile(t *testing.T) {
 	assert.Equal(t, "Group_1", part11.Name())
 	assert.Equal(t, 99999, part11.MaxCount())
 
-	group_1, ok := part11.(*MsgSpecSegmentGroupPart)
+	group_1, ok := part11.(*MsgSpecSegGrpPart)
 	assert.True(t, ok)
 	assert.Equal(t, group_1.Count(), 9)
 
@@ -85,7 +85,7 @@ func TestParseDir(t *testing.T) {
 	assert.Equal(t, "JOBCON", mSpecs[1].Id)
 }
 
-var segmentGroupStartSpec = []struct {
+var segGrpStartSpec = []struct {
 	line         string
 	shouldMatch  bool
 	recordNum    int
@@ -126,10 +126,10 @@ var segmentGroupStartSpec = []struct {
 	},
 }
 
-func TestParseSegmentGroupStart(t *testing.T) {
+func TestParseSegGrpStart(t *testing.T) {
 	parser := NewMsgSpecParser(&MockSegmentSpecProviderImpl{})
-	for _, spec := range segmentGroupStartSpec {
-		res, err := parser.parseSegmentGroupStart(spec.line)
+	for _, spec := range segGrpStartSpec {
+		res, err := parser.parseSegGrpStart(spec.line)
 		require.Nil(t, err)
 
 		if spec.shouldMatch {

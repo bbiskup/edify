@@ -7,33 +7,33 @@ import (
 
 // A group of segments. Groups are not identified during message parsing,
 // but during validation, when message specification is available
-type SegmentGroup struct {
+type SegGrp struct {
 	id    string
 	parts []RepeatMsgPart
 }
 
 // From interface SegmentOrGroup
-func (g *SegmentGroup) Id() string {
+func (g *SegGrp) Id() string {
 	return g.id
 }
 
-func (g *SegmentGroup) AppendSeg(segment *Segment) {
+func (g *SegGrp) AppendSeg(segment *Segment) {
 	g.parts = append(g.parts, NewRepeatSegment(segment))
 }
 
-func (g *SegmentGroup) AppendSegGroup(segmentGroup *RepeatSegmentGroup) {
-	g.parts = append(g.parts, segmentGroup)
+func (g *SegGrp) AppendSegGroup(segGrp *RepeatSegGrp) {
+	g.parts = append(g.parts, segGrp)
 }
 
-func NewSegmentGroup(id string, parts []RepeatMsgPart) *SegmentGroup {
-	return &SegmentGroup{id, parts}
+func NewSegGrp(id string, parts []RepeatMsgPart) *SegGrp {
+	return &SegGrp{id, parts}
 }
 
-func (g *SegmentGroup) Dump(indent int) string {
+func (g *SegGrp) Dump(indent int) string {
 	indentStr := getIndentStr(indent)
 	var buf bytes.Buffer
 
-	// Indentation of group name handled by parent RepeatSegmentGroup
+	// Indentation of group name handled by parent RepeatSegGrp
 	buf.WriteString(fmt.Sprintf("Group %s\n", g.Id()))
 	for _, part := range g.parts {
 		buf.WriteString(indentStr + "  " + part.Dump(indent+1))

@@ -6,44 +6,44 @@ import (
 )
 
 // Segment group specification in message specification
-type MsgSpecSegmentGroupPart struct {
+type MsgSpecSegGrpPart struct {
 	MsgSpecPartBase
 	name     string
 	children []MsgSpecPart
 }
 
-func (p *MsgSpecSegmentGroupPart) Id() string {
+func (p *MsgSpecSegGrpPart) Id() string {
 	return p.TriggerSegmentPart().SegmentSpec.Id
 }
 
-func (p *MsgSpecSegmentGroupPart) Name() string {
+func (p *MsgSpecSegGrpPart) Name() string {
 	return p.name
 }
 
-func (p *MsgSpecSegmentGroupPart) String() string {
+func (p *MsgSpecSegGrpPart) String() string {
 	mandatoryStr := util.CustBoolStr(p.IsMandatory(), "mand.", "cond.")
 	return fmt.Sprintf("Segment group %s %d %s (%d children)", p.Name(), p.MaxCount(), mandatoryStr, p.Count())
 }
 
-func (p *MsgSpecSegmentGroupPart) IsGroup() bool {
+func (p *MsgSpecSegGrpPart) IsGroup() bool {
 	return true
 }
 
-func (p *MsgSpecSegmentGroupPart) Count() int {
+func (p *MsgSpecSegGrpPart) Count() int {
 	return len(p.children)
 }
 
-func (p *MsgSpecSegmentGroupPart) Children() []MsgSpecPart {
+func (p *MsgSpecSegGrpPart) Children() []MsgSpecPart {
 	return p.children
 }
 
-func (p *MsgSpecSegmentGroupPart) Append(msgSpecPart MsgSpecPart) {
+func (p *MsgSpecSegGrpPart) Append(msgSpecPart MsgSpecPart) {
 	p.children = append(p.children, msgSpecPart)
 }
 
 // First segment spec contained in group. This is by definition
 // a segment spec, not a new group.
-func (p *MsgSpecSegmentGroupPart) TriggerSegmentPart() *MsgSpecSegmentPart {
+func (p *MsgSpecSegGrpPart) TriggerSegmentPart() *MsgSpecSegmentPart {
 	if len(p.children) > 0 {
 		triggerSegmentPart, ok := p.children[0].(*MsgSpecSegmentPart)
 		if !ok {
@@ -55,11 +55,11 @@ func (p *MsgSpecSegmentGroupPart) TriggerSegmentPart() *MsgSpecSegmentPart {
 	}
 }
 
-func NewMsgSpecSegmentGroupPart(
+func NewMsgSpecSegGrpPart(
 	name string, children []MsgSpecPart,
-	maxCount int, isMandatory bool, parent MsgSpecPart) *MsgSpecSegmentGroupPart {
+	maxCount int, isMandatory bool, parent MsgSpecPart) *MsgSpecSegGrpPart {
 
-	return &MsgSpecSegmentGroupPart{
+	return &MsgSpecSegGrpPart{
 		MsgSpecPartBase{
 			maxCount:    maxCount,
 			isMandatory: isMandatory,

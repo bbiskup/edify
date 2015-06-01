@@ -57,11 +57,11 @@ func (b *NestedMsgBuilder) RepeatSegment(segment *msg.Segment) {
 	repeatSeg.AddSegment(segment)
 }
 
-func (b *NestedMsgBuilder) AddSegmentGroup(name string) *msg.RepeatSegmentGroup {
-	log.Printf("BUILD: AddSegmentGroup %s", name)
+func (b *NestedMsgBuilder) AddSegGrp(name string) *msg.RepeatSegGrp {
+	log.Printf("BUILD: AddSegGrp %s", name)
 	newRepeatMsgPart := []msg.RepeatMsgPart{}
-	repeatSegGroup := msg.NewRepeatSegmentGroup(
-		msg.NewSegmentGroup(name, newRepeatMsgPart))
+	repeatSegGroup := msg.NewRepeatSegGrp(
+		msg.NewSegGrp(name, newRepeatMsgPart))
 	gc := b.currentGroupContext()
 	if b.isAtTopLevel() {
 		log.Printf("Appending segment group %s to nested msg %s (%d parts)",
@@ -76,8 +76,8 @@ func (b *NestedMsgBuilder) AddSegmentGroup(name string) *msg.RepeatSegmentGroup 
 	return repeatSegGroup
 }
 
-func (b *NestedMsgBuilder) RepeatSegmentGroup(segmentGroup *msg.SegmentGroup) {
-	log.Printf("BUILD: RepeatSegmentGroup %s NOT IMPLEMENTED", segmentGroup.Id())
+func (b *NestedMsgBuilder) RepeatSegGrp(segGrp *msg.SegGrp) {
+	log.Printf("BUILD: RepeatSegGrp %s NOT IMPLEMENTED", segGrp.Id())
 }
 
 func NewNestedMsgBuilder(msgName string, groupStack *util.Stack) *NestedMsgBuilder {

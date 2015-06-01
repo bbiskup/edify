@@ -15,13 +15,13 @@ package query
 // 	panic("Not implemented")
 // }
 
-// func (n *Navigator) GetSegmentGroup(
-// 	queryStr string, message *msg.NestedMsg) (group *msg.SegmentGroup, err error) {
+// func (n *Navigator) GetSegGrp(
+// 	queryStr string, message *msg.NestedMsg) (group *msg.SegGrp, err error) {
 // 	msgPart, err := n.navigate(queryStr, message)
 // 	if err != nil {
 // 		return nil, err
 // 	}
-// 	group, ok := msgPart.(*msg.SegmentGroup)
+// 	group, ok := msgPart.(*msg.SegGrp)
 // 	if !ok {
 // 		return nil, errors.New(fmt.Sprintf("Unexpected type %T", group))
 // 	}

@@ -6,7 +6,7 @@ import (
 )
 
 func TestMsgSpecGroupPart(t *testing.T) {
-	part := NewMsgSpecSegmentGroupPart(
+	part := NewMsgSpecSegGrpPart(
 		"testgroup", []MsgSpecPart{}, 5, true, nil)
 	assert.Equal(t, "Segment group testgroup 5 mand. (0 children)", part.String())
 	assert.Equal(t, part.Name(), "testgroup")
@@ -17,10 +17,10 @@ func TestMsgSpecGroupPart(t *testing.T) {
 }
 
 func TestAppend(t *testing.T) {
-	part1 := NewMsgSpecSegmentGroupPart(
+	part1 := NewMsgSpecSegGrpPart(
 		"testgroup1", []MsgSpecPart{}, 5, true, nil)
 	assert.Equal(t, 0, part1.Count())
-	part2 := NewMsgSpecSegmentGroupPart(
+	part2 := NewMsgSpecSegGrpPart(
 		"testgroup2", []MsgSpecPart{}, 5, true, nil)
 
 	part1.Append(part2)
@@ -28,9 +28,9 @@ func TestAppend(t *testing.T) {
 }
 
 func TestParent(t *testing.T) {
-	part1 := NewMsgSpecSegmentGroupPart(
+	part1 := NewMsgSpecSegGrpPart(
 		"testgroup1", []MsgSpecPart{}, 5, true, nil)
-	part2 := NewMsgSpecSegmentGroupPart(
+	part2 := NewMsgSpecSegGrpPart(
 		"testgroup2", []MsgSpecPart{}, 5, true, part1)
 	assert.Equal(t, part1, part2.Parent())
 }
