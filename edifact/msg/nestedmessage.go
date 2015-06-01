@@ -29,6 +29,10 @@ func (m *NestedMessage) GetPart(index int) RepeatMsgPart {
 	return m.parts[index]
 }
 
+func (m *NestedMessage) GetLastPart() RepeatMsgPart {
+	return m.parts[len(m.parts)-1]
+}
+
 func (m *NestedMessage) AppendPart(part RepeatMsgPart) {
 	m.parts = append(m.parts, part)
 }
