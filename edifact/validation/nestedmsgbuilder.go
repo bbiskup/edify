@@ -52,7 +52,7 @@ func (b *NestedMsgBuilder) RepeatSegment(segment *msg.Segment) {
 				"Incorrect type %T; expected *RepeatSegment", repeatSeg))
 		}*/
 	} else {
-		repeatSeg = b.currentGroupContext().repeatSegGroup.GetLast().(*msg.RepeatSegment)
+		//repeatSeg = b.currentGroupContext().repeatSegGroup.GetLast().(*msg.RepeatSegment)
 	}
 	repeatSeg.AddSegment(segment)
 }
