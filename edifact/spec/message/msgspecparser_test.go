@@ -38,7 +38,7 @@ func TestParseINVOICFile(t *testing.T) {
 	assert.True(t, ok)
 	assert.Equal(t, group_1.Count(), 9)
 
-	group_1_segm_0 := group_1.Children()[0].(*MsgSpecSegmentPart)
+	group_1_segm_0 := group_1.Children()[0].(*MsgSpecSegPart)
 	assert.True(t, ok)
 	assert.Equal(t, group_1_segm_0.SegSpec.Id, "RFF")
 }

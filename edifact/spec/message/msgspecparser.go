@@ -202,7 +202,7 @@ func (p *MsgSpecParser) parseMsgSpecParts(fileName string, lines []string) (msgS
 				return nil, errors.New(fmt.Sprintf("No segment spec for ID '%s'",
 					segmentEntry.SegmentId))
 			}
-			part := NewMsgSpecSegmentPart(
+			part := NewMsgSpecSegPart(
 				segSpec, segmentEntry.MaxCount, segmentEntry.IsMandatory, currentMsgSpecPart)
 
 			if currentNestingLevel == 0 {

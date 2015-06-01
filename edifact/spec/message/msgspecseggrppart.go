@@ -13,7 +13,7 @@ type MsgSpecSegGrpPart struct {
 }
 
 func (p *MsgSpecSegGrpPart) Id() string {
-	return p.TriggerSegmentPart().SegSpec.Id
+	return p.TriggerSegPart().SegSpec.Id
 }
 
 func (p *MsgSpecSegGrpPart) Name() string {
@@ -43,13 +43,13 @@ func (p *MsgSpecSegGrpPart) Append(msgSpecPart MsgSpecPart) {
 
 // First segment spec contained in group. This is by definition
 // a segment spec, not a new group.
-func (p *MsgSpecSegGrpPart) TriggerSegmentPart() *MsgSpecSegmentPart {
+func (p *MsgSpecSegGrpPart) TriggerSegPart() *MsgSpecSegPart {
 	if len(p.children) > 0 {
-		triggerSegmentPart, ok := p.children[0].(*MsgSpecSegmentPart)
+		triggerSegPart, ok := p.children[0].(*MsgSpecSegPart)
 		if !ok {
-			panic(fmt.Sprintf("Unexpected type %T", triggerSegmentPart))
+			panic(fmt.Sprintf("Unexpected type %T", triggerSegPart))
 		}
-		return triggerSegmentPart
+		return triggerSegPart
 	} else {
 		return nil
 	}

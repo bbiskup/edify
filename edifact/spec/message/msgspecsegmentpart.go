@@ -7,33 +7,33 @@ import (
 )
 
 // Segment  specification in message specification
-type MsgSpecSegmentPart struct {
+type MsgSpecSegPart struct {
 	MsgSpecPartBase
 	SegSpec *segment.SegSpec
 }
 
-func (p *MsgSpecSegmentPart) Id() string {
+func (p *MsgSpecSegPart) Id() string {
 	return p.SegSpec.Id
 }
 
-func (p *MsgSpecSegmentPart) Name() string {
+func (p *MsgSpecSegPart) Name() string {
 	return p.SegSpec.Name
 }
 
-func (p *MsgSpecSegmentPart) String() string {
+func (p *MsgSpecSegPart) String() string {
 	mandatoryStr := util.CustBoolStr(p.IsMandatory(), "mand.", "cond.")
 	return fmt.Sprintf("Segment %d %s %s", p.MaxCount(), mandatoryStr, p.SegSpec.Name)
 }
 
-func (p *MsgSpecSegmentPart) IsGroup() bool {
+func (p *MsgSpecSegPart) IsGroup() bool {
 	return false
 }
 
-func NewMsgSpecSegmentPart(
+func NewMsgSpecSegPart(
 	segSpec *segment.SegSpec,
-	maxCount int, isMandatory bool, parent MsgSpecPart) *MsgSpecSegmentPart {
+	maxCount int, isMandatory bool, parent MsgSpecPart) *MsgSpecSegPart {
 
-	return &MsgSpecSegmentPart{
+	return &MsgSpecSegPart{
 		MsgSpecPartBase{
 			maxCount:    maxCount,
 			isMandatory: isMandatory,

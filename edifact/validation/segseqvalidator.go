@@ -133,7 +133,7 @@ func (s *SegSeqValidator) incrementCurrentMsgSpecPartIndex() bool {
 
 func (s *SegSeqValidator) handleStateSeg(
 	segID string, segment *msg.Segment,
-	msgSpecPart *msgspec.MsgSpecSegmentPart) (ret bool, err error) {
+	msgSpecPart *msgspec.MsgSpecSegPart) (ret bool, err error) {
 
 	if msgSpecPart.SegSpec.Id == segID {
 		if !s.isAtTopLevel() && s.currentGroupContext().groupSpecPart.Id() == segID {
@@ -222,7 +222,7 @@ func (s *SegSeqValidator) checkGroupStack(segment *msg.Segment) (ret bool) {
 }
 
 func (s *SegSeqValidator) handleStateSearching(
-	segID string, msgSpecPart *msgspec.MsgSpecSegmentPart) (ret bool, err error) {
+	segID string, msgSpecPart *msgspec.MsgSpecSegPart) (ret bool, err error) {
 
 	if msgSpecPart.SegSpec.Id == segID {
 		s.setNewState(seqStateSeg)
@@ -261,7 +261,7 @@ func (s *SegSeqValidator) processSegment(segment *msg.Segment) error {
 		s.currentSegSpecID = msgSpecPart.Id()
 
 		switch msgSpecPart := msgSpecPart.(type) {
-		case *msgspec.MsgSpecSegmentPart:
+		case *msgspec.MsgSpecSegPart:
 			log.Printf("seg spec ID: %s", s.currentSegSpecID)
 
 			switch s.state {
