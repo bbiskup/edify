@@ -3,7 +3,7 @@ package validation
 import (
 	"fmt"
 	msg "github.com/bbiskup/edify/edifact/msg"
-	msgspec "github.com/bbiskup/edify/edifact/spec/message"
+	msp "github.com/bbiskup/edify/edifact/spec/message"
 	ssp "github.com/bbiskup/edify/edifact/spec/segment"
 	"log"
 )
@@ -11,7 +11,7 @@ import (
 // Validates segment sequence
 // builds structure for navigation/query
 type SegSeqValidator struct {
-	msgSpec *msgspec.MsgSpec
+	msgSpec *msp.MsgSpec
 }
 
 type SegSeqErrKind string
@@ -55,7 +55,7 @@ func (s *SegSeqValidator) Validate(message *msg.Message) error {
 		return NewSegSeqError(noSegs, "")
 	}
 	s.message = message
-	for _, part := range s.msgSpec.Parts {
+	for _, part := range s.msp.Parts {
 		if err != nil {
 			return err
 		}
@@ -65,8 +65,8 @@ func (s *SegSeqValidator) Validate(message *msg.Message) error {
 	return nil
 }
 
-func NewSegSeqValidator(msgSpec *msgspec.MsgSpec) (segSeqValidator *SegSeqValidator, err error) {
-	if len(msgSpec.Parts) == 0 {
+func NewSegSeqValidator(msgSpec *msp.MsgSpec) (segSeqValidator *SegSeqValidator, err error) {
+	if len(msp.Parts) == 0 {
 		return nil, NewSegSeqError(noSegSpecs, "")
 	}
 	return &SegSeqValidator{

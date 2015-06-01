@@ -2,8 +2,8 @@ package validation
 
 import (
 	"fmt"
-	msg "github.com/bbiskup/edify/edifact/msg"
-	msgspec "github.com/bbiskup/edify/edifact/spec/message"
+	"github.com/bbiskup/edify/edifact/msg"
+	msp "github.com/bbiskup/edify/edifact/spec/message"
 	"github.com/bbiskup/edify/edifact/util"
 	"log"
 )
@@ -15,7 +15,7 @@ type SegSeqValidator struct {
 	currentSegIndex int
 
 	// Specification for message type under validation
-	msgSpec *msgspec.MsgSpec
+	msgSpec *msp.MsgSpec
 
 	// ID of the segment specification currently checked
 	currentSegSpecID string
@@ -107,11 +107,11 @@ func (s *SegSeqValidator) handleSeg(segment *msg.Seg) (matched bool, err error) 
 	return true, nil
 }
 
-func (s *SegSeqValidator) getCurrentMsgSpecPart() msgspec.MsgSpecPart {
+func (s *SegSeqValidator) getCurrentMsgSpecPart() msp.MsgSpecPart {
 	return s.currentGroupContext().currentPart()
 }
 
-func (s *SegSeqValidator) nextCurrentMsgSpecPart() msgspec.MsgSpecPart {
+func (s *SegSeqValidator) nextCurrentMsgSpecPart() msp.MsgSpecPart {
 	return s.currentGroupContext().nextPart()
 }
 
@@ -133,7 +133,7 @@ func (s *SegSeqValidator) incrementCurrentMsgSpecPartIndex() bool {
 
 func (s *SegSeqValidator) handleStateSeg(
 	segID string, segment *msg.Seg,
-	msgSpecPart *msgspec.MsgSpecSegPart) (ret bool, err error) {
+	msgSpecPart *msp.MsgSpecSegPart) (ret bool, err error) {
 
 	if msgSpecPart.SegSpec.Id == segID {
 		if !s.isAtTopLevel() && s.currentGroupContext().groupSpecPart.Id() == segID {
@@ -156,7 +156,7 @@ func (s *SegSeqValidator) handleStateSeg(
 }
 
 func (s *SegSeqValidator) enterGroup(
-	msgSpecPart *msgspec.MsgSpecSegGrpPart) {
+	msgSpecPart *msp.MsgSpecSegGrpPart) {
 
 	log.Printf("ENTERING GROUP %s", msgSpecPart.Name())
 	repeatSegGroup := s.nestedMsgBuilder.AddSegGrp(msgSpecPart.Name())
@@ -175,7 +175,7 @@ func (s *SegSeqValidator) isAtTopLevel() bool {
 
 func (s *SegSeqValidator) handleSegGroup(
 	segID string,
-	msgSpecPart *msgspec.MsgSpecSegGrpPart) (ret bool, err error) {
+	msgSpecPart *msp.MsgSpecSegGrpPart) (ret bool, err error) {
 
 	triggerSegId := msgSpecPart.Id()
 	if triggerSegId == segID {
@@ -222,7 +222,7 @@ func (s *SegSeqValidator) checkGroupStack(segment *msg.Seg) (ret bool) {
 }
 
 func (s *SegSeqValidator) handleStateSearching(
-	segID string, msgSpecPart *msgspec.MsgSpecSegPart) (ret bool, err error) {
+	segID string, msgSpecPart *msp.MsgSpecSegPart) (ret bool, err error) {
 
 	if msgSpecPart.SegSpec.Id == segID {
 		s.setNewState(seqStateSeg)
@@ -261,7 +261,7 @@ func (s *SegSeqValidator) processSeg(segment *msg.Seg) error {
 		s.currentSegSpecID = msgSpecPart.Id()
 
 		switch msgSpecPart := msgSpecPart.(type) {
-		case *msgspec.MsgSpecSegPart:
+		case *msp.MsgSpecSegPart:
 			log.Printf("seg spec ID: %s", s.currentSegSpecID)
 
 			switch s.state {
@@ -286,7 +286,7 @@ func (s *SegSeqValidator) processSeg(segment *msg.Seg) error {
 				panic(fmt.Sprintf("Unhandled case: %d", s.state))
 			}
 
-		case *msgspec.MsgSpecSegGrpPart:
+		case *msp.MsgSpecSegGrpPart:
 			ret, err := s.handleSegGroup(segID, msgSpecPart)
 			if ret || err != nil {
 				return err
@@ -341,7 +341,7 @@ func (s *SegSeqValidator) Validate(rawMessage *msg.RawMessage) error {
 	return nil
 }
 
-func NewSegSeqValidator(msgSpec *msgspec.MsgSpec) (segSeqValidator *SegSeqValidator, err error) {
+func NewSegSeqValidator(msgSpec *msp.MsgSpec) (segSeqValidator *SegSeqValidator, err error) {
 	if len(msgSpec.TopLevelParts()) == 0 {
 		return nil, NewSegSeqError(noSegSpecs, "")
 	}
@@ -352,7 +352,7 @@ func NewSegSeqValidator(msgSpec *msgspec.MsgSpec) (segSeqValidator *SegSeqValida
 	groupStack.Push(groupContext)
 
 	return &SegSeqValidator{
-		msgSpec:      msgSpec,
+		msgSpec:          msgSpec,
 		state:            seqStateInitial,
 		groupStack:       groupStack,
 		nestedMsgBuilder: nil,

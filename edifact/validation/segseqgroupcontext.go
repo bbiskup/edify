@@ -3,16 +3,16 @@ package validation
 import (
 	"fmt"
 	"github.com/bbiskup/edify/edifact/msg"
-	msgspec "github.com/bbiskup/edify/edifact/spec/message"
+	msp "github.com/bbiskup/edify/edifact/spec/message"
 )
 
 // To be stored on stack while traversing group hierarchy
 type SegSeqGroupContext struct {
 	// may be nil (at top level)
-	groupSpecPart *msgspec.MsgSpecSegGrpPart
+	groupSpecPart *msp.MsgSpecSegGrpPart
 
 	// top-level parts or children of current group
-	parts []msgspec.MsgSpecPart
+	parts []msp.MsgSpecPart
 
 	// index on current level
 	partIndex int
@@ -46,17 +46,17 @@ func (c *SegSeqGroupContext) IsExhausted() bool {
 	return c.partIndex >= len(c.parts)
 }
 
-func (c *SegSeqGroupContext) currentPart() msgspec.MsgSpecPart {
+func (c *SegSeqGroupContext) currentPart() msp.MsgSpecPart {
 	return c.parts[c.partIndex]
 }
 
-func (c *SegSeqGroupContext) nextPart() msgspec.MsgSpecPart {
+func (c *SegSeqGroupContext) nextPart() msp.MsgSpecPart {
 	return c.parts[c.partIndex+1]
 }
 
 func NewSegSeqGroupContext(
-	groupSpecPart *msgspec.MsgSpecSegGrpPart,
-	parts []msgspec.MsgSpecPart,
+	groupSpecPart *msp.MsgSpecSegGrpPart,
+	parts []msp.MsgSpecPart,
 	repeatSegGroup *msg.RepSegGrp,
 ) *SegSeqGroupContext {
 

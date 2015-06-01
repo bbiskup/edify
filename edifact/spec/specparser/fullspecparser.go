@@ -4,7 +4,7 @@ import (
 	"fmt"
 	csp "github.com/bbiskup/edify/edifact/spec/codes"
 	dsp "github.com/bbiskup/edify/edifact/spec/dataelement"
-	"github.com/bbiskup/edify/edifact/spec/message"
+	msp "github.com/bbiskup/edify/edifact/spec/message"
 	ssp "github.com/bbiskup/edify/edifact/spec/segment"
 	"log"
 	"os"
@@ -98,9 +98,9 @@ func (p *FullSpecParser) parseSegSpecs(
 	return specs, nil
 }
 
-func (p *FullSpecParser) parseMsgSpecs(segSpecs ssp.SegSpecProvider) (msgSpecs []*message.MsgSpec, err error) {
+func (p *FullSpecParser) parseMsgSpecs(segSpecs ssp.SegSpecProvider) (msgSpecs []*msp.MsgSpec, err error) {
 	msgDir := p.Dir + pathSeparator + "edmd"
-	parser := message.NewMsgSpecParser(segSpecs)
+	parser := msp.NewMsgSpecParser(segSpecs)
 	fmt.Printf("Parsing message specs with suffix '%s' in directory '%s'", p.Version, msgDir)
 	return parser.ParseSpecDir(msgDir, p.Version)
 }
