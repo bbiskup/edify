@@ -11,7 +11,7 @@ type SegSeqGroupContext struct {
 	// may be nil (at top level)
 	groupSpecPart *msgspec.MessageSpecSegmentGroupPart
 
-	// top-level parts or chilren of current group
+	// top-level parts or children of current group
 	parts []msgspec.MessageSpecPart
 
 	// index on current level
