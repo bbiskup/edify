@@ -10,13 +10,13 @@ package query
 // type Navigator struct {
 // }
 
-// func (n *Navigator) navigate(queryStr string, message *msg.NestedMessage) (msgPart msg.NestedMsgPart, err error) {
+// func (n *Navigator) navigate(queryStr string, message *msg.NestedMsg) (msgPart msg.NestedMsgPart, err error) {
 // 	// return segment, segment group or data element
 // 	panic("Not implemented")
 // }
 
 // func (n *Navigator) GetSegmentGroup(
-// 	queryStr string, message *msg.NestedMessage) (group *msg.SegmentGroup, err error) {
+// 	queryStr string, message *msg.NestedMsg) (group *msg.SegmentGroup, err error) {
 // 	msgPart, err := n.navigate(queryStr, message)
 // 	if err != nil {
 // 		return nil, err
@@ -28,7 +28,7 @@ package query
 // 	return group, nil
 // }
 
-// func (n *Navigator) GetSegment(queryStr string, message *msg.NestedMessage) (*msg.Segment, error) {
+// func (n *Navigator) GetSegment(queryStr string, message *msg.NestedMsg) (*msg.Segment, error) {
 // 	msgPart, err := n.navigate(queryStr, message)
 // 	if err != nil {
 // 		return nil, err
@@ -40,7 +40,7 @@ package query
 // 	return segment, nil
 // }
 
-// func (n *Navigator) GetSegmentDataElem(queryStr string, message *msg.NestedMessage) (*msg.DataElement, error) {
+// func (n *Navigator) GetSegmentDataElem(queryStr string, message *msg.NestedMsg) (*msg.DataElement, error) {
 // 	msgPart, err := n.navigate(queryStr, message)
 // 	if err != nil {
 // 		return nil, err

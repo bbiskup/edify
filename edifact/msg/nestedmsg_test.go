@@ -6,8 +6,8 @@ import (
 	"testing"
 )
 
-func getEmptyNestedMsg() *NestedMessage {
-	return NewNestedMessage("testname", []RepeatMsgPart{})
+func getEmptyNestedMsg() *NestedMsg {
+	return NewNestedMsg("testname", []RepeatMsgPart{})
 }
 
 const expectedDumpNestedMsgWithParts = `Message testname
@@ -15,8 +15,8 @@ const expectedDumpNestedMsgWithParts = `Message testname
   [0] DEF
 `
 
-func getNestedMsgWithParts() *NestedMessage {
-	return NewNestedMessage("testname", []RepeatMsgPart{
+func getNestedMsgWithParts() *NestedMsg {
+	return NewNestedMsg("testname", []RepeatMsgPart{
 		NewRepeatSegment(NewSegment("ABC")),
 		NewRepeatSegment(NewSegment("DEF")),
 	})
@@ -33,8 +33,8 @@ const expectedDumpNestedMsgWithGroupPart = `Message testname
         [0] MNO
 `
 
-func getNestedMsgWithGroupPart() *NestedMessage {
-	return NewNestedMessage(
+func getNestedMsgWithGroupPart() *NestedMsg {
+	return NewNestedMsg(
 		"testname",
 		[]RepeatMsgPart{
 			NewRepeatSegment(
@@ -58,7 +58,7 @@ func getNestedMsgWithGroupPart() *NestedMessage {
 
 func TestStringEmptyMsg(t *testing.T) {
 	msg := getEmptyNestedMsg()
-	assert.Equal(t, "NestedMessage testname (0 1st-level parts)", msg.String())
+	assert.Equal(t, "NestedMsg testname (0 1st-level parts)", msg.String())
 }
 
 func SegGroupyMsg(t *testing.T) {
@@ -70,7 +70,7 @@ func SegGroupyMsg(t *testing.T) {
 
 func TestStringMsgWithParts(t *testing.T) {
 	msg := getNestedMsgWithParts()
-	assert.Equal(t, "NestedMessage testname (2 1st-level parts)", msg.String())
+	assert.Equal(t, "NestedMsg testname (2 1st-level parts)", msg.String())
 }
 
 func TestDumpWithParts(t *testing.T) {

@@ -12,33 +12,33 @@ const (
 // An EDIFACT message consisting of individual segments
 // and possible nested segment groups.
 // A nested message is suitable for element navigation
-type NestedMessage struct {
+type NestedMsg struct {
 	Name  string
 	parts []RepeatMsgPart
 }
 
-func (m *NestedMessage) String() string {
-	return fmt.Sprintf("NestedMessage %s (%d 1st-level parts)", m.Name, len(m.parts))
+func (m *NestedMsg) String() string {
+	return fmt.Sprintf("NestedMsg %s (%d 1st-level parts)", m.Name, len(m.parts))
 }
 
-func (m *NestedMessage) Count() int {
+func (m *NestedMsg) Count() int {
 	return len(m.parts)
 }
 
-func (m *NestedMessage) GetPart(index int) RepeatMsgPart {
+func (m *NestedMsg) GetPart(index int) RepeatMsgPart {
 	return m.parts[index]
 }
 
-func (m *NestedMessage) GetLastPart() RepeatMsgPart {
+func (m *NestedMsg) GetLastPart() RepeatMsgPart {
 	return m.parts[len(m.parts)-1]
 }
 
-func (m *NestedMessage) AppendPart(part RepeatMsgPart) {
+func (m *NestedMsg) AppendPart(part RepeatMsgPart) {
 	m.parts = append(m.parts, part)
 }
 
 // Comprehensive dump of segment/group structure
-func (m *NestedMessage) Dump() string {
+func (m *NestedMsg) Dump() string {
 	var buf bytes.Buffer
 	if len(m.parts) == 0 {
 		return noPartsText
@@ -50,6 +50,6 @@ func (m *NestedMessage) Dump() string {
 	return buf.String()
 }
 
-func NewNestedMessage(name string, parts []RepeatMsgPart) *NestedMessage {
-	return &NestedMessage{name, parts}
+func NewNestedMsg(name string, parts []RepeatMsgPart) *NestedMsg {
+	return &NestedMsg{name, parts}
 }

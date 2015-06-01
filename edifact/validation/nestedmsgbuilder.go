@@ -14,7 +14,7 @@ type NestedMsgBuilder struct {
 	groupStack *util.Stack
 
 	// Nested (hierarchical) message under construction
-	nestedMsg *msg.NestedMessage
+	nestedMsg *msg.NestedMsg
 }
 
 func (s *NestedMsgBuilder) currentGroupContext() *SegSeqGroupContext {
@@ -83,6 +83,6 @@ func (b *NestedMsgBuilder) RepeatSegmentGroup(segmentGroup *msg.SegmentGroup) {
 func NewNestedMsgBuilder(msgName string, groupStack *util.Stack) *NestedMsgBuilder {
 	return &NestedMsgBuilder{
 		groupStack: groupStack,
-		nestedMsg:  msg.NewNestedMessage(msgName, []msg.RepeatMsgPart{}),
+		nestedMsg:  msg.NewNestedMsg(msgName, []msg.RepeatMsgPart{}),
 	}
 }
