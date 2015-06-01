@@ -102,23 +102,21 @@ var authorSegSeqSpec = []struct {
 			"UNT",
 		}, false, ""},
 
+	{
+		"Some repeat counts > 1",
+		[]string{
+			"UNH", "BGM",
+			"DTM", "BUS",
+			// Group 4
+			"LIN", "LIN", "LIN", "LIN",
+			// Group 7
+			"FII", "CTA", "COM", "COM", "COM",
+			"FII", "CTA", "COM", "COM", "COM",
+
+			"UNT",
+		}, false, ""},
+
 	/*
-
-		{
-			"Some repeat counts > 1",
-			[]string{
-				"UNH", "BGM",
-				"DTM", "BUS",
-				// Group 4
-				"LIN", "LIN", "LIN", "LIN",
-				// Group 7
-				"FII", "CTA", "COM", "COM", "COM",
-				"FII", "CTA", "COM", "COM", "COM",
-
-				"UNT",
-			}, false},
-
-
 		{
 			"group 7 repeated too often",
 			[]string{
@@ -132,7 +130,8 @@ var authorSegSeqSpec = []struct {
 				"FII", "CTA", "COM", "COM", "COM",
 
 				"UNT",
-			}, true},*/
+			}, true, maxGroupRepeatCountExceeded},
+	*/
 }
 
 func TestSegSeqValidator1(t *testing.T) {
