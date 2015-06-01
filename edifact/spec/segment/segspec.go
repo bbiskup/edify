@@ -20,12 +20,12 @@ func (s *SegSpec) String() string {
 
 func NewSegSpec(
 	id string, name string, function string,
-	segmentDataElemSpecs []*SegDataElemSpec) *SegSpec {
+	segDataElemSpecs []*SegDataElemSpec) *SegSpec {
 
 	return &SegSpec{
 		Id:                      id,
 		Name:                    name,
 		Function:                function,
-		SegDataElemSpecs: segmentDataElemSpecs,
+		SegDataElemSpecs: segDataElemSpecs,
 	}
 }

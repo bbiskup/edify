@@ -122,8 +122,8 @@ func (p *SegSpecParser) parseDataElemSpecs(
 			return nil, errors.New(fmt.Sprintf("Data element not found: %s", id))
 		}
 
-		segmentDataElemSpec := NewSegDataElemSpec(dataElemSpec, count, isMandatory)
-		dataElems = append(dataElems, segmentDataElemSpec)
+		segDataElemSpec := NewSegDataElemSpec(dataElemSpec, count, isMandatory)
+		dataElems = append(dataElems, segDataElemSpec)
 	}
 	return
 }

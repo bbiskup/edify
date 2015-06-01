@@ -40,10 +40,10 @@ func (v *SegValidatorImpl) Validate(seg *msg.Seg) error {
 }
 
 func (v *SegValidatorImpl) validateDataElems(
-	segmentDataElemSpecs []*spec_seg.SegDataElemSpec,
+	segDataElemSpecs []*spec_seg.SegDataElemSpec,
 	dataElems []*msg.DataElem) error {
 
-	for i, segDataElemSpec := range segmentDataElemSpecs {
+	for i, segDataElemSpec := range segDataElemSpecs {
 		dataElem := dataElems[i]
 		dataElemSpec := segDataElemSpec.DataElemSpec
 		err := v.validateDataElem(dataElemSpec, dataElem)
