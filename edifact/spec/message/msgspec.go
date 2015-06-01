@@ -11,7 +11,7 @@ const TopLevelSegGroupName = "_Group_0"
 
 // A message specification
 // (e.g. edmd/BALANC_D.14B)
-type MessageSpec struct {
+type MsgSpec struct {
 	Id   string
 	Name string
 
@@ -22,12 +22,12 @@ type MessageSpec struct {
 	Date        time.Time
 
 	Source        string
-	TopLevelGroup *MessageSpecSegmentGroupPart
+	TopLevelGroup *MsgSpecSegmentGroupPart
 }
 
-type MessageSpecs []*MessageSpec
+type MsgSpecs []*MsgSpec
 
-func (m *MessageSpec) String() string {
+func (m *MsgSpec) String() string {
 	var partsStr = m.PartsStr()
 	if len(partsStr) > 0 {
 		partsStr = " - " + partsStr
@@ -37,16 +37,16 @@ func (m *MessageSpec) String() string {
 		m.Id, m.Name, m.Release, m.Count(), partsStr)
 }
 
-func (m *MessageSpec) TopLevelParts() []MessageSpecPart {
+func (m *MsgSpec) TopLevelParts() []MsgSpecPart {
 	return m.TopLevelGroup.Children()
 }
 
-func (m *MessageSpec) TopLevelPart(index int) MessageSpecPart {
+func (m *MsgSpec) TopLevelPart(index int) MsgSpecPart {
 	return m.TopLevelGroup.Children()[index]
 }
 
 // Verbose output fo debugging
-func (m *MessageSpec) Dump() string {
+func (m *MsgSpec) Dump() string {
 	count := m.Count()
 	var buffer bytes.Buffer
 
@@ -56,7 +56,7 @@ func (m *MessageSpec) Dump() string {
 	return buffer.String()
 }
 
-func (m *MessageSpec) PartsStr() string {
+func (m *MsgSpec) PartsStr() string {
 	result := []string{}
 	for _, part := range m.TopLevelParts() {
 		result = append(result, part.Id())
@@ -65,36 +65,36 @@ func (m *MessageSpec) PartsStr() string {
 }
 
 // Number of parts
-func (m *MessageSpec) Count() int {
+func (m *MsgSpec) Count() int {
 	return len(m.TopLevelParts())
 }
 
 // from sort.Interface
-func (m MessageSpecs) Len() int {
+func (m MsgSpecs) Len() int {
 	return len(m)
 }
 
 // from sort.Interface
-func (m MessageSpecs) Less(i, j int) bool {
+func (m MsgSpecs) Less(i, j int) bool {
 	return m[i].Id < m[j].Id
 }
 
 // from sort.Interface
-func (m MessageSpecs) Swap(i, j int) {
+func (m MsgSpecs) Swap(i, j int) {
 	m[i], m[j] = m[j], m[i]
 }
 
-func NewMessageSpec(
+func NewMsgSpec(
 	id string, name string,
 	version string, release string, contrAgency string,
 	revision string, date time.Time, source string,
-	parts []MessageSpecPart) *MessageSpec {
+	parts []MsgSpecPart) *MsgSpec {
 
-	return &MessageSpec{
+	return &MsgSpec{
 		Id: id, Name: name,
 		Version: version, Release: release, ContrAgency: contrAgency,
 		Revision: revision, Date: date, Source: source,
-		TopLevelGroup: NewMessageSpecSegmentGroupPart(
+		TopLevelGroup: NewMsgSpecSegmentGroupPart(
 			TopLevelSegGroupName, parts, 1, true, nil),
 	}
 }

@@ -5,8 +5,8 @@ import (
 	"github.com/bbiskup/edify/edifact/spec/message"
 )
 
-func getMessageSpec(fileName string) *message.MessageSpec {
-	parser := message.NewMessageSpecParser(&message.MockSegmentSpecProviderImpl{})
+func getMsgSpec(fileName string) *message.MsgSpec {
+	parser := message.NewMsgSpecParser(&message.MockSegmentSpecProviderImpl{})
 	messageSpec, err := parser.ParseSpecFile("../../testdata/d14b/edmd/" + fileName)
 	if err != nil {
 		panic("spec is nil")

@@ -136,7 +136,7 @@ var authorSegSeqSpec = []struct {
 }
 
 func TestSegSeqValidator1(t *testing.T) {
-	msgSpec := getMessageSpec("AUTHOR_D.14B")
+	msgSpec := getMsgSpec("AUTHOR_D.14B")
 
 	for _, spec := range authorSegSeqSpec {
 		fmt.Printf(">>>>>>>>>>>>>>>>>>> spec: %#v\n", spec)
@@ -173,7 +173,7 @@ func BenchmarkValidateSeq(b *testing.B) {
 
 		"UNT",
 	}
-	msgSpec := getMessageSpec("AUTHOR_D.14B")
+	msgSpec := getMsgSpec("AUTHOR_D.14B")
 	validator, err := NewSegSeqValidator(msgSpec)
 	require.Nil(b, err)
 	require.NotNil(b, validator)

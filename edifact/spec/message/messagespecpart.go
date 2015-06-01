@@ -1,7 +1,7 @@
 package message
 
 // Parts of a message specification (single segments or segment groups)
-type MessageSpecPart interface {
+type MsgSpecPart interface {
 	MinCount() int
 	MaxCount() int
 	IsMandatory() bool
@@ -10,19 +10,19 @@ type MessageSpecPart interface {
 	Id() string
 
 	// returns nil when at nesting level 0
-	Parent() MessageSpecPart
+	Parent() MsgSpecPart
 	String() string
 	Name() string
 }
 
 // Parts of a message.
-type MessageSpecPartBase struct {
+type MsgSpecPartBase struct {
 	maxCount    int
 	isMandatory bool
-	parent      MessageSpecPart
+	parent      MsgSpecPart
 }
 
-func (b *MessageSpecPartBase) MinCount() int {
+func (b *MsgSpecPartBase) MinCount() int {
 	if b.IsMandatory() {
 		return 1
 	} else {
@@ -30,14 +30,14 @@ func (b *MessageSpecPartBase) MinCount() int {
 	}
 }
 
-func (b *MessageSpecPartBase) MaxCount() int {
+func (b *MsgSpecPartBase) MaxCount() int {
 	return b.maxCount
 }
 
-func (b *MessageSpecPartBase) IsMandatory() bool {
+func (b *MsgSpecPartBase) IsMandatory() bool {
 	return b.isMandatory
 }
 
-func (b *MessageSpecPartBase) Parent() MessageSpecPart {
+func (b *MsgSpecPartBase) Parent() MsgSpecPart {
 	return b.parent
 }

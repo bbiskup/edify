@@ -8,21 +8,21 @@ import (
 )
 
 var partsSpec = []struct {
-	parts    []MessageSpecPart
+	parts    []MsgSpecPart
 	expected string
 }{
 	{
-		parts:    []MessageSpecPart{},
+		parts:    []MsgSpecPart{},
 		expected: "Message testid (testname testrelease): 0 parts",
 	},
 
 	{
-		parts: []MessageSpecPart{
-			NewMessageSpecSegmentPart(
+		parts: []MsgSpecPart{
+			NewMsgSpecSegmentPart(
 				segment.NewSegmentSpec("UNH", "testname1", "testfunc1", nil), 1, false, nil),
-			NewMessageSpecSegmentPart(
+			NewMsgSpecSegmentPart(
 				segment.NewSegmentSpec("BGM", "testname1", "testfunc1", nil), 1, false, nil),
-			NewMessageSpecSegmentPart(
+			NewMsgSpecSegmentPart(
 				segment.NewSegmentSpec("UNT", "testname1", "testfunc1", nil), 1, false, nil),
 		},
 		expected: "Message testid (testname testrelease): 3 parts - UNH, BGM, UNT",
@@ -31,7 +31,7 @@ var partsSpec = []struct {
 
 func TestString(t *testing.T) {
 	for _, spec := range partsSpec {
-		s := NewMessageSpec(
+		s := NewMsgSpec(
 			"testid", "testname",
 			"testversion", "testrelease",
 			"testcontragency", "testrevision",

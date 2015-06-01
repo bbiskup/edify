@@ -98,9 +98,9 @@ func (p *FullSpecParser) parseSegmentSpecs(
 	return specs, nil
 }
 
-func (p *FullSpecParser) parseMessageSpecs(segmentSpecs segment.SegmentSpecProvider) (messageSpecs []*message.MessageSpec, err error) {
+func (p *FullSpecParser) parseMsgSpecs(segmentSpecs segment.SegmentSpecProvider) (messageSpecs []*message.MsgSpec, err error) {
 	msgDir := p.Dir + pathSeparator + "edmd"
-	parser := message.NewMessageSpecParser(segmentSpecs)
+	parser := message.NewMsgSpecParser(segmentSpecs)
 	fmt.Printf("Parsing message specs with suffix '%s' in directory '%s'", p.Version, msgDir)
 	return parser.ParseSpecDir(msgDir, p.Version)
 }
@@ -126,7 +126,7 @@ func (p *FullSpecParser) Parse() error {
 		return err
 	}
 
-	messageSpecs, err := p.parseMessageSpecs(segmentSpecs)
+	messageSpecs, err := p.parseMsgSpecs(segmentSpecs)
 	if err != nil {
 		return err
 	}

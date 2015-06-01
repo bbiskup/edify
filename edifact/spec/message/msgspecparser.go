@@ -75,16 +75,16 @@ type FileSpec struct {
 
 // Parser for message specifications
 // e.g. d14b/edmd/AUTHOR_D.14B
-type MessageSpecParser struct {
+type MsgSpecParser struct {
 	segmentSpecs segment.SegmentSpecProvider
 }
 
-func (p *MessageSpecParser) parseDate(dateStr string) (date time.Time, err error) {
+func (p *MsgSpecParser) parseDate(dateStr string) (date time.Time, err error) {
 	date, err = time.Parse("2006-01-02", dateStr)
 	return
 }
 
-func (p *MessageSpecParser) parseSource(sourceStr string) (source string, err error) {
+func (p *MsgSpecParser) parseSource(sourceStr string) (source string, err error) {
 	match := sourceRE.FindStringSubmatch(sourceStr)
 	if match == nil {
 		return "", errors.New(fmt.Sprintf("Could not get source from '%s'",
@@ -99,7 +99,7 @@ func (p *MessageSpecParser) parseSource(sourceStr string) (source string, err er
 }
 
 // lines: lines of message spec file (without header)
-func (p *MessageSpecParser) getSegmentTableLines(lines []string) (segmentTable []string, err error) {
+func (p *MsgSpecParser) getSegmentTableLines(lines []string) (segmentTable []string, err error) {
 	started := false
 	for _, line := range lines {
 		if strings.HasPrefix(line, "Pos     Tag Name") {
@@ -116,7 +116,7 @@ func (p *MessageSpecParser) getSegmentTableLines(lines []string) (segmentTable [
 	return
 }
 
-func (p *MessageSpecParser) logNestingLevelChange(currentNestingLevel int, newNestingLevel int) {
+func (p *MsgSpecParser) logNestingLevelChange(currentNestingLevel int, newNestingLevel int) {
 	if currentNestingLevel != newNestingLevel {
 		// log.Printf("  Nesting level %d ---> %d",
 		//	currentNestingLevel, newNestingLevel)
@@ -125,7 +125,7 @@ func (p *MessageSpecParser) logNestingLevelChange(currentNestingLevel int, newNe
 	}
 }
 
-func (p *MessageSpecParser) shouldSkipSegTableLine(line string) bool {
+func (p *MsgSpecParser) shouldSkipSegTableLine(line string) bool {
 	if len(strings.TrimSpace(line)) == 0 {
 		return true
 	}
@@ -137,7 +137,7 @@ func (p *MessageSpecParser) shouldSkipSegTableLine(line string) bool {
 }
 
 // Join multi-line segment definition
-func (p *MessageSpecParser) joinMultiLineSegmentDef(
+func (p *MsgSpecParser) joinMultiLineSegmentDef(
 	line string, index int,
 	numLines int, segmentTableLines []string) (joinedLine string, newIndex int) {
 
@@ -172,10 +172,10 @@ func (p *MessageSpecParser) joinMultiLineSegmentDef(
 00110   COM Communication contact                    C   5----------------+
 ...
 */
-func (p *MessageSpecParser) parseMessageSpecParts(fileName string, lines []string) (messageSpecParts []MessageSpecPart, err error) {
+func (p *MsgSpecParser) parseMsgSpecParts(fileName string, lines []string) (messageSpecParts []MsgSpecPart, err error) {
 	segmentTableLines, err := p.getSegmentTableLines(lines)
 	currentNestingLevel := 0
-	var currentMessageSpecPart MessageSpecPart = nil
+	var currentMsgSpecPart MsgSpecPart = nil
 	numLines := len(segmentTableLines)
 
 	for index, line := range segmentTableLines {
@@ -202,17 +202,17 @@ func (p *MessageSpecParser) parseMessageSpecParts(fileName string, lines []strin
 				return nil, errors.New(fmt.Sprintf("No segment spec for ID '%s'",
 					segmentEntry.SegmentId))
 			}
-			part := NewMessageSpecSegmentPart(
-				segmentSpec, segmentEntry.MaxCount, segmentEntry.IsMandatory, currentMessageSpecPart)
+			part := NewMsgSpecSegmentPart(
+				segmentSpec, segmentEntry.MaxCount, segmentEntry.IsMandatory, currentMsgSpecPart)
 
 			if currentNestingLevel == 0 {
 				messageSpecParts = append(messageSpecParts, part)
 			} else {
-				group, ok := currentMessageSpecPart.(*MessageSpecSegmentGroupPart)
+				group, ok := currentMsgSpecPart.(*MsgSpecSegmentGroupPart)
 				if !ok {
 					return nil, errors.New(fmt.Sprintf(
 						"Internal error: nesting incorrect; got: %#v",
-						currentMessageSpecPart))
+						currentMsgSpecPart))
 				}
 				group.Append(part)
 			}
@@ -220,7 +220,7 @@ func (p *MessageSpecParser) parseMessageSpecParts(fileName string, lines []strin
 			if nestingDelta > 0 {
 				// Navigate up in message spec part hierarchy
 				for level := 0; level < nestingDelta; level++ {
-					currentMessageSpecPart = currentMessageSpecPart.Parent()
+					currentMsgSpecPart = currentMsgSpecPart.Parent()
 				}
 			}
 
@@ -238,23 +238,23 @@ func (p *MessageSpecParser) parseMessageSpecParts(fileName string, lines []strin
 		if sg != nil {
 			p.logNestingLevelChange(currentNestingLevel, sg.NestingLevel)
 
-			group := NewMessageSpecSegmentGroupPart(
+			group := NewMsgSpecSegmentGroupPart(
 				fmt.Sprintf("Group_%d", sg.GroupNum),
-				[]MessageSpecPart{}, sg.MaxCount,
-				sg.IsMandatory, currentMessageSpecPart)
+				[]MsgSpecPart{}, sg.MaxCount,
+				sg.IsMandatory, currentMsgSpecPart)
 
-			if currentMessageSpecPart == nil {
+			if currentMsgSpecPart == nil {
 				messageSpecParts = append(messageSpecParts, group)
 			} else {
-				parentGroup, ok := currentMessageSpecPart.(*MessageSpecSegmentGroupPart)
+				parentGroup, ok := currentMsgSpecPart.(*MsgSpecSegmentGroupPart)
 				if !ok {
 					return nil, errors.New(fmt.Sprintf(
 						"Internal error: nesting incorrect; got: %#v",
-						currentMessageSpecPart))
+						currentMsgSpecPart))
 				}
 				parentGroup.Append(group)
 			}
-			currentMessageSpecPart = group
+			currentMsgSpecPart = group
 			currentNestingLevel = sg.NestingLevel
 		} else {
 			return nil, errors.New(
@@ -265,7 +265,7 @@ func (p *MessageSpecParser) parseMessageSpecParts(fileName string, lines []strin
 	return
 }
 
-func (p *MessageSpecParser) parseSegmentGroupStart(line string) (segmentGroupStart *SegmentGroupStart, err error) {
+func (p *MsgSpecParser) parseSegmentGroupStart(line string) (segmentGroupStart *SegmentGroupStart, err error) {
 	match := segmentGroupStartRE.FindStringSubmatch(line)
 	if match == nil {
 		// not an error; other pattern might still match
@@ -313,7 +313,7 @@ func (p *MessageSpecParser) parseSegmentGroupStart(line string) (segmentGroupSta
 	}, nil
 }
 
-func (p *MessageSpecParser) parseSegmentEntry(line string) (segmentEntry *SegmentEntry, err error) {
+func (p *MsgSpecParser) parseSegmentEntry(line string) (segmentEntry *SegmentEntry, err error) {
 	match := segmentRE.FindStringSubmatch(line)
 	if match == nil {
 		return
@@ -358,15 +358,15 @@ func (p *MessageSpecParser) parseSegmentEntry(line string) (segmentEntry *Segmen
 // "            HEADER SECTION"
 // or
 // "
-func (p *MessageSpecParser) matchHeaderOrEmptyInGroupSection(line string) (matches bool) {
+func (p *MsgSpecParser) matchHeaderOrEmptyInGroupSection(line string) (matches bool) {
 	return strings.HasPrefix(line, "            ")
 }
 
-func (p *MessageSpecParser) getFileContents(fileName string) (contents []byte, err error) {
+func (p *MsgSpecParser) getFileContents(fileName string) (contents []byte, err error) {
 	return ioutil.ReadFile(fileName)
 }
 
-func (p *MessageSpecParser) ParseSpecFile(fileName string) (spec *MessageSpec, err error) {
+func (p *MsgSpecParser) ParseSpecFile(fileName string) (spec *MsgSpec, err error) {
 	contents, err := p.getFileContents(fileName)
 	if err != nil {
 		return nil, err
@@ -392,7 +392,7 @@ func (p *MessageSpecParser) ParseSpecFile(fileName string) (spec *MessageSpec, e
 ...
 SOURCE: TBG1 Supply Chain
 */
-func (p *MessageSpecParser) ParseSpecFileContents(fileName string, contents string) (spec *MessageSpec, err error) {
+func (p *MsgSpecParser) ParseSpecFileContents(fileName string, contents string) (spec *MsgSpec, err error) {
 	// The largest standard message file has 321k (about 6800 lines), so
 	// we can read it at once
 
@@ -427,26 +427,26 @@ func (p *MessageSpecParser) ParseSpecFileContents(fileName string, contents stri
 		return
 	}
 
-	specParts, err := p.parseMessageSpecParts(fileName, lines[47:])
+	specParts, err := p.parseMsgSpecParts(fileName, lines[47:])
 	if err != nil {
 		return
 	}
 
-	return NewMessageSpec(id, name, version, release, contrAgency, revision, date, source, specParts), nil
+	return NewMsgSpec(id, name, version, release, contrAgency, revision, date, source, specParts), nil
 }
 
-func (p *MessageSpecParser) ParseSpecDir(dirName string, suffix string) (specs []*MessageSpec, err error) {
+func (p *MsgSpecParser) ParseSpecDir(dirName string, suffix string) (specs []*MsgSpec, err error) {
 	return p.parseSpecDir_sequential(dirName, suffix)
 }
 
 // Parse segment spec directory sequentially
-func (p *MessageSpecParser) parseSpecDir_sequential(dirName string, suffix string) (specs []*MessageSpec, err error) {
+func (p *MsgSpecParser) parseSpecDir_sequential(dirName string, suffix string) (specs []*MsgSpec, err error) {
 	entries, err := ioutil.ReadDir(dirName)
 	if err != nil {
 		return nil, err
 	}
 
-	specs = []*MessageSpec{}
+	specs = []*MsgSpec{}
 	for _, entry := range entries {
 		fileName := entry.Name()
 		if !strings.HasSuffix(fileName, "."+suffix) {
@@ -467,8 +467,8 @@ func (p *MessageSpecParser) parseSpecDir_sequential(dirName string, suffix strin
 	return
 }
 
-func (p *MessageSpecParser) parseSpecDir_parallel(
-	dirName string, suffix string) (specs []*MessageSpec, err error) {
+func (p *MsgSpecParser) parseSpecDir_parallel(
+	dirName string, suffix string) (specs []*MsgSpec, err error) {
 	fmt.Printf("NumThreads: %d; num go routines %d\n",
 		edifact.NumThreads, runtime.NumGoroutine())
 
@@ -497,12 +497,12 @@ func (p *MessageSpecParser) parseSpecDir_parallel(
 	numFiles := len(fileNames)
 
 	fileSpecCh := make(chan FileSpec, 0)
-	resultCh := make(chan *MessageSpec, 0)
-	resultsCh := make(chan []*MessageSpec, 1)
+	resultCh := make(chan *MsgSpec, 0)
+	resultsCh := make(chan []*MsgSpec, 1)
 
 	// Collect results
 	go func() {
-		resultSpecs := []*MessageSpec{}
+		resultSpecs := []*MsgSpec{}
 		for i := 0; i < numFiles; i++ {
 			newSpec := <-resultCh
 			resultSpecs = append(resultSpecs, newSpec)
@@ -548,8 +548,8 @@ func (p *MessageSpecParser) parseSpecDir_parallel(
 	return
 }
 
-func NewMessageSpecParser(segmentSpecs segment.SegmentSpecProvider) *MessageSpecParser {
-	return &MessageSpecParser{
+func NewMsgSpecParser(segmentSpecs segment.SegmentSpecProvider) *MsgSpecParser {
+	return &MsgSpecParser{
 		segmentSpecs: segmentSpecs,
 	}
 }

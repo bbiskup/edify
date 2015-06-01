@@ -9,10 +9,10 @@ import (
 // To be stored on stack while traversing group hierarchy
 type SegSeqGroupContext struct {
 	// may be nil (at top level)
-	groupSpecPart *msgspec.MessageSpecSegmentGroupPart
+	groupSpecPart *msgspec.MsgSpecSegmentGroupPart
 
 	// top-level parts or children of current group
-	parts []msgspec.MessageSpecPart
+	parts []msgspec.MsgSpecPart
 
 	// index on current level
 	partIndex int
@@ -46,17 +46,17 @@ func (c *SegSeqGroupContext) IsExhausted() bool {
 	return c.partIndex >= len(c.parts)
 }
 
-func (c *SegSeqGroupContext) currentPart() msgspec.MessageSpecPart {
+func (c *SegSeqGroupContext) currentPart() msgspec.MsgSpecPart {
 	return c.parts[c.partIndex]
 }
 
-func (c *SegSeqGroupContext) nextPart() msgspec.MessageSpecPart {
+func (c *SegSeqGroupContext) nextPart() msgspec.MsgSpecPart {
 	return c.parts[c.partIndex+1]
 }
 
 func NewSegSeqGroupContext(
-	groupSpecPart *msgspec.MessageSpecSegmentGroupPart,
-	parts []msgspec.MessageSpecPart,
+	groupSpecPart *msgspec.MsgSpecSegmentGroupPart,
+	parts []msgspec.MsgSpecPart,
 	repeatSegGroup *msg.RepeatSegmentGroup,
 ) *SegSeqGroupContext {
 
