@@ -6,29 +6,29 @@ import (
 )
 
 // A segment that is repeated 1 to n times
-type RepeatSegment struct {
+type RepSeg struct {
 	segments []*Segment
 }
 
 // From Interface RepeatMsgPart
-func (s *RepeatSegment) Count() int {
+func (s *RepSeg) Count() int {
 	return len(s.segments)
 }
 
 // From SegmentOrGroup
-func (s *RepeatSegment) Id() string {
+func (s *RepSeg) Id() string {
 	return s.segments[0].Id()
 }
 
-func (s *RepeatSegment) Get(index int) *Segment {
+func (s *RepSeg) Get(index int) *Segment {
 	return s.segments[index]
 }
 
-func (s *RepeatSegment) AddSegment(segment *Segment) {
+func (s *RepSeg) AddSegment(segment *Segment) {
 	s.segments = append(s.segments, segment)
 }
 
-func (s *RepeatSegment) Dump(indent int) string {
+func (s *RepSeg) Dump(indent int) string {
 	var buf bytes.Buffer
 	indentStr := getIndentStr(indent)
 	for repeat, segment := range s.segments {
@@ -38,8 +38,8 @@ func (s *RepeatSegment) Dump(indent int) string {
 	return buf.String()
 }
 
-func NewRepeatSegment(segments ...*Segment) *RepeatSegment {
-	return &RepeatSegment{
+func NewRepSeg(segments ...*Segment) *RepSeg {
+	return &RepSeg{
 		segments,
 	}
 }

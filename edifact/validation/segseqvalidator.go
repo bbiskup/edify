@@ -49,8 +49,8 @@ func (s *SegSeqValidator) setNewState(newState SegSeqState) {
 	s.state = newState
 }
 
-func (s *SegSeqValidator) handleRepeatSegment(segment *msg.Segment) error {
-	log.Printf("handleRepeatSegment %s", segment)
+func (s *SegSeqValidator) handleRepSeg(segment *msg.Segment) error {
+	log.Printf("handleRepSeg %s", segment)
 	gc := s.currentGroupContext()
 	gc.segmentRepeatCount++
 	maxCount := s.getCurrentMsgSpecPart().MaxCount()
@@ -140,7 +140,7 @@ func (s *SegSeqValidator) handleStateSeg(
 			return true, s.handleRepeatGroup(segment)
 		} else {
 			s.nestedMsgBuilder.AddSegment(segment)
-			return true, s.handleRepeatSegment(segment)
+			return true, s.handleRepSeg(segment)
 		}
 	} else {
 		s.incrementCurrentMsgSpecPartIndex()

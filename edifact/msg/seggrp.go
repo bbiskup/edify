@@ -18,7 +18,7 @@ func (g *SegGrp) Id() string {
 }
 
 func (g *SegGrp) AppendSeg(segment *Segment) {
-	g.parts = append(g.parts, NewRepeatSegment(segment))
+	g.parts = append(g.parts, NewRepSeg(segment))
 }
 
 func (g *SegGrp) AppendSegGroup(segGrp *RepeatSegGrp) {
