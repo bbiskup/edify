@@ -13,7 +13,7 @@ type MsgSpecSegGrpPart struct {
 }
 
 func (p *MsgSpecSegGrpPart) Id() string {
-	return p.name
+	return p.children[0].Id()
 }
 
 func (p *MsgSpecSegGrpPart) Name() string {
