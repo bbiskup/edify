@@ -408,7 +408,7 @@ func (p *MsgSpecParser) ParseSpecFileContents(fileName string, contents string) 
 	}
 
 	name := strings.TrimSpace(lines[4])
-	fmt.Printf("id-line: '%s'", lines[33])
+	//log.Printf("id-line: '%s'", lines[33])
 
 	detailCol := 58
 
