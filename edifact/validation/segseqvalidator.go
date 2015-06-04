@@ -112,11 +112,18 @@ GROUPREPEAT:
 	for {
 		log.Printf("Repeating group %s # %d",
 			curMsgSpecSegGrpPart.Name(), groupRepeatCount)
-		groupRepeatCount++
 
-		segGrp := msg.NewSegGrp(curMsgSpecSegGrpPart.Name())
-		log.Printf("@BUILD appending %s", segGrp)
-		curRepSegGrp.Append(segGrp)
+		var segGrp *msg.SegGrp
+		if !curRepSegGrp.IsTopLevel() {
+			segGrp = msg.NewSegGrp(curMsgSpecSegGrpPart.Name())
+			log.Printf("@BUILD appending %s", segGrp)
+			curRepSegGrp.Append(segGrp)
+		} else {
+			log.Printf("@BUILD: not appending to top-level group")
+			segGrp = curRepSegGrp.GetSegGrp(0)
+		}
+
+		groupRepeatCount++
 
 		for specIndex, specPart := range curMsgSpecSegGrpPart.Children() {
 			if v.segsExhausted() {
