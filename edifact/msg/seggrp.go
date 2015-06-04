@@ -3,6 +3,7 @@ package msg
 import (
 	"bytes"
 	"fmt"
+	msp "github.com/bbiskup/edify/edifact/spec/message"
 )
 
 // Map for looking up parts of a group by Id
@@ -23,6 +24,10 @@ func (g *SegGrp) Id() string {
 
 func (g *SegGrp) Count() int {
 	return len(g.parts)
+}
+
+func (g *SegGrp) IsTopLevel() bool {
+	return g.Id() == msp.TopLevelSegGroupName
 }
 
 func (g *SegGrp) GetPartByKey(key string) RepeatMsgPart {

@@ -22,6 +22,13 @@ func (g *RepSegGrp) Id() string {
 	return g.triggerSegId
 }
 
+func (g *RepSegGrp) IsTopLevel() bool {
+	if len(g.groups) == 0 {
+		return false
+	}
+	return g.GetSegGrp(0).IsTopLevel()
+}
+
 // Append a repetition
 func (g *RepSegGrp) Append(segGrp *SegGrp) {
 	checkGroupIdConsistency(g.triggerSegId, segGrp)
