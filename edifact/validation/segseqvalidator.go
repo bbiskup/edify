@@ -32,7 +32,7 @@ func (v *SegSeqValidator) String() string {
 
 // Remove a single segment from the list of segments
 func (v *SegSeqValidator) consumeSingle() {
-	log.Printf("consumeSingle()")
+	// log.Printf("consumeSingle()")
 	if v.segs == nil || len(v.segs) == 0 {
 		panic("consumeSingle() called on missing/empty segment list")
 	}
@@ -42,7 +42,7 @@ func (v *SegSeqValidator) consumeSingle() {
 // Remove the current segment from the list of segments under
 // validation
 func (v *SegSeqValidator) consumeMulti() {
-	log.Printf("consumeMulti()")
+	// log.Printf("consumeMulti()")
 	if v.segs == nil || len(v.segs) == 0 {
 		panic("consumeMulti() called on missing/empty segment list")
 	}
@@ -102,24 +102,24 @@ func (v *SegSeqValidator) validateGroup(
 	curRepSegGrp *msg.RepSegGrp,
 ) error {
 
-	log.Printf("Entering group spec %s", curMsgSpecSegGrpPart.Name())
-	log.Printf("@BUILD: curRepSegGrp: %s", curRepSegGrp.Dump(0))
+	//log.Printf("Entering group spec %s", curMsgSpecSegGrpPart.Name())
+	// log.Printf("@BUILD: curRepSegGrp: %s", curRepSegGrp.Dump(0))
 
 	groupRepeatCount := 0
 	groupTriggerSegmentID := curMsgSpecSegGrpPart.TriggerSegPart().Id()
 
 GROUPREPEAT:
 	for {
-		log.Printf("Repeating group %s # %d",
-			curMsgSpecSegGrpPart.Name(), groupRepeatCount)
+		//log.Printf("Repeating group %s # %d",
+		//	curMsgSpecSegGrpPart.Name(), groupRepeatCount)
 
 		var segGrp *msg.SegGrp
 		if !curRepSegGrp.IsTopLevel() {
 			segGrp = msg.NewSegGrp(curMsgSpecSegGrpPart.Name())
-			log.Printf("@BUILD appending %s", segGrp)
+			// log.Printf("@BUILD: appending %s", segGrp)
 			curRepSegGrp.Append(segGrp)
 		} else {
-			log.Printf("@BUILD: not appending to top-level group")
+			// log.Printf("@BUILD: not appending to top-level group")
 			segGrp = curRepSegGrp.GetSegGrp(0)
 		}
 
@@ -133,8 +133,8 @@ GROUPREPEAT:
 			segs := v.peek()
 			repeatCount := len(segs)
 			segID := segs[0].Id()
-			log.Printf("Spec: %s; peek: %s (%dx)",
-				specPart, segID, repeatCount)
+			//log.Printf("Spec: %s; peek: %s (%dx)",
+			//		specPart, segID, repeatCount)
 
 			// Generic error msg
 			segErrStr := fmt.Sprintf("%s in %s",
@@ -143,7 +143,7 @@ GROUPREPEAT:
 			switch specPart := specPart.(type) {
 			case *msp.MsgSpecSegPart:
 				if specPart.Id() != segID {
-					log.Printf("unequal spec: %s vs seg: %s", specPart.Id(), segID)
+					// log.Printf("unequal spec: %s vs seg: %s", specPart.Id(), segID)
 					if specPart.IsMandatory() {
 						return NewSegSeqError(missingMandatorySeg, segErrStr)
 					} else {
@@ -157,11 +157,11 @@ GROUPREPEAT:
 						// A segment repetition may occur if a group contains
 						// of a single mandatory segment, and all optional
 						// segments are skipped; e.g. AUTHOR message, group_4: LIN segment
-						log.Printf("repeat count exceeded? repeating group")
+						// log.Printf("repeat count exceeded? repeating group")
 						v.consumeSingle()
 
 						newRepSeg := msg.NewRepSeg(segs[0])
-						log.Printf("@BUILD: Appending %s to %s", newRepSeg, segGrp)
+						// log.Printf("@BUILD: Appending %s to %s", newRepSeg, segGrp)
 						segGrp.AppendRepSeg(newRepSeg)
 
 						continue GROUPREPEAT
@@ -173,14 +173,14 @@ GROUPREPEAT:
 
 				// Segment matches
 				newRepSeg := msg.NewRepSeg(segs...)
-				log.Printf("@BUILD: Appending %s to %s", newRepSeg, segGrp)
+				// log.Printf("@BUILD: Appending %s to %s", newRepSeg, segGrp)
 				segGrp.AppendRepSeg(newRepSeg)
 				v.consumeMulti()
 				continue
 			case *msp.MsgSpecSegGrpPart:
 				triggerSegmentID := specPart.TriggerSegPart().Id()
 				if triggerSegmentID != segID {
-					log.Printf("Trigger for group %s not present", specPart.Name())
+					// log.Printf("Trigger for group %s not present", specPart.Name())
 					if specPart.IsMandatory() {
 						return NewSegSeqError(
 							missingMandatorySeg,
@@ -189,7 +189,7 @@ GROUPREPEAT:
 					}
 				} else {
 					newRepSegGrp := msg.NewRepSegGrp(specPart.Name())
-					log.Printf("@BUILD appending %s to %s", newRepSegGrp, segGrp)
+					// log.Printf("@BUILD appending %s to %s", newRepSegGrp, segGrp)
 					segGrp.AppendRepSegGrp(newRepSegGrp)
 					if err := v.validateGroup(specPart, newRepSegGrp); err != nil {
 						return err
@@ -213,7 +213,7 @@ GROUPREPEAT:
 			break
 		}
 	}
-	log.Printf("Leaving group spec %s", curMsgSpecSegGrpPart.Name())
+	//log.Printf("Leaving group spec %s", curMsgSpecSegGrpPart.Name())
 	return nil
 }
 
