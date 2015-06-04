@@ -165,7 +165,7 @@ func TestSegSeqValidator1(t *testing.T) {
 			require.Nil(t, err)
 			// TODO check nested msg
 			require.NotNil(t, nestedMsg)
-			fmt.Printf("Constructed nested message:\n%s", nestedMsg.Dump())
+			fmt.Printf("@BUILD: Constructed nested message:\n%s", nestedMsg.Dump())
 			if spec.validateNestedMsg != nil {
 				spec.validateNestedMsg(t, nestedMsg)
 			}

@@ -115,6 +115,7 @@ GROUPREPEAT:
 		groupRepeatCount++
 
 		segGrp := msg.NewSegGrp(curMsgSpecSegGrpPart.Name())
+		log.Printf("@BUILD appending %s", segGrp)
 		curRepSegGrp.Append(segGrp)
 
 		for specIndex, specPart := range curMsgSpecSegGrpPart.Children() {
@@ -160,7 +161,9 @@ GROUPREPEAT:
 				}
 
 				// Segment matches
-				segGrp.AppendRepSeg(msg.NewRepSeg(segs...))
+				newRepSeg := msg.NewRepSeg(segs...)
+				log.Printf("@BUILD: Appending %s to %s", newRepSeg, segGrp)
+				segGrp.AppendRepSeg(newRepSeg)
 				v.consumeMulti()
 				continue
 			case *msp.MsgSpecSegGrpPart:
@@ -175,6 +178,7 @@ GROUPREPEAT:
 					}
 				} else {
 					newRepSegGrp := msg.NewRepSegGrp(specPart.Name())
+					log.Printf("@BUILD appending %s to %s", newRepSegGrp, segGrp)
 					segGrp.AppendRepSegGrp(newRepSegGrp)
 					if err := v.validateGroup(specPart, newRepSegGrp); err != nil {
 						return err
