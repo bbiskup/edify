@@ -51,11 +51,11 @@ var authorSegSeqSpec = []struct {
 		}, true, missingMandatorySeg,
 	},
 
-	// {"Missing mandatory group 4",
-	// 	[]string{
-	// 		"UNH", "BGM", "DTM" /* optional */, "UNT",
-	// 	}, true, missingGroup,
-	// },
+	{"Missing mandatory group 4",
+		[]string{
+			"UNH", "BGM", "DTM" /* optional */, "UNT",
+		}, true, missingMandatorySeg,
+	},
 
 	// {"minimal message (only mandatory segments)",
 	// 	[]string{
@@ -150,7 +150,8 @@ func TestSegSeqValidator1(t *testing.T) {
 		if spec.expectError {
 			assert.NotNil(t, err)
 			assert.Nil(t, nestedMsg)
-			fmt.Printf("Expected error was: %s\n", err)
+			fmt.Printf("Expected error kind: %s\n", spec.errorKind)
+			fmt.Printf("\tError was: %s\n", err)
 			err, ok := err.(SegSeqError)
 			assert.True(t, ok)
 			require.Equal(t, spec.errorKind, err.kind)

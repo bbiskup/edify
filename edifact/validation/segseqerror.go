@@ -7,13 +7,12 @@ import (
 type SegSeqErrKind string
 
 const (
-	missingMandatorySeg       SegSeqErrKind = "missing_mandatory_segment"
-	maxSegRepeatCountExceeded SegSeqErrKind = "max_segment_repeat_count_exceeded"
-	maxGroupRepeatCountExceeded   SegSeqErrKind = "max_group_repeat_count_exceeded"
-	missingGroup                  SegSeqErrKind = "missing_group"
-	noSegSpecs                SegSeqErrKind = "no_segment_specs"
-	noSegs                    SegSeqErrKind = "no_segments"
-	unexpectedSeg             SegSeqErrKind = "unexpected_segment"
+	missingMandatorySeg         SegSeqErrKind = "missing_mandatory_segment"
+	maxSegRepeatCountExceeded   SegSeqErrKind = "max_segment_repeat_count_exceeded"
+	maxGroupRepeatCountExceeded SegSeqErrKind = "max_group_repeat_count_exceeded"
+	noSegSpecs                  SegSeqErrKind = "no_segment_specs"
+	noSegs                      SegSeqErrKind = "no_segments"
+	unexpectedSeg               SegSeqErrKind = "unexpected_segment"
 )
 
 // An exception that provides an error kind to check for specific error conditions

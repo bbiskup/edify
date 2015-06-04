@@ -93,10 +93,11 @@ func (v *SegSeqValidator) validateGroup(
 		log.Printf("Spec: %s; peek: %s (%dx)", specPart, segID, repeatCount)
 
 		// Generic error msg
-		segErrStr := fmt.Sprintf("Segment %s in group %s",
-			segID, curMsgSpecSegGrpPart)
+		segErrStr := fmt.Sprintf("%s in %s",
+			specPart, curMsgSpecSegGrpPart)
 
 		if specPart.Id() != segID {
+			log.Printf("unequal spec: %s vs seg: %s", specPart.Id(), segID)
 			if specPart.IsMandatory() {
 				return nil, NewSegSeqError(missingMandatorySeg, segErrStr)
 			} else {
@@ -120,6 +121,7 @@ func (v *SegSeqValidator) validateGroup(
 			panic(fmt.Sprintf("Unsupported type %T", specPart))
 		}
 	}
+	log.Printf("Leaving group spec %s", curMsgSpecSegGrpPart.Id())
 	return nil, nil
 }
 
