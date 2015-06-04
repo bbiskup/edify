@@ -3,11 +3,11 @@ package msg
 import (
 	"bytes"
 	"fmt"
+	msp "github.com/bbiskup/edify/edifact/spec/message"
 )
 
 const (
-	TOP_LEVEL_GROUP = "_toplevel"
-	noPartsText     = "<no msg parts>\n"
+	noPartsText = "<no msg parts>\n"
 )
 
 // An EDIFACT message consisting of individual segments
@@ -51,8 +51,8 @@ func (m *NestedMsg) Dump() string {
 }
 
 func NewNestedMsg(name string, parts ...RepeatMsgPart) *NestedMsg {
-	topLevelGroup := NewSegGrp(TOP_LEVEL_GROUP, parts...)
+	topLevelGroup := NewSegGrp(msp.TopLevelSegGroupName, parts...)
 	return &NestedMsg{
 		Name:           name,
-		TopLevelRepGrp: NewRepSegGrp(topLevelGroup)}
+		TopLevelRepGrp: NewRepSegGrp(topLevelGroup.Id(), topLevelGroup)}
 }

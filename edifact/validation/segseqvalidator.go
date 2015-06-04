@@ -103,6 +103,7 @@ func (v *SegSeqValidator) validateGroup(
 ) error {
 
 	log.Printf("Entering group spec %s", curMsgSpecSegGrpPart.Name())
+	log.Printf("curRepSegGrp: %s", curRepSegGrp.Dump(0))
 
 	groupRepeatCount := 0
 	groupTriggerSegmentID := curMsgSpecSegGrpPart.TriggerSegPart().Id()
@@ -113,7 +114,7 @@ GROUPREPEAT:
 			curMsgSpecSegGrpPart.Name(), groupRepeatCount)
 		groupRepeatCount++
 
-		segGrp := msg.NewSegGrp(curMsgSpecSegGrpPart.Id())
+		segGrp := msg.NewSegGrp(curMsgSpecSegGrpPart.Name())
 		curRepSegGrp.Append(segGrp)
 
 		for specIndex, specPart := range curMsgSpecSegGrpPart.Children() {
@@ -173,7 +174,8 @@ GROUPREPEAT:
 								triggerSegmentID, specPart.Name()))
 					}
 				} else {
-					newRepSegGrp := msg.NewRepSegGrp()
+					newRepSegGrp := msg.NewRepSegGrp(specPart.Name())
+					segGrp.AppendRepSegGrp(newRepSegGrp)
 					if err := v.validateGroup(specPart, newRepSegGrp); err != nil {
 						return err
 					}

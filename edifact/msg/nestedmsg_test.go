@@ -12,7 +12,7 @@ func getEmptyNestedMsg() *NestedMsg {
 
 const expectedDumpNestedMsgWithParts = `Message testname
   RepSegGrp
-    [0] Group _toplevel
+    [0] Group _Group_0
       RepSeg
         [0] ABC
       RepSeg
@@ -29,7 +29,7 @@ func getNestedMsgWithParts() *NestedMsg {
 
 const expectedDumpNestedMsgWithGroupPart = `Message testname
   RepSegGrp
-    [0] Group _toplevel
+    [0] Group _Group_0
       RepSeg
         [0] ABC
         [1] ABC
@@ -55,11 +55,11 @@ func getNestedMsgWithGroupPart() *NestedMsg {
 			NewSeg("ABC"),
 			NewSeg("ABC"),
 		),
-		NewRepSegGrp(
+		NewRepSegGrp("group_1",
 			NewSegGrp("group_1",
 				NewRepSeg(NewSeg("DEF")),
 				NewRepSeg(NewSeg("GHI")),
-				NewRepSegGrp(NewSegGrp("group_2",
+				NewRepSegGrp("group_2", NewSegGrp("group_2",
 					NewRepSeg(
 						NewSeg("JKL"),
 					))),
@@ -104,7 +104,7 @@ func TestAppend(t *testing.T) {
 	msg := getNestedMsgWithParts()
 	assert.Equal(t, 2, msg.Count())
 	grp1 := NewSegGrp("Group_1", NewRepSeg(NewSeg("GHI")))
-	msg.GetTopLevelGroup().AppendRepSegGrp(NewRepSegGrp(grp1))
+	msg.GetTopLevelGroup().AppendRepSegGrp(NewRepSegGrp(grp1.Id(), grp1))
 	assert.Equal(t, 3, msg.Count())
 	assert.Equal(t, "ABC", msg.GetTopLevelGroup().GetPart(0).Id())
 	assert.Equal(t, 1, msg.GetTopLevelGroup().GetPart(0).Count())
