@@ -103,7 +103,7 @@ func (v *SegSeqValidator) validateGroup(
 ) error {
 
 	log.Printf("Entering group spec %s", curMsgSpecSegGrpPart.Name())
-	log.Printf("curRepSegGrp: %s", curRepSegGrp.Dump(0))
+	log.Printf("@BUILD: curRepSegGrp: %s", curRepSegGrp.Dump(0))
 
 	groupRepeatCount := 0
 	groupTriggerSegmentID := curMsgSpecSegGrpPart.TriggerSegPart().Id()
