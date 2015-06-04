@@ -45,11 +45,11 @@ var authorSegSeqSpec = []struct {
 		}, true, missingMandatorySeg,
 	},
 
-	// {"Optional segment in incorrect position",
-	// 	[]string{
-	// 		"DTM", "UNH", "BGM", "UNT",
-	// 	}, true, missingMandatorySeg,
-	// },
+	{"Optional segment in incorrect position",
+		[]string{
+			"DTM", "UNH", "BGM", "UNT",
+		}, true, missingMandatorySeg,
+	},
 
 	// {"Missing mandatory group 4",
 	// 	[]string{
