@@ -160,6 +160,10 @@ GROUPREPEAT:
 						log.Printf("repeat count exceeded? repeating group")
 						v.consumeSingle()
 
+						newRepSeg := msg.NewRepSeg(segs[0])
+						log.Printf("@BUILD: Appending %s to %s", newRepSeg, segGrp)
+						segGrp.AppendRepSeg(newRepSeg)
+
 						continue GROUPREPEAT
 					} else {
 						log.Printf("There are remaining mandatory segments")
