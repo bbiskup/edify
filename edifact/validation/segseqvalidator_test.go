@@ -109,21 +109,6 @@ var authorSegSeqSpec = []struct {
 	},
 
 	{
-		"Some repeat counts > 1",
-		[]string{
-			"UNH", "BGM",
-			"DTM", "BUS",
-			// Group 4
-			"LIN", "LIN", "LIN", "LIN",
-			// Group 7
-			"FII", "CTA", "COM", "COM", "COM",
-			"FII", "CTA", "COM", "COM", "COM",
-
-			"UNT",
-		}, false, "", nil,
-	},
-
-	{
 		"group 7 repeated too often",
 		[]string{
 			"UNH", "BGM",
