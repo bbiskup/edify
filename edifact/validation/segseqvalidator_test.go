@@ -132,7 +132,10 @@ var authorSegSeqSpec = []struct {
 		func(t *testing.T, nestedMsg *msg.NestedMsg) {
 			assert.Equal(t, 6, nestedMsg.Count())
 			assert.Equal(t, 6, nestedMsg.GetTopLevelGrp().Count())
-			assert.Equal(t, "UNH", nestedMsg.GetTopLevelGrp().GetPart(0).Id())
+
+			unh := nestedMsg.GetTopLevelGrp().GetPart(0)
+			assert.Equal(t, "UNH", unh.Id())
+			assert.Equal(t, 1, unh.Count())
 			group_4 := nestedMsg.GetTopLevelGrp().GetPart(4).(*msg.RepSegGrp)
 			assert.Equal(t, "Group_4", group_4.Id())
 			assert.Equal(t, 1, group_4.Count())
@@ -157,7 +160,15 @@ var authorSegSeqSpec = []struct {
 			"FII", "CTA", "COM", "COM", "COM",
 
 			"UNT",
-		}, false, "", nil,
+		}, false, "",
+		func(t *testing.T, nestedMsg *msg.NestedMsg) {
+			assert.Equal(t, 6, nestedMsg.Count())
+			group_4 := nestedMsg.GetTopLevelGrp().GetPart(4).(*msg.RepSegGrp)
+			assert.Equal(t, 4, group_4.Count())
+			lin := group_4.GetSegGrp(0).GetPart(0).(*msg.RepSeg)
+			assert.Equal(t, "LIN", lin.Id())
+
+		},
 	},
 
 	{
