@@ -1,6 +1,10 @@
 TODO
 ====
 
+- Handle multiple segments of same ID in same group correctly
+  Example MOVINS message, group 6: LOC-RFF-FTX-MEA-DIM-LOC-NAD-SG7-SG8-SG9-SG10-SG11
+  (LOC segment occurs twice)
+
 - Propagate annotated error messages (http://rogpeppe.neocities.org/error-loving-talk/#26)
 
 - Obtain separator chars from interchange UNA segment (UNA:+.? ')
