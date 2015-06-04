@@ -78,13 +78,13 @@ func (v *SegSeqValidator) validateGroup(
 	//context *SegSeqGroupContext,
 	curMsgSpecSegGrpPart *msp.MsgSpecSegGrpPart,
 	curRepSegGrp *msg.RepSegGrp,
-) (nestedMsg *msg.NestedMsg, err error) {
+) error {
 
-	log.Printf("Entering group spec %s", curMsgSpecSegGrpPart.Id())
+	log.Printf("Entering group spec %s", curMsgSpecSegGrpPart.Name())
 
 	for _, specPart := range curMsgSpecSegGrpPart.Children() {
 		if v.segsExhausted() {
-			return nil, NewSegSeqError(
+			return NewSegSeqError(
 				missingMandatorySeg, "Segments exhausted")
 		}
 		segs := v.peek()
@@ -96,33 +96,47 @@ func (v *SegSeqValidator) validateGroup(
 		segErrStr := fmt.Sprintf("%s in %s",
 			specPart, curMsgSpecSegGrpPart)
 
-		if specPart.Id() != segID {
-			log.Printf("unequal spec: %s vs seg: %s", specPart.Id(), segID)
-			if specPart.IsMandatory() {
-				return nil, NewSegSeqError(missingMandatorySeg, segErrStr)
-			} else {
-				continue
-			}
-		}
-
-		// Segments are equal
-		if repeatCount > specPart.MaxCount() {
-			return nil, NewSegSeqError(maxSegRepeatCountExceeded, segErrStr)
-		}
-
 		switch specPart := specPart.(type) {
 		case *msp.MsgSpecSegPart:
+			if specPart.Id() != segID {
+				log.Printf("unequal spec: %s vs seg: %s", specPart.Id(), segID)
+				if specPart.IsMandatory() {
+					return NewSegSeqError(missingMandatorySeg, segErrStr)
+				} else {
+					continue
+				}
+			}
+
+			// Segments are equal
+			if repeatCount > specPart.MaxCount() {
+				return NewSegSeqError(maxSegRepeatCountExceeded, segErrStr)
+			}
+
 			log.Printf("Consuming segment %s", segID)
 			v.consume()
 			continue
 		case *msp.MsgSpecSegGrpPart:
-			panic("Not implemented")
+			triggerSegmentID := specPart.TriggerSegPart().Id()
+			if triggerSegmentID != segID {
+				log.Printf("Trigger for group %s not present", specPart.Name())
+				if specPart.IsMandatory() {
+					return NewSegSeqError(
+						missingMandatorySeg,
+						fmt.Sprintf("Trigger segment %s for group %s",
+							triggerSegmentID, specPart.Name()))
+				}
+			} else {
+				if err := v.validateGroup(specPart, nil); err != nil {
+					return err
+				}
+			}
+
 		default:
 			panic(fmt.Sprintf("Unsupported type %T", specPart))
 		}
 	}
-	log.Printf("Leaving group spec %s", curMsgSpecSegGrpPart.Id())
-	return nil, nil
+	log.Printf("Leaving group spec %s", curMsgSpecSegGrpPart.Name())
+	return nil
 }
 
 func (v *SegSeqValidator) Validate(rawMsg *msg.RawMsg) (nestedMsg *msg.NestedMsg, err error) {
@@ -137,7 +151,7 @@ func (v *SegSeqValidator) Validate(rawMsg *msg.RawMsg) (nestedMsg *msg.NestedMsg
 	nestedMsg = msg.NewNestedMsg(v.msgSpec.Name)
 	//topLevelContext := NewSegSeqGroupContext(v.msgSpec.TopLevelGroup, nestedMsg.TopLevelRepGrp)
 
-	return v.validateGroup(v.msgSpec.TopLevelGroup, nestedMsg.TopLevelRepGrp)
+	return nil, v.validateGroup(v.msgSpec.TopLevelGroup, nestedMsg.TopLevelRepGrp)
 }
 
 func NewSegSeqValidator(msgSpec *msp.MsgSpec) *SegSeqValidator {
