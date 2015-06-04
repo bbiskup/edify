@@ -9,52 +9,55 @@ import (
 )
 
 var authorSegSeqSpec = []struct {
-	descr       string
-	segmentIDs  []string
-	expectError bool
-	errorKind   SegSeqErrKind
+	descr             string
+	segmentIDs        []string
+	expectError       bool
+	errorKind         SegSeqErrKind
+	validateNestedMsg func(t *testing.T, nestedMsg *msg.NestedMsg)
 }{
 	{
 		"No segments at all",
-		[]string{}, true, noSegs,
+		[]string{}, true, noSegs, nil,
 	},
 
 	{
 		"Missing mandatory segments",
 		[]string{
 			"UNH", // no BGM
-		}, true, missingMandatorySeg,
+		}, true, missingMandatorySeg, nil,
 	},
 
 	{
 		"Max. repeat count of mandatory segment exeeded",
 		[]string{
 			"UNH", "UNH", // max. repeat count is 1
-		}, true, maxSegRepeatCountExceeded},
+		}, true, maxSegRepeatCountExceeded, nil,
+	},
 
 	{
 		"Max. repeat count of optional segment exeeded",
 		[]string{
 			"UNH", "BGM", "DTM" /* max. repeat count is 1 */, "DTM",
-		}, true, maxSegRepeatCountExceeded},
+		}, true, maxSegRepeatCountExceeded, nil,
+	},
 
 	{"Optional segment in incorrect position",
 		[]string{
 			"UNH",
 			"DTM" /* Should appear after BGM */, "BGM", "UNT",
-		}, true, missingMandatorySeg,
+		}, true, missingMandatorySeg, nil,
 	},
 
 	{"Optional segment in incorrect position",
 		[]string{
 			"DTM", "UNH", "BGM", "UNT",
-		}, true, missingMandatorySeg,
+		}, true, missingMandatorySeg, nil,
 	},
 
 	{"Missing mandatory group 4",
 		[]string{
 			"UNH", "BGM", "DTM" /* optional */, "UNT",
-		}, true, missingMandatorySeg,
+		}, true, missingMandatorySeg, nil,
 	},
 
 	{"minimal message (only mandatory segments)",
@@ -62,7 +65,7 @@ var authorSegSeqSpec = []struct {
 			"UNH", "BGM" /* Group 4 */, "LIN",
 
 			"UNT",
-		}, false, "",
+		}, false, "", nil,
 	},
 
 	{
@@ -73,7 +76,8 @@ var authorSegSeqSpec = []struct {
 			// Group 4
 			"LIN",
 			"UNT",
-		}, false, ""},
+		}, false, "", nil,
+	},
 
 	{
 		"Mostly mandatory; one conditional group",
@@ -86,7 +90,8 @@ var authorSegSeqSpec = []struct {
 			"FII", "CTA", "COM",
 
 			"UNT",
-		}, false, ""},
+		}, false, "", nil,
+	},
 
 	{
 		"Some repeat counts > 1",
@@ -100,7 +105,8 @@ var authorSegSeqSpec = []struct {
 			"FII", "CTA", "COM", "COM", "COM",
 
 			"UNT",
-		}, false, ""},
+		}, false, "", nil,
+	},
 
 	{
 		"Some repeat counts > 1",
@@ -114,7 +120,8 @@ var authorSegSeqSpec = []struct {
 			"FII", "CTA", "COM", "COM", "COM",
 
 			"UNT",
-		}, false, ""},
+		}, false, "", nil,
+	},
 
 	{
 		"group 7 repeated too often",
@@ -129,7 +136,8 @@ var authorSegSeqSpec = []struct {
 			"FII", "CTA", "COM", "COM", "COM",
 
 			"UNT",
-		}, true, maxGroupRepeatCountExceeded},
+		}, true, maxGroupRepeatCountExceeded, nil,
+	},
 }
 
 func TestSegSeqValidator1(t *testing.T) {
@@ -156,7 +164,11 @@ func TestSegSeqValidator1(t *testing.T) {
 		} else {
 			require.Nil(t, err)
 			// TODO check nested msg
-			//require.NotNil(t, nestedMsg)
+			require.NotNil(t, nestedMsg)
+			fmt.Printf("Constructed nested message:\n%s", nestedMsg.Dump())
+			if spec.validateNestedMsg != nil {
+				spec.validateNestedMsg(t, nestedMsg)
+			}
 		}
 	}
 }

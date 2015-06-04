@@ -113,6 +113,9 @@ GROUPREPEAT:
 			curMsgSpecSegGrpPart.Name(), groupRepeatCount)
 		groupRepeatCount++
 
+		segGrp := msg.NewSegGrp(curMsgSpecSegGrpPart.Id())
+		curRepSegGrp.Append(segGrp)
+
 		for specIndex, specPart := range curMsgSpecSegGrpPart.Children() {
 			if v.segsExhausted() {
 				return NewSegSeqError(
@@ -155,6 +158,8 @@ GROUPREPEAT:
 					}
 				}
 
+				// Segment matches
+				segGrp.AppendRepSeg(msg.NewRepSeg(segs...))
 				v.consumeMulti()
 				continue
 			case *msp.MsgSpecSegGrpPart:
@@ -168,7 +173,8 @@ GROUPREPEAT:
 								triggerSegmentID, specPart.Name()))
 					}
 				} else {
-					if err := v.validateGroup(specPart, nil); err != nil {
+					newRepSegGrp := msg.NewRepSegGrp()
+					if err := v.validateGroup(specPart, newRepSegGrp); err != nil {
 						return err
 					}
 				}
@@ -206,7 +212,11 @@ func (v *SegSeqValidator) Validate(rawMsg *msg.RawMsg) (nestedMsg *msg.NestedMsg
 	nestedMsg = msg.NewNestedMsg(v.msgSpec.Name)
 	//topLevelContext := NewSegSeqGroupContext(v.msgSpec.TopLevelGroup, nestedMsg.TopLevelRepGrp)
 
-	return nil, v.validateGroup(v.msgSpec.TopLevelGroup, nestedMsg.TopLevelRepGrp)
+	if err := v.validateGroup(v.msgSpec.TopLevelGroup, nestedMsg.TopLevelRepGrp); err != nil {
+		return nil, err
+	} else {
+		return nestedMsg, nil
+	}
 }
 
 func NewSegSeqValidator(msgSpec *msp.MsgSpec) *SegSeqValidator {
