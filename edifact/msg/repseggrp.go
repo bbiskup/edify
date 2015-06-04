@@ -2,12 +2,14 @@ package msg
 
 import (
 	"bytes"
+	"fmt"
 	"strconv"
 )
 
 // A segment that is repeated 1 to n times
 type RepSegGrp struct {
-	groups []*SegGrp
+	triggerSegId string
+	groups       []*SegGrp
 }
 
 // From Interface RepeatMsgPart
@@ -17,11 +19,12 @@ func (g *RepSegGrp) Count() int {
 
 // From SegOrGroup
 func (g *RepSegGrp) Id() string {
-	return g.groups[0].Id()
+	return g.triggerSegId
 }
 
 // Append a repetition
 func (g *RepSegGrp) Append(segGrp *SegGrp) {
+	checkGroupIdConsistency(g.triggerSegId, segGrp)
 	g.groups = append(g.groups, segGrp)
 }
 
@@ -48,8 +51,20 @@ func (g *RepSegGrp) Dump(indent int) string {
 	return buf.String()
 }
 
-func NewRepSegGrp(groups ...*SegGrp) *RepSegGrp {
+func checkGroupIdConsistency(triggerSegId string, groups ...*SegGrp) {
+	for _, group := range groups {
+		groupID := group.Id()
+		if groupID != triggerSegId {
+			panic(fmt.Sprintf("Inconsistent IDs: should be %s; got: %s",
+				triggerSegId, groupID))
+		}
+	}
+}
+
+func NewRepSegGrp(triggerSegId string, groups ...*SegGrp) *RepSegGrp {
+	checkGroupIdConsistency(triggerSegId, groups...)
 	return &RepSegGrp{
+		triggerSegId,
 		groups,
 	}
 }

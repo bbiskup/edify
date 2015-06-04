@@ -2,12 +2,17 @@ package msg
 
 import (
 	"bytes"
+	"fmt"
 	"strconv"
 )
 
 // A segment that is repeated 1 to n times
 type RepSeg struct {
 	segments []*Seg
+}
+
+func (s *RepSeg) String() string {
+	return fmt.Sprintf("RepSeg %s (%dx)", s.Id(), s.Count())
 }
 
 // From Interface RepeatMsgPart
