@@ -180,7 +180,13 @@ GROUPREPEAT:
 		if v.segsExhausted() {
 			return nil
 		}
-		if groupRepeatCount <= curMsgSpecSegGrpPart.MaxCount() && v.peek()[0].Id() != groupTriggerSegmentID {
+		if groupRepeatCount > curMsgSpecSegGrpPart.MaxCount() {
+			return NewSegSeqError(
+				maxGroupRepeatCountExceeded,
+				fmt.Sprintf("Group %s", curMsgSpecSegGrpPart.Name()))
+		}
+
+		if v.peek()[0].Id() != groupTriggerSegmentID {
 			break
 		}
 	}
