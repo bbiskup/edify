@@ -38,12 +38,12 @@ var authorSegSeqSpec = []struct {
 			"UNH", "BGM", "DTM" /* max. repeat count is 1 */, "DTM",
 		}, true, maxSegRepeatCountExceeded},
 
-	// {"Optional segment in incorrect position",
-	// 	[]string{
-	// 		"UNH",
-	// 		"DTM" /* Should appear after BGM */, "BGM", "UNT",
-	// 	}, true, unexpectedSeg,
-	// },
+	{"Optional segment in incorrect position",
+		[]string{
+			"UNH",
+			"DTM" /* Should appear after BGM */, "BGM", "UNT",
+		}, true, missingMandatorySeg,
+	},
 
 	// {"Optional segment in incorrect position",
 	// 	[]string{
