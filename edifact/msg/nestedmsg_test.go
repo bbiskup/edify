@@ -17,6 +17,7 @@ const expectedDumpNestedMsgWithParts = `Message testname
         [0] ABC
       RepSeg
         [0] DEF
+
 `
 
 func getNestedMsgWithParts() *NestedMsg {
@@ -44,6 +45,7 @@ const expectedDumpNestedMsgWithGroupPart = `Message testname
                 [0] JKL
           RepSeg
             [0] MNO
+
 `
 
 func getNestedMsgWithGroupPart() *NestedMsg {

@@ -46,6 +46,7 @@ func (m *NestedMsg) Dump() string {
 	}
 	buf.WriteString(fmt.Sprintf(
 		"Message %s\n%s", m.Name, m.TopLevelRepGrp.Dump(1)))
+	buf.WriteString("\n")
 	return buf.String()
 }
 
