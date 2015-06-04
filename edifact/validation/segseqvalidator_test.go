@@ -82,7 +82,14 @@ var authorSegSeqSpec = []struct {
 			// Group 4
 			"LIN",
 			"UNT",
-		}, false, "", nil,
+		}, false, "",
+		func(t *testing.T, nestedMsg *msg.NestedMsg) {
+			assert.Equal(t, 6, nestedMsg.Count())
+			assert.Equal(t, 6, nestedMsg.GetTopLevelGrp().Count())
+			assert.Equal(t, "UNH", nestedMsg.GetTopLevelGrp().GetPart(0).Id())
+			assert.Equal(t, "DTM", nestedMsg.GetTopLevelGrp().GetPart(2).Id())
+			assert.Equal(t, "UNT", nestedMsg.GetTopLevelGrp().GetPart(5).Id())
+		},
 	},
 
 	{
