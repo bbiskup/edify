@@ -217,10 +217,30 @@ func BenchmarkParseDir(b *testing.B) {
 	}
 }
 
-func BenchmarkParseFile(b *testing.B) {
+func BenchmarkParseFileTPFREP(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		parser := NewMsgSpecParser(&MockSegSpecProviderImpl{})
-		spec, err := parser.ParseSpecFile("../../../testdata/INVOIC_D.14B")
+		spec, err := parser.ParseSpecFile("../../../testdata/d14b/edmd/TPFREP_D.14B")
+		assert.Nil(b, err)
+		require.NotNil(b, spec)
+		require.NotNil(b, spec)
+	}
+}
+
+func BenchmarkParseFileINVOIC(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		parser := NewMsgSpecParser(&MockSegSpecProviderImpl{})
+		spec, err := parser.ParseSpecFile("../../../testdata/d14b/edmd/INVOIC_D.14B")
+		assert.Nil(b, err)
+		require.NotNil(b, spec)
+		require.NotNil(b, spec)
+	}
+}
+
+func BenchmarkParseFileGOVCBR(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		parser := NewMsgSpecParser(&MockSegSpecProviderImpl{})
+		spec, err := parser.ParseSpecFile("../../../testdata/d14b/edmd/GOVCBR_D.14B")
 		assert.Nil(b, err)
 		require.NotNil(b, spec)
 		require.NotNil(b, spec)
