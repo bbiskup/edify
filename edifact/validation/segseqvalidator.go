@@ -30,11 +30,21 @@ func (v *SegSeqValidator) String() string {
 		v.msgSpec.Id, segStr)
 }
 
+// Remove a single segment from the list of segments
+func (v *SegSeqValidator) consumeSingle() {
+	log.Printf("consumeSingle()")
+	if v.segs == nil || len(v.segs) == 0 {
+		panic("consumeSingle() called on missing/empty segment list")
+	}
+	v.segs = v.segs[1:]
+}
+
 // Remove the current segment from the list of segments under
 // validation
-func (v *SegSeqValidator) consume() {
+func (v *SegSeqValidator) consumeMulti() {
+	log.Printf("consumeMulti()")
 	if v.segs == nil || len(v.segs) == 0 {
-		panic("consume() called on missing/empty segment list")
+		panic("consumeMulti() called on missing/empty segment list")
 	}
 
 	// Remove leading segment and all subsequent segments of same ID
@@ -60,6 +70,8 @@ func (v *SegSeqValidator) peek() []*msg.Seg {
 		for _, seg := range v.segs {
 			if seg.Id() == firstSegID {
 				result = append(result, seg)
+			} else {
+				break
 			}
 		}
 		return result
@@ -72,6 +84,16 @@ func (v *SegSeqValidator) segsExhausted() bool {
 	return len(v.segs) == 0
 }
 
+func (v *SegSeqValidator) hasRemainingMandatorySpecs(specIndex int, groupChildren []msp.MsgSpecPart) bool {
+	numChildren := len(groupChildren)
+	for i := specIndex + 1; i < numChildren; i++ {
+		if groupChildren[i].IsMandatory() {
+			return true
+		}
+	}
+	return false
+}
+
 // Validates segment groups recursively
 // while building nested message
 func (v *SegSeqValidator) validateGroup(
@@ -82,57 +104,84 @@ func (v *SegSeqValidator) validateGroup(
 
 	log.Printf("Entering group spec %s", curMsgSpecSegGrpPart.Name())
 
-	for _, specPart := range curMsgSpecSegGrpPart.Children() {
-		if v.segsExhausted() {
-			return NewSegSeqError(
-				missingMandatorySeg, "Segments exhausted")
-		}
-		segs := v.peek()
-		repeatCount := len(segs)
-		segID := segs[0].Id()
-		log.Printf("Spec: %s; peek: %s (%dx)", specPart, segID, repeatCount)
+	groupRepeatCount := 0
+	groupTriggerSegmentID := curMsgSpecSegGrpPart.TriggerSegPart().Id()
 
-		// Generic error msg
-		segErrStr := fmt.Sprintf("%s in %s",
-			specPart, curMsgSpecSegGrpPart)
+GROUPREPEAT:
+	for {
+		log.Printf("Repeating group %s # %d",
+			curMsgSpecSegGrpPart.Name(), groupRepeatCount)
+		groupRepeatCount++
 
-		switch specPart := specPart.(type) {
-		case *msp.MsgSpecSegPart:
-			if specPart.Id() != segID {
-				log.Printf("unequal spec: %s vs seg: %s", specPart.Id(), segID)
-				if specPart.IsMandatory() {
-					return NewSegSeqError(missingMandatorySeg, segErrStr)
+		for specIndex, specPart := range curMsgSpecSegGrpPart.Children() {
+			if v.segsExhausted() {
+				return NewSegSeqError(
+					missingMandatorySeg, "Segments exhausted")
+			}
+			segs := v.peek()
+			repeatCount := len(segs)
+			segID := segs[0].Id()
+			log.Printf("Spec: %s; peek: %s (%dx)",
+				specPart, segID, repeatCount)
+
+			// Generic error msg
+			segErrStr := fmt.Sprintf("%s in %s",
+				specPart, curMsgSpecSegGrpPart)
+
+			switch specPart := specPart.(type) {
+			case *msp.MsgSpecSegPart:
+				if specPart.Id() != segID {
+					log.Printf("unequal spec: %s vs seg: %s", specPart.Id(), segID)
+					if specPart.IsMandatory() {
+						return NewSegSeqError(missingMandatorySeg, segErrStr)
+					} else {
+						continue
+					}
+				}
+
+				// Segments are equal
+				if repeatCount > specPart.MaxCount() {
+					if !v.hasRemainingMandatorySpecs(specIndex, curMsgSpecSegGrpPart.Children()) {
+						// A segment repetition may occur if a group contains
+						// of a single mandatory segment, and all optional
+						// segments are skipped; e.g. AUTHOR message, group_4: LIN segment
+						log.Printf("repeat count exceeded? repeating group")
+						v.consumeSingle()
+
+						continue GROUPREPEAT
+					} else {
+						log.Printf("There are remaining mandatory segments")
+						return NewSegSeqError(maxSegRepeatCountExceeded, segErrStr)
+					}
+				}
+
+				v.consumeMulti()
+				continue
+			case *msp.MsgSpecSegGrpPart:
+				triggerSegmentID := specPart.TriggerSegPart().Id()
+				if triggerSegmentID != segID {
+					log.Printf("Trigger for group %s not present", specPart.Name())
+					if specPart.IsMandatory() {
+						return NewSegSeqError(
+							missingMandatorySeg,
+							fmt.Sprintf("Trigger segment %s for group %s",
+								triggerSegmentID, specPart.Name()))
+					}
 				} else {
-					continue
+					if err := v.validateGroup(specPart, nil); err != nil {
+						return err
+					}
 				}
-			}
 
-			// Segments are equal
-			if repeatCount > specPart.MaxCount() {
-				return NewSegSeqError(maxSegRepeatCountExceeded, segErrStr)
+			default:
+				panic(fmt.Sprintf("Unsupported type %T", specPart))
 			}
-
-			log.Printf("Consuming segment %s", segID)
-			v.consume()
-			continue
-		case *msp.MsgSpecSegGrpPart:
-			triggerSegmentID := specPart.TriggerSegPart().Id()
-			if triggerSegmentID != segID {
-				log.Printf("Trigger for group %s not present", specPart.Name())
-				if specPart.IsMandatory() {
-					return NewSegSeqError(
-						missingMandatorySeg,
-						fmt.Sprintf("Trigger segment %s for group %s",
-							triggerSegmentID, specPart.Name()))
-				}
-			} else {
-				if err := v.validateGroup(specPart, nil); err != nil {
-					return err
-				}
-			}
-
-		default:
-			panic(fmt.Sprintf("Unsupported type %T", specPart))
+		}
+		if v.segsExhausted() {
+			return nil
+		}
+		if groupRepeatCount <= curMsgSpecSegGrpPart.MaxCount() && v.peek()[0].Id() != groupTriggerSegmentID {
+			break
 		}
 	}
 	log.Printf("Leaving group spec %s", curMsgSpecSegGrpPart.Name())

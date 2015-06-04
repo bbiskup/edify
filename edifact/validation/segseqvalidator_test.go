@@ -88,33 +88,33 @@ var authorSegSeqSpec = []struct {
 			"UNT",
 		}, false, ""},
 
-	// {
-	// 	"Some repeat counts > 1",
-	// 	[]string{
-	// 		"UNH", "BGM",
-	// 		"DTM", "BUS",
-	// 		// Group 4
-	// 		"LIN", "LIN", "LIN", "LIN",
-	// 		// Group 7
-	// 		"FII", "CTA", "COM", "COM", "COM",
-	// 		"FII", "CTA", "COM", "COM", "COM",
+	{
+		"Some repeat counts > 1",
+		[]string{
+			"UNH", "BGM",
+			"DTM", "BUS",
+			// Group 4
+			"LIN", "LIN", "LIN", "LIN",
+			// Group 7
+			"FII", "CTA", "COM", "COM", "COM",
+			"FII", "CTA", "COM", "COM", "COM",
 
-	// 		"UNT",
-	// 	}, false, ""},
+			"UNT",
+		}, false, ""},
 
-	// {
-	// 	"Some repeat counts > 1",
-	// 	[]string{
-	// 		"UNH", "BGM",
-	// 		"DTM", "BUS",
-	// 		// Group 4
-	// 		"LIN", "LIN", "LIN", "LIN",
-	// 		// Group 7
-	// 		"FII", "CTA", "COM", "COM", "COM",
-	// 		"FII", "CTA", "COM", "COM", "COM",
+	{
+		"Some repeat counts > 1",
+		[]string{
+			"UNH", "BGM",
+			"DTM", "BUS",
+			// Group 4
+			"LIN", "LIN", "LIN", "LIN",
+			// Group 7
+			"FII", "CTA", "COM", "COM", "COM",
+			"FII", "CTA", "COM", "COM", "COM",
 
-	// 		"UNT",
-	// 	}, false, ""},
+			"UNT",
+		}, false, ""},
 
 	/*
 		{
@@ -176,7 +176,7 @@ func TestConsumeEmpty(t *testing.T) {
 	validator := NewSegSeqValidator(msgSpec)
 
 	validator.segs = []*msg.Seg{}
-	validator.consume()
+	validator.consumeMulti()
 }
 
 var segABC *msg.Seg = msg.NewSeg("ABC")
@@ -214,7 +214,7 @@ func TestConsumeNonEmpty(t *testing.T) {
 	for _, spec := range consumeSpec {
 		validator := NewSegSeqValidator(msgSpec)
 		validator.segs = spec.segsBefore
-		validator.consume()
+		validator.consumeMulti()
 		assert.Equal(t, spec.segsAfter, validator.segs)
 	}
 }
