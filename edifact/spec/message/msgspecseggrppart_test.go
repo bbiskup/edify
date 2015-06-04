@@ -23,7 +23,10 @@ func TestAppend(t *testing.T) {
 	part2 := NewMsgSpecSegGrpPart(
 		"testgroup2", []MsgSpecPart{}, 5, true, nil)
 
+	assert.False(t, part1.Contains("testgroup2"))
 	part1.Append(part2)
+	assert.True(t, part1.Contains("testgroup2"))
+	assert.Equal(t, "testgroup2", part1.GetPartByKey("testgroup2").Id())
 	assert.Equal(t, 1, part1.Count())
 }
 

@@ -5,15 +5,33 @@ import (
 	"github.com/bbiskup/edify/edifact/util"
 )
 
+type MsgSpecPartMap map[string]MsgSpecPart
+
 // Segment group specification in message specification
 type MsgSpecSegGrpPart struct {
 	MsgSpecPartBase
 	name     string
 	children []MsgSpecPart
+	childMap MsgSpecPartMap
 }
 
 func (p *MsgSpecSegGrpPart) Id() string {
-	return p.TriggerSegPart().SegSpec.Id
+	return p.name
+	/*triggerSegPart := p.TriggerSegPart()
+	if triggerSegPart != nil {
+		return triggerSegPart.SegSpec.Id
+	} else {
+		return "<no trigger segment>"
+	}*/
+}
+
+func (p *MsgSpecSegGrpPart) GetPartByKey(segID string) MsgSpecPart {
+	return p.childMap[segID]
+}
+
+func (p *MsgSpecSegGrpPart) Contains(segID string) bool {
+	_, ok := p.childMap[segID]
+	return ok
 }
 
 func (p *MsgSpecSegGrpPart) Name() string {
@@ -38,6 +56,7 @@ func (p *MsgSpecSegGrpPart) Children() []MsgSpecPart {
 }
 
 func (p *MsgSpecSegGrpPart) Append(msgSpecPart MsgSpecPart) {
+	p.childMap[msgSpecPart.Id()] = msgSpecPart
 	p.children = append(p.children, msgSpecPart)
 }
 
@@ -59,6 +78,11 @@ func NewMsgSpecSegGrpPart(
 	name string, children []MsgSpecPart,
 	maxCount int, isMandatory bool, parent MsgSpecPart) *MsgSpecSegGrpPart {
 
+	childMap := MsgSpecPartMap{} //make(MsgSpecPartMap, len(children))
+	for _, child := range children {
+		childMap[child.Id()] = child
+	}
+
 	return &MsgSpecSegGrpPart{
 		MsgSpecPartBase{
 			maxCount:    maxCount,
@@ -67,5 +91,6 @@ func NewMsgSpecSegGrpPart(
 		},
 		name,
 		children,
+		childMap,
 	}
 }
