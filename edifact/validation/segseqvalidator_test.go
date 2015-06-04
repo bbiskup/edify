@@ -116,6 +116,36 @@ var authorSegSeqSpec = []struct {
 	},
 
 	{
+		"Nested conditional group",
+		[]string{
+			"UNH", "BGM",
+			"DTM", "BUS",
+
+			// Group 4
+			"LIN",
+
+			// Group 7 (nested in group 4)
+			"FII", "CTA", "COM",
+
+			"UNT",
+		}, false, "",
+		func(t *testing.T, nestedMsg *msg.NestedMsg) {
+			assert.Equal(t, 6, nestedMsg.Count())
+			assert.Equal(t, 6, nestedMsg.GetTopLevelGrp().Count())
+			assert.Equal(t, "UNH", nestedMsg.GetTopLevelGrp().GetPart(0).Id())
+			group_4 := nestedMsg.GetTopLevelGrp().GetPart(4).(*msg.RepSegGrp)
+			assert.Equal(t, "Group_4", group_4.Id())
+			assert.Equal(t, 1, group_4.Count())
+			assert.Equal(t, 2, group_4.GetSegGrp(0).Count())
+			group_7 := group_4.GetSegGrp(0).GetPart(1).(*msg.RepSegGrp)
+			assert.Equal(t, "Group_7", group_7.Id())
+			assert.Equal(t, 1, group_7.Count())
+			assert.Equal(t, 3, group_7.GetSegGrp(0).Count())
+			assert.Equal(t, "UNT", nestedMsg.GetTopLevelGrp().GetPart(5).Id())
+		},
+	},
+
+	{
 		"Some repeat counts > 1",
 		[]string{
 			"UNH", "BGM",

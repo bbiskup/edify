@@ -104,12 +104,12 @@ func TestAppend(t *testing.T) {
 	msg := getNestedMsgWithParts()
 	assert.Equal(t, 2, msg.Count())
 	grp1 := NewSegGrp("Group_1", NewRepSeg(NewSeg("GHI")))
-	msg.GetTopLevelGroup().AppendRepSegGrp(NewRepSegGrp(grp1.Id(), grp1))
+	msg.GetTopLevelGrp().AppendRepSegGrp(NewRepSegGrp(grp1.Id(), grp1))
 	assert.Equal(t, 3, msg.Count())
-	assert.Equal(t, "ABC", msg.GetTopLevelGroup().GetPart(0).Id())
-	assert.Equal(t, 1, msg.GetTopLevelGroup().GetPart(0).Count())
+	assert.Equal(t, "ABC", msg.GetTopLevelGrp().GetPart(0).Id())
+	assert.Equal(t, 1, msg.GetTopLevelGrp().GetPart(0).Count())
 
-	grp1_fetched := msg.GetTopLevelGroup().GetPart(msg.Count() - 1).(*RepSegGrp)
+	grp1_fetched := msg.GetTopLevelGrp().GetPart(msg.Count() - 1).(*RepSegGrp)
 	assert.Equal(t, "Group_1", grp1_fetched.Id())
 
 	ghi_fetched := grp1_fetched.GetSegGrp(0).GetPart(0)

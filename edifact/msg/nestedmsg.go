@@ -34,7 +34,7 @@ func (m *NestedMsg) Count() int {
 	return m.TopLevelRepGrp.GetSegGrp(0).Count()
 }
 
-func (m *NestedMsg) GetTopLevelGroup() *SegGrp {
+func (m *NestedMsg) GetTopLevelGrp() *SegGrp {
 	return m.TopLevelRepGrp.GetSegGrp(0)
 }
 
