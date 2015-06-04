@@ -90,14 +90,18 @@ func (v *SegSeqValidator) validateGroup(
 		segs := v.peek()
 		repeatCount := len(segs)
 		segID := segs[0].Id()
-		log.Printf("Peek: %s (%dx)", segID, repeatCount)
+		log.Printf("Spec: %s; peek: %s (%dx)", specPart, segID, repeatCount)
 
 		// Generic error msg
 		segErrStr := fmt.Sprintf("Segment %s in group %s",
 			segID, curMsgSpecSegGrpPart)
 
-		if specPart.Id() != segID && specPart.IsMandatory() {
-			return nil, NewSegSeqError(missingMandatorySeg, segErrStr)
+		if specPart.Id() != segID {
+			if specPart.IsMandatory() {
+				return nil, NewSegSeqError(missingMandatorySeg, segErrStr)
+			} else {
+				continue
+			}
 		}
 
 		// Segments are equal
