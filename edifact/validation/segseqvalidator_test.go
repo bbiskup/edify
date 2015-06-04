@@ -75,18 +75,18 @@ var authorSegSeqSpec = []struct {
 			"UNT",
 		}, false, ""},
 
-	// {
-	// 	"Mostly mandatory; one conditional group",
-	// 	[]string{
-	// 		"UNH", "BGM",
-	// 		"DTM", "BUS",
-	// 		// Group 1
-	// 		"LIN",
-	// 		// Group 2
-	// 		"FII", "CTA", "COM",
+	{
+		"Mostly mandatory; one conditional group",
+		[]string{
+			"UNH", "BGM",
+			"DTM", "BUS",
+			// Group 1
+			"LIN",
+			// Group 2
+			"FII", "CTA", "COM",
 
-	// 		"UNT",
-	// 	}, false, ""},
+			"UNT",
+		}, false, ""},
 
 	// {
 	// 	"Some repeat counts > 1",
