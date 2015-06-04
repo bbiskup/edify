@@ -41,10 +41,10 @@ func (v *SegSeqValidator) consume() {
 	firstSegID := v.segs[0].Id()
 	var cutIndex int
 	for index, seg := range v.segs {
-		cutIndex = index + 1
 		if seg.Id() != firstSegID {
 			break
 		}
+		cutIndex = index + 1
 	}
 	v.segs = v.segs[cutIndex:]
 }

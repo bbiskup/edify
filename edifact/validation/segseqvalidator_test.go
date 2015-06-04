@@ -32,11 +32,11 @@ var authorSegSeqSpec = []struct {
 			"UNH", "UNH", // max. repeat count is 1
 		}, true, maxSegRepeatCountExceeded},
 
-	// {
-	// 	"Max. repeat count of optional segment exeeded",
-	// 	[]string{
-	// 		"UNH", "BGM", "DTM" /* max. repeat count is 1 */, "DTM",
-	// 	}, true, maxSegRepeatCountExceeded},
+	{
+		"Max. repeat count of optional segment exeeded",
+		[]string{
+			"UNH", "BGM", "DTM" /* max. repeat count is 1 */, "DTM",
+		}, true, maxSegRepeatCountExceeded},
 
 	// {"Optional segment in incorrect position",
 	// 	[]string{
@@ -214,7 +214,7 @@ func TestConsumeNonEmpty(t *testing.T) {
 		validator := NewSegSeqValidator(msgSpec)
 		validator.segs = spec.segsBefore
 		validator.consume()
-		assert.ObjectsAreEqualValues(spec.segsAfter, validator.segs)
+		assert.Equal(t, spec.segsAfter, validator.segs)
 	}
 }
 
