@@ -33,7 +33,6 @@ func (v *SegSeqValidator) String() string {
 // Remove the current segment from the list of segments under
 // validation
 func (v *SegSeqValidator) consume() {
-	log.Printf("consume before: %s", v.segs)
 	if v.segs == nil || len(v.segs) == 0 {
 		panic("consume() called on missing/empty segment list")
 	}
@@ -47,9 +46,7 @@ func (v *SegSeqValidator) consume() {
 			break
 		}
 	}
-	log.Printf("Cutting segs at %d", cutIndex)
 	v.segs = v.segs[cutIndex:]
-	log.Printf("consume after: %s", v.segs)
 }
 
 // Returns the next segment of the message under validation
