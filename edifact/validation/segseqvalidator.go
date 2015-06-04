@@ -96,27 +96,26 @@ func (v *SegSeqValidator) validateGroup(
 		segErrStr := fmt.Sprintf("Segment %s in group %s",
 			segID, curMsgSpecSegGrpPart)
 
+		if specPart.Id() != segID && specPart.IsMandatory() {
+			return nil, NewSegSeqError(missingMandatorySeg, segErrStr)
+		}
+
 		switch specPart := specPart.(type) {
 		case *msp.MsgSpecSegPart:
-			if specPart.Id() != segID {
-				if specPart.IsMandatory() {
-					return nil, NewSegSeqError(missingMandatorySeg, segErrStr)
-				}
+			if repeatCount > specPart.MaxCount() {
+				return nil, NewSegSeqError(maxSegRepeatCountExceeded, segErrStr)
 			} else {
-				if repeatCount > specPart.MaxCount() {
-					return nil, NewSegSeqError(maxSegRepeatCountExceeded, segErrStr)
-				}
 				log.Printf("Consuming segment %s", segID)
 				v.consume()
 				continue
 			}
 		case *msp.MsgSpecSegGrpPart:
+			panic("Not implemented")
 		default:
 			panic(fmt.Sprintf("Unsupported type %T", specPart))
 		}
 	}
-
-	panic("Not implemented")
+	return nil, nil
 }
 
 func (v *SegSeqValidator) Validate(rawMsg *msg.RawMsg) (nestedMsg *msg.NestedMsg, err error) {
