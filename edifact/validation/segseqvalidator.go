@@ -100,15 +100,16 @@ func (v *SegSeqValidator) validateGroup(
 			return nil, NewSegSeqError(missingMandatorySeg, segErrStr)
 		}
 
+		// Segments are equal
+		if repeatCount > specPart.MaxCount() {
+			return nil, NewSegSeqError(maxSegRepeatCountExceeded, segErrStr)
+		}
+
 		switch specPart := specPart.(type) {
 		case *msp.MsgSpecSegPart:
-			if repeatCount > specPart.MaxCount() {
-				return nil, NewSegSeqError(maxSegRepeatCountExceeded, segErrStr)
-			} else {
-				log.Printf("Consuming segment %s", segID)
-				v.consume()
-				continue
-			}
+			log.Printf("Consuming segment %s", segID)
+			v.consume()
+			continue
 		case *msp.MsgSpecSegGrpPart:
 			panic("Not implemented")
 		default:
