@@ -7,7 +7,7 @@ import (
 
 const (
 	TOP_LEVEL_GROUP = "_toplevel"
-	noPartsText     = "<no msg parts>"
+	noPartsText     = "<no msg parts>\n"
 )
 
 // An EDIFACT message consisting of individual segments
