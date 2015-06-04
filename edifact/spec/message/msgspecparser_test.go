@@ -208,10 +208,21 @@ func BenchmarkParseDir(b *testing.B) {
 	parser := NewMsgSpecParser(&MockSegSpecProviderImpl{})
 
 	for i := 0; i < b.N; i++ {
-		specs, err := parser.ParseSpecDir("../../../testdata/message_specs", "14B")
+		//specs, err := parser.ParseSpecDir("../../../testdata/message_specs", "14B")
+		specs, err := parser.ParseSpecDir("../../../testdata/d14b/edmd", "14B")
 		assert.Nil(b, err)
 		require.NotNil(b, specs)
-		assert.Equal(b, 2, len(specs))
+		//assert.Equal(b, 2, len(specs))
 		// fmt.Printf("Message specs: %s", specs)
+	}
+}
+
+func BenchmarkParseFile(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		parser := NewMsgSpecParser(&MockSegSpecProviderImpl{})
+		spec, err := parser.ParseSpecFile("../../../testdata/INVOIC_D.14B")
+		assert.Nil(b, err)
+		require.NotNil(b, spec)
+		require.NotNil(b, spec)
 	}
 }
