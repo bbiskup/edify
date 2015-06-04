@@ -65,15 +65,15 @@ var authorSegSeqSpec = []struct {
 		}, false, "",
 	},
 
-	// {
-	// 	"Mostly mandatory",
-	// 	[]string{
-	// 		"UNH", "BGM",
-	// 		"DTM", "BUS", // both conditional
-	// 		// Group 4
-	// 		"LIN",
-	// 		"UNT",
-	// 	}, false, ""},
+	{
+		"Mostly mandatory",
+		[]string{
+			"UNH", "BGM",
+			"DTM", "BUS", // both conditional
+			// Group 4
+			"LIN",
+			"UNT",
+		}, false, ""},
 
 	// {
 	// 	"Mostly mandatory; one conditional group",
