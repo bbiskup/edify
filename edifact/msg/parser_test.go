@@ -19,9 +19,9 @@ CNT+2:1'
 UNT+9+1'
     `
 
-func TestRawMessage1(t *testing.T) {
+func TestRawMsg1(t *testing.T) {
 	p := NewParser()
-	rawMessage, err := p.ParseRawMessage(msg1)
+	rawMessage, err := p.ParseRawMsg(msg1)
 	require.NotNil(t, rawMessage)
 	require.Nil(t, err)
 	assert.Equal(t, 9, len(rawMessage.Segs))
@@ -38,7 +38,7 @@ func TestParseINVOIC(t *testing.T) {
 	require.Nil(t, err)
 
 	p := NewParser()
-	rawMessage, err := p.ParseRawMessage(string(msgStr))
+	rawMessage, err := p.ParseRawMsg(string(msgStr))
 	require.Nil(t, err)
 	require.NotNil(t, rawMessage)
 
@@ -72,7 +72,7 @@ UNT+9+1'`
 
 func TestMessageWithRepetitionSeparator(t *testing.T) {
 	p := NewParser()
-	rawMessage, err := p.ParseRawMessage(msgWithDataElemRepetition)
+	rawMessage, err := p.ParseRawMsg(msgWithDataElemRepetition)
 	assert.NotNil(t, err)
 	assert.Nil(t, rawMessage)
 }

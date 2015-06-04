@@ -7,12 +7,12 @@ import (
 
 // A raw message contains a sequence of segments without
 // the notion of segment groups, i.e. without nesting
-type RawMessage struct {
+type RawMsg struct {
 	Name     string
 	Segs []*Seg
 }
 
-func (m *RawMessage) String() string {
+func (m *RawMsg) String() string {
 	var buf bytes.Buffer
 	for _, s := range m.Segs {
 		buf.WriteString(fmt.Sprintf("\t%s", s.String()))
@@ -26,13 +26,13 @@ func (m *RawMessage) String() string {
 	}
 }
 
-func (m *RawMessage) AddSeg(segment *Seg) {
+func (m *RawMsg) AddSeg(segment *Seg) {
 	m.Segs = append(m.Segs, segment)
 }
 
 // List of IDs of segments, in the order of their appearance.
 // A separate entry is returned for each instance of a segment
-func (m *RawMessage) SegIds() []string {
+func (m *RawMsg) SegIds() []string {
 	result := []string{}
 	for _, segment := range m.Segs {
 		result = append(result, segment.Id())
@@ -40,6 +40,6 @@ func (m *RawMessage) SegIds() []string {
 	return result
 }
 
-func NewRawMessage(id string, segments []*Seg) *RawMessage {
-	return &RawMessage{id, segments}
+func NewRawMsg(id string, segments []*Seg) *RawMsg {
+	return &RawMsg{id, segments}
 }

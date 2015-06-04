@@ -89,7 +89,7 @@ func (p *Parser) ParseSegs(segmentStrs []string) []*Seg {
 	return result
 }
 
-func (p *Parser) ParseRawMessage(edifactMessage string) (rawMessage *RawMessage, err error) {
+func (p *Parser) ParseRawMsg(edifactMessage string) (rawMessage *RawMsg, err error) {
 	log.Printf("Parsing raw message")
 	// reset error
 	p.err = nil
@@ -122,7 +122,7 @@ func (p *Parser) ParseRawMessage(edifactMessage string) (rawMessage *RawMessage,
 		return nil, p.err
 	}
 
-	rawMessage = NewRawMessage("dummyname", segments)
+	rawMessage = NewRawMsg("dummyname", segments)
 
 	return rawMessage, p.err
 }

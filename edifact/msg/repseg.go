@@ -20,19 +20,23 @@ func (s *RepSeg) Id() string {
 	return s.segments[0].Id()
 }
 
-func (s *RepSeg) Get(index int) *Seg {
+// Get n-th repeat
+func (s *RepSeg) GetSeg(index int) *Seg {
 	return s.segments[index]
 }
 
-func (s *RepSeg) AddSeg(segment *Seg) {
+// Append another repetition of the segment
+func (s *RepSeg) AppendSeg(segment *Seg) {
 	s.segments = append(s.segments, segment)
 }
 
 func (s *RepSeg) Dump(indent int) string {
 	var buf bytes.Buffer
 	indentStr := getIndentStr(indent)
+	indentStr2 := getIndentStr(indent + 1)
+	buf.WriteString(indentStr + "RepSeg\n")
 	for repeat, segment := range s.segments {
-		buf.WriteString(indentStr + "[" + strconv.FormatInt(int64(repeat), 10) + "] " +
+		buf.WriteString(indentStr2 + "[" + strconv.FormatInt(int64(repeat), 10) + "] " +
 			segment.Id() + "\n")
 	}
 	return buf.String()

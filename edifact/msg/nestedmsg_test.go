@@ -7,53 +7,64 @@ import (
 )
 
 func getEmptyNestedMsg() *NestedMsg {
-	return NewNestedMsg("testname", []RepeatMsgPart{})
+	return NewNestedMsg("testname")
 }
 
 const expectedDumpNestedMsgWithParts = `Message testname
-  [0] ABC
-  [0] DEF
+  RepSegGrp
+    [0] Group _toplevel
+      RepSeg
+        [0] ABC
+      RepSeg
+        [0] DEF
 `
 
 func getNestedMsgWithParts() *NestedMsg {
-	return NewNestedMsg("testname", []RepeatMsgPart{
+	return NewNestedMsg("testname",
 		NewRepSeg(NewSeg("ABC")),
 		NewRepSeg(NewSeg("DEF")),
-	})
+	)
 }
 
 const expectedDumpNestedMsgWithGroupPart = `Message testname
-  [0] ABC
-  [1] ABC
-  [0] Group group_1
-        [0] DEF
-        [0] GHI
-        [0] Group group_2
-            [0] JKL
-        [0] MNO
+  RepSegGrp
+    [0] Group _toplevel
+      RepSeg
+        [0] ABC
+        [1] ABC
+      RepSegGrp
+        [0] Group group_1
+          RepSeg
+            [0] DEF
+          RepSeg
+            [0] GHI
+          RepSegGrp
+            [0] Group group_2
+              RepSeg
+                [0] JKL
+          RepSeg
+            [0] MNO
 `
 
 func getNestedMsgWithGroupPart() *NestedMsg {
 	return NewNestedMsg(
 		"testname",
-		[]RepeatMsgPart{
-			NewRepSeg(
-				NewSeg("ABC"),
-				NewSeg("ABC"),
+		NewRepSeg(
+			NewSeg("ABC"),
+			NewSeg("ABC"),
+		),
+		NewRepSegGrp(
+			NewSegGrp("group_1",
+				NewRepSeg(NewSeg("DEF")),
+				NewRepSeg(NewSeg("GHI")),
+				NewRepSegGrp(NewSegGrp("group_2",
+					NewRepSeg(
+						NewSeg("JKL"),
+					))),
+				NewRepSeg(NewSeg("MNO")),
 			),
-			NewRepSegGrp(
-				NewSegGrp("group_1", []RepeatMsgPart{
-					NewRepSeg(NewSeg("DEF")),
-					NewRepSeg(NewSeg("GHI")),
-					NewRepSegGrp(NewSegGrp("group_2",
-						[]RepeatMsgPart{
-							NewRepSeg(
-								NewSeg("JKL"),
-							)})),
-					NewRepSeg(NewSeg("MNO")),
-				}),
-			),
-		})
+		),
+	)
 }
 
 func TestStringEmptyMsg(t *testing.T) {
@@ -90,9 +101,29 @@ func TestDumpWithGroupParts(t *testing.T) {
 func TestAppend(t *testing.T) {
 	msg := getNestedMsgWithParts()
 	assert.Equal(t, 2, msg.Count())
-	msg.AppendPart(NewRepSeg(NewSeg("ABC")))
+	grp1 := NewSegGrp("Group_1", NewRepSeg(NewSeg("GHI")))
+	msg.GetTopLevelGroup().AppendRepSegGrp(NewRepSegGrp(grp1))
 	assert.Equal(t, 3, msg.Count())
-	assert.Equal(t, "ABC", msg.GetPart(2).Id())
+	assert.Equal(t, "ABC", msg.GetTopLevelGroup().GetPart(0).Id())
+	assert.Equal(t, 1, msg.GetTopLevelGroup().GetPart(0).Count())
+
+	grp1_fetched := msg.GetTopLevelGroup().GetPart(msg.Count() - 1).(*RepSegGrp)
+	assert.Equal(t, "Group_1", grp1_fetched.Id())
+
+	ghi_fetched := grp1_fetched.GetSegGrp(0).GetPart(0)
+	assert.Equal(t, "GHI", ghi_fetched.Id())
+}
+
+func TestSegGroupMap(t *testing.T) {
+	msg := getNestedMsgWithGroupPart()
+	grp := msg.TopLevelRepGrp.GetSegGrp(0)
+	assert.True(t, grp.Contains("ABC"))
+	grp.AppendRepSeg(NewRepSeg(NewSeg("XYZ")))
+	assert.True(t, grp.Contains("XYZ"))
+
+	grp1 := grp.GetPartByKey("group_1").(*RepSegGrp).GetSegGrp(0)
+	assert.True(t, grp1.Contains("GHI"))
+	assert.False(t, grp1.Contains("GHI2"))
 }
 
 func BenchmarkDumpWithGroupParts(b *testing.B) {
@@ -101,5 +132,13 @@ func BenchmarkDumpWithGroupParts(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		dump := msg.Dump()
 		assert.NotNil(b, dump)
+	}
+}
+
+func BenchmarkCreateNestedMsg(b *testing.B) {
+	b.ResetTimer()
+	for i := 0; i < b.N; i++ {
+		msg := getNestedMsgWithGroupPart()
+		assert.NotNil(b, msg)
 	}
 }

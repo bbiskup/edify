@@ -6,13 +6,13 @@ import (
 )
 
 func TestStringEmpty(t *testing.T) {
-	msg := NewRawMessage("ABC", []*Seg{})
+	msg := NewRawMsg("ABC", []*Seg{})
 	assert.Equal(t, "ABC", msg.String())
 }
 
 func TestStringWithSegs(t *testing.T) {
 	segment1 := NewSeg("XYZ")
-	msg := NewRawMessage("ABC", []*Seg{segment1})
+	msg := NewRawMsg("ABC", []*Seg{segment1})
 	assert.Equal(t, 1, len(msg.Segs))
 	assert.Equal(t, "ABC\n\tXYZ\n", msg.String())
 }
@@ -20,7 +20,7 @@ func TestStringWithSegs(t *testing.T) {
 func TestSegIds(t *testing.T) {
 	segment1 := NewSeg("DEF")
 	segment2 := NewSeg("GHI")
-	msg := NewRawMessage("ABC", []*Seg{segment1, segment2})
+	msg := NewRawMsg("ABC", []*Seg{segment1, segment2})
 	segmentIds := msg.SegIds()
 	assert.Equal(t, []string{"DEF", "GHI"}, segmentIds)
 }
