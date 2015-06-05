@@ -109,7 +109,7 @@ func TestValidateInvalidSegIncorrectRepr(t *testing.T) {
 	assert.NotNil(t, err)
 }
 
-func BenchmarkParseValidSeg(b *testing.B) {
+func BenchmarkParseInvalidSeg(b *testing.B) {
 	segSpecMap := getSegSpecMap(b)
 	segment := getInvalidSegNonExistantCode(b)
 	b.ResetTimer()
