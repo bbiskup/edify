@@ -112,11 +112,34 @@ func TestValidateInvalidSegIncorrectRepr(t *testing.T) {
 func BenchmarkParseInvalidSeg(b *testing.B) {
 	segSpecMap := getSegSpecMap(b)
 	segment := getInvalidSegNonExistantCode(b)
+	validator := NewSegValidatorImpl(segSpecMap)
+	b.ResetTimer()
+
+	for i := 0; i < b.N; i++ {
+		err := validator.Validate(segment)
+		assert.NotNil(b, err)
+	}
+}
+
+func BenchmarkParseValidSeg(b *testing.B) {
+	segSpecMap := getSegSpecMap(b)
+	segment := getValidSeg(b)
+	validator := NewSegValidatorImpl(segSpecMap)
+	assert.NotNil(b, validator)
+	b.ResetTimer()
+
+	for i := 0; i < b.N; i++ {
+		err := validator.Validate(segment)
+		assert.Nil(b, err)
+	}
+}
+
+func BenchmarkNewSegValidatorImpl(b *testing.B) {
+	segSpecMap := getSegSpecMap(b)
 	b.ResetTimer()
 
 	for i := 0; i < b.N; i++ {
 		validator := NewSegValidatorImpl(segSpecMap)
-		err := validator.Validate(segment)
-		assert.NotNil(b, err)
+		assert.NotNil(b, validator)
 	}
 }
