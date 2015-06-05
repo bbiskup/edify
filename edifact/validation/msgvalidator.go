@@ -73,3 +73,7 @@ func (v *MsgValidator) Validate(rawMsg *msg.RawMsg) (nestedMsg *msg.NestedMsg, e
 
 	panic("Not implemented")
 }
+
+func NewMsgValidator(segSpecMap ssp.SegSpecMap) *MsgValidator {
+	return &MsgValidator{segSpecMap}
+}
