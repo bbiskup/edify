@@ -4,6 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"github.com/bbiskup/edify/edifact/util"
+	"io/ioutil"
 	"log"
 	"strings"
 )
@@ -125,4 +126,12 @@ func (p *Parser) ParseRawMsg(edifactMessage string) (rawMessage *RawMsg, err err
 	rawMessage = NewRawMsg("dummyname", segments)
 
 	return rawMessage, p.err
+}
+
+func (p *Parser) ParseRawMsgFile(fileName string) (rawMessage *RawMsg, err error) {
+	msgFileContents, err := ioutil.ReadFile(fileName)
+	if err != nil {
+		return nil, err
+	}
+	return p.ParseRawMsg(string(msgFileContents))
 }
