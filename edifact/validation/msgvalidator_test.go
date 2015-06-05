@@ -22,3 +22,9 @@ func TestGetMsgTypeFromUNT(t *testing.T) {
 	assert.Nil(t, err)
 	assert.Equal(t, 2, msgType)
 }
+
+// func TestValidateMsg(t *testing.T) {
+// 	msgSpec := getMsgSpec("INVOIC_D.14B")
+// 	rawMsg := getRawMsg("../../testdata/messages/INVOIC_1.txt")
+// 	validator := NewMsgValidator(segSpecMap)
+// }
