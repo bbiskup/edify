@@ -14,3 +14,11 @@ func TestGetMsgTypeFromUNH(t *testing.T) {
 	assert.Nil(t, err)
 	assert.Equal(t, "ABC", msgType)
 }
+
+func TestGetMsgTypeFromUNT(t *testing.T) {
+	seg := msg.NewSeg("UNT")
+	seg.AddElem(msg.NewDataElem([]string{"2"}))
+	msgType, err := getSegCountFromUNT(seg)
+	assert.Nil(t, err)
+	assert.Equal(t, 2, msgType)
+}
