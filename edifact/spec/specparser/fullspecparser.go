@@ -105,23 +105,28 @@ func (p *FullSpecParser) parseMsgSpecs(segSpecs ssp.SegSpecProvider) (msgSpecs [
 	return parser.ParseSpecDir(msgDir, p.Version)
 }
 
-func (p *FullSpecParser) Parse() error {
+func (p *FullSpecParser) ParseSegSpecsWithPrerequisites() (ssp.SegSpecProvider, error) {
 	codeSpecs, err := p.parseCodeSpecs()
 	if err != nil {
-		return err
+		return nil, err
 	}
 
 	simpleDataElemSpecs, err := p.parseSimpleDataElemSpecs(codeSpecs)
 	if err != nil {
-		return err
+		return nil, err
 	}
 
 	compositeDataElemSpecs, err := p.parseCompositeDataElemSpecs(simpleDataElemSpecs)
 	if err != nil {
-		return err
+		return nil, err
 	}
 
-	segSpecs, err := p.parseSegSpecs(simpleDataElemSpecs, compositeDataElemSpecs)
+	return p.parseSegSpecs(simpleDataElemSpecs, compositeDataElemSpecs)
+}
+
+func (p *FullSpecParser) Parse() error {
+
+	segSpecs, err := p.ParseSegSpecsWithPrerequisites()
 	if err != nil {
 		return err
 	}
