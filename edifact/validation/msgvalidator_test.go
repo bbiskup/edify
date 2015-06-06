@@ -40,7 +40,7 @@ var validMsgTestSpecs = []struct {
 
 	{"CUSRES_1.txt"},
 	{"CUSRES_2.txt"},
-	// {"INVOIC_1.txt"},  // TODO errors (repetition of group 1 not detected correctly?)
+	{"INVOIC_1.txt"}, // TODO errors (repetition of group 1 not detected correctly?)
 	{"INVOIC_2.txt"},
 	{"INVOIC_3.txt"},
 
