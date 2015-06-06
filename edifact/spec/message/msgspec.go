@@ -26,6 +26,7 @@ type MsgSpec struct {
 }
 
 type MsgSpecs []*MsgSpec
+type MsgSpecMap map[string]*MsgSpec
 
 func (m *MsgSpec) String() string {
 	var partsStr = m.PartsStr()
