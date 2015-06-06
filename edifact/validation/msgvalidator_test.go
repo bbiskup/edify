@@ -37,6 +37,7 @@ var validMsgTestSpecs = []struct {
 	{"INVOIC_2.txt"},
 	{"INVOIC_3.txt"},
 	{"ORDERS_1.txt"},
+	{"ORDERS_2.txt"},
 }
 
 func TestValidateMsg(t *testing.T) {
