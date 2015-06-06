@@ -6,7 +6,7 @@ import (
 	"github.com/bbiskup/edify/edifact/msg"
 	dsp "github.com/bbiskup/edify/edifact/spec/dataelement"
 	ssp "github.com/bbiskup/edify/edifact/spec/segment"
-	"log"
+	// "log"
 )
 
 type SegValidator interface {
@@ -24,14 +24,14 @@ type SegValidatorImpl struct {
 
 func (v *SegValidatorImpl) Validate(seg *msg.Seg) error {
 	segID := seg.Id()
-	log.Printf("Validating segment %s (%s)", segID, seg)
+	// log.Printf("Validating segment %s (%s)", segID, seg)
 	spec := v.segSpecProvider.Get(segID)
 	if spec == nil {
 		return errors.New(fmt.Sprintf("No spec for segment ID '%s'", segID))
 	}
 
 	if ssp.IsUnValidatedSegment(segID) {
-		log.Printf("######## Segment of type %s currently not validated", segID)
+		//log.Printf("Segment of type %s currently not validated (validation not supported)", segID)
 		return nil
 	}
 
@@ -51,7 +51,7 @@ func (v *SegValidatorImpl) Validate(seg *msg.Seg) error {
 			segID, numDataElems, numDataElemSpecs))
 	}
 
-	log.Printf("Validating %d top-level data elems: %s", numDataElems, seg.Elems)
+	// log.Printf("Validating %d top-level data elems: %s", numDataElems, seg.Elems)
 	return v.validateDataElems(
 		spec.SegDataElemSpecs, seg)
 }
@@ -79,7 +79,7 @@ func (v *SegValidatorImpl) validateSimpleDataElem(
 	value string,
 	isMandatory bool) error {
 
-	log.Printf("Validating simple data elem %s", simpleDataElemSpec.Id())
+	// log.Printf("Validating simple data elem %s", simpleDataElemSpec.Id())
 
 	if value == "" {
 		if isMandatory {
@@ -111,8 +111,8 @@ func (v *SegValidatorImpl) validateDataElem(
 	dataElemSpec dsp.DataElemSpec,
 	dataElem *msg.DataElem,
 	isMandatory bool) error {
-	log.Printf("Validating data elem %s", dataElem)
-	log.Printf("\tSpec: %s", dataElemSpec)
+	// log.Printf("Validating data elem %s", dataElem)
+	// log.Printf("\tSpec: %s", dataElemSpec)
 
 	// TODO validate codes
 	switch dataElemSpec := dataElemSpec.(type) {
@@ -120,8 +120,8 @@ func (v *SegValidatorImpl) validateDataElem(
 		return v.validateSimpleDataElem(
 			segDataElemSpec, dataElemSpec, dataElem.Values[0], isMandatory)
 	case *dsp.CompositeDataElemSpec:
-		log.Printf("\t%s is composite", dataElemSpec.Id())
-		log.Printf("###### %d %s", len(dataElemSpec.ComponentSpecs), dataElemSpec.ComponentSpecs)
+		// log.Printf("\t%s is composite", dataElemSpec.Id())
+		// log.Printf("###### %d %s", len(dataElemSpec.ComponentSpecs), dataElemSpec.ComponentSpecs)
 		for componentIndex, componentSpec := range dataElemSpec.ComponentSpecs {
 			if componentIndex < len(dataElem.Values) {
 

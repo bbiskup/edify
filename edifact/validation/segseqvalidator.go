@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"github.com/bbiskup/edify/edifact/msg"
 	msp "github.com/bbiskup/edify/edifact/spec/message"
-	"log"
+	//"log"
 	"strconv"
 )
 
@@ -133,8 +133,8 @@ GROUPREPEAT:
 			segs := v.peek()
 			repeatCount := len(segs)
 			segID := segs[0].Id()
-			log.Printf("Spec: %s; peek: %s (%dx)",
-				specPart, segID, repeatCount)
+			// log.Printf("Spec: %s; peek: %s (%dx)",
+			//	specPart, segID, repeatCount)
 
 			// Generic error msg
 			segErrStr := fmt.Sprintf("%s in %s",
@@ -157,7 +157,7 @@ GROUPREPEAT:
 						// A segment repetition may occur if a group contains
 						// of a single mandatory segment, and all optional
 						// segments are skipped; e.g. AUTHOR message, group_4: LIN segment
-						log.Printf("repeat count exceeded? repeating group")
+						// log.Printf("repeat count exceeded? repeating group")
 						v.consumeSingle()
 
 						newRepSeg := msg.NewRepSeg(segs[0])
@@ -166,7 +166,7 @@ GROUPREPEAT:
 
 						continue GROUPREPEAT
 					} else {
-						log.Printf("There are remaining mandatory segments")
+						// log.Printf("There are remaining mandatory segments")
 						return NewSegSeqError(maxSegRepeatCountExceeded, segErrStr)
 					}
 				}
@@ -180,7 +180,7 @@ GROUPREPEAT:
 			case *msp.MsgSpecSegGrpPart:
 				triggerSegmentID := specPart.TriggerSegPart().Id()
 				if triggerSegmentID != segID {
-					log.Printf("Trigger for group %s not present", specPart.Name())
+					// log.Printf("Trigger for group %s not present", specPart.Name())
 					if specPart.IsMandatory() {
 						return NewSegSeqError(
 							missingMandatorySeg,

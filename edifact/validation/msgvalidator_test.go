@@ -31,6 +31,18 @@ func TestGetMsgTypeFromUNT(t *testing.T) {
 	assert.Equal(t, 2, msgType)
 }
 
+func getValidator(tb testing.TB) *MsgValidator {
+	parser, err := specparser.NewFullSpecParser("14B", "../../testdata/d14b")
+	require.Nil(tb, err)
+	segSpecs, err := parser.ParseSegSpecsWithPrerequisites()
+	require.Nil(tb, err)
+
+	msgSpecs, err := parser.ParseMsgSpecs(segSpecs)
+	require.Nil(tb, err)
+
+	return NewMsgValidator(msgSpecs, segSpecs)
+}
+
 var validMsgTestSpecs = []struct {
 	fileName string
 	checkFn  func(*testing.T, *msg.NestedMsg)
@@ -68,15 +80,7 @@ var validMsgTestSpecs = []struct {
 }
 
 func TestValidateMsg(t *testing.T) {
-	parser, err := specparser.NewFullSpecParser("14B", "../../testdata/d14b")
-	require.Nil(t, err)
-	segSpecs, err := parser.ParseSegSpecsWithPrerequisites()
-	require.Nil(t, err)
-
-	msgSpecs, err := parser.ParseMsgSpecs(segSpecs)
-	require.Nil(t, err)
-
-	validator := NewMsgValidator(msgSpecs, segSpecs)
+	validator := getValidator(t)
 
 	for _, testSpec := range validMsgTestSpecs {
 		rawMsg, err := getRawMsg("../../testdata/messages/" + testSpec.fileName)
@@ -88,5 +92,17 @@ func TestValidateMsg(t *testing.T) {
 		if testSpec.checkFn != nil {
 			testSpec.checkFn(t, nestedMsg)
 		}
+	}
+}
+
+func BenchmarkValidateINVOICMsg(b *testing.B) {
+	validator := getValidator(b)
+	rawMsg, err := getRawMsg("../../testdata/messages/INVOIC_1.txt")
+	require.Nil(b, err)
+
+	for i := 0; i < b.N; i++ {
+		nestedMsg, err := validator.Validate(rawMsg)
+		assert.NotNil(b, nestedMsg)
+		require.Nil(b, err)
 	}
 }
