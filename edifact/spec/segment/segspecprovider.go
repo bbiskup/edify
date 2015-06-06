@@ -1,9 +1,15 @@
 package segment
 
+//
 import (
 	"fmt"
 	"log"
 )
+
+// TODO import spec from r1241.txt
+func IsUnValidatedSegment(segID string) bool {
+	return segID == "UNH" || segID == "UNT" || segID == "UNS" || segID == "UGH" || segID == "UGT"
+}
 
 // Provides segment spec by Id
 type SegSpecProvider interface {
@@ -25,9 +31,14 @@ func (p *SegSpecProviderImpl) Get(id string) *SegSpec {
 		// are not part of the release cycle. Instead, they are defined
 		// in part 1 of ISO9735 (file testdata/r1241.txt)
 		log.Printf("######################## Missing segment spec: '%s'", id)
-		return NewSegSpec(
-			id, fmt.Sprintf("missing-%s", id),
-			"dummy_function", nil)
+
+		if IsUnValidatedSegment(id) {
+			return NewSegSpec(
+				id, fmt.Sprintf("missing-%s", id),
+				"dummy_function", nil)
+		} else {
+			return nil
+		}
 	} else {
 		return result
 	}
@@ -35,4 +46,8 @@ func (p *SegSpecProviderImpl) Get(id string) *SegSpec {
 
 func (p *SegSpecProviderImpl) Len() int {
 	return len(p.segSpecs)
+}
+
+func NewSegSpecProviderImpl(segSpecs SegSpecMap) *SegSpecProviderImpl {
+	return &SegSpecProviderImpl{segSpecs}
 }

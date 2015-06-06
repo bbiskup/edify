@@ -435,18 +435,19 @@ func (p *MsgSpecParser) ParseSpecFileContents(fileName string, contents string) 
 	return NewMsgSpec(id, name, version, release, contrAgency, revision, date, source, specParts), nil
 }
 
-func (p *MsgSpecParser) ParseSpecDir(dirName string, suffix string) (specs []*MsgSpec, err error) {
+func (p *MsgSpecParser) ParseSpecDir(dirName string, suffix string) (specs MsgSpecMap, err error) {
 	return p.parseSpecDir_sequential(dirName, suffix)
 }
 
 // Parse segment spec directory sequentially
-func (p *MsgSpecParser) parseSpecDir_sequential(dirName string, suffix string) (specs []*MsgSpec, err error) {
+func (p *MsgSpecParser) parseSpecDir_sequential(dirName string, suffix string) (specs MsgSpecMap, err error) {
 	entries, err := ioutil.ReadDir(dirName)
 	if err != nil {
-		return nil, err
+		return nil, errors.New(fmt.Sprintf(
+			"Failed to read message spec directory %s: %s", dirName, err))
 	}
 
-	specs = []*MsgSpec{}
+	specs = MsgSpecMap{}
 	for _, entry := range entries {
 		fileName := entry.Name()
 		if !strings.HasSuffix(fileName, "."+suffix) {
@@ -458,17 +459,19 @@ func (p *MsgSpecParser) parseSpecDir_sequential(dirName string, suffix string) (
 			continue
 		}
 
-		spec, err := p.ParseSpecFile(dirName + pathSep + fileName)
+		specFilePath := dirName + pathSep + fileName
+		spec, err := p.ParseSpecFile(specFilePath)
 		if err != nil {
-			return nil, err
+			return nil, errors.New(fmt.Sprintf(
+				"Failed to parse message spec file %s: %s", specFilePath, err))
 		}
-		specs = append(specs, spec)
+		specs[spec.Id] = spec
 	}
 	return
 }
 
 func (p *MsgSpecParser) parseSpecDir_parallel(
-	dirName string, suffix string) (specs []*MsgSpec, err error) {
+	dirName string, suffix string) (specs MsgSpecMap, err error) {
 	fmt.Printf("NumThreads: %d; num go routines %d\n",
 		edifact.NumThreads, runtime.NumGoroutine())
 
@@ -542,7 +545,9 @@ func (p *MsgSpecParser) parseSpecDir_parallel(
 		close(fileSpecCh)
 	}()
 
-	specs = <-resultsCh
+	for _, spec := range <-resultsCh {
+		specs[spec.Id] = spec
+	}
 	close(resultsCh)
 	wg.Wait()
 	return

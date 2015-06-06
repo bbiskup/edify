@@ -4,6 +4,8 @@ import (
 	"errors"
 	"github.com/bbiskup/edify/edifact/msg"
 	//msp "github.com/bbiskup/edify/edifact/spec/message"
+	"fmt"
+	msp "github.com/bbiskup/edify/edifact/spec/message"
 	ssp "github.com/bbiskup/edify/edifact/spec/segment"
 	"log"
 	"strconv"
@@ -43,7 +45,9 @@ func getSegCountFromUNT(seg *msg.Seg) (segCount int, err error) {
 // - correctness of segment sequence
 // - correctness/completeness of data elements
 type MsgValidator struct {
-	segSpecs ssp.SegSpecMap
+	msgSpecs     msp.MsgSpecMap
+	segSpecs     ssp.SegSpecProvider
+	segValidator SegValidator
 }
 
 func (v *MsgValidator) Validate(rawMsg *msg.RawMsg) (nestedMsg *msg.NestedMsg, err error) {
@@ -71,9 +75,24 @@ func (v *MsgValidator) Validate(rawMsg *msg.RawMsg) (nestedMsg *msg.NestedMsg, e
 
 	log.Printf("Validating message %s (%d segments)", msgType, segCount)
 
-	panic("Not implemented")
+	// Validate segments
+	for _, seg := range rawMsg.Segs {
+		err := v.segValidator.Validate(seg)
+		if err != nil {
+			return nil, err
+		}
+	}
+
+	// Validate segment sequence
+	msgSpec, ok := v.msgSpecs[msgType]
+	if !ok {
+		return nil, errors.New(
+			fmt.Sprintf("No message spec found for message type %s", msgType))
+	}
+	segSeqValidator := NewSegSeqValidator(msgSpec)
+	return segSeqValidator.Validate(rawMsg)
 }
 
-func NewMsgValidator(segSpecMap ssp.SegSpecMap) *MsgValidator {
-	return &MsgValidator{segSpecMap}
+func NewMsgValidator(msgSpecs msp.MsgSpecMap, segSpecProvider ssp.SegSpecProvider) *MsgValidator {
+	return &MsgValidator{msgSpecs, segSpecProvider, NewSegValidatorImpl(segSpecProvider)}
 }

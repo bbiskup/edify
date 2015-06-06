@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"sort"
+	//"sort"
 	"testing"
 	"time"
 )
@@ -76,13 +76,16 @@ func TestParseDir(t *testing.T) {
 
 	// cast necessary so sort.Interface methods will be recognized
 	// on []*MsgSpec
-	var mSpecs MsgSpecs
-	mSpecs = specs
-	sort.Sort(mSpecs)
+	mSpecs := specs
 
 	// ioutil.ReadDir sorts entries alphabetically
-	assert.Equal(t, "BALANC", mSpecs[0].Id)
-	assert.Equal(t, "JOBCON", mSpecs[1].Id)
+	balanc, ok := mSpecs["BALANC"]
+	assert.True(t, ok)
+	assert.Equal(t, "BALANC", balanc.Id)
+
+	jobcon, ok := mSpecs["JOBCON"]
+	assert.True(t, ok)
+	assert.Equal(t, "JOBCON", jobcon.Id)
 }
 
 var segGrpStartSpec = []struct {

@@ -87,24 +87,26 @@ func getSegSpecMap(t testing.TB) ssp.SegSpecMap {
 
 func TestValidateValidSeg(t *testing.T) {
 	segSpecMap := getSegSpecMap(t)
+	validator := NewSegValidatorImpl(ssp.NewSegSpecProviderImpl(segSpecMap))
 	segment := getValidSeg(t)
-	validator := NewSegValidatorImpl(segSpecMap)
+
 	err := validator.Validate(segment)
 	assert.Nil(t, err)
 }
 
 func TestValidateInvalidSegNonExistantCode(t *testing.T) {
 	segSpecMap := getSegSpecMap(t)
+	validator := NewSegValidatorImpl(ssp.NewSegSpecProviderImpl(segSpecMap))
 	segment := getInvalidSegNonExistantCode(t)
-	validator := NewSegValidatorImpl(segSpecMap)
+
 	err := validator.Validate(segment)
 	assert.NotNil(t, err)
 }
 
 func TestValidateInvalidSegIncorrectRepr(t *testing.T) {
 	segSpecMap := getSegSpecMap(t)
+	validator := NewSegValidatorImpl(ssp.NewSegSpecProviderImpl(segSpecMap))
 	segment := getInvalidSegIncorrectRepr(t)
-	validator := NewSegValidatorImpl(segSpecMap)
 	err := validator.Validate(segment)
 	assert.NotNil(t, err)
 }
@@ -112,7 +114,7 @@ func TestValidateInvalidSegIncorrectRepr(t *testing.T) {
 func BenchmarkParseInvalidSeg(b *testing.B) {
 	segSpecMap := getSegSpecMap(b)
 	segment := getInvalidSegNonExistantCode(b)
-	validator := NewSegValidatorImpl(segSpecMap)
+	validator := NewSegValidatorImpl(ssp.NewSegSpecProviderImpl(segSpecMap))
 	b.ResetTimer()
 
 	for i := 0; i < b.N; i++ {
@@ -124,7 +126,7 @@ func BenchmarkParseInvalidSeg(b *testing.B) {
 func BenchmarkParseValidSeg(b *testing.B) {
 	segSpecMap := getSegSpecMap(b)
 	segment := getValidSeg(b)
-	validator := NewSegValidatorImpl(segSpecMap)
+	validator := NewSegValidatorImpl(ssp.NewSegSpecProviderImpl(segSpecMap))
 	assert.NotNil(b, validator)
 	b.ResetTimer()
 
@@ -139,7 +141,7 @@ func BenchmarkNewSegValidatorImpl(b *testing.B) {
 	b.ResetTimer()
 
 	for i := 0; i < b.N; i++ {
-		validator := NewSegValidatorImpl(segSpecMap)
+		validator := NewSegValidatorImpl(ssp.NewSegSpecProviderImpl(segSpecMap))
 		assert.NotNil(b, validator)
 	}
 }

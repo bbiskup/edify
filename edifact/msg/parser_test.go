@@ -43,7 +43,7 @@ func TestParseINVOIC(t *testing.T) {
 	require.NotNil(t, rawMessage)
 
 	assert.Equal(t, "UNH", rawMessage.Segs[0].Id())
-	assert.Equal(t, "UNT", rawMessage.Segs[112].Id())
+	assert.Equal(t, "UNT", rawMessage.Segs[115].Id())
 
 	expectedMultilineStr := "If 0% VAT is charged and your VAT ID number is displayed above, this is either an exempt or a reverse charge transaction."
 	assert.Equal(t, expectedMultilineStr, rawMessage.Segs[4].Elems[3].Values[0])

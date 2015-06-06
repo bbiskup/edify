@@ -133,8 +133,8 @@ GROUPREPEAT:
 			segs := v.peek()
 			repeatCount := len(segs)
 			segID := segs[0].Id()
-			//log.Printf("Spec: %s; peek: %s (%dx)",
-			//		specPart, segID, repeatCount)
+			log.Printf("Spec: %s; peek: %s (%dx)",
+				specPart, segID, repeatCount)
 
 			// Generic error msg
 			segErrStr := fmt.Sprintf("%s in %s",
@@ -180,7 +180,7 @@ GROUPREPEAT:
 			case *msp.MsgSpecSegGrpPart:
 				triggerSegmentID := specPart.TriggerSegPart().Id()
 				if triggerSegmentID != segID {
-					// log.Printf("Trigger for group %s not present", specPart.Name())
+					log.Printf("Trigger for group %s not present", specPart.Name())
 					if specPart.IsMandatory() {
 						return NewSegSeqError(
 							missingMandatorySeg,

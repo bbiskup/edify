@@ -1,6 +1,7 @@
 package specparser
 
 import (
+	"errors"
 	"fmt"
 	csp "github.com/bbiskup/edify/edifact/spec/codes"
 	dsp "github.com/bbiskup/edify/edifact/spec/dataelement"
@@ -70,7 +71,8 @@ func (p *FullSpecParser) parseCompositeDataElemSpecs(simpleDataElemSpecs dsp.Sim
 	path := p.getPath("edcd", "EDCD")
 	specs, err := parser.ParseSpecFile(path)
 	if err != nil {
-		return nil, err
+		return nil, errors.New(fmt.Sprintf(
+			"Error parsing composite data elem file %s: %s", path, err))
 	}
 
 	numSpecs := len(specs)
@@ -98,7 +100,7 @@ func (p *FullSpecParser) parseSegSpecs(
 	return specs, nil
 }
 
-func (p *FullSpecParser) parseMsgSpecs(segSpecs ssp.SegSpecProvider) (msgSpecs []*msp.MsgSpec, err error) {
+func (p *FullSpecParser) ParseMsgSpecs(segSpecs ssp.SegSpecProvider) (msgSpecs msp.MsgSpecMap, err error) {
 	msgDir := p.Dir + pathSeparator + "edmd"
 	parser := msp.NewMsgSpecParser(segSpecs)
 	fmt.Printf("Parsing message specs with suffix '%s' in directory '%s'", p.Version, msgDir)
@@ -108,17 +110,20 @@ func (p *FullSpecParser) parseMsgSpecs(segSpecs ssp.SegSpecProvider) (msgSpecs [
 func (p *FullSpecParser) ParseSegSpecsWithPrerequisites() (ssp.SegSpecProvider, error) {
 	codeSpecs, err := p.parseCodeSpecs()
 	if err != nil {
-		return nil, err
+		return nil, errors.New(fmt.Sprintf(
+			"Error parsing code specs: %s", err))
 	}
 
 	simpleDataElemSpecs, err := p.parseSimpleDataElemSpecs(codeSpecs)
 	if err != nil {
-		return nil, err
+		return nil, errors.New(fmt.Sprintf(
+			"Error parsing simple data element specs: %s", err))
 	}
 
 	compositeDataElemSpecs, err := p.parseCompositeDataElemSpecs(simpleDataElemSpecs)
 	if err != nil {
-		return nil, err
+		return nil, errors.New(fmt.Sprintf(
+			"Error parsing composite data element specs: %s", err))
 	}
 
 	return p.parseSegSpecs(simpleDataElemSpecs, compositeDataElemSpecs)
@@ -131,7 +136,7 @@ func (p *FullSpecParser) Parse() error {
 		return err
 	}
 
-	msgSpecs, err := p.parseMsgSpecs(segSpecs)
+	msgSpecs, err := p.ParseMsgSpecs(segSpecs)
 	if err != nil {
 		return err
 	}
