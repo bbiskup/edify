@@ -13,6 +13,10 @@ type ComponentDataElemSpec struct {
 	SimpleDataElemSpec *SimpleDataElemSpec
 }
 
+func (s *ComponentDataElemSpec) Id() string {
+	return s.SimpleDataElemSpec.Id()
+}
+
 func (s *ComponentDataElemSpec) String() string {
 	isMandatoryStr := util.CustBoolStr(s.IsMandatory, "mand.", "cond.")
 	return fmt.Sprintf(
