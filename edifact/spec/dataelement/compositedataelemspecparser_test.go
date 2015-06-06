@@ -5,12 +5,15 @@ import (
 	"testing"
 )
 
+//	Component 1001/name_1001 @ 10 (cond.)
 const expectedValid1 = `Composite C001 TRANSPORT MEANS 'Code an...'
+	Component 8179/name_8179 @ 10 (cond.)
 	Component 1131/name_1131 @ 20 (cond.)
 	Component 3055/name_3055 @ 30 (cond.)
 	Component 8178/name_8178 @ 40 (cond.)`
 
 const expectedValidFallbackDescription = `Composite C001 TRANSPORT MEANS '<no des...'
+	Component 8179/name_8179 @ 10 (cond.)
 	Component 1131/name_1131 @ 20 (cond.)
 	Component 3055/name_3055 @ 30 (cond.)
 	Component 8178/name_8178 @ 40 (cond.)`
@@ -19,6 +22,7 @@ var parserSpec = []struct {
 	specLines      []string
 	expectedResStr string
 	expectErr      bool
+	checkFn        func(t *testing.T, spec *CompositeDataElemSpec)
 }{
 	{
 		// Valid
@@ -35,6 +39,10 @@ var parserSpec = []struct {
 		},
 		expectedValid1,
 		false,
+		func(t *testing.T, spec *CompositeDataElemSpec) {
+			assert.Equal(t, "C001", spec.Id())
+			assert.Equal(t, 4, len(spec.ComponentSpecs))
+		},
 	},
 	{
 		// Invalid (no components)
@@ -47,6 +55,7 @@ var parserSpec = []struct {
 		},
 		"",
 		true,
+		nil,
 	},
 	{
 		// Invalid (no header)
@@ -62,6 +71,7 @@ var parserSpec = []struct {
 		},
 		"",
 		true,
+		nil,
 	},
 	{
 		// Valid (fallback description)
@@ -76,6 +86,7 @@ var parserSpec = []struct {
 		},
 		expectedValidFallbackDescription,
 		true,
+		nil,
 	},
 }
 
@@ -86,6 +97,10 @@ func TestParser(t *testing.T) {
 		if err != nil && spec.expectErr {
 			// fmt.Printf("expected err: %s", err)
 			continue
+		} else {
+			if spec.checkFn != nil {
+				spec.checkFn(t, res)
+			}
 		}
 
 		assert.Nil(t, err)
