@@ -33,7 +33,8 @@ func TestGetMsgTypeFromUNT(t *testing.T) {
 var validMsgTestSpecs = []struct {
 	fileName string
 }{
-	// {"INVOIC_1.txt"},
+	// {"INVOIC_1.txt"},  // TODO errors (repetition of group 1 not detected correctly?)
+	{"INVOIC_2.txt"},
 	{"ORDERS_1.txt"},
 }
 
