@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"github.com/bbiskup/edify/edifact/spec/specutil"
 	"github.com/bbiskup/edify/edifact/util"
-	"log"
+	//"log"
 	"regexp"
 	"strconv"
 	"strings"
@@ -200,7 +200,7 @@ func (p *CompositeDataElemSpecParser) ParseSpec(specLines []string) (spec *Compo
 	}
 
 	componentGroup := groups[2]
-	log.Printf("componentGroup: %s", componentGroup)
+	// log.Printf("componentGroup: %s", componentGroup)
 	componentSpecs, err := p.ParseComponentSpecs(componentGroup)
 	if err != nil {
 		return
