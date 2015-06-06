@@ -47,6 +47,8 @@ var validationSpec = []struct {
 	{NewRepr(AlphaNum, false, 4), "x2x2", true},
 
 	{NewRepr(Num, true, 3), "123", true},
+	{NewRepr(Num, true, 3), "1.0", true},
+	{NewRepr(Num, true, 3), "1,0", true},
 	{NewRepr(Num, true, 3), "123a", false},
 	{NewRepr(Num, true, 3), "", true},
 	{NewRepr(Num, false, 3), "123", true},

@@ -56,6 +56,10 @@ func IsEDIFACTAlphabetic(char rune) bool {
 	return !IsNumChar(char)
 }
 
+func (r *Repr) isPunctuation(char rune) bool {
+	return char == '.' || char == ','
+}
+
 func (r *Repr) Validate(dataElemStr string) (valid bool, err error) {
 	var typ = r.Typ
 	var strLen uint32
@@ -66,7 +70,7 @@ func (r *Repr) Validate(dataElemStr string) (valid bool, err error) {
 			continue
 		} else {
 			isNum := IsNumChar(c)
-			if typ == Num && !isNum && c != '.' {
+			if typ == Num && !isNum && !r.isPunctuation(c) {
 				return false, errors.New(fmt.Sprintf("Found non-numeric character '%c'", c))
 			} else if typ == Alpha && isNum {
 				return false, errors.New(fmt.Sprintf("Found numeric character '%c'", c))
