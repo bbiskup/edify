@@ -1,6 +1,9 @@
 TODO
 ====
 
+- Support repeating data elements; example: PAXLST_1.txt and PAXLST_2.txt, first COM data element
+  COM+703-555-1212:TE+703-555-4545:FX'
+
 - Handle multiple segments of same ID in same group correctly
   Example MOVINS message, group 6: LOC-RFF-FTX-MEA-DIM-LOC-NAD-SG7-SG8-SG9-SG10-SG11
   (LOC segment occurs twice)

@@ -33,6 +33,11 @@ func TestGetMsgTypeFromUNT(t *testing.T) {
 var validMsgTestSpecs = []struct {
 	fileName string
 }{
+	// TODO support repeating data elems e.g. PAXLST_1.txt, 1st COM (M3)
+	// COM+703-555-1212:TE+703-555-4545:FX'
+	//{"PAXLST_1.txt"},
+	//{"PAXLST_2.txt"},
+
 	{"CUSRES_1.txt"},
 	{"CUSRES_2.txt"},
 	// {"INVOIC_1.txt"},  // TODO errors (repetition of group 1 not detected correctly?)
