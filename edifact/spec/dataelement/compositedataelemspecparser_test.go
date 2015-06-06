@@ -42,6 +42,12 @@ var parserSpec = []struct {
 		func(t *testing.T, spec *CompositeDataElemSpec) {
 			assert.Equal(t, "C001", spec.Id())
 			assert.Equal(t, 4, len(spec.ComponentSpecs))
+			assert.Equal(t, "8179", spec.ComponentSpecs[0].Id())
+			assert.Equal(t, "1131", spec.ComponentSpecs[1].Id())
+			assert.Equal(t, "3055", spec.ComponentSpecs[2].Id())
+			assert.Equal(t, "8178", spec.ComponentSpecs[3].Id())
+			assert.Equal(t, 10, spec.ComponentSpecs[0].Position)
+			assert.Equal(t, 40, spec.ComponentSpecs[3].Position)
 		},
 	},
 	{
