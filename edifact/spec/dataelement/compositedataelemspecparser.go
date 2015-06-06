@@ -21,7 +21,7 @@ type CompositeDataElemSpecParser struct {
 /* Parse a line of the form
 010    3148  Communication address identifier          M      an..512
 */
-func (p *CompositeDataElemSpecParser) ParseComponentDataElemenSpec(specLine string) (spec *ComponentDataElemSpec, err error) {
+func (p *CompositeDataElemSpecParser) ParseComponentDataElemSpec(specLine string) (spec *ComponentDataElemSpec, err error) {
 	specMatch := p.componentElemRE.FindStringSubmatch(specLine)
 	if specMatch == nil {
 		err = errors.New(
@@ -107,7 +107,7 @@ func (p *CompositeDataElemSpecParser) ParseComponentSpecs(componentGroup []strin
 		if len(strings.TrimSpace(line)) == 0 {
 			continue
 		}
-		elemSpec, err := p.ParseComponentDataElemenSpec(line)
+		elemSpec, err := p.ParseComponentDataElemSpec(line)
 		if err != nil {
 			return nil, err
 		}
@@ -239,6 +239,6 @@ func NewCompositeDataElemSpecParser(simpleDataElemSpecs SimpleDataElemSpecMap) *
 		headerRE: regexp.MustCompile(`^[ ]{7}(C[0-9]{3}) ([A-Z/& -]+) *$`),
 		// OBSOLETE componentElemRE: regexp.MustCompile(`^[ ]{7}(\d{4})  ([A-Za-z ]{41}) ([CM]) .+$`),
 		componentElemRE: regexp.MustCompile(
-			`^([0-9]{3})[ ]{4}([0-9]{4})  [A-Za-z- ]+ ([CM]) .+$`),
+			`^([0-9]{3})[ ]{4}([0-9]{4})  [A-Za-z- ()]+ ([CM]) .+$`),
 	}
 }
