@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"github.com/bbiskup/edify/edifact/spec/specutil"
 	"github.com/bbiskup/edify/edifact/util"
+	"log"
 	"regexp"
 	"strings"
 )
@@ -71,7 +72,14 @@ func (p *CodesSpecParser) ParseCodeSpecHeader(header string) (id string, name st
 	if len(codeHeaderMatch) != 3 {
 		panic("Internal error: incorrect regular expression")
 	}
-	id = codeHeaderMatch[1]
+	idPart := codeHeaderMatch[1]
+	id = strings.TrimSpace(idPart)
+
+	if id == "" {
+		return "", "", errors.New(fmt.Sprintf(
+			"Empty ID in id part '%s' (header '%s')", idPart, header))
+	}
+
 	name = codeHeaderMatch[2]
 	return
 }
@@ -89,7 +97,8 @@ func (p *CodesSpecParser) ParseCodeSpec(specLines []string) (*CodeSpec, error) {
 	}
 	id, name, err := p.ParseCodeSpecHeader(specLines[0])
 	if err != nil {
-		return nil, err
+		return nil, errors.New(fmt.Sprintf(
+			"Failed to parse header: %s", err))
 	}
 
 	descriptionLines := specLines[1:]
@@ -122,9 +131,15 @@ func (p *CodesSpecParser) ParseCodeSpecs(lines [][]string) ([]*CodeSpec, error) 
 		if len(group) == 0 {
 			continue
 		}
+		if strings.HasPrefix(group[0], "           Note:") {
+			log.Printf("Skipping note")
+			continue
+		}
+
 		spec, err := p.ParseCodeSpec(group)
 		if err != nil {
-			return nil, err
+			return nil, errors.New(fmt.Sprintf(
+				"Failed to parse group '%s': %s", group, err))
 		}
 		result = append(result, spec)
 	}

@@ -3,6 +3,7 @@ package codes
 import (
 	"fmt"
 	"github.com/bbiskup/edify/edifact/util"
+	"sort"
 	"strings"
 )
 
@@ -31,6 +32,15 @@ func (s *CodesSpec) String() string {
 	descriptionStr := util.Ellipsis(s.Description, maxDescrDisplayLen)
 
 	return fmt.Sprintf("%s %s %s\n%s", s.Id, s.Name, descriptionStr, codeSpecsStr)
+}
+
+func (s *CodesSpec) CodeListStr() string {
+	codes := make(sort.StringSlice, len(s.codeSpecMap))
+	for code, _ := range s.codeSpecMap {
+		codes = append(codes, code)
+	}
+	codes.Sort()
+	return strings.Join(codes, ", ")
 }
 
 func (s *CodesSpec) Len() int {
