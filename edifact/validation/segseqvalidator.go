@@ -157,7 +157,7 @@ GROUPREPEAT:
 						// A segment repetition may occur if a group contains
 						// of a single mandatory segment, and all optional
 						// segments are skipped; e.g. AUTHOR message, group_4: LIN segment
-						// log.Printf("repeat count exceeded? repeating group")
+						log.Printf("repeat count exceeded? repeating group")
 						v.consumeSingle()
 
 						newRepSeg := msg.NewRepSeg(segs[0])

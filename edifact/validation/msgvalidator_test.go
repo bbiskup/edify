@@ -33,6 +33,7 @@ func TestGetMsgTypeFromUNT(t *testing.T) {
 var validMsgTestSpecs = []struct {
 	fileName string
 }{
+	{"CUSRES_1.txt"},
 	// {"INVOIC_1.txt"},  // TODO errors (repetition of group 1 not detected correctly?)
 	{"INVOIC_2.txt"},
 	{"INVOIC_3.txt"},
@@ -58,7 +59,7 @@ func TestValidateMsg(t *testing.T) {
 		require.Nil(t, err)
 		nestedMsg, err := validator.Validate(rawMsg)
 		assert.NotNil(t, nestedMsg)
-		assert.Nil(t, err)
+		require.Nil(t, err)
 	}
 
 }
