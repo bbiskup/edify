@@ -1,4 +1,4 @@
-package msg
+package rawmsg
 
 // Special segment identifiers
 const (

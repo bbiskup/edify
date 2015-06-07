@@ -1,4 +1,4 @@
-package msg
+package rawmsg
 
 import (
 	"bytes"
@@ -8,7 +8,7 @@ import (
 // A raw message contains a sequence of segments without
 // the notion of segment groups, i.e. without nesting
 type RawMsg struct {
-	Name     string
+	Name string
 	Segs []*Seg
 }
 
