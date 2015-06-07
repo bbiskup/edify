@@ -3,7 +3,6 @@ package segment
 //
 import (
 	"fmt"
-	"log"
 )
 
 // TODO import spec from r1241.txt
@@ -30,7 +29,7 @@ func (p *SegSpecProviderImpl) Get(id string) *SegSpec {
 		// e.g. UNH, UNT are not defined in UNCE specs, because they
 		// are not part of the release cycle. Instead, they are defined
 		// in part 1 of ISO9735 (file testdata/r1241.txt)
-		log.Printf("######################## Missing segment spec: '%s'", id)
+		//log.Printf("Missing segment spec:1 '%s'", id)
 
 		if IsUnValidatedSegment(id) {
 			return NewSegSpec(
