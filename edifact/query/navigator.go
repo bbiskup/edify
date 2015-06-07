@@ -40,12 +40,12 @@ func (n *Navigator) GetSeg(queryStr string, message *msg.NestedMsg) (*msg.Seg, e
 	return segment, nil
 }
 
-func (n *Navigator) GetSegDataElem(queryStr string, message *msg.NestedMsg) (*msg.DataElem, error) {
+func (n *Navigator) GetSegDataElem(queryStr string, message *msg.NestedMsg) (msg.DataElem, error) {
 	msgPart, err := n.navigate(queryStr, message)
 	if err != nil {
 		return nil, err
 	}
-	dataElem, ok := msgPart.(*msg.DataElem)
+	dataElem, ok := msgPart.(msg.DataElem)
 	if !ok {
 		return nil, errors.New(fmt.Sprintf("Unexpected type %T", dataElem))
 	}
