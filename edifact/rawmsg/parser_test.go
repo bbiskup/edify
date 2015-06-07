@@ -24,13 +24,13 @@ func TestRawMsg1(t *testing.T) {
 	rawMessage, err := p.ParseRawMsg(msg1)
 	require.NotNil(t, rawMessage)
 	require.Nil(t, err)
-	assert.Equal(t, 9, len(rawMessage.Segs))
-	assert.Equal(t, "UNH", rawMessage.Segs[0].Id())
-	assert.Equal(t, "UNT", rawMessage.Segs[8].Id())
-	assert.Equal(t, "1", rawMessage.Segs[0].Elems[0].Values[0])
-	assert.Equal(t, "ORDERS", rawMessage.Segs[0].Elems[1].Values[0])
-	assert.Equal(t, "D", rawMessage.Segs[0].Elems[1].Values[1])
-	assert.Equal(t, "9", rawMessage.Segs[8].Elems[0].Values[0])
+	assert.Equal(t, 9, len(rawMessage.RawSegs))
+	assert.Equal(t, "UNH", rawMessage.RawSegs[0].Id())
+	assert.Equal(t, "UNT", rawMessage.RawSegs[8].Id())
+	assert.Equal(t, "1", rawMessage.RawSegs[0].Elems[0].Values[0])
+	assert.Equal(t, "ORDERS", rawMessage.RawSegs[0].Elems[1].Values[0])
+	assert.Equal(t, "D", rawMessage.RawSegs[0].Elems[1].Values[1])
+	assert.Equal(t, "9", rawMessage.RawSegs[8].Elems[0].Values[0])
 }
 
 func TestParseINVOIC(t *testing.T) {
@@ -42,11 +42,11 @@ func TestParseINVOIC(t *testing.T) {
 	require.Nil(t, err)
 	require.NotNil(t, rawMessage)
 
-	assert.Equal(t, "UNH", rawMessage.Segs[0].Id())
-	assert.Equal(t, "UNT", rawMessage.Segs[len(rawMessage.Segs)-1].Id())
+	assert.Equal(t, "UNH", rawMessage.RawSegs[0].Id())
+	assert.Equal(t, "UNT", rawMessage.RawSegs[len(rawMessage.RawSegs)-1].Id())
 
 	expectedMultilineStr := "If 0% VAT is charged and your VAT ID number is displayed above, this is either an exempt or a reverse charge transaction."
-	assert.Equal(t, expectedMultilineStr, rawMessage.Segs[4].Elems[3].Values[0])
+	assert.Equal(t, expectedMultilineStr, rawMessage.RawSegs[4].Elems[3].Values[0])
 }
 
 var elemSpecs = []struct {

@@ -46,42 +46,42 @@ func (p *Parser) ParseElems(elementStrs []string) (elements []*RawDataElem) {
 	return
 }
 
-func (p *Parser) ParseSeg(segmentStr string) (segment *Seg) {
+func (p *Parser) ParseRawSeg(rawSegStr string) (rawSeg *RawSeg) {
 	if p.err != nil {
 		return nil
 	}
 
-	segmentStr = strings.Trim(segmentStr, " \t\n")
-	if len(segmentStr) == 0 {
+	rawSegStr = strings.Trim(rawSegStr, " \t\n")
+	if len(rawSegStr) == 0 {
 		// empty segment not treated as error
 		return nil
 	}
 
-	parts := util.SplitEDIFACT(segmentStr, SegTagDataElemSep, ReleaseChar)
+	parts := util.SplitEDIFACT(rawSegStr, SegTagDataElemSep, ReleaseChar)
 	if len(parts) < 2 {
-		p.err = errors.New(fmt.Sprintf("Seg too short (%#v)", parts))
+		p.err = errors.New(fmt.Sprintf("RawSeg too short (%#v)", parts))
 		return nil
 	}
-	segmentId := parts[0]
-	segment = NewSeg(segmentId)
+	rawSegId := parts[0]
+	rawSeg = NewRawSeg(rawSegId)
 
 	elements := p.ParseElems(parts[1:])
-	segment.AddElems(elements)
-	return segment
+	rawSeg.AddElems(elements)
+	return rawSeg
 }
 
-func (p *Parser) ParseSegs(segmentStrs []string) []*Seg {
+func (p *Parser) ParseRawSegs(rawSegStrs []string) []*RawSeg {
 	if p.err != nil {
 		return nil
 	}
-	result := []*Seg{}
+	result := []*RawSeg{}
 
-	for _, segmentStr := range segmentStrs {
-		segment := p.ParseSeg(segmentStr)
-		if segment == nil {
+	for _, rawSegStr := range rawSegStrs {
+		rawSeg := p.ParseRawSeg(rawSegStr)
+		if rawSeg == nil {
 			continue
 		}
-		result = append(result, segment)
+		result = append(result, rawSeg)
 		if p.err != nil {
 			return nil
 		}
@@ -95,9 +95,9 @@ func (p *Parser) ParseRawMsg(edifactMessage string) (rawMessage *RawMsg, err err
 	// reset error
 	p.err = nil
 
-	segmentStrs := util.SplitEDIFACT(edifactMessage, SegTerm, ReleaseChar)
-	log.Print("segmentStrs: ", segmentStrs)
-	segments := p.ParseSegs(segmentStrs)
+	rawSegStrs := util.SplitEDIFACT(edifactMessage, SegTerm, ReleaseChar)
+	log.Print("rawSegStrs: ", rawSegStrs)
+	segments := p.ParseRawSegs(rawSegStrs)
 
 	if p.err != nil {
 		return nil, p.err

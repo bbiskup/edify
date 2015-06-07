@@ -36,6 +36,6 @@ func (s *RawSeg) Dump(indent int) string {
 	return fmt.Sprintf("%sRawSeg %s\n", indentStr, s.Id())
 }
 
-func NewSeg(id string) *RawSeg {
+func NewRawSeg(id string) *RawSeg {
 	return &RawSeg{id, []*RawDataElem{}}
 }
