@@ -6,13 +6,13 @@ import (
 )
 
 func TestSimpleDataElemString(t *testing.T) {
-	elem := NewDataElem([]string{"testValue"})
-	assert.Equal(t, "DataElem _no_id 'testValue'", elem.String())
+	elem := NewRawDataElem([]string{"testValue"})
+	assert.Equal(t, "RawDataElem 'testValue'", elem.String())
 	assert.Equal(t, true, elem.IsSimple())
 }
 
 func TestCompositeDataElemString(t *testing.T) {
-	elem := NewDataElem([]string{"testValue1", "testvalue2"})
-	assert.Equal(t, "DataElem _no_id 'testValue1' 'testvalue2'", elem.String())
+	elem := NewRawDataElem([]string{"testValue1", "testvalue2"})
+	assert.Equal(t, "RawDataElem 'testValue1' 'testvalue2'", elem.String())
 	assert.Equal(t, false, elem.IsSimple())
 }

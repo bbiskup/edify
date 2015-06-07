@@ -6,8 +6,8 @@ import (
 )
 
 type Seg struct {
-	id       string
-	Elems []*DataElem
+	id    string
+	Elems []*RawDataElem
 }
 
 // From interface SegOrGroup
@@ -23,11 +23,11 @@ func (s *Seg) String() string {
 	return fmt.Sprintf("%s\n%s", s.id, buf.String())
 }
 
-func (s *Seg) AddElem(element *DataElem) {
+func (s *Seg) AddElem(element *RawDataElem) {
 	s.Elems = append(s.Elems, element)
 }
 
-func (s *Seg) AddElems(elements []*DataElem) {
+func (s *Seg) AddElems(elements []*RawDataElem) {
 	s.Elems = elements
 }
 
@@ -37,5 +37,5 @@ func (s *Seg) Dump(indent int) string {
 }
 
 func NewSeg(id string) *Seg {
-	return &Seg{id, []*DataElem{}}
+	return &Seg{id, []*RawDataElem{}}
 }

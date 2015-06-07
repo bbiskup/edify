@@ -17,22 +17,22 @@ func NewParser() *Parser {
 	return &Parser{err: nil}
 }
 
-func (p *Parser) ParseElem(elementStr string) (element *DataElem) {
+func (p *Parser) ParseElem(elementStr string) (element *RawDataElem) {
 	if strings.Index(elementStr, RepetitionSep) != -1 {
 		p.err = errors.New("Data element repetition currently not supported")
 		return nil
 	}
 	parts := strings.Split(elementStr, CompDataElemSepStr)
-	return NewDataElem(parts)
+	return NewRawDataElem(parts)
 }
 
-func (p *Parser) ParseElems(elementStrs []string) (elements []*DataElem) {
+func (p *Parser) ParseElems(elementStrs []string) (elements []*RawDataElem) {
 	fmt.Printf("ParseElems %s", elementStrs)
 	if p.err != nil {
 		return nil
 	}
 
-	elements = []*DataElem{}
+	elements = []*RawDataElem{}
 	for _, elementStr := range elementStrs {
 		element := p.ParseElem(elementStr)
 		if element == nil {
