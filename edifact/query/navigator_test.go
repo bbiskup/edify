@@ -20,13 +20,24 @@ func getNestedMsg(t *testing.T) *msg.NestedMsg {
 }
 
 var testNavSpecs = []struct {
-	queryStr string
-	checkFn  func(t *testing.T, msgPart msg.NestedMsgPart, err error)
+	description string
+	queryStr    string
+	checkFn     func(t *testing.T, msgPart msg.NestedMsgPart, err error)
 }{
-	{"seg:BGM[0]",
+	{
+		"Valid path for segment at top level",
+		"seg:BGM[0]",
 		func(t *testing.T, msgPart msg.NestedMsgPart, err error) {
 			require.Nil(t, err)
 			require.NotNil(t, msgPart)
+		},
+	},
+	{
+		"Incorrect segment index",
+		"seg:BGM[1]",
+		func(t *testing.T, msgPart msg.NestedMsgPart, err error) {
+			require.Nil(t, msgPart)
+			require.NotNil(t, err)
 		},
 	},
 }
@@ -36,7 +47,7 @@ func TestNavigator(t *testing.T) {
 	nestedMsg := getNestedMsg(t)
 
 	for _, spec := range testNavSpecs {
-		msgPart, err := navigator.GetSeg("seg:BGM[0]", nestedMsg)
+		msgPart, err := navigator.GetSeg(spec.queryStr, nestedMsg)
 		spec.checkFn(t, msgPart, err)
 	}
 }
