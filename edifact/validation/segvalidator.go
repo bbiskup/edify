@@ -3,14 +3,15 @@ package validation
 import (
 	"errors"
 	"fmt"
-	"github.com/bbiskup/edify/edifact/msg"
+	//"github.com/bbiskup/edify/edifact/msg"
+	"github.com/bbiskup/edify/edifact/rawmsg"
 	dsp "github.com/bbiskup/edify/edifact/spec/dataelement"
 	ssp "github.com/bbiskup/edify/edifact/spec/segment"
 	// "log"
 )
 
 type SegValidator interface {
-	Validate(seg *msg.Seg) error
+	Validate(rawSeg *rawmsg.RawSeg) error
 }
 
 // Validation of segments and their data elements
@@ -22,8 +23,8 @@ type SegValidatorImpl struct {
 	segSpecProvider ssp.SegSpecProvider
 }
 
-func (v *SegValidatorImpl) Validate(seg *msg.Seg) error {
-	segID := seg.Id()
+func (v *SegValidatorImpl) Validate(rawSeg *rawmsg.RawSeg) error {
+	segID := rawSeg.Id()
 	// log.Printf("Validating segment %s (%s)", segID, seg)
 	spec := v.segSpecProvider.Get(segID)
 	if spec == nil {
@@ -37,11 +38,11 @@ func (v *SegValidatorImpl) Validate(seg *msg.Seg) error {
 
 	minNumDataElemSpecs := spec.NumLeadingMandDataElems() // len(spec.SegDataElemSpecs)
 
-	numDataElems := len(seg.Elems)
+	numDataElems := len(rawSeg.Elems)
 	if numDataElems < minNumDataElemSpecs {
 		return errors.New(
 			fmt.Sprintf("Seg %s: Incorrect number of data elements: got %d (%v), expected at least %d",
-				segID, numDataElems, seg.Elems, minNumDataElemSpecs))
+				segID, numDataElems, rawSeg.Elems, minNumDataElemSpecs))
 	}
 
 	numDataElemSpecs := len(spec.SegDataElemSpecs)
@@ -53,13 +54,13 @@ func (v *SegValidatorImpl) Validate(seg *msg.Seg) error {
 
 	// log.Printf("Validating %d top-level data elems: %s", numDataElems, seg.Elems)
 	return v.validateDataElems(
-		spec.SegDataElemSpecs, seg)
+		spec.SegDataElemSpecs, rawSeg)
 }
 
 func (v *SegValidatorImpl) validateDataElems(
 	segDataElemSpecs []*ssp.SegDataElemSpec,
-	seg *msg.Seg) error {
-	dataElems := seg.Elems
+	rawSeg *rawmsg.RawSeg) error {
+	dataElems := rawSeg.Elems
 
 	for i, dataElem := range dataElems {
 		segDataElemSpec := segDataElemSpecs[i]
@@ -67,7 +68,7 @@ func (v *SegValidatorImpl) validateDataElems(
 		err := v.validateDataElem(segDataElemSpec, dataElemSpec, dataElem, segDataElemSpec.IsMandatory)
 		if err != nil {
 			return errors.New(fmt.Sprintf(
-				"Error validating segment %s: %s", seg.Id(), err))
+				"Error validating segment %s: %s", rawSeg.Id(), err))
 		}
 	}
 	return nil
@@ -109,7 +110,7 @@ func (v *SegValidatorImpl) validateSimpleDataElem(
 func (v *SegValidatorImpl) validateDataElem(
 	segDataElemSpec *ssp.SegDataElemSpec,
 	dataElemSpec dsp.DataElemSpec,
-	dataElem *msg.DataElem,
+	dataElem *rawmsg.RawDataElem,
 	isMandatory bool) error {
 	// log.Printf("Validating data elem %s", dataElem)
 	// log.Printf("\tSpec: %s", dataElemSpec)

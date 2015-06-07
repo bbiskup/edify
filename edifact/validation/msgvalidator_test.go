@@ -2,6 +2,7 @@ package validation
 
 import (
 	"fmt"
+	"github.com/bbiskup/edify/edifact/msg"
 	"github.com/bbiskup/edify/edifact/rawmsg"
 	"github.com/bbiskup/edify/edifact/spec/specparser"
 	"github.com/stretchr/testify/assert"
@@ -9,13 +10,13 @@ import (
 	"testing"
 )
 
-func getRawMsg(fileName string) (*msg.RawMsg, error) {
+func getRawMsg(fileName string) (*rawmsg.RawMsg, error) {
 	parser := rawmsg.NewParser()
 	return parser.ParseRawMsgFile(fileName)
 }
 
 func TestGetMsgTypeFromUNH(t *testing.T) {
-	seg := rawRawSeg("UNH")
+	seg := rawmsg.NewRawSeg("UNH")
 	seg.AddElem(rawmsg.NewRawDataElem([]string{"123"}))
 	seg.AddElem(rawmsg.NewRawDataElem([]string{"ABC", "x", "y"}))
 	msgType, err := getMsgTypeFromUNH(seg)
@@ -25,7 +26,7 @@ func TestGetMsgTypeFromUNH(t *testing.T) {
 
 func TestGetMsgTypeFromUNT(t *testing.T) {
 	seg := rawmsg.NewRawSeg("UNT")
-	seg.AddElem(rawmsg.NewDataElem([]string{"2"}))
+	seg.AddElem(rawmsg.NewRawDataElem([]string{"2"}))
 	msgType, err := getSegCountFromUNT(seg)
 	assert.Nil(t, err)
 	assert.Equal(t, 2, msgType)
@@ -66,7 +67,7 @@ var validMsgTestSpecs = []struct {
 			rff := group3.GetPart(0).(*msg.RepSeg)
 			assert.Equal(t, "RFF", rff.Id())
 			rff0 := rff.GetSeg(0)
-			assert.Equal(t, "TN", rff0.Elems[0].Values[0])
+			assert.Equal(t, "TN", rff0.DataElems[0].Values[0])
 		},
 	},
 	{"CUSRES_2.txt", nil},

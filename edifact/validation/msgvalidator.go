@@ -3,6 +3,7 @@ package validation
 import (
 	"errors"
 	"github.com/bbiskup/edify/edifact/msg"
+	"github.com/bbiskup/edify/edifact/rawmsg"
 	//msp "github.com/bbiskup/edify/edifact/spec/message"
 	"fmt"
 	msp "github.com/bbiskup/edify/edifact/spec/message"
@@ -12,14 +13,14 @@ import (
 )
 
 // Determines message type from UNH segment.
-func getMsgTypeFromUNH(seg *msg.Seg) (msgName string, err error) {
+func getMsgTypeFromUNH(rawSeg *rawmsg.RawSeg) (msgName string, err error) {
 	// Since knowing the message
 	// type is a prerequisite to validating a raw message and constructing a
 	// nested message from it, this method cannot use the  query mechanism
-	if len(seg.Elems) < 2 {
+	if len(rawSeg.Elems) < 2 {
 		return "", errors.New("Too few data elements; no message type")
 	}
-	msgTypeElem := seg.Elems[1]
+	msgTypeElem := rawSeg.Elems[1]
 	if len(msgTypeElem.Values) < 1 {
 		return "", errors.New(
 			"Too few component elements in msg type composite element; no message type")
@@ -28,11 +29,11 @@ func getMsgTypeFromUNH(seg *msg.Seg) (msgName string, err error) {
 }
 
 // Determines number of segments in message from UNT segment
-func getSegCountFromUNT(seg *msg.Seg) (segCount int, err error) {
-	if len(seg.Elems) < 1 {
+func getSegCountFromUNT(rawSeg *rawmsg.RawSeg) (segCount int, err error) {
+	if len(rawSeg.Elems) < 1 {
 		return -1, errors.New("Too few data elements; segment count")
 	}
-	numSegsElem := seg.Elems[0]
+	numSegsElem := rawSeg.Elems[0]
 	if len(numSegsElem.Values) < 1 {
 		return -1, errors.New(
 			"Too few component elements in msg type composite element; no segment count")
@@ -50,11 +51,11 @@ type MsgValidator struct {
 	segValidator SegValidator
 }
 
-func (v *MsgValidator) Validate(rawMsg *msg.RawMsg) (nestedMsg *msg.NestedMsg, err error) {
-	if len(rawMsg.Segs) == 0 {
+func (v *MsgValidator) Validate(rawMsg *rawmsg.RawMsg) (nestedMsg *msg.NestedMsg, err error) {
+	if len(rawMsg.RawSegs) == 0 {
 		return nil, errors.New("No segments")
 	}
-	unh := rawMsg.Segs[0]
+	unh := rawMsg.RawSegs[0]
 	if unh.Id() != "UNH" {
 		return nil, errors.New("Could not find UNH segment")
 	}
@@ -63,7 +64,7 @@ func (v *MsgValidator) Validate(rawMsg *msg.RawMsg) (nestedMsg *msg.NestedMsg, e
 		return nil, err
 	}
 
-	unt := rawMsg.Segs[len(rawMsg.Segs)-1]
+	unt := rawMsg.RawSegs[len(rawMsg.RawSegs)-1]
 	if unt.Id() != "UNT" {
 		return nil, errors.New("Could not find UNT segment")
 	}
@@ -76,8 +77,8 @@ func (v *MsgValidator) Validate(rawMsg *msg.RawMsg) (nestedMsg *msg.NestedMsg, e
 	log.Printf("Validating message %s (%d segments)", msgType, segCount)
 
 	// Validate segments
-	for _, seg := range rawMsg.Segs {
-		err := v.segValidator.Validate(seg)
+	for _, rawSeg := range rawMsg.RawSegs {
+		err := v.segValidator.Validate(rawSeg)
 		if err != nil {
 			return nil, err
 		}

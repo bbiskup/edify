@@ -3,6 +3,7 @@ package validation
 import (
 	"fmt"
 	"github.com/bbiskup/edify/edifact/msg"
+	"github.com/bbiskup/edify/edifact/rawmsg"
 	msp "github.com/bbiskup/edify/edifact/spec/message"
 	//"log"
 	"strconv"
@@ -14,15 +15,15 @@ import (
 // The validator is not thread-safe
 type SegSeqValidator struct {
 	// List of segments to be consumed during validation
-	segs    []*msg.Seg
-	rawMsg  *msg.RawMsg
+	rawSegs []*rawmsg.RawSeg
+	rawMsg  *rawmsg.RawMsg
 	msgSpec *msp.MsgSpec
 }
 
 func (v *SegSeqValidator) String() string {
 	var segStr string
-	if v.segs != nil {
-		segStr = strconv.FormatInt(int64(len(v.segs)), 10)
+	if v.rawSegs != nil {
+		segStr = strconv.FormatInt(int64(len(v.rawSegs)), 10)
 	} else {
 		segStr = "-"
 	}
@@ -33,41 +34,41 @@ func (v *SegSeqValidator) String() string {
 // Remove a single segment from the list of segments
 func (v *SegSeqValidator) consumeSingle() {
 	// log.Printf("consumeSingle()")
-	if v.segs == nil || len(v.segs) == 0 {
+	if v.rawSegs == nil || len(v.rawSegs) == 0 {
 		panic("consumeSingle() called on missing/empty segment list")
 	}
-	v.segs = v.segs[1:]
+	v.rawSegs = v.rawSegs[1:]
 }
 
 // Remove the current segment from the list of segments under
 // validation
 func (v *SegSeqValidator) consumeMulti() {
 	// log.Printf("consumeMulti()")
-	if v.segs == nil || len(v.segs) == 0 {
+	if v.rawSegs == nil || len(v.rawSegs) == 0 {
 		panic("consumeMulti() called on missing/empty segment list")
 	}
 
 	// Remove leading segment and all subsequent segments of same ID
-	firstSegID := v.segs[0].Id()
+	firstSegID := v.rawSegs[0].Id()
 	var cutIndex int
-	for index, seg := range v.segs {
+	for index, seg := range v.rawSegs {
 		if seg.Id() != firstSegID {
 			break
 		}
 		cutIndex = index + 1
 	}
-	v.segs = v.segs[cutIndex:]
+	v.rawSegs = v.rawSegs[cutIndex:]
 }
 
 // Returns the next segment of the message under validation
 // (if one exists) or panics
-func (v *SegSeqValidator) peek() []*msg.Seg {
+func (v *SegSeqValidator) peek() []*rawmsg.RawSeg {
 	if v.segsExhausted() {
 		panic("No more segments")
 	} else {
-		firstSegID := v.segs[0].Id()
-		result := []*msg.Seg{}
-		for _, seg := range v.segs {
+		firstSegID := v.rawSegs[0].Id()
+		result := []*rawmsg.RawSeg{}
+		for _, seg := range v.rawSegs {
 			if seg.Id() == firstSegID {
 				result = append(result, seg)
 			} else {
@@ -81,7 +82,7 @@ func (v *SegSeqValidator) peek() []*msg.Seg {
 // Returns true if all segments of the message under validation
 // have been consumed
 func (v *SegSeqValidator) segsExhausted() bool {
-	return len(v.segs) == 0
+	return len(v.rawSegs) == 0
 }
 
 func (v *SegSeqValidator) hasRemainingMandatorySpecs(specIndex int, groupChildren []msp.MsgSpecPart) bool {
@@ -130,9 +131,9 @@ GROUPREPEAT:
 				return NewSegSeqError(
 					missingMandatorySeg, "Segments exhausted")
 			}
-			segs := v.peek()
-			repeatCount := len(segs)
-			segID := segs[0].Id()
+			rawSegs := v.peek()
+			repeatCount := len(rawSegs)
+			segID := rawSegs[0].Id()
 			// log.Printf("Spec: %s; peek: %s (%dx)",
 			//	specPart, segID, repeatCount)
 
@@ -160,7 +161,10 @@ GROUPREPEAT:
 						// log.Printf("repeat count exceeded? repeating group")
 						v.consumeSingle()
 
-						newRepSeg := msg.NewRepSeg(segs[0])
+						newRepSeg := msg.NewRepSeg(rawSegs[0])
+
+						// TODO: validate newly added segment
+
 						// log.Printf("@BUILD: Appending %s to %s", newRepSeg, segGrp)
 						segGrp.AppendRepSeg(newRepSeg)
 
@@ -172,7 +176,7 @@ GROUPREPEAT:
 				}
 
 				// Segment matches
-				newRepSeg := msg.NewRepSeg(segs...)
+				newRepSeg := msg.NewRepSeg(rawSegs...)
 				// log.Printf("@BUILD: Appending %s to %s", newRepSeg, segGrp)
 				segGrp.AppendRepSeg(newRepSeg)
 				v.consumeMulti()
@@ -217,14 +221,14 @@ GROUPREPEAT:
 	return nil
 }
 
-func (v *SegSeqValidator) Validate(rawMsg *msg.RawMsg) (nestedMsg *msg.NestedMsg, err error) {
-	if len(rawMsg.Segs) == 0 {
+func (v *SegSeqValidator) Validate(rawMsg *rawmsg.RawMsg) (nestedMsg *msg.NestedMsg, err error) {
+	if len(rawMsg.RawSegs) == 0 {
 		return nil, NewSegSeqError(noSegs, "")
 	}
 
-	v.segs = make([]*msg.Seg, len(rawMsg.Segs))
+	v.rawSegs = make([]*rawmsg.RawSeg, len(rawMsg.RawSegs))
 	// Make a copy so the original msg does not get modified
-	copy(v.segs, rawMsg.Segs)
+	copy(v.rawSegs, rawMsg.RawSegs)
 
 	nestedMsg = msg.NewNestedMsg(v.msgSpec.Name)
 	//topLevelContext := NewSegSeqGroupContext(v.msgSpec.TopLevelGroup, nestedMsg.TopLevelRepGrp)
@@ -238,7 +242,7 @@ func (v *SegSeqValidator) Validate(rawMsg *msg.RawMsg) (nestedMsg *msg.NestedMsg
 
 func NewSegSeqValidator(msgSpec *msp.MsgSpec) *SegSeqValidator {
 	return &SegSeqValidator{
-		segs:    nil,
+		rawSegs: nil,
 		rawMsg:  nil,
 		msgSpec: msgSpec,
 	}

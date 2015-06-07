@@ -3,6 +3,7 @@ package validation
 import (
 	"fmt"
 	"github.com/bbiskup/edify/edifact/msg"
+	"github.com/bbiskup/edify/edifact/rawmsg"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 	"testing"
@@ -195,9 +196,9 @@ func TestSegSeqValidator1(t *testing.T) {
 		fmt.Printf(">>>>>>>>>>>>>>>>>>> spec: %#v\n", spec)
 		validator := NewSegSeqValidator(msgSpec)
 		require.NotNil(t, validator)
-		segments := mapToSegs(spec.segmentIDs)
+		segments := mapToRawSegs(spec.segmentIDs)
 		require.NotNil(t, segments)
-		rawMessage := msg.NewRawMsg("AUTHOR", segments)
+		rawMessage := rawmsg.NewRawMsg("AUTHOR", segments)
 		fmt.Printf("Validating raw message: %s", rawMessage)
 		nestedMsg, err := validator.Validate(rawMessage)
 
@@ -232,35 +233,38 @@ func TestConsumeEmpty(t *testing.T) {
 	msgSpec := getMsgSpec("AUTHOR_D.14B")
 	validator := NewSegSeqValidator(msgSpec)
 
-	validator.segs = []*msg.Seg{}
+	validator.rawSegs = []*rawmsg.RawSeg{}
 	validator.consumeMulti()
 }
+
+var rawSegABC *rawmsg.RawSeg = rawmsg.NewRawSeg("ABC")
+var rawSegDEF *rawmsg.RawSeg = rawmsg.NewRawSeg("DEF")
 
 var segABC *msg.Seg = msg.NewSeg("ABC")
 var segDEF *msg.Seg = msg.NewSeg("DEF")
 
 var consumeSpec = []struct {
-	segsBefore []*msg.Seg
+	segsBefore []*rawmsg.RawSeg
 	segsAfter  []*msg.Seg
 }{
 	{
-		[]*msg.Seg{segABC},
+		[]*rawmsg.RawSeg{rawSegABC},
 		[]*msg.Seg{},
 	},
 	{
-		[]*msg.Seg{segABC, segABC},
+		[]*rawmsg.RawSeg{rawSegABC, rawSegABC},
 		[]*msg.Seg{},
 	},
 	{
-		[]*msg.Seg{segABC, segDEF},
+		[]*rawmsg.RawSeg{rawSegABC, rawSegDEF},
 		[]*msg.Seg{segDEF},
 	},
 	{
-		[]*msg.Seg{segABC, segABC, segDEF},
+		[]*rawmsg.RawSeg{rawSegABC, rawSegABC, rawSegDEF},
 		[]*msg.Seg{segDEF},
 	},
 	{
-		[]*msg.Seg{segABC, segDEF, segABC},
+		[]*rawmsg.RawSeg{rawSegABC, rawSegDEF, rawSegABC},
 		[]*msg.Seg{segDEF, segABC},
 	},
 }
@@ -270,9 +274,9 @@ func TestConsumeNonEmpty(t *testing.T) {
 
 	for _, spec := range consumeSpec {
 		validator := NewSegSeqValidator(msgSpec)
-		validator.segs = spec.segsBefore
+		validator.rawSegs = spec.segsBefore
 		validator.consumeMulti()
-		assert.Equal(t, spec.segsAfter, validator.segs)
+		assert.Equal(t, spec.segsAfter, validator.rawSegs)
 	}
 }
 
@@ -297,9 +301,9 @@ func BenchmarkValidateSeq(b *testing.B) {
 	msgSpec := getMsgSpec("AUTHOR_D.14B")
 	validator := NewSegSeqValidator(msgSpec)
 	require.NotNil(b, validator)
-	segments := mapToSegs(segmentIDs)
+	segments := mapToRawSegs(segmentIDs)
 	require.NotNil(b, segments)
-	rawMessage := msg.NewRawMsg("AUTHOR", segments)
+	rawMessage := rawmsg.NewRawMsg("AUTHOR", segments)
 	b.ResetTimer()
 
 	for i := 0; i < b.N; i++ {

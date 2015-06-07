@@ -1,7 +1,8 @@
 package validation
 
 import (
-	"github.com/bbiskup/edify/edifact/msg"
+	//"github.com/bbiskup/edify/edifact/msg"
+	"github.com/bbiskup/edify/edifact/rawmsg"
 	csp "github.com/bbiskup/edify/edifact/spec/codes"
 	dsp "github.com/bbiskup/edify/edifact/spec/dataelement"
 	ssp "github.com/bbiskup/edify/edifact/spec/segment"
@@ -11,54 +12,54 @@ import (
 )
 
 // fixture
-func getValidSeg(t testing.TB) *msg.Seg {
-	seg := msg.NewSeg("ABC")
-	seg.AddElem(
-		msg.NewDataElem([]string{
+func getValidSeg(t testing.TB) *rawmsg.RawSeg {
+	rawSeg := rawmsg.NewRawSeg("ABC")
+	rawSeg.AddElem(
+		rawmsg.NewRawDataElem([]string{
 			"abc",
 		}),
 	)
 
-	seg.AddElem(
-		msg.NewDataElem([]string{
+	rawSeg.AddElem(
+		rawmsg.NewRawDataElem([]string{
 			"1",
 		}),
 	)
-	return seg
+	return rawSeg
 }
 
 // fixture: non-existant code
-func getInvalidSegNonExistantCode(t testing.TB) *msg.Seg {
-	seg := msg.NewSeg("ABC")
-	seg.AddElem(
-		msg.NewDataElem([]string{
+func getInvalidSegNonExistantCode(t testing.TB) *rawmsg.RawSeg {
+	rawSeg := rawmsg.NewRawSeg("ABC")
+	rawSeg.AddElem(
+		rawmsg.NewRawDataElem([]string{
 			"abc",
 		}),
 	)
 
-	seg.AddElem(
-		msg.NewDataElem([]string{
+	rawSeg.AddElem(
+		rawmsg.NewRawDataElem([]string{
 			"3", // does not exist
 		}),
 	)
-	return seg
+	return rawSeg
 }
 
 // fixture: non-existant code
-func getInvalidSegIncorrectRepr(t testing.TB) *msg.Seg {
-	seg := msg.NewSeg("ABC")
-	seg.AddElem(
-		msg.NewDataElem([]string{
+func getInvalidSegIncorrectRepr(t testing.TB) *rawmsg.RawSeg {
+	rawSeg := rawmsg.NewRawSeg("ABC")
+	rawSeg.AddElem(
+		rawmsg.NewRawDataElem([]string{
 			"abc",
 		}),
 	)
 
-	seg.AddElem(
-		msg.NewDataElem([]string{
+	rawSeg.AddElem(
+		rawmsg.NewRawDataElem([]string{
 			"x", // should be numeric
 		}),
 	)
-	return seg
+	return rawSeg
 }
 
 func getSegSpecMap(t testing.TB) ssp.SegSpecMap {

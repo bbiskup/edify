@@ -1,7 +1,7 @@
 package validation
 
 import (
-	"github.com/bbiskup/edify/edifact/msg"
+	"github.com/bbiskup/edify/edifact/rawmsg"
 	msp "github.com/bbiskup/edify/edifact/spec/message"
 )
 
@@ -14,10 +14,10 @@ func getMsgSpec(fileName string) *msp.MsgSpec {
 	return msgSpec
 }
 
-func mapToSegs(segmentIDs []string) []*msg.Seg {
-	result := []*msg.Seg{}
+func mapToRawSegs(segmentIDs []string) []*rawmsg.RawSeg {
+	result := []*rawmsg.RawSeg{}
 	for _, segmentID := range segmentIDs {
-		result = append(result, msg.NewSeg(segmentID))
+		result = append(result, rawmsg.NewRawSeg(segmentID))
 	}
 	return result
 }
