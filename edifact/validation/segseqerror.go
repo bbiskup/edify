@@ -13,6 +13,7 @@ const (
 	noSegSpecs                  SegSeqErrKind = "no_segment_specs"
 	noSegs                      SegSeqErrKind = "no_segments"
 	unexpectedSeg               SegSeqErrKind = "unexpected_segment"
+	invalidSeg                  SegSeqErrKind = "invalid_segment"
 )
 
 // An exception that provides an error kind to check for specific error conditions

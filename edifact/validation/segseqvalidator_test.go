@@ -240,32 +240,29 @@ func TestConsumeEmpty(t *testing.T) {
 var rawSegABC *rawmsg.RawSeg = rawmsg.NewRawSeg("ABC")
 var rawSegDEF *rawmsg.RawSeg = rawmsg.NewRawSeg("DEF")
 
-var segABC *msg.Seg = msg.NewSeg("ABC")
-var segDEF *msg.Seg = msg.NewSeg("DEF")
-
 var consumeSpec = []struct {
 	segsBefore []*rawmsg.RawSeg
-	segsAfter  []*msg.Seg
+	segsAfter  []*rawmsg.RawSeg
 }{
 	{
 		[]*rawmsg.RawSeg{rawSegABC},
-		[]*msg.Seg{},
+		[]*rawmsg.RawSeg{},
 	},
 	{
 		[]*rawmsg.RawSeg{rawSegABC, rawSegABC},
-		[]*msg.Seg{},
+		[]*rawmsg.RawSeg{},
 	},
 	{
 		[]*rawmsg.RawSeg{rawSegABC, rawSegDEF},
-		[]*msg.Seg{segDEF},
+		[]*rawmsg.RawSeg{rawSegDEF},
 	},
 	{
 		[]*rawmsg.RawSeg{rawSegABC, rawSegABC, rawSegDEF},
-		[]*msg.Seg{segDEF},
+		[]*rawmsg.RawSeg{rawSegDEF},
 	},
 	{
 		[]*rawmsg.RawSeg{rawSegABC, rawSegDEF, rawSegABC},
-		[]*msg.Seg{segDEF, segABC},
+		[]*rawmsg.RawSeg{rawSegDEF, rawSegABC},
 	},
 }
 

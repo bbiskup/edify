@@ -162,7 +162,14 @@ GROUPREPEAT:
 						// log.Printf("repeat count exceeded? repeating group")
 						v.consumeSingle()
 
-						newRepSeg := msg.NewRepSeg(rawSegs[0])
+						rawSeg := rawSegs[0]
+						seg, err := v.segValidator.Validate(rawSeg)
+						if err != nil {
+							return NewSegSeqError(
+								invalidSeg, fmt.Sprintf("Validation of segment %s failed", rawSeg.Id()))
+						}
+
+						newRepSeg := msg.NewRepSeg(seg)
 
 						// TODO: validate newly added segment
 
@@ -177,7 +184,18 @@ GROUPREPEAT:
 				}
 
 				// Segment matches
-				newRepSeg := msg.NewRepSeg(rawSegs...)
+				segs := []*msg.Seg{}
+				for _, rawSeg := range rawSegs {
+					seg, err := v.segValidator.Validate(rawSeg)
+					if err != nil {
+						return NewSegSeqError(
+							invalidSeg, fmt.Sprintf("Validation of segment %s failed", rawSeg.Id()))
+					} else {
+						segs = append(segs, seg)
+					}
+				}
+
+				newRepSeg := msg.NewRepSeg(segs...)
 				// log.Printf("@BUILD: Appending %s to %s", newRepSeg, segGrp)
 				segGrp.AppendRepSeg(newRepSeg)
 				v.consumeMulti()

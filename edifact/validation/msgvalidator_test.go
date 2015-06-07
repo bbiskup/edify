@@ -67,7 +67,7 @@ var validMsgTestSpecs = []struct {
 			rff := group3.GetPart(0).(*msg.RepSeg)
 			assert.Equal(t, "RFF", rff.Id())
 			rff0 := rff.GetSeg(0)
-			assert.Equal(t, "TN", rff0.DataElems[0].Values[0])
+			assert.Equal(t, "TN", rff0.DataElems[0].(*msg.CompositeDataElem).SimpleDataElems[0].Value)
 		},
 	},
 	{"CUSRES_2.txt", nil},
@@ -84,7 +84,9 @@ func TestValidateMsg(t *testing.T) {
 	validator := getValidator(t)
 
 	for _, testSpec := range validMsgTestSpecs {
-		rawMsg, err := getRawMsg("../../testdata/messages/" + testSpec.fileName)
+		fileName := "../../testdata/messages/" + testSpec.fileName
+		fmt.Printf("EDIFACT file: %s", fileName)
+		rawMsg, err := getRawMsg(fileName)
 		require.Nil(t, err)
 		nestedMsg, err := validator.Validate(rawMsg)
 		assert.NotNil(t, nestedMsg)

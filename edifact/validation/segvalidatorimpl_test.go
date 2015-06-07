@@ -93,6 +93,7 @@ func TestValidateValidSeg(t *testing.T) {
 
 	seg, err := validator.Validate(rawSeg)
 	assert.Nil(t, err)
+	assert.NotNil(t, seg)
 }
 
 func TestValidateInvalidSegNonExistantCode(t *testing.T) {
