@@ -10,6 +10,7 @@ func TestSegSpec(t *testing.T) {
 	spec := NewSegSpec("ADR", "ADDRESS", "To specify an address.", nil)
 
 	assert.Equal(t, "Seg ADR/ADDRESS (0 data elems)", spec.String(), "Incorrect String()")
+	assert.Equal(t, 0, spec.NumLeadingMandDataElems())
 }
 
 func TestParseHeader(t *testing.T) {
