@@ -33,6 +33,14 @@ var testNavSpecs = []struct {
 		},
 	},
 	{
+		"Valid path for segment in group 1",
+		"grp:Group_1[0]|seg:BGM[0]",
+		func(t *testing.T, msgPart msg.NestedMsgPart, err error) {
+			require.Nil(t, err)
+			require.NotNil(t, msgPart)
+		},
+	},
+	{
 		"Incorrect segment index",
 		"seg:BGM[1]",
 		func(t *testing.T, msgPart msg.NestedMsgPart, err error) {
@@ -45,6 +53,8 @@ var testNavSpecs = []struct {
 func TestNavigator(t *testing.T) {
 	navigator := NewNavigator()
 	nestedMsg := getNestedMsg(t)
+
+	fmt.Printf("Nested msg: %s", nestedMsg.Dump())
 
 	for _, spec := range testNavSpecs {
 		msgPart, err := navigator.GetSeg(spec.queryStr, nestedMsg)

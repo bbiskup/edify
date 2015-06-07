@@ -23,7 +23,7 @@ func (n *Navigator) navigate(queryStr string, nestedMsg *msg.NestedMsg) (msgPart
 	queryParser, err := NewQueryParser(queryStr)
 	if err != nil {
 		return nil, errors.New(fmt.Sprintf(
-			"Query failed: %s", queryStr))
+			"Query '%s' failed: %s", queryStr, err))
 	}
 	for _, queryPart := range queryParser.queryParts {
 		switch queryPart.ItemKind {
