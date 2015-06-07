@@ -194,7 +194,7 @@ func TestSegSeqValidator1(t *testing.T) {
 
 	for _, spec := range authorSegSeqSpec {
 		fmt.Printf(">>>>>>>>>>>>>>>>>>> spec: %#v\n", spec)
-		validator := NewSegSeqValidator(msgSpec)
+		validator := NewSegSeqValidator(msgSpec, &MockSegValidatorImpl{})
 		require.NotNil(t, validator)
 		segments := mapToRawSegs(spec.segmentIDs)
 		require.NotNil(t, segments)
@@ -231,7 +231,7 @@ func TestConsumeEmpty(t *testing.T) {
 		}
 	}()
 	msgSpec := getMsgSpec("AUTHOR_D.14B")
-	validator := NewSegSeqValidator(msgSpec)
+	validator := NewSegSeqValidator(msgSpec, &MockSegValidatorImpl{})
 
 	validator.rawSegs = []*rawmsg.RawSeg{}
 	validator.consumeMulti()
@@ -273,7 +273,7 @@ func TestConsumeNonEmpty(t *testing.T) {
 	msgSpec := getMsgSpec("AUTHOR_D.14B")
 
 	for _, spec := range consumeSpec {
-		validator := NewSegSeqValidator(msgSpec)
+		validator := NewSegSeqValidator(msgSpec, &MockSegValidatorImpl{})
 		validator.rawSegs = spec.segsBefore
 		validator.consumeMulti()
 		assert.Equal(t, spec.segsAfter, validator.rawSegs)
@@ -282,7 +282,7 @@ func TestConsumeNonEmpty(t *testing.T) {
 
 func TestSegSeqValidatorString(t *testing.T) {
 	msgSpec := getMsgSpec("AUTHOR_D.14B")
-	validator := NewSegSeqValidator(msgSpec)
+	validator := NewSegSeqValidator(msgSpec, &MockSegValidatorImpl{})
 	assert.Equal(t, "SegSeqValidator (msg: AUTHOR, segments left: -)", validator.String())
 }
 
@@ -299,7 +299,7 @@ func BenchmarkValidateSeq(b *testing.B) {
 		"UNT",
 	}
 	msgSpec := getMsgSpec("AUTHOR_D.14B")
-	validator := NewSegSeqValidator(msgSpec)
+	validator := NewSegSeqValidator(msgSpec, &MockSegValidatorImpl{})
 	require.NotNil(b, validator)
 	segments := mapToRawSegs(segmentIDs)
 	require.NotNil(b, segments)

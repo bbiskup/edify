@@ -14,6 +14,10 @@ func (s *Seg) Id() string {
 	return s.id
 }
 
+func (s *Seg) AddDataElem(dataElem DataElem) {
+	s.DataElems = append(s.DataElems, dataElem)
+}
+
 func (s *Seg) String() string {
 	return fmt.Sprintf("Seg %s (%d data elems)", s.id, len(s.DataElems))
 }

@@ -12,7 +12,7 @@ import (
 )
 
 // fixture
-func getValidSeg(t testing.TB) *rawmsg.RawSeg {
+func getValidRawSeg(t testing.TB) *rawmsg.RawSeg {
 	rawSeg := rawmsg.NewRawSeg("ABC")
 	rawSeg.AddElem(
 		rawmsg.NewRawDataElem([]string{
@@ -89,50 +89,54 @@ func getSegSpecMap(t testing.TB) ssp.SegSpecMap {
 func TestValidateValidSeg(t *testing.T) {
 	segSpecMap := getSegSpecMap(t)
 	validator := NewSegValidatorImpl(ssp.NewSegSpecProviderImpl(segSpecMap))
-	segment := getValidSeg(t)
+	rawSeg := getValidRawSeg(t)
 
-	err := validator.Validate(segment)
+	seg, err := validator.Validate(rawSeg)
 	assert.Nil(t, err)
 }
 
 func TestValidateInvalidSegNonExistantCode(t *testing.T) {
 	segSpecMap := getSegSpecMap(t)
 	validator := NewSegValidatorImpl(ssp.NewSegSpecProviderImpl(segSpecMap))
-	segment := getInvalidSegNonExistantCode(t)
+	rawSeg := getInvalidSegNonExistantCode(t)
 
-	err := validator.Validate(segment)
+	seg, err := validator.Validate(rawSeg)
+	assert.Nil(t, seg)
 	assert.NotNil(t, err)
 }
 
 func TestValidateInvalidSegIncorrectRepr(t *testing.T) {
 	segSpecMap := getSegSpecMap(t)
 	validator := NewSegValidatorImpl(ssp.NewSegSpecProviderImpl(segSpecMap))
-	segment := getInvalidSegIncorrectRepr(t)
-	err := validator.Validate(segment)
+	rawSeg := getInvalidSegIncorrectRepr(t)
+	seg, err := validator.Validate(rawSeg)
+	assert.Nil(t, seg)
 	assert.NotNil(t, err)
 }
 
 func BenchmarkParseInvalidSeg(b *testing.B) {
 	segSpecMap := getSegSpecMap(b)
-	segment := getInvalidSegNonExistantCode(b)
+	rawSeg := getInvalidSegNonExistantCode(b)
 	validator := NewSegValidatorImpl(ssp.NewSegSpecProviderImpl(segSpecMap))
 	b.ResetTimer()
 
 	for i := 0; i < b.N; i++ {
-		err := validator.Validate(segment)
+		seg, err := validator.Validate(rawSeg)
+		assert.Nil(b, seg)
 		assert.NotNil(b, err)
 	}
 }
 
 func BenchmarkParseValidSeg(b *testing.B) {
 	segSpecMap := getSegSpecMap(b)
-	segment := getValidSeg(b)
+	rawSeg := getValidRawSeg(b)
 	validator := NewSegValidatorImpl(ssp.NewSegSpecProviderImpl(segSpecMap))
 	assert.NotNil(b, validator)
 	b.ResetTimer()
 
 	for i := 0; i < b.N; i++ {
-		err := validator.Validate(segment)
+		seg, err := validator.Validate(rawSeg)
+		assert.NotNil(b, seg)
 		assert.Nil(b, err)
 	}
 }

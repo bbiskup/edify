@@ -15,9 +15,10 @@ import (
 // The validator is not thread-safe
 type SegSeqValidator struct {
 	// List of segments to be consumed during validation
-	rawSegs []*rawmsg.RawSeg
-	rawMsg  *rawmsg.RawMsg
-	msgSpec *msp.MsgSpec
+	rawSegs      []*rawmsg.RawSeg
+	rawMsg       *rawmsg.RawMsg
+	msgSpec      *msp.MsgSpec
+	segValidator SegValidator
 }
 
 func (v *SegSeqValidator) String() string {
@@ -240,10 +241,11 @@ func (v *SegSeqValidator) Validate(rawMsg *rawmsg.RawMsg) (nestedMsg *msg.Nested
 	}
 }
 
-func NewSegSeqValidator(msgSpec *msp.MsgSpec) *SegSeqValidator {
+func NewSegSeqValidator(msgSpec *msp.MsgSpec, segValidator SegValidator) *SegSeqValidator {
 	return &SegSeqValidator{
-		rawSegs: nil,
-		rawMsg:  nil,
-		msgSpec: msgSpec,
+		rawSegs:      nil,
+		rawMsg:       nil,
+		msgSpec:      msgSpec,
+		segValidator: segValidator,
 	}
 }

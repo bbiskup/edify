@@ -8,7 +8,6 @@ import (
 	"fmt"
 	msp "github.com/bbiskup/edify/edifact/spec/message"
 	ssp "github.com/bbiskup/edify/edifact/spec/segment"
-	"log"
 	"strconv"
 )
 
@@ -74,15 +73,15 @@ func (v *MsgValidator) Validate(rawMsg *rawmsg.RawMsg) (nestedMsg *msg.NestedMsg
 		return nil, err
 	}
 
-	log.Printf("Validating message %s (%d segments)", msgType, segCount)
+	/*log.Printf("Validating message %s (%d segments)", msgType, segCount)
 
 	// Validate segments
 	for _, rawSeg := range rawMsg.RawSegs {
-		err := v.segValidator.Validate(rawSeg)
+		seg, err := v.segValidator.Validate(rawSeg)
 		if err != nil {
 			return nil, err
 		}
-	}
+	}*/
 
 	// Validate segment sequence
 	msgSpec, ok := v.msgSpecs[msgType]
@@ -90,7 +89,7 @@ func (v *MsgValidator) Validate(rawMsg *rawmsg.RawMsg) (nestedMsg *msg.NestedMsg
 		return nil, errors.New(
 			fmt.Sprintf("No message spec found for message type %s", msgType))
 	}
-	segSeqValidator := NewSegSeqValidator(msgSpec)
+	segSeqValidator := NewSegSeqValidator(msgSpec, v.segValidator)
 	return segSeqValidator.Validate(rawMsg)
 }
 
