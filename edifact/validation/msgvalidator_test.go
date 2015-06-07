@@ -2,7 +2,7 @@ package validation
 
 import (
 	"fmt"
-	"github.com/bbiskup/edify/edifact/msg"
+	"github.com/bbiskup/edify/edifact/rawmsg"
 	"github.com/bbiskup/edify/edifact/spec/specparser"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
@@ -10,22 +10,22 @@ import (
 )
 
 func getRawMsg(fileName string) (*msg.RawMsg, error) {
-	parser := msg.NewParser()
+	parser := rawmsg.NewParser()
 	return parser.ParseRawMsgFile(fileName)
 }
 
 func TestGetMsgTypeFromUNH(t *testing.T) {
-	seg := msg.NewSeg("UNH")
-	seg.AddElem(msg.NewDataElem([]string{"123"}))
-	seg.AddElem(msg.NewDataElem([]string{"ABC", "x", "y"}))
+	seg := rawRawSeg("UNH")
+	seg.AddElem(rawmsg.NewRawDataElem([]string{"123"}))
+	seg.AddElem(rawmsg.NewRawDataElem([]string{"ABC", "x", "y"}))
 	msgType, err := getMsgTypeFromUNH(seg)
 	assert.Nil(t, err)
 	assert.Equal(t, "ABC", msgType)
 }
 
 func TestGetMsgTypeFromUNT(t *testing.T) {
-	seg := msg.NewSeg("UNT")
-	seg.AddElem(msg.NewDataElem([]string{"2"}))
+	seg := rawmsg.NewRawSeg("UNT")
+	seg.AddElem(rawmsg.NewDataElem([]string{"2"}))
 	msgType, err := getSegCountFromUNT(seg)
 	assert.Nil(t, err)
 	assert.Equal(t, 2, msgType)

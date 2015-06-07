@@ -3,6 +3,7 @@ package msg
 import (
 	"bytes"
 	"fmt"
+	"github.com/bbiskup/edify/edifact/util"
 	"strconv"
 )
 
@@ -47,8 +48,8 @@ func (g *RepSegGrp) GetLast() *SegGrp {
 
 func (g *RepSegGrp) Dump(indent int) string {
 	var buf bytes.Buffer
-	indentStr := getIndentStr(indent)
-	indentStr2 := getIndentStr(indent + 1)
+	indentStr := util.GetIndentStr(indent)
+	indentStr2 := util.GetIndentStr(indent + 1)
 	buf.WriteString(indentStr + "RepSegGrp\n")
 	for repeat, group := range g.groups {
 		buf.WriteString(

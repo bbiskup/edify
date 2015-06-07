@@ -3,6 +3,7 @@ package msg
 import (
 	"bytes"
 	"fmt"
+	"github.com/bbiskup/edify/edifact/util"
 	"strconv"
 )
 
@@ -37,8 +38,8 @@ func (s *RepSeg) AppendSeg(segment *Seg) {
 
 func (s *RepSeg) Dump(indent int) string {
 	var buf bytes.Buffer
-	indentStr := getIndentStr(indent)
-	indentStr2 := getIndentStr(indent + 1)
+	indentStr := util.GetIndentStr(indent)
+	indentStr2 := util.GetIndentStr(indent + 1)
 	buf.WriteString(indentStr + "RepSeg\n")
 	for repeat, segment := range s.segments {
 		buf.WriteString(indentStr2 + "[" + strconv.FormatInt(int64(repeat), 10) + "] " +

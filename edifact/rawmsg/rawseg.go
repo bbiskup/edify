@@ -3,6 +3,7 @@ package rawmsg
 import (
 	"bytes"
 	"fmt"
+	"github.com/bbiskup/edify/edifact/util"
 )
 
 type RawSeg struct {
@@ -32,7 +33,7 @@ func (s *RawSeg) AddElems(elements []*RawDataElem) {
 }
 
 func (s *RawSeg) Dump(indent int) string {
-	indentStr := getIndentStr(indent)
+	indentStr := util.GetIndentStr(indent)
 	return fmt.Sprintf("%sRawSeg %s\n", indentStr, s.Id())
 }
 

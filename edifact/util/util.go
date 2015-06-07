@@ -209,3 +209,8 @@ func CheckNotNil(values ...interface{}) error {
 func Unused(values ...interface{}) {
 
 }
+
+// Indentation for dumping messages
+func GetIndentStr(indent int) string {
+	return strings.Repeat("  ", indent)
+}
