@@ -5,17 +5,17 @@ import (
 	"fmt"
 )
 
-type Seg struct {
+type RawSeg struct {
 	id    string
 	Elems []*RawDataElem
 }
 
 // From interface SegOrGroup
-func (g *Seg) Id() string {
+func (g *RawSeg) Id() string {
 	return g.id
 }
 
-func (s *Seg) String() string {
+func (s *RawSeg) String() string {
 	var buf bytes.Buffer
 	for _, e := range s.Elems {
 		buf.WriteString("\t\t" + e.String() + "\n")
@@ -23,19 +23,19 @@ func (s *Seg) String() string {
 	return fmt.Sprintf("%s\n%s", s.id, buf.String())
 }
 
-func (s *Seg) AddElem(element *RawDataElem) {
+func (s *RawSeg) AddElem(element *RawDataElem) {
 	s.Elems = append(s.Elems, element)
 }
 
-func (s *Seg) AddElems(elements []*RawDataElem) {
+func (s *RawSeg) AddElems(elements []*RawDataElem) {
 	s.Elems = elements
 }
 
-func (s *Seg) Dump(indent int) string {
+func (s *RawSeg) Dump(indent int) string {
 	indentStr := getIndentStr(indent)
-	return fmt.Sprintf("%sSeg %s\n", indentStr, s.Id())
+	return fmt.Sprintf("%sRawSeg %s\n", indentStr, s.Id())
 }
 
-func NewSeg(id string) *Seg {
-	return &Seg{id, []*RawDataElem{}}
+func NewSeg(id string) *RawSeg {
+	return &RawSeg{id, []*RawDataElem{}}
 }
