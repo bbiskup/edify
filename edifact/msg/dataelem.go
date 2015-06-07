@@ -5,9 +5,22 @@ import (
 	"strings"
 )
 
+// Used before a data element Id has been assigned during
+// validation
+const NoDataElemId = "_no_id"
+
 type DataElem struct {
 	//Name   string
+	id     string
 	Values []string
+}
+
+func (e *DataElem) Id() string {
+	return e.id
+}
+
+func (e *DataElem) SetId(id string) {
+	e.id = id
 }
 
 func (e *DataElem) IsSimple() bool {
@@ -24,9 +37,9 @@ func (e *DataElem) buildComponentStr() string {
 
 func (e *DataElem) String() string {
 	//return e.Name + " " + strings.Join(e.Values, string(CompDataElemSep))
-	return fmt.Sprintf("DataElem %s", e.buildComponentStr())
+	return fmt.Sprintf("DataElem %s %s", e.id, e.buildComponentStr())
 }
 
 func NewDataElem(values []string) *DataElem {
-	return &DataElem{values}
+	return &DataElem{NoDataElemId, values}
 }
