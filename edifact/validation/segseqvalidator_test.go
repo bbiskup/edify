@@ -276,6 +276,12 @@ func TestConsumeNonEmpty(t *testing.T) {
 	}
 }
 
+func TestSegSeqValidatorString(t *testing.T) {
+	msgSpec := getMsgSpec("AUTHOR_D.14B")
+	validator := NewSegSeqValidator(msgSpec)
+	assert.Equal(t, "SegSeqValidator (msg: AUTHOR, segments left: -)", validator.String())
+}
+
 func BenchmarkValidateSeq(b *testing.B) {
 	segmentIDs := []string{
 		"UNH", "BGM",
