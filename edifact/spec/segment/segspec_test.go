@@ -14,8 +14,8 @@ func TestSegSpec(t *testing.T) {
 }
 
 func TestParseHeader(t *testing.T) {
-	spec := NewSegSpecParser(nil, nil)
-	id, name, err := spec.parseHeader("       ADR  ADDRESS")
+	parser := NewSegSpecParser(nil, nil)
+	id, name, err := parser.parseHeader("       ADR  ADDRESS")
 
 	assert.Nil(t, err)
 	assert.Equal(t, "ADR", id)
@@ -28,9 +28,9 @@ const funcStr = `       Function: To provide information concerning pricing
 const expectedFun = `To provide information concerning pricing related to class of trade, price multiplier, and reason for change.`
 
 func TestParseFunction(t *testing.T) {
-	spec := NewSegSpecParser(nil, nil)
+	parser := NewSegSpecParser(nil, nil)
 	funcLines := strings.Split(funcStr, "\n")
-	fun, err := spec.parseFunction(funcLines)
+	fun, err := parser.parseFunction(funcLines)
 	assert.Nil(t, err)
 	assert.Equal(t, expectedFun, fun)
 }
