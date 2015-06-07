@@ -10,6 +10,7 @@ type ItemKind int
 const (
 	MessageKind ItemKind = iota
 	SegKind
+	SegGrpKind
 	CompositeDataElemKind
 	SimpleDataElemKind
 )
@@ -30,6 +31,8 @@ func (q *QueryPart) itemKindStr() string {
 		return "msg"
 	case SegKind:
 		return "seg"
+	case SegGrpKind:
+		return "grp"
 	case CompositeDataElemKind:
 		return "cmp"
 	case SimpleDataElemKind:

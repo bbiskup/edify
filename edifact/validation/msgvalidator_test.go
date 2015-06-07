@@ -4,16 +4,10 @@ import (
 	"fmt"
 	"github.com/bbiskup/edify/edifact/msg"
 	"github.com/bbiskup/edify/edifact/rawmsg"
-	"github.com/bbiskup/edify/edifact/spec/specparser"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 	"testing"
 )
-
-func getRawMsg(fileName string) (*rawmsg.RawMsg, error) {
-	parser := rawmsg.NewParser()
-	return parser.ParseRawMsgFile(fileName)
-}
 
 func TestGetMsgTypeFromUNH(t *testing.T) {
 	seg := rawmsg.NewRawSeg("UNH")
@@ -30,18 +24,6 @@ func TestGetMsgTypeFromUNT(t *testing.T) {
 	msgType, err := getSegCountFromUNT(seg)
 	assert.Nil(t, err)
 	assert.Equal(t, 2, msgType)
-}
-
-func getValidator(tb testing.TB) *MsgValidator {
-	parser, err := specparser.NewFullSpecParser("14B", "../../testdata/d14b")
-	require.Nil(tb, err)
-	segSpecs, err := parser.ParseSegSpecsWithPrerequisites()
-	require.Nil(tb, err)
-
-	msgSpecs, err := parser.ParseMsgSpecs(segSpecs)
-	require.Nil(tb, err)
-
-	return NewMsgValidator(msgSpecs, segSpecs)
 }
 
 var validMsgTestSpecs = []struct {
@@ -81,12 +63,12 @@ var validMsgTestSpecs = []struct {
 }
 
 func TestValidateMsg(t *testing.T) {
-	validator := getValidator(t)
+	validator := GetValidator(t)
 
 	for _, testSpec := range validMsgTestSpecs {
 		fileName := "../../testdata/messages/" + testSpec.fileName
 		fmt.Printf("EDIFACT file: %s", fileName)
-		rawMsg, err := getRawMsg(fileName)
+		rawMsg, err := GetRawMsg(fileName)
 		require.Nil(t, err)
 		nestedMsg, err := validator.Validate(rawMsg)
 		assert.NotNil(t, nestedMsg)
@@ -99,8 +81,8 @@ func TestValidateMsg(t *testing.T) {
 }
 
 func BenchmarkValidateINVOICMsg(b *testing.B) {
-	validator := getValidator(b)
-	rawMsg, err := getRawMsg("../../testdata/messages/INVOIC_1.txt")
+	validator := GetValidator(b)
+	rawMsg, err := GetRawMsg("../../testdata/messages/INVOIC_1.txt")
 	require.Nil(b, err)
 
 	for i := 0; i < b.N; i++ {

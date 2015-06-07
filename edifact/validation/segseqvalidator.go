@@ -249,7 +249,7 @@ func (v *SegSeqValidator) Validate(rawMsg *rawmsg.RawMsg) (nestedMsg *msg.Nested
 	// Make a copy so the original msg does not get modified
 	copy(v.rawSegs, rawMsg.RawSegs)
 
-	nestedMsg = msg.NewNestedMsg(v.msgSpec.Name)
+	nestedMsg = msg.NewNestedMsg(v.msgSpec.Id)
 	//topLevelContext := NewSegSeqGroupContext(v.msgSpec.TopLevelGroup, nestedMsg.TopLevelRepGrp)
 
 	if err := v.validateGroup(v.msgSpec.TopLevelGroup, nestedMsg.TopLevelRepGrp); err != nil {
