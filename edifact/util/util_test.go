@@ -397,3 +397,9 @@ func TestUnused(t *testing.T) {
 	b := 2
 	Unused(a, b)
 }
+
+func TestGetIndentStr(t *testing.T) {
+	assert.Equal(t, "", GetIndentStr(0))
+	assert.Equal(t, "  ", GetIndentStr(1))
+	assert.Equal(t, "    ", GetIndentStr(2))
+}
