@@ -19,10 +19,24 @@ func getNestedMsg(t *testing.T) *msg.NestedMsg {
 	return nestedMsg
 }
 
+var testNavSpecs = []struct {
+	queryStr string
+	checkFn  func(t *testing.T, msgPart msg.NestedMsgPart, err error)
+}{
+	{"seg:BGM[0]",
+		func(t *testing.T, msgPart msg.NestedMsgPart, err error) {
+			require.Nil(t, err)
+			require.NotNil(t, msgPart)
+		},
+	},
+}
+
 func TestNavigator(t *testing.T) {
 	navigator := NewNavigator()
 	nestedMsg := getNestedMsg(t)
-	msgPart, err := navigator.GetSeg("seg:BGM[0]", nestedMsg)
-	require.Nil(t, err)
-	require.NotNil(t, msgPart)
+
+	for _, spec := range testNavSpecs {
+		msgPart, err := navigator.GetSeg("seg:BGM[0]", nestedMsg)
+		spec.checkFn(t, msgPart, err)
+	}
 }
