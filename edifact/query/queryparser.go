@@ -13,7 +13,7 @@ const (
 )
 
 var (
-	queryPartRegexp = regexp.MustCompile(`([a-z]+)\:([a-zA-Z0-9]+|\*)(\[[0-9]+\])?`)
+	queryPartRegexp = regexp.MustCompile(`([a-z]+)\:([a-zA-Z0-9_]+|\*)(\[[0-9]+\])?`)
 )
 
 type QueryParser struct {
@@ -39,6 +39,8 @@ func parsePart(partStr string) (queryPart *QueryPart, err error) {
 		kind = MessageKind
 	case "seg":
 		kind = SegKind
+	case "grp":
+		kind = SegGrpKind
 	case "cmp":
 		kind = CompositeDataElemKind
 	case "smp":
