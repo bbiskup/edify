@@ -46,6 +46,9 @@ var testNavSpecs = []struct {
 			assert.True(t, ok)
 			cde := seg.DataElems[0].(*msg.CompositeDataElem)
 			assert.Equal(t, "C506", cde.Id())
+
+			_1153 := cde.SimpleDataElems[0]
+			assert.Equal(t, "1153", _1153.Id())
 		},
 	},
 	{
