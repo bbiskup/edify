@@ -28,18 +28,26 @@ func (n *Navigator) navigate(queryStr string, nestedMsg *msg.NestedMsg) (msgPart
 	for _, queryPart := range queryParser.queryParts {
 		switch queryPart.ItemKind {
 		case SegGrpKind:
-			repGrp := currentGrp.GetPartByKey(queryPart.Id)
-			if repGrp == nil {
+			repGrpPart := currentGrp.GetPartByKey(queryPart.Id)
+			if repGrpPart == nil {
 				return nil, errors.New(fmt.Sprintf(
 					"Segment group '%s' not found in '%s'", queryPart.Id, currentGrp.Id()))
 			}
 
-			repGrp, ok := repGrp.(*msg.RepSegGrp)
+			repGrp, ok := repGrpPart.(*msg.RepSegGrp)
 			if !ok {
 				return nil, errors.New(fmt.Sprintf(
 					"Part %s is not a segment group, but '%T'", repGrp.Id(), repGrp))
 			}
-			currentMsgPart = repGrp
+			numSegGrps := repGrp.Count()
+			if queryPart.Index >= numSegGrps {
+				return nil, errors.New(fmt.Sprintf(
+					"Repeat index %d out of range for segment group %s (max: %d)",
+					queryPart.Index, queryPart.Id, numSegGrps))
+			}
+			nthGrp := repGrp.GetSegGrp(queryPart.Index)
+			currentMsgPart = nthGrp
+			currentGrp = nthGrp // Descend
 
 		case SegKind:
 			seg, err := currentGrp.FindNthOccurrenceOfSeg(queryPart.Id, 0)
