@@ -81,3 +81,19 @@ func TestNavigatorNavigate(t *testing.T) {
 		spec.checkFn(t, msgPart, err)
 	}
 }
+
+func TestNavigatorGetSegTopLevel(t *testing.T) {
+	navigator := NewNavigator()
+	nestedMsg := getNestedMsg(t)
+	msgPart, err := navigator.GetSeg("seg:BGM[0]", nestedMsg)
+	require.Nil(t, err)
+	assert.Equal(t, "BGM", msgPart.Id())
+}
+
+func TestNavigatorGetSegInGroup(t *testing.T) {
+	navigator := NewNavigator()
+	nestedMsg := getNestedMsg(t)
+	msgPart, err := navigator.GetSeg("grp:Group_1[0]/seg:RFF[0]", nestedMsg)
+	require.Nil(t, err)
+	assert.Equal(t, "RFF", msgPart.Id())
+}
