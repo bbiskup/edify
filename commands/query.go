@@ -8,7 +8,11 @@ import (
 	"log"
 )
 
-func Query(version string, specDirName string, msgFileName string, queryStr string) error {
+func Query(
+	version string, specDirName string,
+	msgFileName string, dumpMessage bool,
+	queryStr string) error {
+
 	if version == "" {
 		return errors.New("No version specified")
 	}
@@ -19,6 +23,10 @@ func Query(version string, specDirName string, msgFileName string, queryStr stri
 
 	if queryStr != "" && msgFileName == "" {
 		return errors.New("Query not possible; no message file specified")
+	}
+
+	if dumpMessage && msgFileName == "" {
+		return errors.New("Message dump not possible; no message file specified")
 	}
 
 	validator, err := validation.GetMsgValidator(version, specDirName)
@@ -42,7 +50,10 @@ func Query(version string, specDirName string, msgFileName string, queryStr stri
 	if err != nil {
 		return err
 	}
-	log.Printf("Nested msg: %s", nestedMsg.Dump())
+
+	if dumpMessage {
+		log.Printf("Nested msg: %s", nestedMsg.Dump())
+	}
 
 	if queryStr != "" {
 		navigator := query.NewNavigator()

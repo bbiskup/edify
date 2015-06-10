@@ -1,6 +1,8 @@
 TODO
 ====
 
+- Code examples (as Example* functions and / or comments; see codegangsta/cli)
+
 - Absolute & relative navigation (relative e.g. with respect to a repeat group, to avoid overhead)
 
 - Support repeating data elements; example: PAXLST_1.txt and PAXLST_2.txt, first COM data element

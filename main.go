@@ -91,7 +91,8 @@ func main() {
 				}
 				err = commands.Query(
 					c.String("version"), c.String("specdir"),
-					c.String("msg"), c.String("query"))
+					c.String("msg"), c.Bool("dump-message"),
+					c.String("query"))
 			},
 			Flags: []cli.Flag{
 				versionFlag,
@@ -100,6 +101,11 @@ func main() {
 					Name:  "msg, m",
 					Value: "",
 					Usage: "EDIFACT message file",
+				},
+				cli.StringFlag{
+					Name:  "dump-message, D",
+					Value: "true",
+					Usage: "Dump parsed EDIFACT message",
 				},
 				cli.StringFlag{
 					Name:  "query, q",
