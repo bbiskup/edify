@@ -1,11 +1,25 @@
 package main // import "github.com/bbiskup/edify"
 
 import (
+	"errors"
 	"github.com/bbiskup/edify/commands"
 	"github.com/codegangsta/cli"
 	"log"
 	"os"
 	"time"
+)
+
+var (
+	versionFlag = cli.StringFlag{
+		Name:  "version",
+		Value: "14B",
+		Usage: "UNCE EDIFACT version",
+	}
+	specDirFlag = cli.StringFlag{
+		Name:  "specdir, d",
+		Value: "",
+		Usage: "Specification directory (UNCE layout)",
+	}
 )
 
 func main() {
@@ -81,11 +95,28 @@ func main() {
 			Usage:   "Query a message part",
 			Aliases: []string{"q"},
 			Action: func(c *cli.Context) {
-				version := c.Args().First()
-				specDirName := c.Args().Get(1)
-				msgFileName := c.Args().Get(2)
-				queryStr := c.Args().Get(3)
-				err = commands.Query(version, specDirName, msgFileName, queryStr)
+				if len(c.Args()) > 0 {
+					err = errors.New("Unexpected arguments")
+					return
+				}
+				err = commands.Query(
+					c.String("version"), c.String("specdir"),
+					c.String("msg"), c.String("query"))
+				log.Printf("##### " + c.String("dir"))
+			},
+			Flags: []cli.Flag{
+				versionFlag,
+				specDirFlag,
+				cli.StringFlag{
+					Name:  "msg, m",
+					Value: "",
+					Usage: "EDIFACT message file",
+				},
+				cli.StringFlag{
+					Name:  "query, q",
+					Value: "",
+					Usage: "Query string",
+				},
 			},
 		},
 	}
