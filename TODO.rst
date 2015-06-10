@@ -1,6 +1,8 @@
 TODO
 ====
 
+- Absolute & relative navigation (relative e.g. with respect to a repeat group, to avoid overhead)
+
 - Support repeating data elements; example: PAXLST_1.txt and PAXLST_2.txt, first COM data element
   COM+703-555-1212:TE+703-555-4545:FX'
 

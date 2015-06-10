@@ -23,7 +23,7 @@ func Query(version string, specDirName string, msgFileName string, queryStr stri
 	if err != nil {
 		return err
 	}
-	log.Printf("Nested msg: %s", nestedMsg)
+	log.Printf("Nested msg: %s", nestedMsg.Dump())
 
 	navigator := query.NewNavigator()
 	queryResult, err := navigator.Navigate(queryStr, nestedMsg)
