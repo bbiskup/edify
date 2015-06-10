@@ -9,14 +9,14 @@ import (
 	"testing"
 )
 
-func getNestedMsg(t *testing.T) *msg.NestedMsg {
+func getNestedMsg(tb testing.TB) *msg.NestedMsg {
 	fileName := "../../testdata/messages/INVOIC_1.txt"
 	fmt.Printf("EDIFACT file: %s", fileName)
 	rawMsg, err := validation.GetRawMsg(fileName)
-	require.Nil(t, err)
-	validator := validation.GetTestMsgValidator(t)
+	require.Nil(tb, err)
+	validator := validation.GetTestMsgValidator(tb)
 	nestedMsg, err := validator.Validate(rawMsg)
-	require.Nil(t, err)
+	require.Nil(tb, err)
 	return nestedMsg
 }
 
@@ -104,4 +104,15 @@ func TestNavigatorGetSegGroup(t *testing.T) {
 	msgPart, err := navigator.GetSegGrp("grp:Group_1[0]", nestedMsg)
 	require.Nil(t, err)
 	assert.Equal(t, "Group_1", msgPart.Id())
+}
+
+func BenchmarkNavigate1(b *testing.B) {
+	navigator := NewNavigator()
+	nestedMsg := getNestedMsg(b)
+	b.ResetTimer()
+	for i := 0; i < b.N; i++ {
+		msgPart, err := navigator.GetSeg("grp:Group_1[0]/seg:RFF[0]", nestedMsg)
+		require.NotNil(b, msgPart)
+		require.Nil(b, err)
+	}
 }
