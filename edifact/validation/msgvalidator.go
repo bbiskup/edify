@@ -50,6 +50,14 @@ type MsgValidator struct {
 	segValidator SegValidator
 }
 
+func (v *MsgValidator) MsgSpecCount() int {
+	return len(v.msgSpecs)
+}
+
+func (v *MsgValidator) SegSpecCount() int {
+	return v.segSpecs.Len()
+}
+
 func (v *MsgValidator) Validate(rawMsg *rawmsg.RawMsg) (nestedMsg *msg.NestedMsg, err error) {
 	if len(rawMsg.RawSegs) == 0 {
 		return nil, errors.New("No segments")
