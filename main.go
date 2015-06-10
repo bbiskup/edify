@@ -84,9 +84,11 @@ func main() {
 			Usage:   "Parse entire specification",
 			Aliases: []string{"f"},
 			Action: func(c *cli.Context) {
-				version := c.Args().First()
-				specDirName := c.Args().Get(1)
-				err = commands.FullParse(version, specDirName)
+				err = commands.FullParse(c.String("version"), c.String("specdir"))
+			},
+			Flags: []cli.Flag{
+				versionFlag,
+				specDirFlag,
 			},
 		},
 
