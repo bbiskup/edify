@@ -122,18 +122,4 @@ func main() {
 
 	log.Printf("Duration: %d ms", duration.Nanoseconds()/1e6)
 
-	/*
-		e := edi.NewElem("name1", "value1")
-		s := edi.NewSeg("segname1")
-		s.AddElem(e)
-
-		m := edi.NewMessage("messagename1")
-		m.AddSeg(s)
-
-		i := edi.NewInterchange()
-		i.AddMessage(m)
-
-		fmt.Println(i)
-	*/
-
 }
