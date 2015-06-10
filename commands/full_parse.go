@@ -3,23 +3,34 @@ package commands
 import (
 	"errors"
 	"github.com/bbiskup/edify/edifact/spec/specparser"
+	"github.com/bbiskup/edify/edifact/validation"
+	"log"
 )
 
-func FullParse(specDirNames []string) error {
-	if len(specDirNames) == 0 {
-		return errors.New("No spec directory names given")
+func FullParse(version string, specDirName string) error {
+	if version == "" {
+		return errors.New("No version given")
 	}
 
-	for _, specDirName := range specDirNames {
-		parser, err := specparser.NewFullSpecParser("14B", specDirName)
-		if err != nil {
-			return err
-		}
-
-		err = parser.Parse()
-		if err != nil {
-			return err
-		}
+	if specDirName == "" {
+		return errors.New("No spec dir given given")
 	}
+
+	parser, err := specparser.NewFullSpecParser(version, specDirName)
+	if err != nil {
+		return err
+	}
+	segSpecs, err := parser.ParseSegSpecsWithPrerequisites()
+	if err != nil {
+		return err
+	}
+	msgSpecs, err := parser.ParseMsgSpecs(segSpecs)
+	if err != nil {
+		return err
+	}
+	validator := validation.NewMsgValidator(msgSpecs, segSpecs)
+
+	log.Printf("Validator has %d message specs and %d segment specs",
+		validator.MsgSpecCount(), validator.SegSpecCount())
 	return nil
 }
