@@ -97,3 +97,11 @@ func TestNavigatorGetSegInGroup(t *testing.T) {
 	require.Nil(t, err)
 	assert.Equal(t, "RFF", msgPart.Id())
 }
+
+func TestNavigatorGetSegGroup(t *testing.T) {
+	navigator := NewNavigator()
+	nestedMsg := getNestedMsg(t)
+	msgPart, err := navigator.GetSegGrp("grp:Group_1[0]", nestedMsg)
+	require.Nil(t, err)
+	assert.Equal(t, "Group_1", msgPart.Id())
+}
