@@ -89,9 +89,14 @@ func main() {
 					err = errors.New("Unexpected arguments")
 					return
 				}
+
+				msg := c.String("msg")
+
 				err = commands.Query(
 					c.String("version"), c.String("specdir"),
-					c.String("msg"), c.Bool("dump-message"),
+					msg,
+					// dump only makes sense if a message is specified
+					c.Bool("dump-message") && msg != "",
 					c.String("query"))
 			},
 			Flags: []cli.Flag{
