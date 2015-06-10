@@ -91,7 +91,6 @@ func main() {
 				err = commands.Query(
 					c.String("version"), c.String("specdir"),
 					c.String("msg"), c.String("query"))
-				log.Printf("##### " + c.String("dir"))
 			},
 			Flags: []cli.Flag{
 				versionFlag,
