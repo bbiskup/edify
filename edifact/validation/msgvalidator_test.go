@@ -91,3 +91,9 @@ func BenchmarkValidateINVOICMsg(b *testing.B) {
 		require.Nil(b, err)
 	}
 }
+
+func BenchmarkGetValidator(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		_ = GetValidator(b)
+	}
+}
