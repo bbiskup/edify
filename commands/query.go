@@ -8,8 +8,7 @@ import (
 	"log"
 )
 
-func Query(
-	version string, specDirName string,
+func checkParams(version string, specDirName string,
 	msgFileName string, dumpMessage bool,
 	queryStr string) error {
 
@@ -27,6 +26,17 @@ func Query(
 
 	if dumpMessage && msgFileName == "" {
 		return errors.New("Message dump not possible; no message file specified")
+	}
+	return nil
+}
+
+func Query(
+	version string, specDirName string,
+	msgFileName string, dumpMessage bool,
+	queryStr string) error {
+
+	if err := checkParams(version, specDirName, msgFileName, dumpMessage, queryStr); err != nil {
+		return err
 	}
 
 	validator, err := validation.GetMsgValidator(version, specDirName)
