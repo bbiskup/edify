@@ -12,9 +12,9 @@ type Navigator struct {
 }
 
 // return segment, segment group or data element
-func (n *Navigator) navigate(queryStr string, nestedMsg *msg.NestedMsg) (msgPart msg.NestedMsgPart, err error) {
+func (n *Navigator) Navigate(queryStr string, nestedMsg *msg.NestedMsg) (msgPart msg.NestedMsgPart, err error) {
 
-	log.Printf("navigate msg: %s, query %s", nestedMsg.Name, queryStr)
+	log.Printf("Navigate msg: %s, query %s", nestedMsg.Name, queryStr)
 
 	//var currentSeg *msg.Seg
 	currentGrp := nestedMsg.GetTopLevelGrp()
@@ -85,7 +85,7 @@ func (n *Navigator) navigate(queryStr string, nestedMsg *msg.NestedMsg) (msgPart
 func (n *Navigator) GetSegGrp(
 	queryStr string, message *msg.NestedMsg) (group *msg.SegGrp, err error) {
 
-	msgPart, err := n.navigate(queryStr, message)
+	msgPart, err := n.Navigate(queryStr, message)
 	if err != nil {
 		return nil, err
 	}
@@ -97,7 +97,7 @@ func (n *Navigator) GetSegGrp(
 }
 
 func (n *Navigator) GetSeg(queryStr string, message *msg.NestedMsg) (*msg.Seg, error) {
-	msgPart, err := n.navigate(queryStr, message)
+	msgPart, err := n.Navigate(queryStr, message)
 	if err != nil {
 		return nil, err
 	}
@@ -109,7 +109,7 @@ func (n *Navigator) GetSeg(queryStr string, message *msg.NestedMsg) (*msg.Seg, e
 }
 
 func (n *Navigator) GetSegDataElem(queryStr string, message *msg.NestedMsg) (msg.DataElem, error) {
-	msgPart, err := n.navigate(queryStr, message)
+	msgPart, err := n.Navigate(queryStr, message)
 	if err != nil {
 		return nil, err
 	}

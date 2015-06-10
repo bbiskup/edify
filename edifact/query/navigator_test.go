@@ -77,7 +77,7 @@ func TestNavigatorNavigate(t *testing.T) {
 	fmt.Printf("Nested msg: %s", nestedMsg.Dump())
 
 	for _, spec := range testNavSpecs {
-		msgPart, err := navigator.navigate(spec.queryStr, nestedMsg)
+		msgPart, err := navigator.Navigate(spec.queryStr, nestedMsg)
 		spec.checkFn(t, msgPart, err)
 	}
 }
