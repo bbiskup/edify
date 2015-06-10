@@ -70,8 +70,9 @@ func main() {
 			Usage:   "Parse entire specification",
 			Aliases: []string{"f"},
 			Action: func(c *cli.Context) {
-				specDirNames := c.Args()
-				err = commands.FullParse(specDirNames)
+				version := c.Args().First()
+				specDirName := c.Args().Get(1)
+				err = commands.FullParse(version, specDirName)
 			},
 		},
 	}
