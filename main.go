@@ -80,19 +80,6 @@ func main() {
 		},
 
 		{
-			Name:    "full_parse",
-			Usage:   "Parse entire specification",
-			Aliases: []string{"f"},
-			Action: func(c *cli.Context) {
-				err = commands.FullParse(c.String("version"), c.String("specdir"))
-			},
-			Flags: []cli.Flag{
-				versionFlag,
-				specDirFlag,
-			},
-		},
-
-		{
 			Name:    "query",
 			Usage:   "Query a message part",
 			Aliases: []string{"q"},

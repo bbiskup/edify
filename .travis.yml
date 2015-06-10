@@ -29,6 +29,9 @@ script:
   - time ./edify purge_specs 14b
   - time ./edify parse testdata/UNCL.14B
   - time ./edify full_parse --version 14B -d testdata/d14b/
+  - time ./edify query  -d testdata/d14b/ 
+  - time ./edify query  -d testdata/d14b/ -v 14B
+  - time ./edify query  -d testdata/d14b/ -m testdata/messages/INVOIC_1.txt
   - time ./edify query  -d testdata/d14b/ -m testdata/messages/INVOIC_1.txt  -q "grp:Group_7[0]/seg:CUX[0]"
   # - time ./edify  parse testdata/EDED.14B
   # - time ./edify  parse testdata/EDCD.14B

@@ -17,8 +17,8 @@ func Query(version string, specDirName string, msgFileName string, queryStr stri
 		return errors.New("No specification directory specified")
 	}
 
-	if msgFileName == "" {
-		return errors.New("No message file specified")
+	if queryStr != "" && msgFileName == "" {
+		return errors.New("Query not possible; no message file specified")
 	}
 
 	validator, err := validation.GetMsgValidator(version, specDirName)
@@ -26,10 +26,16 @@ func Query(version string, specDirName string, msgFileName string, queryStr stri
 		return err
 	}
 
-	rawMsgParser := rawmsg.NewParser()
-	rawMsg, err := rawMsgParser.ParseRawMsgFile(msgFileName)
-	if err != nil {
-		return err
+	var rawMsg *rawmsg.RawMsg
+	if msgFileName != "" {
+		rawMsgParser := rawmsg.NewParser()
+		rawMsg, err = rawMsgParser.ParseRawMsgFile(msgFileName)
+		if err != nil {
+			return err
+		}
+	} else {
+		log.Printf("No message file specified")
+		return nil
 	}
 
 	nestedMsg, err := validator.Validate(rawMsg)
