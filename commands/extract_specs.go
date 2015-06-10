@@ -122,6 +122,7 @@ func ExtractSpecs(version string) error {
 	if len(version) == 0 {
 		return errors.New("No version specified")
 	}
+	version = strings.ToLower(version)
 
 	archivePath := downloadPath(version)
 	targetDir := downloadDir + string(os.PathSeparator) + versionDir(version)

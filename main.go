@@ -13,7 +13,7 @@ var (
 	versionFlag = cli.StringFlag{
 		Name:  "version",
 		Value: "14B",
-		Usage: "UNCE EDIFACT version",
+		Usage: "UNCE EDIFACT version (e.g. '14B')",
 	}
 	specDirFlag = cli.StringFlag{
 		Name:  "specdir, d",
@@ -36,9 +36,10 @@ func main() {
 			Usage:   "Download specs from remote server",
 			Aliases: []string{"d"},
 			Action: func(c *cli.Context) {
-				// version: e.g. 14b
-				version := c.Args().First()
-				err = commands.DownloadSpecs(version)
+				err = commands.DownloadSpecs(c.String("version"))
+			},
+			Flags: []cli.Flag{
+				versionFlag,
 			},
 		},
 		{
@@ -46,9 +47,10 @@ func main() {
 			Usage:   "Extracts previously downloaded specs",
 			Aliases: []string{"x"},
 			Action: func(c *cli.Context) {
-				// version: e.g. 14b
-				version := c.Args().First()
-				err = commands.ExtractSpecs(version)
+				err = commands.ExtractSpecs(c.String("version"))
+			},
+			Flags: []cli.Flag{
+				versionFlag,
 			},
 		},
 		{
@@ -57,12 +59,11 @@ func main() {
 			Aliases: []string{"u"},
 			Action: func(c *cli.Context) {
 				purgeAll := c.Bool("all")
-				// version: e.g. 14b
-				version := c.Args().First()
-				err = commands.PurgeSpecs(version, purgeAll)
+				err = commands.PurgeSpecs(c.String("version"), purgeAll)
 			},
 
 			Flags: []cli.Flag{
+				versionFlag,
 				cli.BoolFlag{
 					Name:  "all, a",
 					Usage: "delete everything (including downloaded archives)",

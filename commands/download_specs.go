@@ -47,6 +47,7 @@ func DownloadSpecs(version string) error {
 	if len(version) == 0 {
 		return errors.New("No version specified")
 	}
+	version = strings.ToLower(version)
 
 	// e.g. http://www.unece.org/fileadmin/DAM/trade/untdid/d14b/d14b.zip
 	vDir := versionDir(version)

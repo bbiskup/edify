@@ -46,6 +46,9 @@ func PurgeSpecs(version string, purgeAll bool) error {
 	if len(version) == 0 {
 		return errors.New("No version specified")
 	}
+
+	version = strings.ToLower(version)
+
 	versionSubDir := downloadDir + pathSep + versionDir(version)
 	s, err := os.Stat(versionSubDir)
 	if !os.IsNotExist(err) && s.IsDir() {

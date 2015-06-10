@@ -24,9 +24,9 @@ script:
   - # avoid excessive output
   - make bench 2> bench.log
   
-  - time ./edify download_specs 14b
-  - time ./edify extract_specs 14b
-  - time ./edify purge_specs 14b
+  - time ./edify download_specs 14B
+  - time ./edify extract_specs 14B
+  - time ./edify purge_specs 14B
   - time ./edify parse testdata/UNCL.14B
   - time ./edify full_parse --version 14B -d testdata/d14b/
   - time ./edify query  -d testdata/d14b/ 
