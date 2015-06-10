@@ -1,6 +1,7 @@
 package commands
 
 import (
+	"errors"
 	"github.com/bbiskup/edify/edifact/query"
 	"github.com/bbiskup/edify/edifact/rawmsg"
 	"github.com/bbiskup/edify/edifact/validation"
@@ -8,6 +9,18 @@ import (
 )
 
 func Query(version string, specDirName string, msgFileName string, queryStr string) error {
+	if version == "" {
+		return errors.New("No version specified")
+	}
+
+	if specDirName == "" {
+		return errors.New("No specification directory specified")
+	}
+
+	if msgFileName == "" {
+		return errors.New("No message file specified")
+	}
+
 	validator, err := validation.GetMsgValidator(version, specDirName)
 	if err != nil {
 		return err
@@ -25,12 +38,15 @@ func Query(version string, specDirName string, msgFileName string, queryStr stri
 	}
 	log.Printf("Nested msg: %s", nestedMsg.Dump())
 
-	navigator := query.NewNavigator()
-	queryResult, err := navigator.Navigate(queryStr, nestedMsg)
-	if err != nil {
-		return err
+	if queryStr != "" {
+		navigator := query.NewNavigator()
+		queryResult, err := navigator.Navigate(queryStr, nestedMsg)
+		if err != nil {
+			return err
+		}
+		log.Printf("Query result: %s", queryResult)
+	} else {
+		log.Printf("No query string specified")
 	}
-	log.Printf("Query result: %s", queryResult)
-
 	return nil
 }
