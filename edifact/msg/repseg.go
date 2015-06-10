@@ -23,6 +23,9 @@ func (s *RepSeg) Count() int {
 
 // From SegOrGroup
 func (s *RepSeg) Id() string {
+	if len(s.segments) == 0 {
+		panic("No segments")
+	}
 	return s.segments[0].Id()
 }
 

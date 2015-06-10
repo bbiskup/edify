@@ -35,7 +35,7 @@ func TestParseValidQueryStringOnePartWithoutIndex(t *testing.T) {
 }
 
 func TestParseValidQueryStringTwoPartsWithoutIndex(t *testing.T) {
-	queryStr := "msg:abc|seg:def"
+	queryStr := "msg:abc/seg:def"
 	parser, err := NewQueryParser(queryStr)
 	assert.Nil(t, err)
 	require.NotNil(t, parser)
@@ -54,7 +54,7 @@ func TestParseValidQueryStringTwoPartsWithoutIndex(t *testing.T) {
 }
 
 func TestParseValidQueryStringTwoPartsWithIndex(t *testing.T) {
-	queryStr := "msg:abc[2]|seg:def[3]"
+	queryStr := "msg:abc[2]/seg:def[3]"
 	parser, err := NewQueryParser(queryStr)
 	assert.Nil(t, err)
 	require.NotNil(t, parser)

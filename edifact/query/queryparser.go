@@ -9,7 +9,7 @@ import (
 )
 
 const (
-	partSep = "|"
+	partSep = "/"
 )
 
 var (

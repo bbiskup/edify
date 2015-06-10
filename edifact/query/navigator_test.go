@@ -36,14 +36,14 @@ var testNavSpecs = []struct {
 	},
 	{
 		"Valid path for segment in group 1",
-		"grp:Group_1[0]|seg:RFF[0]",
+		"grp:Group_1[0]/seg:RFF[0]",
 		func(t *testing.T, msgPart msg.NestedMsgPart, err error) {
 			require.Nil(t, err)
 			require.NotNil(t, msgPart)
 			assert.Equal(t, "RFF", msgPart.Id())
 
 			seg, ok := msgPart.(*msg.Seg)
-			assert.True(t, ok)
+			require.True(t, ok)
 			cde := seg.DataElems[0].(*msg.CompositeDataElem)
 			assert.Equal(t, "C506", cde.Id())
 
@@ -53,7 +53,7 @@ var testNavSpecs = []struct {
 	},
 	// {
 	// 	"Valid path for segment in group 1",
-	// 	"grp:Group_1[0]|seg:RFF[0]|cmp:C506[0]",
+	// 	"grp:Group_1[0]/seg:RFF[0]/cmp:C506[0]",
 	// 	func(t *testing.T, msgPart msg.NestedMsgPart, err error) {
 	// 		require.Nil(t, err)
 	// 		require.NotNil(t, msgPart)
