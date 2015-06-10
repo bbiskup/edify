@@ -68,6 +68,12 @@ func (n *Navigator) navigate(queryStr string, nestedMsg *msg.NestedMsg) (msgPart
 
 		case CompositeDataElemKind:
 			panic("Not implemented")
+			// numDataElems := seg.Count()
+			// if queryPart.Index >= numDataElems {
+			// 	return nil, errors.New(fmt.Sprintf(
+			// 		"data element index %d out of range for segment %s (max: %d)",
+			// 		queryPart.Index, queryPart.Id, numSegs))
+			// }
 
 		case SimpleDataElemKind:
 			panic("Not implemented")

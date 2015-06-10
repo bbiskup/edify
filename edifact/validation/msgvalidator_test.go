@@ -66,7 +66,7 @@ var validMsgTestSpecs = []struct {
 }
 
 func TestValidateMsg(t *testing.T) {
-	validator := GetValidator(t)
+	validator := GetTestMsgValidator(t)
 	assert.Equal(t, 194, validator.MsgSpecCount())
 	assert.Equal(t, 156, validator.SegSpecCount())
 
@@ -86,7 +86,7 @@ func TestValidateMsg(t *testing.T) {
 }
 
 func BenchmarkValidateINVOICMsg(b *testing.B) {
-	validator := GetValidator(b)
+	validator := GetTestMsgValidator(b)
 	rawMsg, err := GetRawMsg("../../testdata/messages/INVOIC_1.txt")
 	require.Nil(b, err)
 
@@ -97,14 +97,14 @@ func BenchmarkValidateINVOICMsg(b *testing.B) {
 	}
 }
 
-func BenchmarkGetValidator(b *testing.B) {
+func BenchmarkGetTestMsgValidator(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		_ = GetValidator(b)
+		_ = GetTestMsgValidator(b)
 	}
 }
 
 func BenchmarkSerializeValidatorGOB(b *testing.B) {
-	validator := GetValidator(b)
+	validator := GetTestMsgValidator(b)
 	b.ResetTimer()
 	for i := 0; i < b.N; i++ {
 		file, err := ioutil.TempFile(os.TempDir(), "edify")

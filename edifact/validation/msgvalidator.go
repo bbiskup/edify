@@ -8,6 +8,7 @@ import (
 	"fmt"
 	msp "github.com/bbiskup/edify/edifact/spec/message"
 	ssp "github.com/bbiskup/edify/edifact/spec/segment"
+	"github.com/bbiskup/edify/edifact/spec/specparser"
 	"strconv"
 )
 
@@ -110,4 +111,29 @@ func (v *MsgValidator) Validate(rawMsg *rawmsg.RawMsg) (nestedMsg *msg.NestedMsg
 
 func NewMsgValidator(msgSpecs msp.MsgSpecMap, segSpecProvider ssp.SegSpecProvider) *MsgValidator {
 	return &MsgValidator{msgSpecs, segSpecProvider, NewSegValidatorImpl(segSpecProvider)}
+}
+
+// Returns a message validator with all necessary spec validator
+func GetMsgValidator(version string, specDirName string) (*MsgValidator, error) {
+	if version == "" {
+		return nil, errors.New("No version given")
+	}
+
+	if specDirName == "" {
+		return nil, errors.New("No spec dir given given")
+	}
+
+	parser, err := specparser.NewFullSpecParser(version, specDirName)
+	if err != nil {
+		return nil, err
+	}
+	segSpecs, err := parser.ParseSegSpecsWithPrerequisites()
+	if err != nil {
+		return nil, err
+	}
+	msgSpecs, err := parser.ParseMsgSpecs(segSpecs)
+	if err != nil {
+		return nil, err
+	}
+	return NewMsgValidator(msgSpecs, segSpecs), nil
 }

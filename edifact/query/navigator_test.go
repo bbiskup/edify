@@ -14,7 +14,7 @@ func getNestedMsg(t *testing.T) *msg.NestedMsg {
 	fmt.Printf("EDIFACT file: %s", fileName)
 	rawMsg, err := validation.GetRawMsg(fileName)
 	require.Nil(t, err)
-	validator := validation.GetValidator(t)
+	validator := validation.GetTestMsgValidator(t)
 	nestedMsg, err := validator.Validate(rawMsg)
 	require.Nil(t, err)
 	return nestedMsg
@@ -51,6 +51,15 @@ var testNavSpecs = []struct {
 			assert.Equal(t, "1153", _1153.Id())
 		},
 	},
+	// {
+	// 	"Valid path for segment in group 1",
+	// 	"grp:Group_1[0]|seg:RFF[0]|cmp:C506[0]",
+	// 	func(t *testing.T, msgPart msg.NestedMsgPart, err error) {
+	// 		require.Nil(t, err)
+	// 		require.NotNil(t, msgPart)
+	// 		assert.Equal(t, "C506", msgPart.Id())
+	// 	},
+	// },
 	{
 		"Incorrect segment index",
 		"seg:BGM[1]",

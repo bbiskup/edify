@@ -25,7 +25,12 @@ func mapToRawSegs(segmentIDs []string) []*rawmsg.RawSeg {
 	return result
 }
 
-func GetValidator(tb testing.TB) *MsgValidator {
+func GetRawMsg(fileName string) (*rawmsg.RawMsg, error) {
+	parser := rawmsg.NewParser()
+	return parser.ParseRawMsgFile(fileName)
+}
+
+func GetTestMsgValidator(tb testing.TB) *MsgValidator {
 	parser, err := specparser.NewFullSpecParser("14B", "../../testdata/d14b")
 	require.Nil(tb, err)
 	segSpecs, err := parser.ParseSegSpecsWithPrerequisites()
@@ -35,9 +40,4 @@ func GetValidator(tb testing.TB) *MsgValidator {
 	require.Nil(tb, err)
 
 	return NewMsgValidator(msgSpecs, segSpecs)
-}
-
-func GetRawMsg(fileName string) (*rawmsg.RawMsg, error) {
-	parser := rawmsg.NewParser()
-	return parser.ParseRawMsgFile(fileName)
 }
