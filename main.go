@@ -75,6 +75,19 @@ func main() {
 				err = commands.FullParse(version, specDirName)
 			},
 		},
+
+		{
+			Name:    "query",
+			Usage:   "Query a message part",
+			Aliases: []string{"q"},
+			Action: func(c *cli.Context) {
+				version := c.Args().First()
+				specDirName := c.Args().Get(1)
+				msgFileName := c.Args().Get(2)
+				queryStr := c.Args().Get(3)
+				err = commands.Query(version, specDirName, msgFileName, queryStr)
+			},
+		},
 	}
 
 	start := time.Now()
