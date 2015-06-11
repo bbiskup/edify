@@ -52,7 +52,7 @@ var testNavSpecs = []struct {
 		},
 	},
 	{
-		"Valid path for segment in group 1",
+		"Valid path for composite data element",
 		"grp:Group_1[0]/seg:RFF[0]/cmp:C506[0]",
 		func(t *testing.T, msgPart msg.NestedMsgPart, err error) {
 			require.Nil(t, err)
