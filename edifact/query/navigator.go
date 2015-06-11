@@ -73,7 +73,12 @@ func (n *Navigator) Navigate(queryStr string, nestedMsg *msg.NestedMsg) (msgPart
 			currentMsgPart = nthSeg
 
 		case CompositeDataElemKind:
-			//panic("Not implemented")
+			_, ok := currentMsgPart.(*msg.Seg)
+			if !ok {
+				return nil, errors.New(fmt.Sprintf(
+					"Parent %s is not a segment", currentMsgPart.Id()))
+			}
+
 			numDataElems := len(currentSeg.DataElems)
 			if queryPart.Index >= numDataElems {
 				return nil, errors.New(fmt.Sprintf(

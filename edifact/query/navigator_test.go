@@ -99,6 +99,15 @@ var testNavSpecs = []struct {
 			require.Nil(t, msgPart)
 		},
 	},
+
+	{
+		"Incorrect parent-child relationship (composite data element as child of composite",
+		"grp:Group_1[0]/seg:RFF[0]/cmp:C506[0]/cmp:C506[0]",
+		func(t *testing.T, msgPart msg.NestedMsgPart, err error) {
+			require.NotNil(t, err)
+			require.Nil(t, msgPart)
+		},
+	},
 }
 
 func TestNavigatorNavigate(t *testing.T) {
