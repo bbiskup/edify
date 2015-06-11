@@ -18,9 +18,8 @@ type CompositeDataElemSpecParser struct {
 	componentElemRE     *regexp.Regexp
 }
 
-/* Parse a line of the form
-010    3148  Communication address identifier          M      an..512
-*/
+//Parse a line of the form
+//    010    3148  Communication address identifier          M      an..512
 func (p *CompositeDataElemSpecParser) ParseComponentDataElemSpec(specLine string) (spec *ComponentDataElemSpec, err error) {
 	specMatch := p.componentElemRE.FindStringSubmatch(specLine)
 	if specMatch == nil {
@@ -82,15 +81,14 @@ func (p *CompositeDataElemSpecParser) ParseHeader(header string) (id string, nam
 	return
 }
 
-/** Parse multiple component specification lines of the form
-
-010    5105  Monetary amount function detail
-           description code                          C      an..17
-020    1131  Code list identification code             C      an..17
-030    3055  Code list responsible agency code         C      an..3
-040    5104  Monetary amount function detail
-           description                               C      an..70
-*/
+// Parse multiple component specification lines of the form
+//
+//   010    5105  Monetary amount function detail
+//                description code                          C      an..17
+//   020    1131  Code list identification code             C      an..17
+//   030    3055  Code list responsible agency code         C      an..3
+//   040    5104  Monetary amount function detail
+//                description                               C      an..70
 func (p *CompositeDataElemSpecParser) ParseComponentSpecs(componentGroup []string) ([]*ComponentDataElemSpec, error) {
 	componentSpecs := []*ComponentDataElemSpec{}
 
@@ -118,17 +116,14 @@ func (p *CompositeDataElemSpecParser) ParseComponentSpecs(componentGroup []strin
 	return componentSpecs, nil
 }
 
-/**
-Parse a composite data element description of the form
-
-       Desc: To specify the event category.
-
-or multi-line:
-
-       Desc: Communication number of a department or employee in
-             a specified channel.
-
-*/
+// Parse a composite data element description of the form
+//
+//        Desc: To specify the event category.
+//
+// or multi-line:
+//
+//        Desc: Communication number of a department or employee in
+//              a specified channel.
 func (p *CompositeDataElemSpecParser) ParseDescription(lines []string) (string, error) {
 	lines = util.JoinByHangingIndent(lines, 7, true)
 	if len(lines) != 1 {
@@ -146,20 +141,15 @@ func (p *CompositeDataElemSpecParser) ParseDescription(lines []string) (string, 
 	return line, nil
 }
 
-/**
-  Parse a single section from composite data element spec file, e.g. EDCD14B
-  Example:
-
-         C001 TRANSPORT MEANS
-
-         Desc: Code and/or name identifying the type of means of
-               transport.
-
-  010    8179  Transport means description code          C      an..8
-  020    1131  Code list identification code             C      an..17
-  030    3055  Code list responsible agency code         C      an..3
-  040    8178  Transport means description               C      an..17
-*/
+// Parse a single section from composite data element spec file, e.g. EDCD14B
+// Example:
+//          C001 TRANSPORT MEANS
+//          Desc: Code and/or name identifying the type of means of
+//                transport.
+//   010    8179  Transport means description code          C      an..8
+//   020    1131  Code list identification code             C      an..17
+//   030    3055  Code list responsible agency code         C      an..3
+//   040    8178  Transport means description               C      an..17
 func (p *CompositeDataElemSpecParser) ParseSpec(specLines []string) (spec *CompositeDataElemSpec, err error) {
 	if len(specLines) == 0 {
 		return nil, errors.New("Missing composite spec header")

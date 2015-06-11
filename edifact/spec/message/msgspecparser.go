@@ -153,25 +153,23 @@ func (p *MsgSpecParser) joinMultiLineSegDef(
 	return line, index
 }
 
-/*
- Get sequence of segments/segment groups
- e.g.
-
-00010   UNH Message header                           M   1
-00020   BGM Beginning of message                     M   1
-00030   DTM Date/time/period                         C   1
-00040   BUS Business function                        C   1
-
-00050       ---- Segment group 1  ------------------ C   2----------------+
-00060   RFF Reference                                M   1                |
-00070   DTM Date/time/period                         C   1----------------+
-
-00080       ---- Segment group 2  ------------------ C   5----------------+
-00090   FII Financial institution information        M   1                |
-00100   CTA Contact information                      C   1                |
-00110   COM Communication contact                    C   5----------------+
-...
-*/
+//  Get sequence of segments/segment groups
+//  e.g.
+//
+//   00010   UNH Message header                           M   1
+//   00020   BGM Beginning of message                     M   1
+//   00030   DTM Date/time/period                         C   1
+//   00040   BUS Business function                        C   1
+//
+//   00050       ---- Segment group 1  ------------------ C   2----------------+
+//   00060   RFF Reference                                M   1                |
+//   00070   DTM Date/time/period                         C   1----------------+
+//
+//   00080       ---- Segment group 2  ------------------ C   5----------------+
+//   00090   FII Financial institution information        M   1                |
+//   00100   CTA Contact information                      C   1                |
+//   00110   COM Communication contact                    C   5----------------+
+//   ...
 func (p *MsgSpecParser) parseMsgSpecParts(fileName string, lines []string) (msgSpecParts []MsgSpecPart, err error) {
 	segmentTableLines, err := p.getSegTableLines(lines)
 	currentNestingLevel := 0
@@ -375,23 +373,22 @@ func (p *MsgSpecParser) ParseSpecFile(fileName string) (spec *MsgSpec, err error
 }
 
 // One spec file contains the spec for a single message type
-/*
-                                UN/EDIFACT
-
-                  UNITED NATIONS STANDARD MESSAGE (UNSM)
-
-                              Invoice message
-...
-                                           Message Type : INVOIC
-                                           Version      : D
-                                           Release      : 14B
-                                           Contr. Agency: UN
-
-                                           Revision     : 16
-                                           Date         : 2014-11-17
-...
-SOURCE: TBG1 Supply Chain
-*/
+//
+//                                   UN/EDIFACT
+//
+//                     UNITED NATIONS STANDARD MESSAGE (UNSM)
+//
+//                                 Invoice message
+//   ...
+//                                              Message Type : INVOIC
+//                                              Version      : D
+//                                              Release      : 14B
+//                                              Contr. Agency: UN
+//
+//                                              Revision     : 16
+//                                              Date         : 2014-11-17
+//   ...
+//   SOURCE: TBG1 Supply Chain
 func (p *MsgSpecParser) ParseSpecFileContents(fileName string, contents string) (spec *MsgSpec, err error) {
 	// The largest standard message file has 321k (about 6800 lines), so
 	// we can read it at once

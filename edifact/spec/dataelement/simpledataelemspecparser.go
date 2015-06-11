@@ -1,13 +1,5 @@
 package dataelement
 
-/**
- *  Parser for EDIFACT simple data element specification
- *
- * Sample spec archive:
- *    http://www.unece.org/tradewelcome/areas-of-work/un-centre-for-trade-facilitation-and-e-business-uncefact/outputs/standards/unedifact/directories/download.html
- * File: EDED.14B
- */
-
 import (
 	"errors"
 	"fmt"
@@ -26,6 +18,11 @@ const (
 	simpleDataElemSectionIndent = 5
 )
 
+// Parser for EDIFACT simple data element specification
+//
+// Sample spec archive:
+//    http://www.unece.org/tradewelcome/areas-of-work/un-centre-for-trade-facilitation-and-e-business-uncefact/outputs/standards/unedifact/directories/download.html
+// File: EDED.14B
 type SimpleDataElemSpecParser struct {
 	codesSpecs csp.CodesSpecMap
 	numLineRE  *regexp.Regexp

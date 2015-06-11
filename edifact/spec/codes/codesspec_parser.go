@@ -16,12 +16,9 @@ type CodesSpecParser struct {
 	codesHeaderRE *regexp.Regexp
 }
 
-/**
-  Parse a header of the form:
-
-     1073  Document line action code                               [B]
-
-*/
+//  Parse a header of the form:
+//
+//     1073  Document line action code                               [B]
 func (p *CodesSpecParser) ParseCodesSpecHeader(header string) (id string, name string, err error) {
 	headerMatch := p.codesHeaderRE.FindStringSubmatch(header)
 	if headerMatch == nil {
@@ -41,17 +38,13 @@ func (p *CodesSpecParser) ParseCodesSpecHeader(header string) (id string, name s
 	return
 }
 
-/**
-Parse a description of the form
-
-     Desc: Code specifying a section of a message.
-
-or multi-line:
-
-     Desc: Code indicating an action associated with a line of a
-           document.
-
-*/
+// Parse a description of the form
+//
+//      Desc: Code specifying a section of a message.
+// or multi-line:
+//
+//      Desc: Code indicating an action associated with a line of a
+//            document.
 func (p *CodesSpecParser) ParseDescription(lines []string) (string, error) {
 	line := util.TrimWhiteSpaceAndJoin(lines, " ")
 
@@ -84,13 +77,11 @@ func (p *CodesSpecParser) ParseCodeSpecHeader(header string) (id string, name st
 	return
 }
 
-/**
-Parse single code spec of the form
-
-     7     Sub-line item
-              The section of the message being referenced refers to
-              the sub-line item.
-*/
+// Parse single code spec of the form
+//
+//      7     Sub-line item
+//               The section of the message being referenced refers to
+//               the sub-line item.
 func (p *CodesSpecParser) ParseCodeSpec(specLines []string) (*CodeSpec, error) {
 	if len(specLines) < 2 {
 		return nil, errors.New(fmt.Sprintf("Missing spec header and/or description; specLines: %s", specLines))
@@ -107,21 +98,19 @@ func (p *CodesSpecParser) ParseCodeSpec(specLines []string) (*CodeSpec, error) {
 	return NewCodeSpec(id, name, description), nil
 }
 
-/* Parse multiple code specifications of the form
-
-   7     Structure hierarchical link
-            The list contains a set of hierarchical link values
-            between structures.
-
-   8     Structure group link
-            The list contains a set of group link values between
-            structures.
-
-   9     Multiple hierarchical structure item
-            The list contains a set of items at multiple
-            hierarchical levels in a structure.
-
-*/
+// Parse multiple code specifications of the form
+//
+//    7     Structure hierarchical link
+//             The list contains a set of hierarchical link values
+//             between structures.
+//
+//    8     Structure group link
+//             The list contains a set of group link values between
+//             structures.
+//
+//    9     Multiple hierarchical structure item
+//             The list contains a set of items at multiple
+//             hierarchical levels in a structure.
 func (p *CodesSpecParser) ParseCodeSpecs(lines [][]string) ([]*CodeSpec, error) {
 	result := []*CodeSpec{}
 	groups := lines //util.SplitByHangingIndent(lines, 5)
