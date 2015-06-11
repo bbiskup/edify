@@ -83,7 +83,23 @@ func (n *Navigator) Navigate(queryStr string, nestedMsg *msg.NestedMsg) (msgPart
 			currentMsgPart = compositeDataElem
 
 		case SimpleDataElemKind:
-			panic("Not implemented")
+			// Could either be part of a segment or of a composite data element
+			switch currentMsgPartSub := currentMsgPart.(type) {
+			case *msg.Seg:
+				currentMsgPart, err = currentMsgPartSub.GetSimpleDataElemById(queryPart.Id)
+				if err != nil {
+					return nil, err
+				}
+			case *msg.CompositeDataElem:
+				currentMsgPart, err = currentMsgPartSub.GetSimpleDataElemById(queryPart.Id)
+				if err != nil {
+					return nil, err
+				}
+			default:
+				return nil, errors.New(fmt.Sprintf(
+					"Parent element %s of simple data element %s neither segment nor composite data element",
+					currentMsgPart.Id(), queryPart.Id))
+			}
 		}
 	}
 	return currentMsgPart, nil

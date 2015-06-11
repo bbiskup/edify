@@ -1,6 +1,7 @@
 package msg
 
 import (
+	"errors"
 	"fmt"
 )
 
@@ -12,6 +13,16 @@ type CompositeDataElem struct {
 
 func (e *CompositeDataElem) Id() string {
 	return e.id
+}
+
+func (s *CompositeDataElem) GetSimpleDataElemById(dataElemId string) (*SimpleDataElem, error) {
+	for _, dataElem := range s.SimpleDataElems {
+		if dataElem.Id() == dataElemId {
+			return dataElem, nil
+		}
+	}
+	return nil, errors.New(fmt.Sprintf(
+		"Data element '%s' not found in segment %s", dataElemId, s.id))
 }
 
 func (e *CompositeDataElem) String() string {
