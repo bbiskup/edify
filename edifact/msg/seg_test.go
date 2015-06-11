@@ -11,7 +11,7 @@ func TestSeg(t *testing.T) {
 	seg.AddDataElem(NewCompositeDataElem("DEF"))
 	assert.Equal(t, "ABC", seg.Id())
 
-	dataElemById, err := seg.GetDataElemById("DEF")
+	dataElemById, err := seg.GetCompositeDataElemById("DEF")
 	require.Nil(t, err)
 	assert.Equal(t, "DEF", dataElemById.Id())
 	assert.Equal(t, 1, len(seg.DataElems))

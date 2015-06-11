@@ -76,11 +76,11 @@ func (n *Navigator) Navigate(queryStr string, nestedMsg *msg.NestedMsg) (msgPart
 					queryPart.Index, queryPart.Id, numDataElems))
 			}
 
-			dataElem, err := currentSeg.GetDataElemById(queryPart.Id)
+			compositeDataElem, err := currentSeg.GetCompositeDataElemById(queryPart.Id)
 			if err != nil {
 				return nil, err
 			}
-			currentMsgPart = dataElem
+			currentMsgPart = compositeDataElem
 
 		case SimpleDataElemKind:
 			panic("Not implemented")
