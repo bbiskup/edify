@@ -29,7 +29,7 @@ func (s *Seg) GetDataElemById(dataElemId string) (DataElem, error) {
 		"Data element '%s' not found in segment %s", dataElemId, s.id))
 }
 
-func (s *Seg) GetCompositeDataElemById(dataElemId string) (DataElem, error) {
+func (s *Seg) GetCompositeDataElemById(dataElemId string) (*CompositeDataElem, error) {
 	dataElem, err := s.GetDataElemById(dataElemId)
 	if err != nil {
 		return nil, err
@@ -40,6 +40,19 @@ func (s *Seg) GetCompositeDataElemById(dataElemId string) (DataElem, error) {
 			"Data element %s is not a composite data element", dataElemId))
 	}
 	return compositeDataElem, nil
+}
+
+func (s *Seg) GetSimpleDataElemById(dataElemId string) (*SimpleDataElem, error) {
+	dataElem, err := s.GetDataElemById(dataElemId)
+	if err != nil {
+		return nil, err
+	}
+	simpleDataElem, ok := dataElem.(*SimpleDataElem)
+	if !ok {
+		return nil, errors.New(fmt.Sprintf(
+			"Data element %s is not a simple data element", dataElemId))
+	}
+	return simpleDataElem, nil
 }
 
 func (s *Seg) String() string {

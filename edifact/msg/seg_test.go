@@ -9,10 +9,17 @@ import (
 func TestSeg(t *testing.T) {
 	seg := NewSeg("ABC")
 	seg.AddDataElem(NewCompositeDataElem("DEF"))
+	seg.AddDataElem(NewSimpleDataElem("GHI", "JKL"))
 	assert.Equal(t, "ABC", seg.Id())
 
-	dataElemById, err := seg.GetCompositeDataElemById("DEF")
+	compositeDataElemById, err := seg.GetCompositeDataElemById("DEF")
 	require.Nil(t, err)
-	assert.Equal(t, "DEF", dataElemById.Id())
-	assert.Equal(t, 1, len(seg.DataElems))
+	assert.Equal(t, "DEF", compositeDataElemById.Id())
+
+	simpleDataElemById, err := seg.GetSimpleDataElemById("GHI")
+	require.Nil(t, err)
+	assert.Equal(t, "GHI", simpleDataElemById.Id())
+	assert.Equal(t, "JKL", simpleDataElemById.Value)
+
+	assert.Equal(t, 2, len(seg.DataElems))
 }
