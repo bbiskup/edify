@@ -1,6 +1,7 @@
 package msg
 
 import (
+	"errors"
 	"fmt"
 )
 
@@ -16,6 +17,16 @@ func (s *Seg) Id() string {
 
 func (s *Seg) AddDataElem(dataElem DataElem) {
 	s.DataElems = append(s.DataElems, dataElem)
+}
+
+func (s *Seg) GetDataElemById(dataElemId string) (DataElem, error) {
+	for _, dataElem := range s.DataElems {
+		if dataElem.Id() == dataElemId {
+			return dataElem, nil
+		}
+	}
+	return nil, errors.New(fmt.Sprintf(
+		"Data element '%s' not found in segment %s", dataElemId, s.id))
 }
 
 func (s *Seg) String() string {

@@ -16,7 +16,7 @@ func (n *Navigator) Navigate(queryStr string, nestedMsg *msg.NestedMsg) (msgPart
 
 	log.Printf("Navigate msg: %s, query %s", nestedMsg.Name, queryStr)
 
-	//var currentSeg *msg.Seg
+	var currentSeg *msg.Seg
 	currentGrp := nestedMsg.GetTopLevelGrp()
 	var currentMsgPart msg.NestedMsgPart = currentGrp
 
@@ -48,6 +48,7 @@ func (n *Navigator) Navigate(queryStr string, nestedMsg *msg.NestedMsg) (msgPart
 			nthGrp := repGrp.GetSegGrp(queryPart.Index)
 			currentMsgPart = nthGrp
 			currentGrp = nthGrp // Descend
+			currentSeg = nil
 
 		case SegKind:
 			seg, err := currentGrp.FindNthOccurrenceOfSeg(queryPart.Id, 0)
@@ -63,17 +64,23 @@ func (n *Navigator) Navigate(queryStr string, nestedMsg *msg.NestedMsg) (msgPart
 					queryPart.Index, queryPart.Id, numSegs))
 			}
 			nthSeg := seg.GetSeg(queryPart.Index)
-			//currentSeg = nthSeg
+			currentSeg = nthSeg
 			currentMsgPart = nthSeg
 
 		case CompositeDataElemKind:
-			panic("Not implemented")
-			// numDataElems := seg.Count()
-			// if queryPart.Index >= numDataElems {
-			// 	return nil, errors.New(fmt.Sprintf(
-			// 		"data element index %d out of range for segment %s (max: %d)",
-			// 		queryPart.Index, queryPart.Id, numSegs))
-			// }
+			//panic("Not implemented")
+			numDataElems := len(currentSeg.DataElems)
+			if queryPart.Index >= numDataElems {
+				return nil, errors.New(fmt.Sprintf(
+					"data element index %d out of range for segment %s (max: %d)",
+					queryPart.Index, queryPart.Id, numDataElems))
+			}
+
+			dataElem, err := currentSeg.GetDataElemById(queryPart.Id)
+			if err != nil {
+				return nil, err
+			}
+			currentMsgPart = dataElem
 
 		case SimpleDataElemKind:
 			panic("Not implemented")

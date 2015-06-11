@@ -51,15 +51,17 @@ var testNavSpecs = []struct {
 			assert.Equal(t, "1153", _1153.Id())
 		},
 	},
-	// {
-	// 	"Valid path for segment in group 1",
-	// 	"grp:Group_1[0]/seg:RFF[0]/cmp:C506[0]",
-	// 	func(t *testing.T, msgPart msg.NestedMsgPart, err error) {
-	// 		require.Nil(t, err)
-	// 		require.NotNil(t, msgPart)
-	// 		assert.Equal(t, "C506", msgPart.Id())
-	// 	},
-	// },
+	{
+		"Valid path for segment in group 1",
+		"grp:Group_1[0]/seg:RFF[0]/cmp:C506[0]",
+		func(t *testing.T, msgPart msg.NestedMsgPart, err error) {
+			require.Nil(t, err)
+			require.NotNil(t, msgPart)
+			assert.Equal(t, "C506", msgPart.Id())
+			_, ok := msgPart.(*msg.CompositeDataElem)
+			assert.True(t, ok)
+		},
+	},
 	{
 		"Incorrect segment index",
 		"seg:BGM[1]",
