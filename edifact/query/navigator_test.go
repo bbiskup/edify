@@ -81,6 +81,15 @@ var testNavSpecs = []struct {
 			require.NotNil(t, err)
 		},
 	},
+
+	{
+		"Non-existend composite element",
+		"grp:Group_1[0]/seg:RFF[0]/cmp:XXXX[0]/smp:1153",
+		func(t *testing.T, msgPart msg.NestedMsgPart, err error) {
+			require.NotNil(t, err)
+			require.Nil(t, msgPart)
+		},
+	},
 }
 
 func TestNavigatorNavigate(t *testing.T) {
