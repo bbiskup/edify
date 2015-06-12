@@ -9,8 +9,8 @@ import (
 	"strconv"
 )
 
-// - Validates a segment sequence according to edmd specs
-// - Constructs a valid NestedMsg
+// SegSeqValidator validates a segment sequence according to edmd specs and
+// constructs a valid NestedMsg.
 //
 // The validator is not thread-safe
 type SegSeqValidator struct {
@@ -41,7 +41,7 @@ func (v *SegSeqValidator) String() string {
 		v.msgSpec.Id, segStr)
 }
 
-// Remove a single segment from the list of segments
+// consumeSingle removes a single segment from the list of segments.
 func (v *SegSeqValidator) consumeSingle() {
 	// log.Printf("consumeSingle()")
 	if v.rawSegs == nil || len(v.rawSegs) == 0 {
@@ -50,8 +50,8 @@ func (v *SegSeqValidator) consumeSingle() {
 	v.rawSegs = v.rawSegs[1:]
 }
 
-// Remove the current segment from the list of segments under
-// validation
+// consumeMulti removes the current segment from the list of segments under
+// validation.
 func (v *SegSeqValidator) consumeMulti() {
 	// log.Printf("consumeMulti()")
 	if v.rawSegs == nil || len(v.rawSegs) == 0 {
@@ -70,8 +70,8 @@ func (v *SegSeqValidator) consumeMulti() {
 	v.rawSegs = v.rawSegs[cutIndex:]
 }
 
-// Returns the next segment of the message under validation
-// (if one exists) or panics
+// peek returns the next segment of the message under validation
+// (if one exists) or panics.
 func (v *SegSeqValidator) peek() []*rawmsg.RawSeg {
 	if v.segsExhausted() {
 		panic("No more segments")
@@ -89,8 +89,8 @@ func (v *SegSeqValidator) peek() []*rawmsg.RawSeg {
 	}
 }
 
-// Returns true if all segments of the message under validation
-// have been consumed
+// segsExhausted returns true if all segments of the message under validation
+// have been consumed.
 func (v *SegSeqValidator) segsExhausted() bool {
 	return len(v.rawSegs) == 0
 }
@@ -105,8 +105,8 @@ func (v *SegSeqValidator) hasRemainingMandatorySpecs(specIndex int, groupChildre
 	return false
 }
 
-// Validates segment groups recursively
-// while building nested message
+// validateGroup validates segment groups recursively
+// while building nested message.
 func (v *SegSeqValidator) validateGroup(
 	//context *SegSeqGroupContext,
 	curMsgSpecSegGrpPart *msp.MsgSpecSegGrpPart,
@@ -247,6 +247,9 @@ GROUPREPEAT:
 	return nil
 }
 
+// Validate validates the correctness of the sequence of segments, the correctness
+// of the segments themselves, and constructs a nested message that is
+// suitable for queries.
 func (v *SegSeqValidator) Validate(rawMsg *rawmsg.RawMsg) (nestedMsg *msg.NestedMsg, err error) {
 	if len(rawMsg.RawSegs) == 0 {
 		return nil, NewSegSeqError(noSegs, "")
