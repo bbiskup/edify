@@ -21,6 +21,18 @@ type QueryParser struct {
 	queryParts []*QueryPart
 }
 
+func NewQueryParser(queryStr string) (parser *QueryParser, err error) {
+	queryParts, err := parse(queryStr)
+	if err != nil {
+		return
+	}
+	parser = &QueryParser{
+		queryStr:   queryStr,
+		queryParts: queryParts,
+	}
+	return
+}
+
 func (p *QueryParser) String() string {
 	return fmt.Sprintf("Query: %s", p.queryStr)
 }
@@ -85,16 +97,4 @@ func parse(queryStr string) (queryParts []*QueryPart, err error) {
 		result = append(result, part)
 	}
 	return result, nil
-}
-
-func NewQueryParser(queryStr string) (parser *QueryParser, err error) {
-	queryParts, err := parse(queryStr)
-	if err != nil {
-		return
-	}
-	parser = &QueryParser{
-		queryStr:   queryStr,
-		queryParts: queryParts,
-	}
-	return
 }

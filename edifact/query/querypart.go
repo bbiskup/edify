@@ -25,6 +25,10 @@ type QueryPart struct {
 	Index    int
 }
 
+func NewQueryPart(kind ItemKind, id string, index int) *QueryPart {
+	return &QueryPart{kind, id, index}
+}
+
 func (q *QueryPart) itemKindStr() string {
 	switch q.ItemKind {
 	case MessageKind:
@@ -50,8 +54,4 @@ func (q *QueryPart) String() string {
 		indexPart = "*"
 	}
 	return fmt.Sprintf("QueryPart %s %s %s", q.itemKindStr(), q.Id, indexPart)
-}
-
-func NewQueryPart(kind ItemKind, id string, index int) *QueryPart {
-	return &QueryPart{kind, id, index}
 }

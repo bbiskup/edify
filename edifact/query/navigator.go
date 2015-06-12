@@ -16,6 +16,10 @@ type SimpleDataElemGetter interface {
 type Navigator struct {
 }
 
+func NewNavigator() *Navigator {
+	return &Navigator{}
+}
+
 // return segment, segment group or data element
 func (n *Navigator) Navigate(queryStr string, nestedMsg *msg.NestedMsg) (msgPart msg.NestedMsgPart, err error) {
 
@@ -147,8 +151,4 @@ func (n *Navigator) GetSegDataElem(queryStr string, message *msg.NestedMsg) (msg
 		return nil, errors.New(fmt.Sprintf("Unexpected type %T", dataElem))
 	}
 	return dataElem, nil
-}
-
-func NewNavigator() *Navigator {
-	return &Navigator{}
 }
