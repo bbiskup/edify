@@ -180,8 +180,6 @@ GROUPREPEAT:
 
 						newRepSeg := msg.NewRepSeg(seg)
 
-						// TODO: validate newly added segment
-
 						// log.Printf("@BUILD: Appending %s to %s", newRepSeg, segGrp)
 						segGrp.AppendRepSeg(newRepSeg)
 

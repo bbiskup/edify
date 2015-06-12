@@ -57,10 +57,10 @@ func IsNumChar(char rune) bool {
 }
 
 // A.1 alphabetic character set: A character set that contains
-//     letters and may contain control characters and special
-//     characters but not digits (ISO 2382/4)
+// letters and may contain control characters and special
+// characters but not digits (ISO 2382/4)
 func IsEDIFACTAlphabetic(char rune) bool {
-	// TODO restrictive enough?
+	// TODO Sufficiently restrictive
 	return !IsNumChar(char)
 }
 

@@ -134,7 +134,6 @@ func (v *SegValidatorImpl) validateDataElem(
 	// log.Printf("Validating data elem %s", dataElem)
 	// log.Printf("\tSpec: %s", dataElemSpec)
 
-	// TODO validate codes
 	switch dataElemSpec := dataElemSpec.(type) {
 	case *dsp.SimpleDataElemSpec:
 		simpleDataElem, err := v.validateSimpleDataElem(

@@ -7,7 +7,6 @@ import (
 )
 
 func TestSpecParser(t *testing.T) {
-	// TODO will fail; does not contain required keys
 	p := NewSimpleDataElemSpecParser(fixtureTextCodesSpecMap())
 	_, err := p.ParseSpecFile("../../../testdata/EDED.14B_short")
 	assert.Nil(t, err)
