@@ -454,6 +454,7 @@ func (p *MsgSpecParser) parseSpecDir_parallel(
 
 	var wg sync.WaitGroup
 
+	specs = MsgSpecMap{}
 	entries, err := ioutil.ReadDir(dirName)
 	if err != nil {
 		return nil, err
