@@ -11,7 +11,7 @@ const (
 	lenEllipsisStr = len(EllipsisStr)
 )
 
-// Split a string, respecting the specified EDIFACT escape character
+// SplitEDIFACT splits a string, respecting the specified EDIFACT escape character.
 func SplitEDIFACT(str string, sep rune, escapeChar rune) []string {
 	result := []string{}
 	isEscape := false
@@ -46,7 +46,8 @@ func SplitEDIFACT(str string, sep rune, escapeChar rune) []string {
 	return result
 }
 
-// Get indentation
+// GetIndent determines the indentation of str (i.e. the number of leading
+// spaces).
 func GetIndent(str string) int {
 	var i int
 	for _, c := range str {
@@ -58,7 +59,7 @@ func GetIndent(str string) int {
 	return i
 }
 
-// Splits array of lines by hanging indent
+// SplitByHangingIndent splits array of lines by hanging indent.
 func SplitByHangingIndent(lines []string, splitIndent int) [][]string {
 	result := [][]string{}
 	numLines := len(lines)
@@ -90,6 +91,8 @@ func SplitByHangingIndent(lines []string, splitIndent int) [][]string {
 	return result
 }
 
+// RemoveLeadingAndTrailingEmptyLines removes leading and trailing
+// empty lines. A line is considered empty if it has zero length.
 func RemoveLeadingAndTrailingEmptyLines(lines []string) []string {
 	if len(lines) == 0 {
 		return lines
@@ -108,6 +111,8 @@ func RemoveLeadingAndTrailingEmptyLines(lines []string) []string {
 	return lines
 }
 
+// SplitMultipleLinesByEmptyLines splits non-zero-length lines
+// at zero-length lines
 func SplitMultipleLinesByEmptyLines(lines []string) [][]string {
 	result := [][]string{}
 
@@ -128,7 +133,7 @@ func SplitMultipleLinesByEmptyLines(lines []string) [][]string {
 	return result
 }
 
-// Custom string for boolean value
+// CustBoolStr returns custom strings for boolean value.
 func CustBoolStr(value bool, trueStr string, falseStr string) string {
 	if value {
 		return trueStr
@@ -137,7 +142,7 @@ func CustBoolStr(value bool, trueStr string, falseStr string) string {
 	}
 }
 
-// Convert string into substring of specified max. length if too long
+// Ellipsis converts a string into substring of specified max. length if too long.
 func Ellipsis(str string, maxLen int) string {
 	lenStr := len(str)
 	if lenStr <= maxLen {
@@ -152,8 +157,8 @@ func Ellipsis(str string, maxLen int) string {
 	}
 }
 
-/* join lines indented beyond the specified base indent with the previous line
- */
+// JoinByHangingIndent joins lines indented beyond the specified base
+// indent with the previous line
 func JoinByHangingIndent(lines []string, baseIndent int, collapseSpaces bool) []string {
 	result := []string{}
 	current := []string{}
@@ -187,6 +192,8 @@ func JoinByHangingIndent(lines []string, baseIndent int, collapseSpaces bool) []
 	return result
 }
 
+// TrimWhiteSpaceAndJoin trims each string passed to it and then
+// joins the trimmed strings using joinStr
 func TrimWhiteSpaceAndJoin(lines []string, joinStr string) string {
 	trimmed := []string{}
 	for _, line := range lines {
@@ -195,6 +202,8 @@ func TrimWhiteSpaceAndJoin(lines []string, joinStr string) string {
 	return strings.Join(trimmed, joinStr)
 }
 
+// CheckNotNil returns nil if none of the passed values is nil,
+// otherwise an error
 func CheckNotNil(values ...interface{}) error {
 	for _, val := range values {
 		if val == nil {
@@ -204,12 +213,12 @@ func CheckNotNil(values ...interface{}) error {
 	return nil
 }
 
-// Avoids compiler errors for unused variables
+// Unused can be used to avoid compiler errors for unused variables
 func Unused(values ...interface{}) {
 
 }
 
-// Indentation for dumping messages
+// GetIndentStr creates an indentation strings (consisting of 'indent' spaces)
 func GetIndentStr(indent int) string {
 	return strings.Repeat("  ", indent)
 }
