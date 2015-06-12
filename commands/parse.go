@@ -35,14 +35,6 @@ func ParseFile(fileName string) error {
 	pathParts := strings.Split(fileName, string(os.PathSeparator))
 	filePart := pathParts[len(pathParts)-1]
 
-	/*if strings.HasPrefix(filePart, "EDED") {
-		return ParseSimpleDataElems(fileName)
-	}
-
-	if strings.HasPrefix(filePart, "EDCD") {
-		return ParseCompositeDataElems(fileName)
-	}*/
-
 	if strings.HasPrefix(filePart, "UNCL") {
 		_, err := ParseCodeList(fileName)
 		return err
@@ -50,30 +42,6 @@ func ParseFile(fileName string) error {
 
 	return errors.New(fmt.Sprintf("Unrecognized file: %s", fileName))
 }
-
-// func ParseSimpleDataElems(fileName string) error {
-// 	log.Printf("ParseSimpleDataElems %s\n", fileName)
-// 	p := dataelement.NewSimpleDataElemSpecParser()
-// 	specs, err := p.ParseSpecFile(fileName)
-// 	if err != nil {
-// 		return err
-// 	}
-// 	fmt.Printf("Found %d specs", len(specs))
-// 	fmt.Println("")
-// 	return nil
-// }
-
-// func ParseCompositeDataElems(fileName string) error {
-// 	log.Printf("ParseCompositeDataElems %s\n", fileName)
-// 	p := dataelement.NewCompositeDataElemSpecParser()
-// 	specs, err := p.ParseSpecFile(fileName)
-// 	if err != nil {
-// 		return err
-// 	}
-// 	fmt.Printf("Found %d specs", len(specs))
-// 	fmt.Println("")
-// 	return nil
-// }
 
 func ParseCodeList(fileName string) (csp.CodesSpecMap, error) {
 	log.Printf("ParseCodeList %s\n", fileName)
@@ -83,10 +51,6 @@ func ParseCodeList(fileName string) (csp.CodesSpecMap, error) {
 		return nil, err
 	}
 	fmt.Printf("Found %d specs", len(specs))
-	/*fmt.Printf("Specs:\n")
-	for _, spec := range specs {
-		fmt.Printf("\t%s\n", spec)
-	}*/
 	fmt.Println("")
 	return specs, nil
 }
