@@ -12,6 +12,21 @@ type MsgSpecSegGrpPart struct {
 	children []MsgSpecPart
 }
 
+func NewMsgSpecSegGrpPart(
+	name string, children []MsgSpecPart,
+	maxCount int, isMandatory bool, parent MsgSpecPart) *MsgSpecSegGrpPart {
+
+	return &MsgSpecSegGrpPart{
+		MsgSpecPartBase{
+			maxCount:    maxCount,
+			isMandatory: isMandatory,
+			parent:      parent,
+		},
+		name,
+		children,
+	}
+}
+
 func (p *MsgSpecSegGrpPart) Id() string {
 	return p.children[0].Id()
 }
@@ -52,20 +67,5 @@ func (p *MsgSpecSegGrpPart) TriggerSegPart() *MsgSpecSegPart {
 		return triggerSegPart
 	} else {
 		return nil
-	}
-}
-
-func NewMsgSpecSegGrpPart(
-	name string, children []MsgSpecPart,
-	maxCount int, isMandatory bool, parent MsgSpecPart) *MsgSpecSegGrpPart {
-
-	return &MsgSpecSegGrpPart{
-		MsgSpecPartBase{
-			maxCount:    maxCount,
-			isMandatory: isMandatory,
-			parent:      parent,
-		},
-		name,
-		children,
 	}
 }

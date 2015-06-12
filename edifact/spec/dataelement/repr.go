@@ -23,6 +23,14 @@ type Repr struct {
 	Max   uint32
 }
 
+func NewRepr(typ ReprType, range_ bool, max_ uint32) *Repr {
+	return &Repr{
+		Typ:   typ,
+		Range: range_,
+		Max:   max_,
+	}
+}
+
 func (r *Repr) String() string {
 	var typeStr string
 	switch r.Typ {
@@ -89,14 +97,6 @@ func (r *Repr) Validate(dataElemStr string) (valid bool, err error) {
 		}
 	}
 	return true, nil
-}
-
-func NewRepr(typ ReprType, range_ bool, max_ uint32) *Repr {
-	return &Repr{
-		Typ:   typ,
-		Range: range_,
-		Max:   max_,
-	}
 }
 
 func ParseRepr(elemStr string) (*Repr, error) {

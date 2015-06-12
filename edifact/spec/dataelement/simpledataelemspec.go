@@ -16,20 +16,6 @@ type SimpleDataElemSpec struct {
 	CodesSpecs *csp.CodesSpec
 }
 
-func (s *SimpleDataElemSpec) String() string {
-	return fmt.Sprintf("SimpleDataElemSpec: %s '%s' [%s]", s.id, s.name, s.Repr)
-}
-
-// from interface DataElemSpec
-func (s *SimpleDataElemSpec) Id() string {
-	return s.id
-}
-
-// from interface DataElemSpec
-func (s *SimpleDataElemSpec) Name() string {
-	return s.name
-}
-
 func NewSimpleDataElemSpec(id string, name string, descr string, repr *Repr, codes *csp.CodesSpec) (*SimpleDataElemSpec, error) {
 	err := util.CheckNotNil(id, name, descr, repr, codes)
 	if err != nil {
@@ -42,6 +28,20 @@ func NewSimpleDataElemSpec(id string, name string, descr string, repr *Repr, cod
 		Repr:       repr,
 		CodesSpecs: codes,
 	}, nil
+}
+
+func (s *SimpleDataElemSpec) String() string {
+	return fmt.Sprintf("SimpleDataElemSpec: %s '%s' [%s]", s.id, s.name, s.Repr)
+}
+
+// from interface DataElemSpec
+func (s *SimpleDataElemSpec) Id() string {
+	return s.id
+}
+
+// from interface DataElemSpec
+func (s *SimpleDataElemSpec) Name() string {
+	return s.name
 }
 
 type SimpleDataElemSpecMap map[string]*SimpleDataElemSpec

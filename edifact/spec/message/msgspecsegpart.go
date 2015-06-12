@@ -12,6 +12,20 @@ type MsgSpecSegPart struct {
 	SegSpec *ssp.SegSpec
 }
 
+func NewMsgSpecSegPart(
+	segSpec *ssp.SegSpec,
+	maxCount int, isMandatory bool, parent MsgSpecPart) *MsgSpecSegPart {
+
+	return &MsgSpecSegPart{
+		MsgSpecPartBase{
+			maxCount:    maxCount,
+			isMandatory: isMandatory,
+			parent:      parent,
+		},
+		segSpec,
+	}
+}
+
 func (p *MsgSpecSegPart) Id() string {
 	return p.SegSpec.Id
 }
@@ -27,18 +41,4 @@ func (p *MsgSpecSegPart) String() string {
 
 func (p *MsgSpecSegPart) IsGroup() bool {
 	return false
-}
-
-func NewMsgSpecSegPart(
-	segSpec *ssp.SegSpec,
-	maxCount int, isMandatory bool, parent MsgSpecPart) *MsgSpecSegPart {
-
-	return &MsgSpecSegPart{
-		MsgSpecPartBase{
-			maxCount:    maxCount,
-			isMandatory: isMandatory,
-			parent:      parent,
-		},
-		segSpec,
-	}
 }

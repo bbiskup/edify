@@ -13,6 +13,14 @@ type ComponentDataElemSpec struct {
 	SimpleDataElemSpec *SimpleDataElemSpec
 }
 
+func NewComponentDataElemSpec(position int, isMandatory bool, simpleDataElemSpec *SimpleDataElemSpec) *ComponentDataElemSpec {
+	return &ComponentDataElemSpec{
+		Position:           position,
+		IsMandatory:        isMandatory,
+		SimpleDataElemSpec: simpleDataElemSpec,
+	}
+}
+
 func (s *ComponentDataElemSpec) Id() string {
 	return s.SimpleDataElemSpec.Id()
 }
@@ -23,12 +31,4 @@ func (s *ComponentDataElemSpec) String() string {
 		"Component %s/%s @ %d (%s)",
 		s.SimpleDataElemSpec.Id(), s.SimpleDataElemSpec.Name(),
 		s.Position, isMandatoryStr)
-}
-
-func NewComponentDataElemSpec(position int, isMandatory bool, simpleDataElemSpec *SimpleDataElemSpec) *ComponentDataElemSpec {
-	return &ComponentDataElemSpec{
-		Position:           position,
-		IsMandatory:        isMandatory,
-		SimpleDataElemSpec: simpleDataElemSpec,
-	}
 }

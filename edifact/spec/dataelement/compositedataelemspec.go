@@ -18,6 +18,15 @@ type CompositeDataElemSpec struct {
 	ComponentSpecs []*ComponentDataElemSpec
 }
 
+func (m CompositeDataElemSpecMap) String() string {
+	var result bytes.Buffer
+	result.WriteString("CompositeDataElemSpecMap\n")
+	for id, spec := range m {
+		result.WriteString(fmt.Sprintf("\t%-8s: %s\n", id, spec))
+	}
+	return result.String()
+}
+
 // from interface DataElemSpec
 func (s *CompositeDataElemSpec) Id() string {
 	return s.id
@@ -53,21 +62,3 @@ func NewCompositeDataElemSpec(
 }
 
 type CompositeDataElemSpecMap map[string]*CompositeDataElemSpec
-
-/*
-func (sm CompositeDataElemSpecMap) String() string {
-	result := []string{}
-	for key, value := range sm {
-		result = append(result, fmt.Sprintf("%s: %s", key, value))
-	}
-	return strings.Join(result, ", ")
-}*/
-
-func (m CompositeDataElemSpecMap) String() string {
-	var result bytes.Buffer
-	result.WriteString("CompositeDataElemSpecMap\n")
-	for id, spec := range m {
-		result.WriteString(fmt.Sprintf("\t%-8s: %s\n", id, spec))
-	}
-	return result.String()
-}

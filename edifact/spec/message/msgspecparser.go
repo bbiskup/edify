@@ -47,36 +47,16 @@ var (
 	// "               statistics                            C   1                |"
 )
 
-type SegGrpStart struct {
-	RecordNum    int
-	GroupNum     int
-	IsMandatory  bool
-	MaxCount     int
-	NestingLevel int
-}
-
-type SegEntry struct {
-	RecordNum   int
-	SegId       string
-	SegName     string
-	IsMandatory bool
-	MaxCount    int
-
-	// Nesting level _after_ this segment entry
-	// A segment entry might close multiple groups simultaneously.
-	NestingLevel int
-}
-
-// Used for parallel parsing of segment specs
-type FileSpec struct {
-	fileName string
-	contents string
-}
-
 // Parser for message specifications
 // e.g. d14b/edmd/AUTHOR_D.14B
 type MsgSpecParser struct {
 	segSpecs ssp.SegSpecProvider
+}
+
+func NewMsgSpecParser(segSpecs ssp.SegSpecProvider) *MsgSpecParser {
+	return &MsgSpecParser{
+		segSpecs: segSpecs,
+	}
 }
 
 func (p *MsgSpecParser) parseDate(dateStr string) (date time.Time, err error) {
@@ -548,10 +528,4 @@ func (p *MsgSpecParser) parseSpecDir_parallel(
 	close(resultsCh)
 	wg.Wait()
 	return
-}
-
-func NewMsgSpecParser(segSpecs ssp.SegSpecProvider) *MsgSpecParser {
-	return &MsgSpecParser{
-		segSpecs: segSpecs,
-	}
 }

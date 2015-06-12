@@ -28,6 +28,14 @@ type SimpleDataElemSpecParser struct {
 	numLineRE  *regexp.Regexp
 }
 
+func NewSimpleDataElemSpecParser(codesSpecs csp.CodesSpecMap) *SimpleDataElemSpecParser {
+	return &SimpleDataElemSpecParser{
+		codesSpecs: codesSpecs,
+		numLineRE: regexp.MustCompile(
+			`^[ ]{4}(\d{4})[ ]+(.*)(\[[BIC]\])$`),
+	}
+}
+
 // Get data element spec number
 func (p *SimpleDataElemSpecParser) getIdAndName(specLinesSections [][]string) (id string, name string, err error) {
 	numSection := specLinesSections[0]
@@ -120,12 +128,4 @@ func (p *SimpleDataElemSpecParser) ParseSpecFile(fileName string) (specs SimpleD
 
 	err = specutil.ParseSpecFile(fileName, parseSection)
 	return result, err
-}
-
-func NewSimpleDataElemSpecParser(codesSpecs csp.CodesSpecMap) *SimpleDataElemSpecParser {
-	return &SimpleDataElemSpecParser{
-		codesSpecs: codesSpecs,
-		numLineRE: regexp.MustCompile(
-			`^[ ]{4}(\d{4})[ ]+(.*)(\[[BIC]\])$`),
-	}
 }

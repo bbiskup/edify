@@ -25,6 +25,21 @@ type MsgSpec struct {
 	TopLevelGroup *MsgSpecSegGrpPart
 }
 
+func NewMsgSpec(
+	id string, name string,
+	version string, release string, contrAgency string,
+	revision string, date time.Time, source string,
+	parts []MsgSpecPart) *MsgSpec {
+
+	return &MsgSpec{
+		Id: id, Name: name,
+		Version: version, Release: release, ContrAgency: contrAgency,
+		Revision: revision, Date: date, Source: source,
+		TopLevelGroup: NewMsgSpecSegGrpPart(
+			TopLevelSegGroupName, parts, 1, true, nil),
+	}
+}
+
 type MsgSpecs []*MsgSpec
 type MsgSpecMap map[string]*MsgSpec
 
@@ -83,19 +98,4 @@ func (m MsgSpecs) Less(i, j int) bool {
 // from sort.Interface
 func (m MsgSpecs) Swap(i, j int) {
 	m[i], m[j] = m[j], m[i]
-}
-
-func NewMsgSpec(
-	id string, name string,
-	version string, release string, contrAgency string,
-	revision string, date time.Time, source string,
-	parts []MsgSpecPart) *MsgSpec {
-
-	return &MsgSpec{
-		Id: id, Name: name,
-		Version: version, Release: release, ContrAgency: contrAgency,
-		Revision: revision, Date: date, Source: source,
-		TopLevelGroup: NewMsgSpecSegGrpPart(
-			TopLevelSegGroupName, parts, 1, true, nil),
-	}
 }

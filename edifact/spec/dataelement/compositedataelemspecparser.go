@@ -18,6 +18,20 @@ type CompositeDataElemSpecParser struct {
 	componentElemRE     *regexp.Regexp
 }
 
+func NewCompositeDataElemSpecParser(simpleDataElemSpecs SimpleDataElemSpecMap) *CompositeDataElemSpecParser {
+	// TODO account for change indicators?
+	return &CompositeDataElemSpecParser{
+		// We ignore the repr spec (already available via simple data element specs)
+
+		simpleDataElemSpecs: simpleDataElemSpecs,
+
+		headerRE: regexp.MustCompile(`^[ ]{7}(C[0-9]{3}) ([A-Z/& -]+) *$`),
+		// OBSOLETE componentElemRE: regexp.MustCompile(`^[ ]{7}(\d{4})  ([A-Za-z ]{41}) ([CM]) .+$`),
+		componentElemRE: regexp.MustCompile(
+			`^([0-9]{3})[ ]{4}([0-9]{4})  [A-Za-z- ()]+ ([CM]) .+$`),
+	}
+}
+
 //Parse a line of the form
 //    010    3148  Communication address identifier          M      an..512
 func (p *CompositeDataElemSpecParser) ParseComponentDataElemSpec(specLine string) (spec *ComponentDataElemSpec, err error) {
@@ -217,18 +231,4 @@ func (p *CompositeDataElemSpecParser) ParseSpecFile(fileName string) (specs Comp
 	err = specutil.ParseSpecFile(fileName, parseSection)
 
 	return result, err
-}
-
-func NewCompositeDataElemSpecParser(simpleDataElemSpecs SimpleDataElemSpecMap) *CompositeDataElemSpecParser {
-	// TODO account for change indicators?
-	return &CompositeDataElemSpecParser{
-		// We ignore the repr spec (already available via simple data element specs)
-
-		simpleDataElemSpecs: simpleDataElemSpecs,
-
-		headerRE: regexp.MustCompile(`^[ ]{7}(C[0-9]{3}) ([A-Z/& -]+) *$`),
-		// OBSOLETE componentElemRE: regexp.MustCompile(`^[ ]{7}(\d{4})  ([A-Za-z ]{41}) ([CM]) .+$`),
-		componentElemRE: regexp.MustCompile(
-			`^([0-9]{3})[ ]{4}([0-9]{4})  [A-Za-z- ()]+ ([CM]) .+$`),
-	}
 }
