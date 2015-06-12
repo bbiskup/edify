@@ -12,6 +12,10 @@ type RawDataElem struct {
 	Values []string
 }
 
+func NewRawDataElem(values []string) *RawDataElem {
+	return &RawDataElem{values}
+}
+
 func (e *RawDataElem) IsSimple() bool {
 	return len(e.Values) == 1
 }
@@ -26,8 +30,4 @@ func (e *RawDataElem) buildComponentStr() string {
 
 func (e *RawDataElem) String() string {
 	return fmt.Sprintf("RawDataElem %s", e.buildComponentStr())
-}
-
-func NewRawDataElem(values []string) *RawDataElem {
-	return &RawDataElem{values}
 }

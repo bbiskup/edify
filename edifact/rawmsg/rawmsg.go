@@ -15,6 +15,10 @@ type RawMsg struct {
 	RawSegs []*RawSeg
 }
 
+func NewRawMsg(id string, rawSegs []*RawSeg) *RawMsg {
+	return &RawMsg{id, rawSegs}
+}
+
 func (m *RawMsg) String() string {
 	var buf bytes.Buffer
 	for _, s := range m.RawSegs {
@@ -41,8 +45,4 @@ func (m *RawMsg) RawSegIds() []string {
 		result = append(result, rawSeg.Id())
 	}
 	return result
-}
-
-func NewRawMsg(id string, rawSegs []*RawSeg) *RawMsg {
-	return &RawMsg{id, rawSegs}
 }

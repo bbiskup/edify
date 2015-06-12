@@ -11,6 +11,10 @@ type RawSeg struct {
 	Elems []*RawDataElem
 }
 
+func NewRawSeg(id string) *RawSeg {
+	return &RawSeg{id, []*RawDataElem{}}
+}
+
 // From interface SegOrGroup
 func (g *RawSeg) Id() string {
 	return g.id
@@ -35,8 +39,4 @@ func (s *RawSeg) AddElems(elements []*RawDataElem) {
 func (s *RawSeg) Dump(indent int) string {
 	indentStr := util.GetIndentStr(indent)
 	return fmt.Sprintf("%sRawSeg %s\n", indentStr, s.Id())
-}
-
-func NewRawSeg(id string) *RawSeg {
-	return &RawSeg{id, []*RawDataElem{}}
 }
