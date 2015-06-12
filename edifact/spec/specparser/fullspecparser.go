@@ -20,6 +20,10 @@ type FullSpecParser struct {
 	Dir     string
 }
 
+func NewFullSpecParser(version string, dir string) (*FullSpecParser, error) {
+	return &FullSpecParser{version, dir}, nil
+}
+
 func (p *FullSpecParser) getPath(subDir string, filePrefix string) string {
 	return strings.Join([]string{
 		p.Dir, subDir, fmt.Sprintf("%s.%s", filePrefix, p.Version),
@@ -143,8 +147,4 @@ func (p *FullSpecParser) Parse() error {
 
 	log.Printf("Parsed %d message specs", len(msgSpecs))
 	return err
-}
-
-func NewFullSpecParser(version string, dir string) (*FullSpecParser, error) {
-	return &FullSpecParser{version, dir}, nil
 }

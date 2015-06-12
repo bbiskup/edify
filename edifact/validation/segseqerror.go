@@ -22,13 +22,13 @@ type SegSeqError struct {
 	message string
 }
 
-func (e SegSeqError) Error() string {
-	return fmt.Sprintf("%s: %s", e.kind, e.message)
-}
-
 func NewSegSeqError(kind SegSeqErrKind, message string) SegSeqError {
 	if message == "" {
 		message = string(kind)
 	}
 	return SegSeqError{kind, message}
+}
+
+func (e SegSeqError) Error() string {
+	return fmt.Sprintf("%s: %s", e.kind, e.message)
 }

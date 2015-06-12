@@ -21,6 +21,18 @@ type SpecScanner struct {
 	HeaderLines []string
 }
 
+// Creates a new spec scanner, given a file name
+func NewSpecScanner(fileName string) (*SpecScanner, error) {
+	file, err := os.Open(fileName)
+	if err != nil {
+		return nil, err
+	}
+
+	result, err := NewSpecScannerFromReader(bufio.NewReader(file))
+	runtime.SetFinalizer(result, finalizer)
+	return result, err
+}
+
 func (s *SpecScanner) Err() error {
 	if s != nil {
 		return s.scanner.Err()
@@ -86,18 +98,6 @@ func (s *SpecScanner) GetAllSpecLines(skipEmptyLines bool) (linesGroups [][]stri
 		result = append(result, specLines)
 	}
 	return result, nil
-}
-
-// Creates a new spec scanner, given a file name
-func NewSpecScanner(fileName string) (*SpecScanner, error) {
-	file, err := os.Open(fileName)
-	if err != nil {
-		return nil, err
-	}
-
-	result, err := NewSpecScannerFromReader(bufio.NewReader(file))
-	runtime.SetFinalizer(result, finalizer)
-	return result, err
 }
 
 // Create a scanner from a provided reader (e.g. for testing)

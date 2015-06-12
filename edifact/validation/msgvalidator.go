@@ -51,6 +51,10 @@ type MsgValidator struct {
 	segValidator SegValidator
 }
 
+func NewMsgValidator(msgSpecs msp.MsgSpecMap, segSpecProvider ssp.SegSpecProvider) *MsgValidator {
+	return &MsgValidator{msgSpecs, segSpecProvider, NewSegValidatorImpl(segSpecProvider)}
+}
+
 func (v *MsgValidator) MsgSpecCount() int {
 	return len(v.msgSpecs)
 }
@@ -107,10 +111,6 @@ func (v *MsgValidator) Validate(rawMsg *rawmsg.RawMsg) (nestedMsg *msg.NestedMsg
 	}
 	segSeqValidator := NewSegSeqValidator(msgSpec, v.segValidator)
 	return segSeqValidator.Validate(rawMsg)
-}
-
-func NewMsgValidator(msgSpecs msp.MsgSpecMap, segSpecProvider ssp.SegSpecProvider) *MsgValidator {
-	return &MsgValidator{msgSpecs, segSpecProvider, NewSegValidatorImpl(segSpecProvider)}
 }
 
 // Returns a message validator with all necessary spec validator

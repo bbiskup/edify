@@ -19,6 +19,10 @@ type SegValidatorImpl struct {
 	segSpecProvider ssp.SegSpecProvider
 }
 
+func NewSegValidatorImpl(segSpecProvider ssp.SegSpecProvider) *SegValidatorImpl {
+	return &SegValidatorImpl{segSpecProvider: segSpecProvider}
+}
+
 // Checks data elements for correctness and constructs a (validated) Seg
 func (v *SegValidatorImpl) Validate(rawSeg *rawmsg.RawSeg) (*msg.Seg, error) {
 	segID := rawSeg.Id()
@@ -168,8 +172,4 @@ func (v *SegValidatorImpl) validateDataElem(
 	default:
 		panic("Invalid type")
 	}
-}
-
-func NewSegValidatorImpl(segSpecProvider ssp.SegSpecProvider) *SegValidatorImpl {
-	return &SegValidatorImpl{segSpecProvider: segSpecProvider}
 }

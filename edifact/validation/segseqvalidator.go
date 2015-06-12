@@ -21,6 +21,15 @@ type SegSeqValidator struct {
 	segValidator SegValidator
 }
 
+func NewSegSeqValidator(msgSpec *msp.MsgSpec, segValidator SegValidator) *SegSeqValidator {
+	return &SegSeqValidator{
+		rawSegs:      nil,
+		rawMsg:       nil,
+		msgSpec:      msgSpec,
+		segValidator: segValidator,
+	}
+}
+
 func (v *SegSeqValidator) String() string {
 	var segStr string
 	if v.rawSegs != nil {
@@ -256,14 +265,5 @@ func (v *SegSeqValidator) Validate(rawMsg *rawmsg.RawMsg) (nestedMsg *msg.Nested
 		return nil, err
 	} else {
 		return nestedMsg, nil
-	}
-}
-
-func NewSegSeqValidator(msgSpec *msp.MsgSpec, segValidator SegValidator) *SegSeqValidator {
-	return &SegSeqValidator{
-		rawSegs:      nil,
-		rawMsg:       nil,
-		msgSpec:      msgSpec,
-		segValidator: segValidator,
 	}
 }
