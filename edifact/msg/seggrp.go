@@ -8,17 +8,17 @@ import (
 )
 
 // Map for looking up parts of a group by Id
-type SegGrpMap map[string]RepeatMsgPart
+type SegGrpMap map[string]RepMsgPart
 
 // A group of segments. Groups are not identified during message parsing,
 // but during validation, when message specification is available
 type SegGrp struct {
 	id      string
-	parts   []RepeatMsgPart
+	parts   []RepMsgPart
 	partMap SegGrpMap
 }
 
-func NewSegGrp(id string, parts ...RepeatMsgPart) *SegGrp {
+func NewSegGrp(id string, parts ...RepMsgPart) *SegGrp {
 	segGrpMap := make(SegGrpMap, len(parts))
 	for _, part := range parts {
 		segGrpMap[part.Id()] = part
@@ -39,7 +39,7 @@ func (g *SegGrp) IsTopLevel() bool {
 	return g.Id() == msp.TopLevelSegGroupName
 }
 
-func (g *SegGrp) GetPartByKey(key string) RepeatMsgPart {
+func (g *SegGrp) GetPartByKey(key string) RepMsgPart {
 	return g.partMap[key]
 }
 
@@ -49,7 +49,7 @@ func (g *SegGrp) Contains(key string) bool {
 }
 
 // get n-th element
-func (g *SegGrp) GetPart(index int) RepeatMsgPart {
+func (g *SegGrp) GetPart(index int) RepMsgPart {
 	return g.parts[index]
 }
 

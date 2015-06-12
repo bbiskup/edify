@@ -24,7 +24,7 @@ type NestedMsg struct {
 	TopLevelRepGrp *RepSegGrp
 }
 
-func NewNestedMsg(name string, parts ...RepeatMsgPart) *NestedMsg {
+func NewNestedMsg(name string, parts ...RepMsgPart) *NestedMsg {
 	topLevelGroup := NewSegGrp(msp.TopLevelSegGroupName, parts...)
 	return &NestedMsg{
 		Name:           name,

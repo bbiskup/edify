@@ -16,7 +16,7 @@ func (s *RepSeg) String() string {
 	return fmt.Sprintf("RepSeg %s (%dx)", s.Id(), s.Count())
 }
 
-// From Interface RepeatMsgPart
+// From Interface RepMsgPart
 func (s *RepSeg) Count() int {
 	return len(s.segments)
 }

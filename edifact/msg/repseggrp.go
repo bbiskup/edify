@@ -21,7 +21,7 @@ func NewRepSegGrp(triggerSegId string, groups ...*SegGrp) *RepSegGrp {
 	}
 }
 
-// From Interface RepeatMsgPart
+// From Interface RepMsgPart
 func (g *RepSegGrp) Count() int {
 	return len(g.groups)
 }

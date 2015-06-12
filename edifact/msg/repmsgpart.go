@@ -1,6 +1,6 @@
 package msg
 
-type RepeatMsgPart interface {
+type RepMsgPart interface {
 	MsgDumper
 	Count() int
 	Id() string
