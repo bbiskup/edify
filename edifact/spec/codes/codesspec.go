@@ -17,6 +17,20 @@ type CodesSpec struct {
 	codeSpecMap CodeSpecMap
 }
 
+func NewCodesSpec(id string, name string, description string, codeSpecs []*CodeSpec) *CodesSpec {
+	codeSpecMap := CodeSpecMap{}
+	for _, codeSpec := range codeSpecs {
+		codeSpecMap[codeSpec.Id] = codeSpec
+	}
+
+	return &CodesSpec{
+		Id:          id,
+		Name:        name,
+		Description: description,
+		codeSpecMap: codeSpecMap,
+	}
+}
+
 type CodesSpecMap map[string]*CodesSpec
 
 func (s *CodesSpec) Contains(code string) bool {
@@ -48,19 +62,5 @@ func (s *CodesSpec) Len() int {
 		return 0
 	} else {
 		return len(s.codeSpecMap)
-	}
-}
-
-func NewCodesSpec(id string, name string, description string, codeSpecs []*CodeSpec) *CodesSpec {
-	codeSpecMap := CodeSpecMap{}
-	for _, codeSpec := range codeSpecs {
-		codeSpecMap[codeSpec.Id] = codeSpec
-	}
-
-	return &CodesSpec{
-		Id:          id,
-		Name:        name,
-		Description: description,
-		codeSpecMap: codeSpecMap,
 	}
 }

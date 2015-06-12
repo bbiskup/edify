@@ -16,6 +16,13 @@ type CodesSpecParser struct {
 	codesHeaderRE *regexp.Regexp
 }
 
+func NewCodesSpecParser() *CodesSpecParser {
+	return &CodesSpecParser{
+		codeHeaderRE:  regexp.MustCompile(`^.[ ]{4}(.{1,3})[ ]+(.*) *$`),
+		codesHeaderRE: regexp.MustCompile(`^([0-9]{4})  (.+) (\[[BIC]\]) *$`),
+	}
+}
+
 //  Parse a header of the form:
 //
 //     1073  Document line action code                               [B]
@@ -193,11 +200,4 @@ func (p *CodesSpecParser) ParseSpecFile(fileName string) (specs CodesSpecMap, er
 	err = specutil.ParseSpecFile(fileName, parseSection)
 
 	return result, err
-}
-
-func NewCodesSpecParser() *CodesSpecParser {
-	return &CodesSpecParser{
-		codeHeaderRE:  regexp.MustCompile(`^.[ ]{4}(.{1,3})[ ]+(.*) *$`),
-		codesHeaderRE: regexp.MustCompile(`^([0-9]{4})  (.+) (\[[BIC]\]) *$`),
-	}
 }
