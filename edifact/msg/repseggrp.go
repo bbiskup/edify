@@ -13,6 +13,14 @@ type RepSegGrp struct {
 	groups       []*SegGrp
 }
 
+func NewRepSegGrp(triggerSegId string, groups ...*SegGrp) *RepSegGrp {
+	checkGroupIdConsistency(triggerSegId, groups...)
+	return &RepSegGrp{
+		triggerSegId,
+		groups,
+	}
+}
+
 // From Interface RepeatMsgPart
 func (g *RepSegGrp) Count() int {
 	return len(g.groups)
@@ -66,13 +74,5 @@ func checkGroupIdConsistency(triggerSegId string, groups ...*SegGrp) {
 			panic(fmt.Sprintf("Inconsistent IDs: should be %s; got: %s",
 				triggerSegId, groupID))
 		}
-	}
-}
-
-func NewRepSegGrp(triggerSegId string, groups ...*SegGrp) *RepSegGrp {
-	checkGroupIdConsistency(triggerSegId, groups...)
-	return &RepSegGrp{
-		triggerSegId,
-		groups,
 	}
 }

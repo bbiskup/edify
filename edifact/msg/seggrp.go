@@ -18,6 +18,14 @@ type SegGrp struct {
 	partMap SegGrpMap
 }
 
+func NewSegGrp(id string, parts ...RepeatMsgPart) *SegGrp {
+	segGrpMap := make(SegGrpMap, len(parts))
+	for _, part := range parts {
+		segGrpMap[part.Id()] = part
+	}
+	return &SegGrp{id, parts, segGrpMap}
+}
+
 // From interface SegOrGroup
 func (g *SegGrp) Id() string {
 	return g.id
@@ -53,14 +61,6 @@ func (g *SegGrp) AppendRepSeg(repSeg *RepSeg) {
 func (g *SegGrp) AppendRepSegGrp(repSegGrp *RepSegGrp) {
 	g.partMap[repSegGrp.Id()] = repSegGrp
 	g.parts = append(g.parts, repSegGrp)
-}
-
-func NewSegGrp(id string, parts ...RepeatMsgPart) *SegGrp {
-	segGrpMap := make(SegGrpMap, len(parts))
-	for _, part := range parts {
-		segGrpMap[part.Id()] = part
-	}
-	return &SegGrp{id, parts, segGrpMap}
 }
 
 func (g *SegGrp) FindNthOccurrenceOfSeg(segID string, occ int) (repSeg *RepSeg, err error) {

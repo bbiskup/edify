@@ -11,6 +11,13 @@ type Seg struct {
 	DataElems []DataElem
 }
 
+func NewSeg(id string, dataElems ...DataElem) *Seg {
+	return &Seg{
+		id:        id,
+		DataElems: dataElems,
+	}
+}
+
 func (s *Seg) Id() string {
 	return s.id
 }
@@ -57,11 +64,4 @@ func (s *Seg) GetSimpleDataElemById(dataElemId string) (*SimpleDataElem, error) 
 
 func (s *Seg) String() string {
 	return fmt.Sprintf("Seg %s (%d data elems)", s.id, len(s.DataElems))
-}
-
-func NewSeg(id string, dataElems ...DataElem) *Seg {
-	return &Seg{
-		id:        id,
-		DataElems: dataElems,
-	}
 }

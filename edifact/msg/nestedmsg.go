@@ -24,6 +24,13 @@ type NestedMsg struct {
 	TopLevelRepGrp *RepSegGrp
 }
 
+func NewNestedMsg(name string, parts ...RepeatMsgPart) *NestedMsg {
+	topLevelGroup := NewSegGrp(msp.TopLevelSegGroupName, parts...)
+	return &NestedMsg{
+		Name:           name,
+		TopLevelRepGrp: NewRepSegGrp(topLevelGroup.Id(), topLevelGroup)}
+}
+
 func (m *NestedMsg) String() string {
 	return fmt.Sprintf("NestedMsg %s (%d 1st-level parts)",
 		m.Name, m.Count())
@@ -48,11 +55,4 @@ func (m *NestedMsg) Dump() string {
 		"Message %s\n%s", m.Name, m.TopLevelRepGrp.Dump(1)))
 	buf.WriteString("\n")
 	return buf.String()
-}
-
-func NewNestedMsg(name string, parts ...RepeatMsgPart) *NestedMsg {
-	topLevelGroup := NewSegGrp(msp.TopLevelSegGroupName, parts...)
-	return &NestedMsg{
-		Name:           name,
-		TopLevelRepGrp: NewRepSegGrp(topLevelGroup.Id(), topLevelGroup)}
 }

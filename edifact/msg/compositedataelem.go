@@ -11,6 +11,13 @@ type CompositeDataElem struct {
 	SimpleDataElems []*SimpleDataElem
 }
 
+func NewCompositeDataElem(id string, simpleDataElems ...*SimpleDataElem) *CompositeDataElem {
+	return &CompositeDataElem{
+		id:              id,
+		SimpleDataElems: simpleDataElems,
+	}
+}
+
 func (e *CompositeDataElem) Id() string {
 	return e.id
 }
@@ -27,11 +34,4 @@ func (s *CompositeDataElem) GetSimpleDataElemById(dataElemId string) (*SimpleDat
 
 func (e *CompositeDataElem) String() string {
 	return fmt.Sprintf("CompositeDataElem %s (%d simple data elems)", e.id, len(e.SimpleDataElems))
-}
-
-func NewCompositeDataElem(id string, simpleDataElems ...*SimpleDataElem) *CompositeDataElem {
-	return &CompositeDataElem{
-		id:              id,
-		SimpleDataElems: simpleDataElems,
-	}
 }
