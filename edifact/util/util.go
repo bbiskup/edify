@@ -1,3 +1,4 @@
+// Package util provides miscellaneous utilities for handling EDIFACT data
 package util
 
 import (
@@ -9,8 +10,6 @@ const (
 	EllipsisStr    = "..."
 	lenEllipsisStr = len(EllipsisStr)
 )
-
-// Parser utilities
 
 // Split a string, respecting the specified EDIFACT escape character
 func SplitEDIFACT(str string, sep rune, escapeChar rune) []string {

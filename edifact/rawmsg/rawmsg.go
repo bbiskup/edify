@@ -1,3 +1,6 @@
+// Package rawmessage contains building blocks for unvalidated messages.
+// Univalidated messages result from parsing purely by syntax, i.e. without
+// using an EDIFACT message/segment/data element/code specification.
 package rawmsg
 
 import (
