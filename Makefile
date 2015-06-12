@@ -57,3 +57,7 @@ structcheck:
 
 varchack:
 	vearcheck ./...
+
+clean:
+	go clean ./...
+	git clean -f -d
