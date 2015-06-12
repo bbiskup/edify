@@ -14,11 +14,6 @@ type SegDataElemSpec struct {
 	IsMandatory  bool
 }
 
-func (e *SegDataElemSpec) String() string {
-	mandatoryStr := util.CustBoolStr(e.IsMandatory, "mand.", "cond.")
-	return fmt.Sprintf("SegDataElem %s %dx %s", e.DataElemSpec.Id(), e.Count, mandatoryStr)
-}
-
 func NewSegDataElemSpec(
 	dataElemSpec dsp.DataElemSpec, count int, isMandatory bool) *SegDataElemSpec {
 	return &SegDataElemSpec{
@@ -26,4 +21,9 @@ func NewSegDataElemSpec(
 		Count:        count,
 		IsMandatory:  isMandatory,
 	}
+}
+
+func (e *SegDataElemSpec) String() string {
+	mandatoryStr := util.CustBoolStr(e.IsMandatory, "mand.", "cond.")
+	return fmt.Sprintf("SegDataElem %s %dx %s", e.DataElemSpec.Id(), e.Count, mandatoryStr)
 }

@@ -29,6 +29,18 @@ type SegSpecParser struct {
 	dataElemRE             *regexp.Regexp
 }
 
+func NewSegSpecParser(
+	simpleDataElemSpecs dsp.SimpleDataElemSpecMap,
+	compositeDataElemSpecs dsp.CompositeDataElemSpecMap) *SegSpecParser {
+
+	return &SegSpecParser{
+		SimpleDataElemSpecs:    simpleDataElemSpecs,
+		CompositeDataElemSpecs: compositeDataElemSpecs,
+		headerRE:               regexp.MustCompile(`^[ ]{7}([A-Z]{3})  (.*) *$`),
+		dataElemRE:             regexp.MustCompile(`^(\d{3})[ ]{4}([0-9C][0-9]{3}) (.+) ([CM])[ ]{3,4}(\d+)[^0-9]?.*`),
+	}
+}
+
 // Parse composite element spec of the form
 // "020    C138 PRICE MULTIPLIER INFORMATION               C    1"
 func (p *SegSpecParser) parseDataElemSpec(
@@ -195,16 +207,4 @@ func (p *SegSpecParser) ParseSpecFile(fileName string) (specs SegSpecProvider, e
 	err = specutil.ParseSpecFile(fileName, parseSection)
 
 	return &SegSpecProviderImpl{result}, err
-}
-
-func NewSegSpecParser(
-	simpleDataElemSpecs dsp.SimpleDataElemSpecMap,
-	compositeDataElemSpecs dsp.CompositeDataElemSpecMap) *SegSpecParser {
-
-	return &SegSpecParser{
-		SimpleDataElemSpecs:    simpleDataElemSpecs,
-		CompositeDataElemSpecs: compositeDataElemSpecs,
-		headerRE:               regexp.MustCompile(`^[ ]{7}([A-Z]{3})  (.*) *$`),
-		dataElemRE:             regexp.MustCompile(`^(\d{3})[ ]{4}([0-9C][0-9]{3}) (.+) ([CM])[ ]{3,4}(\d+)[^0-9]?.*`),
-	}
 }

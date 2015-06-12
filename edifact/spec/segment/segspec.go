@@ -12,6 +12,18 @@ type SegSpec struct {
 	SegDataElemSpecs []*SegDataElemSpec
 }
 
+func NewSegSpec(
+	id string, name string, function string,
+	segDataElemSpecs []*SegDataElemSpec) *SegSpec {
+
+	return &SegSpec{
+		Id:               id,
+		Name:             name,
+		Function:         function,
+		SegDataElemSpecs: segDataElemSpecs,
+	}
+}
+
 func (s *SegSpec) String() string {
 	return fmt.Sprintf(
 		"Seg %s/%s (%d data elems)",
@@ -29,16 +41,4 @@ func (s *SegSpec) NumLeadingMandDataElems() int {
 		numMandatory++
 	}
 	return numMandatory
-}
-
-func NewSegSpec(
-	id string, name string, function string,
-	segDataElemSpecs []*SegDataElemSpec) *SegSpec {
-
-	return &SegSpec{
-		Id:               id,
-		Name:             name,
-		Function:         function,
-		SegDataElemSpecs: segDataElemSpecs,
-	}
 }
