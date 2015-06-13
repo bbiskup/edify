@@ -1,7 +1,6 @@
 package query
 
 import (
-	"errors"
 	"fmt"
 	"github.com/bbiskup/edify/edifact/msg"
 	"log"
@@ -31,28 +30,26 @@ func (n *Navigator) Navigate(queryStr string, nestedMsg *msg.NestedMsg) (msgPart
 
 	queryParser, err := NewQueryParser(queryStr)
 	if err != nil {
-		return nil, errors.New(fmt.Sprintf(
-			"Query '%s' failed: %s", queryStr, err))
+		return nil, fmt.Errorf("Query '%s' failed: %s", queryStr, err)
 	}
 	for _, queryPart := range queryParser.queryParts {
 		switch queryPart.ItemKind {
 		case SegGrpKind:
 			repGrpPart := currentGrp.GetPartByKey(queryPart.Id)
 			if repGrpPart == nil {
-				return nil, errors.New(fmt.Sprintf(
-					"Segment group '%s' not found in '%s'", queryPart.Id, currentGrp.Id()))
+				return nil, fmt.Errorf(
+					"Segment group '%s' not found in '%s'", queryPart.Id, currentGrp.Id())
 			}
 
 			repGrp, ok := repGrpPart.(*msg.RepSegGrp)
 			if !ok {
-				return nil, errors.New(fmt.Sprintf(
-					"Part %s is not a segment group, but '%T'", repGrp.Id(), repGrp))
+				return nil, fmt.Errorf("Part %s is not a segment group, but '%T'", repGrp.Id(), repGrp)
 			}
 			numSegGrps := repGrp.Count()
 			if queryPart.Index >= numSegGrps {
-				return nil, errors.New(fmt.Sprintf(
+				return nil, fmt.Errorf(
 					"Repeat index %d out of range for segment group %s (max: %d)",
-					queryPart.Index, queryPart.Id, numSegGrps))
+					queryPart.Index, queryPart.Id, numSegGrps)
 			}
 			nthGrp := repGrp.GetSegGrp(queryPart.Index)
 			currentMsgPart = nthGrp
@@ -62,15 +59,15 @@ func (n *Navigator) Navigate(queryStr string, nestedMsg *msg.NestedMsg) (msgPart
 		case SegKind:
 			seg, err := currentGrp.FindNthOccurrenceOfSeg(queryPart.Id, 0)
 			if err != nil {
-				return nil, errors.New(fmt.Sprintf(
+				return nil, fmt.Errorf(
 					"Segment %s (Occurrence #%d) could not be found in group %s",
-					queryPart.Id, queryPart.Index, currentGrp.Id()))
+					queryPart.Id, queryPart.Index, currentGrp.Id())
 			}
 			numSegs := seg.Count()
 			if queryPart.Index >= numSegs {
-				return nil, errors.New(fmt.Sprintf(
+				return nil, fmt.Errorf(
 					"Repeat index %d out of range for segment %s (max: %d)",
-					queryPart.Index, queryPart.Id, numSegs))
+					queryPart.Index, queryPart.Id, numSegs)
 			}
 			nthSeg := seg.GetSeg(queryPart.Index)
 			currentSeg = nthSeg
@@ -79,15 +76,15 @@ func (n *Navigator) Navigate(queryStr string, nestedMsg *msg.NestedMsg) (msgPart
 		case CompositeDataElemKind:
 			_, ok := currentMsgPart.(*msg.Seg)
 			if !ok {
-				return nil, errors.New(fmt.Sprintf(
-					"Parent %s is not a segment", currentMsgPart.Id()))
+				return nil, fmt.Errorf(
+					"Parent %s is not a segment", currentMsgPart.Id())
 			}
 
 			numDataElems := len(currentSeg.DataElems)
 			if queryPart.Index >= numDataElems {
-				return nil, errors.New(fmt.Sprintf(
+				return nil, fmt.Errorf(
 					"data element index %d out of range for segment %s (max: %d)",
-					queryPart.Index, queryPart.Id, numDataElems))
+					queryPart.Index, queryPart.Id, numDataElems)
 			}
 
 			compositeDataElem, err := currentSeg.GetCompositeDataElemById(queryPart.Id)
@@ -101,9 +98,9 @@ func (n *Navigator) Navigate(queryStr string, nestedMsg *msg.NestedMsg) (msgPart
 
 			currentMsgPartSub, ok := currentMsgPart.(SimpleDataElemGetter)
 			if !ok {
-				return nil, errors.New(fmt.Sprintf(
+				return nil, fmt.Errorf(
 					"Parent element %s of simple data element %s neither segment nor composite data element",
-					currentMsgPart.Id(), queryPart.Id))
+					currentMsgPart.Id(), queryPart.Id)
 			}
 			currentMsgPart, err = currentMsgPartSub.GetSimpleDataElemById(queryPart.Id)
 			if err != nil {
@@ -124,7 +121,7 @@ func (n *Navigator) GetSegGrp(
 	}
 	group, ok := msgPart.(*msg.SegGrp)
 	if !ok {
-		return nil, errors.New(fmt.Sprintf("Unexpected type %T", group))
+		return nil, fmt.Errorf("Unexpected type %T", group)
 	}
 	return group, nil
 }
@@ -136,7 +133,7 @@ func (n *Navigator) GetSeg(queryStr string, message *msg.NestedMsg) (*msg.Seg, e
 	}
 	segment, ok := msgPart.(*msg.Seg)
 	if !ok {
-		return nil, errors.New(fmt.Sprintf("Unexpected type %T", segment))
+		return nil, fmt.Errorf("Unexpected type %T", segment)
 	}
 	return segment, nil
 }
@@ -148,7 +145,7 @@ func (n *Navigator) GetSegDataElem(queryStr string, message *msg.NestedMsg) (msg
 	}
 	dataElem, ok := msgPart.(msg.DataElem)
 	if !ok {
-		return nil, errors.New(fmt.Sprintf("Unexpected type %T", dataElem))
+		return nil, fmt.Errorf("Unexpected type %T", dataElem)
 	}
 	return dataElem, nil
 }

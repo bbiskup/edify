@@ -70,7 +70,7 @@ func (p *CompositeDataElemSpecParser) ParseComponentDataElemSpec(specLine string
 
 	simpleDataElemSpec := p.simpleDataElemSpecs[id]
 	if simpleDataElemSpec == nil {
-		return nil, errors.New(fmt.Sprintf("No simple data elem spec for ID %s", id))
+		return nil, fmt.Errorf("No simple data elem spec for ID %s", id)
 	}
 	spec = NewComponentDataElemSpec(position, isMandatory, simpleDataElemSpec)
 	return
@@ -175,7 +175,7 @@ func (p *CompositeDataElemSpecParser) ParseSpec(specLines []string) (spec *Compo
 	// log.Printf("Groups: \n%s\n", groups)
 
 	if len(groups) < 3 {
-		return nil, errors.New(fmt.Sprintf("Not enough groups for spec %s", groups))
+		return nil, fmt.Errorf("Not enough groups for spec %s", groups)
 	}
 
 	headerGroup := groups[0]

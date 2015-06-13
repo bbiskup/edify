@@ -51,7 +51,7 @@ func (p *SegSpecParser) parseDataElemSpec(
 
 	dataElemMatch := p.dataElemRE.FindStringSubmatch(specStr)
 	if dataElemMatch == nil {
-		err = errors.New(fmt.Sprintf("Unable to parse segment spec (specStr: '%s')", specStr))
+		err = fmt.Errorf("Unable to parse segment spec (specStr: '%s')", specStr)
 		return
 	}
 
@@ -66,7 +66,7 @@ func (p *SegSpecParser) parseDataElemSpec(
 
 	id = dataElemMatch[2]
 	if len(id) == 0 {
-		err = errors.New(fmt.Sprintf("Malformed ID: '%s'", id))
+		err = fmt.Errorf("Malformed ID: '%s'", id)
 	}
 
 	if id[0] == 'C' {
@@ -100,7 +100,7 @@ func (p *SegSpecParser) parseDataElemSpecs(
 
 	for _, group := range dataElemSpecGroups {
 		if len(group) == 0 {
-			return nil, errors.New(fmt.Sprintf("Malformed data element spec group: '%s'", group))
+			return nil, fmt.Errorf("Malformed data element spec group: '%s'", group)
 		}
 		// fmt.Printf("#### group %s\n", group)
 		specLine := util.JoinByHangingIndent(group, 8, true)[0]
@@ -131,7 +131,7 @@ func (p *SegSpecParser) parseDataElemSpecs(
 		}
 
 		if dataElemSpec == nil {
-			return nil, errors.New(fmt.Sprintf("Data element not found: %s", id))
+			return nil, fmt.Errorf("Data element not found: %s", id)
 		}
 
 		segDataElemSpec := NewSegDataElemSpec(dataElemSpec, count, isMandatory)
@@ -143,7 +143,7 @@ func (p *SegSpecParser) parseDataElemSpecs(
 func (p *SegSpecParser) parseHeader(header string) (id string, name string, err error) {
 	headerMatch := p.headerRE.FindStringSubmatch(header)
 	if headerMatch == nil {
-		err = errors.New(fmt.Sprintf("Unable to parse header ('%s')", header))
+		err = fmt.Errorf("Unable to parse header ('%s')", header)
 		return
 	}
 
@@ -161,7 +161,7 @@ func (p *SegSpecParser) parseFunction(functionLines []string) (fun string, err e
 	if strings.HasPrefix(functionPart, functionPrefix) {
 		return functionPart[len(functionPrefix):], nil
 	} else {
-		return "", errors.New(fmt.Sprintf("Unable to parse function: '%s'", functionPart))
+		return "", fmt.Errorf("Unable to parse function: '%s'", functionPart)
 	}
 }
 
@@ -172,7 +172,7 @@ func (p *SegSpecParser) ParseSpec(specLines []string) (spec *SegSpec, err error)
 
 	headerGroup := groups[0]
 	if len(headerGroup) != 1 {
-		return nil, errors.New(fmt.Sprintf("Header must have exactly one line: '%s'", headerGroup))
+		return nil, fmt.Errorf("Header must have exactly one line: '%s'", headerGroup)
 	}
 	id, name, err := p.parseHeader(headerGroup[0])
 	if err != nil {

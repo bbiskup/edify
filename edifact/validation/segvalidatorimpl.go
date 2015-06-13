@@ -29,7 +29,7 @@ func (v *SegValidatorImpl) Validate(rawSeg *rawmsg.RawSeg) (*msg.Seg, error) {
 	// log.Printf("Validating segment %s (%s)", segID, seg)
 	spec := v.segSpecProvider.Get(segID)
 	if spec == nil {
-		return nil, errors.New(fmt.Sprintf("No spec for segment ID '%s'", segID))
+		return nil, fmt.Errorf("No spec for segment ID '%s'", segID)
 	}
 
 	if ssp.IsUnValidatedSegment(segID) {
@@ -41,16 +41,16 @@ func (v *SegValidatorImpl) Validate(rawSeg *rawmsg.RawSeg) (*msg.Seg, error) {
 
 	numDataElems := len(rawSeg.Elems)
 	if numDataElems < minNumDataElemSpecs {
-		return nil, errors.New(
-			fmt.Sprintf("Seg %s: Incorrect number of data elements: got %d (%v), expected at least %d",
-				segID, numDataElems, rawSeg.Elems, minNumDataElemSpecs))
+		return nil, fmt.Errorf(
+			"Seg %s: Incorrect number of data elements: got %d (%v), expected at least %d",
+			segID, numDataElems, rawSeg.Elems, minNumDataElemSpecs)
 	}
 
 	numDataElemSpecs := len(spec.SegDataElemSpecs)
 	if numDataElems > numDataElemSpecs {
-		return nil, errors.New(fmt.Sprintf(
+		return nil, fmt.Errorf(
 			"Too many data elements for segment %s: %d (should be only %d)",
-			segID, numDataElems, numDataElemSpecs))
+			segID, numDataElems, numDataElemSpecs)
 	}
 
 	seg := msg.NewSeg(rawSeg.Id())
@@ -80,8 +80,7 @@ func (v *SegValidatorImpl) validateDataElems(
 			dataElem, segDataElemSpec.IsMandatory,
 			seg)
 		if err != nil {
-			return errors.New(fmt.Sprintf(
-				"Error validating segment %s: %s", rawSeg.Id(), err))
+			return fmt.Errorf("Error validating segment %s: %s", rawSeg.Id(), err)
 		}
 	}
 	return nil
@@ -97,9 +96,9 @@ func (v *SegValidatorImpl) validateSimpleDataElem(
 
 	if value == "" {
 		if isMandatory {
-			return nil, errors.New(fmt.Sprintf(
+			return nil, fmt.Errorf(
 				"Missing value for mandatory simple data element %s",
-				simpleDataElemSpec.Id()))
+				simpleDataElemSpec.Id())
 		} else {
 			// TODO: appropriate return value
 			return nil, nil
@@ -108,9 +107,9 @@ func (v *SegValidatorImpl) validateSimpleDataElem(
 
 	_, err = simpleDataElemSpec.Repr.Validate(value)
 	if err != nil {
-		return nil, errors.New(fmt.Sprintf(
+		return nil, fmt.Errorf(
 			"Validation of repr %s for data element %s failed: %s",
-			simpleDataElemSpec.Repr, segDataElemSpec.DataElemSpec.Id(), err))
+			simpleDataElemSpec.Repr, segDataElemSpec.DataElemSpec.Id(), err)
 	}
 	if simpleDataElemSpec.CodesSpecs != nil {
 		if !simpleDataElemSpec.CodesSpecs.Contains(value) {
@@ -157,9 +156,9 @@ func (v *SegValidatorImpl) validateDataElem(
 				if err == nil {
 					simpleDataElems = append(simpleDataElems, simpleDataElem)
 				} else {
-					return errors.New(fmt.Sprintf(
+					return fmt.Errorf(
 						"Error validating composite data elem spec %s (index %d): %s",
-						dataElemSpec.Id(), componentIndex, err))
+						dataElemSpec.Id(), componentIndex, err)
 				}
 			} else {
 				break

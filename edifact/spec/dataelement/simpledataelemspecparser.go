@@ -66,7 +66,7 @@ func (p *SimpleDataElemSpecParser) getRepr(specLinesSections [][]string) (repr *
 	reprLine := strings.TrimSpace(specLinesSections[2][0])
 	reprLineTokens := strings.Split(reprLine, ":")
 	if len(reprLineTokens) != 2 || reprLineTokens[0] != "Repr" {
-		return nil, errors.New(fmt.Sprintf("Malformed repr line :'%s'", reprLine))
+		return nil, fmt.Errorf("Malformed repr line :'%s'", reprLine)
 	}
 	reprStr := strings.TrimSpace(reprLineTokens[1])
 	return ParseRepr(reprStr)
@@ -89,8 +89,7 @@ func (p *SimpleDataElemSpecParser) ParseSpec(specLines []string) (spec *SimpleDa
 	numSpecLinesSections := len(specLinesSections)
 	if numSpecLinesSections < 3 {
 		log.Printf("specLines:\n%s\n", strings.Join(specLines, "\n"))
-		return nil, errors.New(fmt.Sprintf("Too few (%d) spec segments",
-			numSpecLinesSections))
+		return nil, fmt.Errorf("Too few (%d) spec segments", numSpecLinesSections)
 	}
 
 	id, name, err := p.getIdAndName(specLinesSections)

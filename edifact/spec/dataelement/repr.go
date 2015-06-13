@@ -79,21 +79,19 @@ func (r *Repr) Validate(dataElemStr string) (valid bool, err error) {
 		} else {
 			isNum := IsNumChar(c)
 			if typ == Num && !isNum && !r.isPunctuation(c) {
-				return false, errors.New(fmt.Sprintf("Found non-numeric character '%c'", c))
+				return false, fmt.Errorf("Found non-numeric character '%c'", c)
 			} else if typ == Alpha && isNum {
-				return false, errors.New(fmt.Sprintf("Found numeric character '%c'", c))
+				return false, fmt.Errorf("Found numeric character '%c'", c)
 			}
 		}
 	}
 	if r.Range {
 		if strLen > r.Max {
-			return false, errors.New(fmt.Sprintf("String too long: '%s' (max: %d)",
-				dataElemStr, r.Max))
+			return false, fmt.Errorf("String too long: '%s' (max: %d)", dataElemStr, r.Max)
 		}
 	} else {
 		if strLen != r.Max {
-			return false, errors.New(fmt.Sprintf("String '%s' should have %d characters)",
-				dataElemStr, r.Max))
+			return false, fmt.Errorf("String '%s' should have %d characters)", dataElemStr, r.Max)
 		}
 	}
 	return true, nil
@@ -116,7 +114,7 @@ func ParseRepr(elemStr string) (*Repr, error) {
 	} else if typStr == "n" {
 		typ = Num
 	} else {
-		return nil, errors.New(fmt.Sprintf("Unknown repr type '%s'", typStr))
+		return nil, fmt.Errorf("Unknown repr type '%s'", typStr)
 	}
 
 	var range_ bool = false

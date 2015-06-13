@@ -40,7 +40,7 @@ func ParseFile(fileName string) error {
 		return err
 	}
 
-	return errors.New(fmt.Sprintf("Unrecognized file: %s", fileName))
+	return fmt.Errorf("Unrecognized file: %s", fileName)
 }
 
 func ParseCodeList(fileName string) (csp.CodesSpecMap, error) {

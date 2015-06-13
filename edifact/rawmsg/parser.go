@@ -59,7 +59,7 @@ func (p *Parser) ParseRawSeg(rawSegStr string) (rawSeg *RawSeg) {
 
 	parts := util.SplitEDIFACT(rawSegStr, SegTagDataElemSep, ReleaseChar)
 	if len(parts) < 2 {
-		p.err = errors.New(fmt.Sprintf("RawSeg too short (%#v)", parts))
+		p.err = fmt.Errorf("RawSeg too short (%#v)", parts)
 		return nil
 	}
 	rawSegId := parts[0]

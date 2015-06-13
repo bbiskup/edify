@@ -82,7 +82,7 @@ func DownloadSpecs(version string) error {
 	log.Printf("Download status: %s", response.Status)
 
 	if response.StatusCode != http.StatusOK {
-		return errors.New(fmt.Sprintf("Download failed with status %s", response.Status))
+		return fmt.Errorf("Download failed with status %s", response.Status)
 	}
 
 	size, err := io.Copy(targetFile, response.Body)

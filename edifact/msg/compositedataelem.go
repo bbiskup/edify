@@ -1,7 +1,6 @@
 package msg
 
 import (
-	"errors"
 	"fmt"
 )
 
@@ -28,8 +27,7 @@ func (s *CompositeDataElem) GetSimpleDataElemById(dataElemId string) (*SimpleDat
 			return dataElem, nil
 		}
 	}
-	return nil, errors.New(fmt.Sprintf(
-		"Data element '%s' not found in segment %s", dataElemId, s.id))
+	return nil, fmt.Errorf("Data element '%s' not found in segment %s", dataElemId, s.id)
 }
 
 func (e *CompositeDataElem) String() string {

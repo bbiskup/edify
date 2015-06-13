@@ -67,8 +67,7 @@ func (p *MsgSpecParser) parseDate(dateStr string) (date time.Time, err error) {
 func (p *MsgSpecParser) parseSource(sourceStr string) (source string, err error) {
 	match := sourceRE.FindStringSubmatch(sourceStr)
 	if match == nil {
-		return "", errors.New(fmt.Sprintf("Could not get source from '%s'",
-			sourceStr))
+		return "", fmt.Errorf("Could not get source from '%s'", sourceStr)
 	}
 
 	if len(match) != 2 {
@@ -91,7 +90,7 @@ func (p *MsgSpecParser) getSegTableLines(lines []string) (segmentTable []string,
 		}
 	}
 	if !started {
-		err = errors.New(fmt.Sprintf("Seg table not found"))
+		err = fmt.Errorf("Seg table not found")
 	}
 	return
 }
@@ -177,8 +176,7 @@ func (p *MsgSpecParser) parseMsgSpecParts(fileName string, lines []string) (msgS
 
 			segSpec := p.segSpecs.Get(segmentEntry.SegId)
 			if segSpec == nil {
-				return nil, errors.New(fmt.Sprintf("No segment spec for ID '%s'",
-					segmentEntry.SegId))
+				return nil, fmt.Errorf("No segment spec for ID '%s'", segmentEntry.SegId)
 			}
 			part := NewMsgSpecSegPart(
 				segSpec, segmentEntry.MaxCount, segmentEntry.IsMandatory, currentMsgSpecPart)
@@ -188,9 +186,9 @@ func (p *MsgSpecParser) parseMsgSpecParts(fileName string, lines []string) (msgS
 			} else {
 				group, ok := currentMsgSpecPart.(*MsgSpecSegGrpPart)
 				if !ok {
-					return nil, errors.New(fmt.Sprintf(
+					return nil, fmt.Errorf(
 						"Internal error: nesting incorrect; got: %#v",
-						currentMsgSpecPart))
+						currentMsgSpecPart)
 				}
 				group.Append(part)
 			}
@@ -226,9 +224,9 @@ func (p *MsgSpecParser) parseMsgSpecParts(fileName string, lines []string) (msgS
 			} else {
 				parentGroup, ok := currentMsgSpecPart.(*MsgSpecSegGrpPart)
 				if !ok {
-					return nil, errors.New(fmt.Sprintf(
+					return nil, fmt.Errorf(
 						"Internal error: nesting incorrect; got: %#v",
-						currentMsgSpecPart))
+						currentMsgSpecPart)
 				}
 				parentGroup.Append(group)
 			}
@@ -420,8 +418,7 @@ func (p *MsgSpecParser) ParseSpecDir(dirName string, suffix string) (specs MsgSp
 func (p *MsgSpecParser) parseSpecDir_sequential(dirName string, suffix string) (specs MsgSpecMap, err error) {
 	entries, err := ioutil.ReadDir(dirName)
 	if err != nil {
-		return nil, errors.New(fmt.Sprintf(
-			"Failed to read message spec directory %s: %s", dirName, err))
+		return nil, fmt.Errorf("Failed to read message spec directory %s: %s", dirName, err)
 	}
 
 	specs = MsgSpecMap{}
@@ -439,8 +436,7 @@ func (p *MsgSpecParser) parseSpecDir_sequential(dirName string, suffix string) (
 		specFilePath := dirName + pathSep + fileName
 		spec, err := p.ParseSpecFile(specFilePath)
 		if err != nil {
-			return nil, errors.New(fmt.Sprintf(
-				"Failed to parse message spec file %s: %s", specFilePath, err))
+			return nil, fmt.Errorf("Failed to parse message spec file %s: %s", specFilePath, err)
 		}
 		specs[spec.Id] = spec
 	}

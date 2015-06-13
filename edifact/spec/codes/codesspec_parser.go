@@ -65,7 +65,7 @@ func (p *CodesSpecParser) ParseDescription(lines []string) (string, error) {
 func (p *CodesSpecParser) ParseCodeSpecHeader(header string) (id string, name string, err error) {
 	codeHeaderMatch := p.codeHeaderRE.FindStringSubmatch(header)
 	if codeHeaderMatch == nil {
-		err = errors.New(fmt.Sprintf("Unable to parse code header section (header: '%s'", header))
+		err = fmt.Errorf("Unable to parse code header section (header: '%s'", header)
 		return "", "", err
 	}
 
@@ -76,8 +76,7 @@ func (p *CodesSpecParser) ParseCodeSpecHeader(header string) (id string, name st
 	id = strings.TrimSpace(idPart)
 
 	if id == "" {
-		return "", "", errors.New(fmt.Sprintf(
-			"Empty ID in id part '%s' (header '%s')", idPart, header))
+		return "", "", fmt.Errorf("Empty ID in id part '%s' (header '%s')", idPart, header)
 	}
 
 	name = codeHeaderMatch[2]
@@ -91,12 +90,11 @@ func (p *CodesSpecParser) ParseCodeSpecHeader(header string) (id string, name st
 //               the sub-line item.
 func (p *CodesSpecParser) ParseCodeSpec(specLines []string) (*CodeSpec, error) {
 	if len(specLines) < 2 {
-		return nil, errors.New(fmt.Sprintf("Missing spec header and/or description; specLines: %s", specLines))
+		return nil, fmt.Errorf("Missing spec header and/or description; specLines: %s", specLines)
 	}
 	id, name, err := p.ParseCodeSpecHeader(specLines[0])
 	if err != nil {
-		return nil, errors.New(fmt.Sprintf(
-			"Failed to parse header: %s", err))
+		return nil, fmt.Errorf("Failed to parse header: %s", err)
 	}
 
 	descriptionLines := specLines[1:]
@@ -134,8 +132,7 @@ func (p *CodesSpecParser) ParseCodeSpecs(lines [][]string) ([]*CodeSpec, error) 
 
 		spec, err := p.ParseCodeSpec(group)
 		if err != nil {
-			return nil, errors.New(fmt.Sprintf(
-				"Failed to parse group '%s': %s", group, err))
+			return nil, fmt.Errorf("Failed to parse group '%s': %s", group, err)
 		}
 		result = append(result, spec)
 	}
@@ -148,12 +145,12 @@ func (p *CodesSpecParser) ParseCodesSpec(specLines []string) (spec *CodesSpec, e
 	//log.Printf("Groups: \n%s\n", groups)
 
 	if len(groups) < 4 {
-		return nil, errors.New(fmt.Sprintf("Not enough groups for spec %s", groups))
+		return nil, fmt.Errorf("Not enough groups for spec %s", groups)
 	}
 
 	headerGroup := groups[0]
 	if len(headerGroup) == 0 {
-		return nil, errors.New(fmt.Sprintf("Missing header (%s)", headerGroup))
+		return nil, fmt.Errorf("Missing header (%s)", headerGroup)
 	}
 	if headerGroup[0][0] != ' ' {
 		// Change mark

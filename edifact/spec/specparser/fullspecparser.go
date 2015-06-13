@@ -1,7 +1,6 @@
 package specparser
 
 import (
-	"errors"
 	"fmt"
 	csp "github.com/bbiskup/edify/edifact/spec/codes"
 	dsp "github.com/bbiskup/edify/edifact/spec/dataelement"
@@ -75,8 +74,7 @@ func (p *FullSpecParser) parseCompositeDataElemSpecs(simpleDataElemSpecs dsp.Sim
 	path := p.getPath("edcd", "EDCD")
 	specs, err := parser.ParseSpecFile(path)
 	if err != nil {
-		return nil, errors.New(fmt.Sprintf(
-			"Error parsing composite data elem file %s: %s", path, err))
+		return nil, fmt.Errorf("Error parsing composite data elem file %s: %s", path, err)
 	}
 
 	numSpecs := len(specs)
@@ -114,20 +112,17 @@ func (p *FullSpecParser) ParseMsgSpecs(segSpecs ssp.SegSpecProvider) (msgSpecs m
 func (p *FullSpecParser) ParseSegSpecsWithPrerequisites() (ssp.SegSpecProvider, error) {
 	codeSpecs, err := p.parseCodeSpecs()
 	if err != nil {
-		return nil, errors.New(fmt.Sprintf(
-			"Error parsing code specs: %s", err))
+		return nil, fmt.Errorf("Error parsing code specs: %s", err)
 	}
 
 	simpleDataElemSpecs, err := p.parseSimpleDataElemSpecs(codeSpecs)
 	if err != nil {
-		return nil, errors.New(fmt.Sprintf(
-			"Error parsing simple data element specs: %s", err))
+		return nil, fmt.Errorf("Error parsing simple data element specs: %s", err)
 	}
 
 	compositeDataElemSpecs, err := p.parseCompositeDataElemSpecs(simpleDataElemSpecs)
 	if err != nil {
-		return nil, errors.New(fmt.Sprintf(
-			"Error parsing composite data element specs: %s", err))
+		return nil, fmt.Errorf("Error parsing composite data element specs: %s", err)
 	}
 
 	return p.parseSegSpecs(simpleDataElemSpecs, compositeDataElemSpecs)

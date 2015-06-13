@@ -2,7 +2,6 @@ package msg
 
 import (
 	"bytes"
-	"errors"
 	"fmt"
 	msp "github.com/bbiskup/edify/edifact/spec/message"
 )
@@ -68,14 +67,12 @@ func (g *SegGrp) FindNthOccurrenceOfSeg(segID string, occ int) (repSeg *RepSeg, 
 		if part.Id() == segID {
 			repSeg, ok := part.(*RepSeg)
 			if !ok {
-				return nil, errors.New(fmt.Sprintf(
-					"Part %s is not a segment, but a %T", part.Id(), part))
+				return nil, fmt.Errorf("Part %s is not a segment, but a %T", part.Id(), part)
 			}
 			return repSeg, nil
 		}
 	}
-	return nil, errors.New(fmt.Sprintf(
-		"Could not find segment %s in group %s", segID, g.Id()))
+	return nil, fmt.Errorf("Could not find segment %s in group %s", segID, g.Id())
 }
 
 func (g *SegGrp) Dump(indent int) string {

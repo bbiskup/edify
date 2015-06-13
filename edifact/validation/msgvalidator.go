@@ -88,9 +88,9 @@ func (v *MsgValidator) Validate(rawMsg *rawmsg.RawMsg) (nestedMsg *msg.NestedMsg
 
 	rawSegCount := len(rawMsg.RawSegs)
 	if segCount != rawSegCount {
-		return nil, errors.New(fmt.Sprintf(
+		return nil, fmt.Errorf(
 			"Segment count mismatch: UNT says %d, actual count is %d",
-			segCount, rawSegCount))
+			segCount, rawSegCount)
 	}
 
 	/*log.Printf("Validating message %s (%d segments)", msgType, segCount)

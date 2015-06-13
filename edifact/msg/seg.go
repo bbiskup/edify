@@ -1,7 +1,6 @@
 package msg
 
 import (
-	"errors"
 	"fmt"
 )
 
@@ -32,8 +31,7 @@ func (s *Seg) GetDataElemById(dataElemId string) (DataElem, error) {
 			return dataElem, nil
 		}
 	}
-	return nil, errors.New(fmt.Sprintf(
-		"Data element '%s' not found in segment %s", dataElemId, s.id))
+	return nil, fmt.Errorf("Data element '%s' not found in segment %s", dataElemId, s.id)
 }
 
 func (s *Seg) GetCompositeDataElemById(dataElemId string) (*CompositeDataElem, error) {
@@ -43,8 +41,7 @@ func (s *Seg) GetCompositeDataElemById(dataElemId string) (*CompositeDataElem, e
 	}
 	compositeDataElem, ok := dataElem.(*CompositeDataElem)
 	if !ok {
-		return nil, errors.New(fmt.Sprintf(
-			"Data element %s is not a composite data element", dataElemId))
+		return nil, fmt.Errorf("Data element %s is not a composite data element", dataElemId)
 	}
 	return compositeDataElem, nil
 }
@@ -56,8 +53,7 @@ func (s *Seg) GetSimpleDataElemById(dataElemId string) (*SimpleDataElem, error) 
 	}
 	simpleDataElem, ok := dataElem.(*SimpleDataElem)
 	if !ok {
-		return nil, errors.New(fmt.Sprintf(
-			"Data element %s is not a simple data element", dataElemId))
+		return nil, fmt.Errorf("Data element %s is not a simple data element", dataElemId)
 	}
 	return simpleDataElem, nil
 }
