@@ -18,7 +18,8 @@ func getMsgTypeFromUNH(rawSeg *rawmsg.RawSeg) (msgName string, err error) {
 	// type is a prerequisite to validating a raw message and constructing a
 	// nested message from it, this method cannot use the  query mechanism
 	if len(rawSeg.Elems) < 2 {
-		return "", errors.New("Too few data elements; no message type")
+		return "", fmt.Errorf(
+			"Segment %s has too few data elements; no message type", rawSeg.Id())
 	}
 	msgTypeElem := rawSeg.Elems[1]
 	if len(msgTypeElem.Values) < 1 {
