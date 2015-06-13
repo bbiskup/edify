@@ -94,16 +94,6 @@ func (v *MsgValidator) Validate(rawMsg *rawmsg.RawMsg) (nestedMsg *msg.NestedMsg
 			segCount, rawSegCount)
 	}
 
-	/*log.Printf("Validating message %s (%d segments)", msgType, segCount)
-
-	// Validate segments
-	for _, rawSeg := range rawMsg.RawSegs {
-		seg, err := v.segValidator.Validate(rawSeg)
-		if err != nil {
-			return nil, err
-		}
-	}*/
-
 	// Validate segment sequence
 	msgSpec, ok := v.msgSpecs[msgType]
 	if !ok {
