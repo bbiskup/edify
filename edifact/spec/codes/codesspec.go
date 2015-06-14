@@ -49,7 +49,7 @@ func (s *CodesSpec) String() string {
 }
 
 func (s *CodesSpec) CodeListStr() string {
-	codes := make(sort.StringSlice, len(s.codeSpecMap))
+	codes := make(sort.StringSlice, 0, len(s.codeSpecMap))
 	for code, _ := range s.codeSpecMap {
 		codes = append(codes, code)
 	}
