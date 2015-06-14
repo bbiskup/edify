@@ -14,7 +14,7 @@ const (
 type CompositeDataElemSpec struct {
 	id             string
 	name           string
-	Description    string
+	Descr          string
 	ComponentSpecs []*ComponentDataElemSpec
 }
 
@@ -38,7 +38,7 @@ func (s *CompositeDataElemSpec) Name() string {
 }
 
 func (s *CompositeDataElemSpec) String() string {
-	descrStr := util.Ellipsis(s.Description, maxDescrDisplayLen)
+	descrStr := util.Ellipsis(s.Descr, maxDescrDisplayLen)
 	specsStrs := []string{}
 	for _, spec := range s.ComponentSpecs {
 		specsStrs = append(specsStrs, fmt.Sprintf("\t%s", spec.String()))
@@ -50,13 +50,13 @@ func (s *CompositeDataElemSpec) String() string {
 }
 
 func NewCompositeDataElemSpec(
-	id string, name string, description string,
+	id string, name string, descr string,
 	componentSpecs []*ComponentDataElemSpec) *CompositeDataElemSpec {
 
 	return &CompositeDataElemSpec{
 		id:             id,
 		name:           name,
-		Description:    description,
+		Descr:          descr,
 		ComponentSpecs: componentSpecs,
 	}
 }
