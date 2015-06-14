@@ -58,7 +58,7 @@ func (p *SimpleDataElemSpecParser) getDescr(specLinesSections [][]string) (descr
 	if colonIdx == -1 {
 		return "", errors.New("Could not parse description")
 	}
-	description := strings.TrimSpace(descLine[colonIdx:])
+	description := strings.TrimSpace(descLine[colonIdx+2:])
 	return description, nil
 }
 
