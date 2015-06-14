@@ -24,6 +24,8 @@ func TestParseSpecLines(t *testing.T) {
 	p := NewSimpleDataElemSpecParser(fixtureTextCodesSpecMap())
 	spec, err := p.ParseSpec(strings.Split(specLines, "\n"))
 	assert.Nil(t, err)
+	assert.Equal(t, "1000", spec.Id())
+	assert.Equal(t, "Document name", spec.Name())
 	assert.Equal(t, "Name of a document.", spec.Descr)
 	// log.Printf("res: %s", res)
 }
