@@ -47,8 +47,8 @@ func getSegCountFromUNT(rawSeg *rawmsg.RawSeg) (segCount int, err error) {
 // - correctness of segment sequence
 // - correctness/completeness of data elements
 type MsgValidator struct {
-	msgSpecs     msp.MsgSpecMap
-	segSpecs     ssp.SegSpecProvider
+	MsgSpecs     msp.MsgSpecMap
+	SegSpecs     ssp.SegSpecProvider
 	segValidator SegValidator
 }
 
@@ -57,11 +57,11 @@ func NewMsgValidator(msgSpecs msp.MsgSpecMap, segSpecProvider ssp.SegSpecProvide
 }
 
 func (v *MsgValidator) MsgSpecCount() int {
-	return len(v.msgSpecs)
+	return len(v.MsgSpecs)
 }
 
 func (v *MsgValidator) SegSpecCount() int {
-	return v.segSpecs.Len()
+	return v.SegSpecs.Len()
 }
 
 func (v *MsgValidator) Validate(rawMsg *rawmsg.RawMsg) (nestedMsg *msg.NestedMsg, err error) {
@@ -95,7 +95,7 @@ func (v *MsgValidator) Validate(rawMsg *rawmsg.RawMsg) (nestedMsg *msg.NestedMsg
 	}
 
 	// Validate segment sequence
-	msgSpec, ok := v.msgSpecs[msgType]
+	msgSpec, ok := v.MsgSpecs[msgType]
 	if !ok {
 		return nil, errors.New(
 			fmt.Sprintf("No message spec found for message type %s", msgType))
@@ -105,26 +105,26 @@ func (v *MsgValidator) Validate(rawMsg *rawmsg.RawMsg) (nestedMsg *msg.NestedMsg
 }
 
 // Returns a message validator with all necessary spec validator
-func GetMsgValidator(version string, specDirName string) (*MsgValidator, error) {
+func GetMsgValidator(version string, specDirName string) (*MsgValidator, *specparser.FullSpecParser, error) {
 	if version == "" {
-		return nil, errors.New("No version given")
+		return nil, nil, errors.New("No version given")
 	}
 
 	if specDirName == "" {
-		return nil, errors.New("No spec dir given given")
+		return nil, nil, errors.New("No spec dir given given")
 	}
 
 	parser, err := specparser.NewFullSpecParser(version, specDirName)
 	if err != nil {
-		return nil, err
+		return nil, nil, err
 	}
 	segSpecs, err := parser.ParseSegSpecsWithPrerequisites()
 	if err != nil {
-		return nil, err
+		return nil, nil, err
 	}
 	msgSpecs, err := parser.ParseMsgSpecs(segSpecs)
 	if err != nil {
-		return nil, err
+		return nil, nil, err
 	}
-	return NewMsgValidator(msgSpecs, segSpecs), nil
+	return NewMsgValidator(msgSpecs, segSpecs), parser, nil
 }

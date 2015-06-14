@@ -39,7 +39,7 @@ func Query(
 		return err
 	}
 
-	validator, err := validation.GetMsgValidator(version, specDirName)
+	validator, _, err := validation.GetMsgValidator(version, specDirName)
 	if err != nil {
 		return err
 	}

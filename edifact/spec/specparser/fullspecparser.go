@@ -17,10 +17,14 @@ const pathSeparator = string(os.PathSeparator)
 type FullSpecParser struct {
 	Version string
 	Dir     string
+
+	CodeSpecs              csp.CodesSpecMap
+	SimpleDataElemSpecs    dsp.SimpleDataElemSpecMap
+	CompositeDataElemSpecs dsp.CompositeDataElemSpecMap
 }
 
 func NewFullSpecParser(version string, dir string) (*FullSpecParser, error) {
-	return &FullSpecParser{version, dir}, nil
+	return &FullSpecParser{version, dir, nil, nil, nil}, nil
 }
 
 func (p *FullSpecParser) getPath(subDir string, filePrefix string) string {
@@ -109,23 +113,23 @@ func (p *FullSpecParser) ParseMsgSpecs(segSpecs ssp.SegSpecProvider) (msgSpecs m
 	return parser.ParseSpecDir(msgDir, p.Version)
 }
 
-func (p *FullSpecParser) ParseSegSpecsWithPrerequisites() (ssp.SegSpecProvider, error) {
-	codeSpecs, err := p.parseCodeSpecs()
+func (p *FullSpecParser) ParseSegSpecsWithPrerequisites() (segSpecProvider ssp.SegSpecProvider, err error) {
+	p.CodeSpecs, err = p.parseCodeSpecs()
 	if err != nil {
 		return nil, fmt.Errorf("Error parsing code specs: %s", err)
 	}
 
-	simpleDataElemSpecs, err := p.parseSimpleDataElemSpecs(codeSpecs)
+	p.SimpleDataElemSpecs, err = p.parseSimpleDataElemSpecs(p.CodeSpecs)
 	if err != nil {
 		return nil, fmt.Errorf("Error parsing simple data element specs: %s", err)
 	}
 
-	compositeDataElemSpecs, err := p.parseCompositeDataElemSpecs(simpleDataElemSpecs)
+	p.CompositeDataElemSpecs, err = p.parseCompositeDataElemSpecs(p.SimpleDataElemSpecs)
 	if err != nil {
 		return nil, fmt.Errorf("Error parsing composite data element specs: %s", err)
 	}
 
-	return p.parseSegSpecs(simpleDataElemSpecs, compositeDataElemSpecs)
+	return p.parseSegSpecs(p.SimpleDataElemSpecs, p.CompositeDataElemSpecs)
 }
 
 func (p *FullSpecParser) Parse() error {
