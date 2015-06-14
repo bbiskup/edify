@@ -15,6 +15,14 @@ func NewSegSpecProviderImpl(segSpecs SegSpecMap) *SegSpecProviderImpl {
 	return &SegSpecProviderImpl{segSpecs}
 }
 
+func (p *SegSpecProviderImpl) Ids() []string {
+	result := make([]string, 0, len(p.segSpecs))
+	for id, _ := range p.segSpecs {
+		result = append(result, id)
+	}
+	return result
+}
+
 func (p *SegSpecProviderImpl) Get(id string) *SegSpec {
 	result := p.segSpecs[id]
 	if result == nil {

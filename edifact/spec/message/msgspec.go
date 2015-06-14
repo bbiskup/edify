@@ -22,7 +22,7 @@ type MsgSpec struct {
 	Date        time.Time
 
 	Source        string
-	TopLevelGroup *MsgSpecSegGrpPart
+	TopLevelGrp *MsgSpecSegGrpPart
 }
 
 func NewMsgSpec(
@@ -35,7 +35,7 @@ func NewMsgSpec(
 		Id: id, Name: name,
 		Version: version, Release: release, ContrAgency: contrAgency,
 		Revision: revision, Date: date, Source: source,
-		TopLevelGroup: NewMsgSpecSegGrpPart(
+		TopLevelGrp: NewMsgSpecSegGrpPart(
 			TopLevelSegGroupName, parts, 1, true, nil),
 	}
 }
@@ -54,11 +54,11 @@ func (m *MsgSpec) String() string {
 }
 
 func (m *MsgSpec) TopLevelParts() []MsgSpecPart {
-	return m.TopLevelGroup.Children()
+	return m.TopLevelGrp.Children()
 }
 
 func (m *MsgSpec) TopLevelPart(index int) MsgSpecPart {
-	return m.TopLevelGroup.Children()[index]
+	return m.TopLevelGrp.Children()[index]
 }
 
 // Verbose output fo debugging

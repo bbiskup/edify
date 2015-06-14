@@ -8,5 +8,6 @@ func IsUnValidatedSegment(segID string) bool {
 // Provides segment spec by Id
 type SegSpecProvider interface {
 	Get(id string) *SegSpec
+	Ids() []string
 	Len() int
 }

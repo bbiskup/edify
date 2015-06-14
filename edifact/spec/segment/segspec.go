@@ -24,6 +24,8 @@ func NewSegSpec(
 	}
 }
 
+type SegSpecs []*SegSpec
+
 func (s *SegSpec) String() string {
 	return fmt.Sprintf(
 		"Seg %s/%s (%d data elems)",
@@ -41,4 +43,19 @@ func (s *SegSpec) NumLeadingMandDataElems() int {
 		numMandatory++
 	}
 	return numMandatory
+}
+
+// from sort.Interface
+func (m SegSpecs) Len() int {
+	return len(m)
+}
+
+// from sort.Interface
+func (m SegSpecs) Less(i, j int) bool {
+	return m[i].Id < m[j].Id
+}
+
+// from sort.Interface
+func (m SegSpecs) Swap(i, j int) {
+	m[i], m[j] = m[j], m[i]
 }

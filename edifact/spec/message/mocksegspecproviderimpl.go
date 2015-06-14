@@ -17,3 +17,9 @@ func (p *MockSegSpecProviderImpl) Len() int {
 	// Dummy value; unused
 	return 100
 }
+
+func (p *MockSegSpecProviderImpl) Ids() []string {
+	// Not useful; mock implementation will return a segment spec
+	// for any ID
+	panic("Not implemented")
+}
