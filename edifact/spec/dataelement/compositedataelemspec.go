@@ -18,6 +18,18 @@ type CompositeDataElemSpec struct {
 	ComponentSpecs []*ComponentDataElemSpec
 }
 
+func NewCompositeDataElemSpec(
+	id string, name string, descr string,
+	componentSpecs []*ComponentDataElemSpec) *CompositeDataElemSpec {
+
+	return &CompositeDataElemSpec{
+		id:             id,
+		name:           name,
+		Descr:          descr,
+		ComponentSpecs: componentSpecs,
+	}
+}
+
 func (m CompositeDataElemSpecMap) String() string {
 	var result bytes.Buffer
 	result.WriteString("CompositeDataElemSpecMap\n")
@@ -47,18 +59,6 @@ func (s *CompositeDataElemSpec) String() string {
 	return fmt.Sprintf(
 		"Composite %s %s '%s'\n%s",
 		s.id, s.name, descrStr, componentSpecsStr)
-}
-
-func NewCompositeDataElemSpec(
-	id string, name string, descr string,
-	componentSpecs []*ComponentDataElemSpec) *CompositeDataElemSpec {
-
-	return &CompositeDataElemSpec{
-		id:             id,
-		name:           name,
-		Descr:          descr,
-		ComponentSpecs: componentSpecs,
-	}
 }
 
 type CompositeDataElemSpecMap map[string]*CompositeDataElemSpec
