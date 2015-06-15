@@ -53,7 +53,8 @@ func (p *SimpleDataElemSpecParser) getIdAndName(specLinesSections [][]string) (i
 
 // Get data element description
 func (p *SimpleDataElemSpecParser) getDescr(specLinesSections [][]string) (descr string, err error) {
-	descLine := specLinesSections[1][0]
+	descLines := specLinesSections[1]
+	descLine := util.TrimWhiteSpaceAndJoin(descLines, " ")
 	colonIdx := strings.Index(descLine, ":")
 	if colonIdx == -1 {
 		return "", errors.New("Could not parse description")

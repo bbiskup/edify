@@ -30,6 +30,22 @@ func TestParseSpecLines(t *testing.T) {
 	// log.Printf("res: %s", res)
 }
 
+const specLinesLongDescr = `
+     1000  Document name                                           [B]
+
+     Desc: Name of a document.
+           And some more description.
+
+     Repr: an..35
+`
+
+func TestParseSpecLinesLongDescr(t *testing.T) {
+	p := NewSimpleDataElemSpecParser(fixtureTextCodesSpecMap())
+	spec, err := p.ParseSpec(strings.Split(specLinesLongDescr, "\n"))
+	assert.Nil(t, err)
+	assert.Equal(t, "Name of a document. And some more description.", spec.Descr)
+}
+
 func BenchmarkParseSpecLines(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		p := NewSimpleDataElemSpecParser(fixtureTextCodesSpecMap())
