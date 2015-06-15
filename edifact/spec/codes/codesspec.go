@@ -15,6 +15,7 @@ type CodesSpec struct {
 	Name        string
 	Description string
 	codeSpecMap CodeSpecMap
+	CodeSpecs   []*CodeSpec
 }
 
 func NewCodesSpec(id string, name string, description string, codeSpecs []*CodeSpec) *CodesSpec {
@@ -28,6 +29,7 @@ func NewCodesSpec(id string, name string, description string, codeSpecs []*CodeS
 		Name:        name,
 		Description: description,
 		codeSpecMap: codeSpecMap,
+		CodeSpecs:   codeSpecs,
 	}
 }
 
