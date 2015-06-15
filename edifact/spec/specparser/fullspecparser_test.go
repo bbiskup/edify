@@ -14,7 +14,7 @@ func TestFullSpecParser(t *testing.T) {
 
 	err = parser.Parse()
 	assert.Nil(t, err)
-	assert.NotNil(t, parser.CodeSpecs)
+	assert.NotNil(t, parser.CodesSpecs)
 	assert.NotNil(t, parser.SimpleDataElemSpecs)
 	assert.NotNil(t, parser.CompositeDataElemSpecs)
 

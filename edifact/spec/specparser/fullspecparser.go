@@ -18,7 +18,7 @@ type FullSpecParser struct {
 	Version string
 	Dir     string
 
-	CodeSpecs              csp.CodesSpecMap
+	CodesSpecs             csp.CodesSpecMap
 	SimpleDataElemSpecs    dsp.SimpleDataElemSpecMap
 	CompositeDataElemSpecs dsp.CompositeDataElemSpecMap
 }
@@ -114,12 +114,12 @@ func (p *FullSpecParser) ParseMsgSpecs(segSpecs ssp.SegSpecProvider) (msgSpecs m
 }
 
 func (p *FullSpecParser) ParseSegSpecsWithPrerequisites() (segSpecProvider ssp.SegSpecProvider, err error) {
-	p.CodeSpecs, err = p.parseCodeSpecs()
+	p.CodesSpecs, err = p.parseCodeSpecs()
 	if err != nil {
 		return nil, fmt.Errorf("Error parsing code specs: %s", err)
 	}
 
-	p.SimpleDataElemSpecs, err = p.parseSimpleDataElemSpecs(p.CodeSpecs)
+	p.SimpleDataElemSpecs, err = p.parseSimpleDataElemSpecs(p.CodesSpecs)
 	if err != nil {
 		return nil, fmt.Errorf("Error parsing simple data element specs: %s", err)
 	}
