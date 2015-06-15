@@ -11,16 +11,16 @@ const (
 
 // EDIFACT Code as defined e.g. in UNCL.14B
 type CodeSpec struct {
-	Id          string
-	Name        string
-	Description string
+	Id    string
+	Name  string
+	Descr string
 }
 
-func NewCodeSpec(id string, name string, description string) *CodeSpec {
-	return &CodeSpec{id, name, description}
+func NewCodeSpec(id string, name string, descr string) *CodeSpec {
+	return &CodeSpec{id, name, descr}
 }
 
 func (s *CodeSpec) String() string {
-	descriptionStr := util.Ellipsis(s.Description, maxDescrDisplayLen)
-	return fmt.Sprintf("%s %s %s", s.Id, s.Name, descriptionStr)
+	descrStr := util.Ellipsis(s.Descr, maxDescrDisplayLen)
+	return fmt.Sprintf("%s %s %s", s.Id, s.Name, descrStr)
 }
