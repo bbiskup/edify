@@ -44,8 +44,6 @@ func (s *SimpleDataElemSpec) Name() string {
 	return s.name
 }
 
-type SimpleDataElemSpecMap map[string]*SimpleDataElemSpec
-
 func (sm SimpleDataElemSpecMap) String() string {
 	var result bytes.Buffer
 	result.WriteString("SimpleDataElemSpecMap\n")
@@ -53,4 +51,22 @@ func (sm SimpleDataElemSpecMap) String() string {
 		result.WriteString(fmt.Sprintf("\t%s: %s\n", id, spec))
 	}
 	return result.String()
+}
+
+type SimpleDataElemSpecMap map[string]*SimpleDataElemSpec
+type SimpleDataElemSpecs []*SimpleDataElemSpec
+
+// from sort.Interface
+func (m SimpleDataElemSpecs) Len() int {
+	return len(m)
+}
+
+// from sort.Interface
+func (m SimpleDataElemSpecs) Less(i, j int) bool {
+	return m[i].id < m[j].id
+}
+
+// from sort.Interface
+func (m SimpleDataElemSpecs) Swap(i, j int) {
+	m[i], m[j] = m[j], m[i]
 }
