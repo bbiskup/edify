@@ -62,3 +62,19 @@ func (s *CompositeDataElemSpec) String() string {
 }
 
 type CompositeDataElemSpecMap map[string]*CompositeDataElemSpec
+type CompositeDataElemSpecs []*CompositeDataElemSpec
+
+// from sort.Interface
+func (m CompositeDataElemSpecs) Len() int {
+	return len(m)
+}
+
+// from sort.Interface
+func (m CompositeDataElemSpecs) Less(i, j int) bool {
+	return m[i].id < m[j].id
+}
+
+// from sort.Interface
+func (m CompositeDataElemSpecs) Swap(i, j int) {
+	m[i], m[j] = m[j], m[i]
+}
