@@ -34,6 +34,7 @@ func NewCodesSpec(id string, name string, description string, codeSpecs []*CodeS
 }
 
 type CodesSpecMap map[string]*CodesSpec
+type CodesSpecs []*CodesSpec
 
 func (s *CodesSpec) Contains(code string) bool {
 	return s.codeSpecMap[code] != nil
@@ -65,4 +66,19 @@ func (s *CodesSpec) Len() int {
 	} else {
 		return len(s.codeSpecMap)
 	}
+}
+
+// from sort.Interface
+func (m CodesSpecs) Len() int {
+	return len(m)
+}
+
+// from sort.Interface
+func (m CodesSpecs) Less(i, j int) bool {
+	return m[i].Id < m[j].Id
+}
+
+// from sort.Interface
+func (m CodesSpecs) Swap(i, j int) {
+	m[i], m[j] = m[j], m[i]
 }
