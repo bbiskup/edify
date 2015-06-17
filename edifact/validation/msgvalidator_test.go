@@ -1,14 +1,11 @@
 package validation
 
 import (
-	"encoding/gob"
 	"fmt"
 	"github.com/bbiskup/edify/edifact/msg"
 	"github.com/bbiskup/edify/edifact/rawmsg"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"io/ioutil"
-	"os"
 	"testing"
 )
 
@@ -100,19 +97,5 @@ func BenchmarkValidateINVOICMsg(b *testing.B) {
 func BenchmarkGetTestMsgValidator(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		_ = GetTestMsgValidator(b)
-	}
-}
-
-func BenchmarkSerializeValidatorGOB(b *testing.B) {
-	validator := GetTestMsgValidator(b)
-	b.ResetTimer()
-	for i := 0; i < b.N; i++ {
-		file, err := ioutil.TempFile(os.TempDir(), "edify")
-		assert.Nil(b, err)
-		defer os.Remove(file.Name())
-		encoder := gob.NewEncoder(file)
-		err = encoder.Encode(validator)
-		assert.Nil(b, err)
-		file.Close()
 	}
 }
