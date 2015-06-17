@@ -16,6 +16,8 @@ type CodeSpec struct {
 	Descr string
 }
 
+type CodeSpecs []*CodeSpec
+
 func NewCodeSpec(id string, name string, descr string) *CodeSpec {
 	return &CodeSpec{id, name, descr}
 }
