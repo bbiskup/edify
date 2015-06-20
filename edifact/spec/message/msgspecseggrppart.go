@@ -3,6 +3,7 @@ package message
 import (
 	"fmt"
 	"github.com/bbiskup/edify/edifact/util"
+	"log"
 )
 
 // Segment group specification in message specification
@@ -72,15 +73,24 @@ func (p *MsgSpecSegGrpPart) TriggerSegPart() *MsgSpecSegPart {
 
 // Finds group spec of given name in this seg group or its chilren (recursively)
 func (p *MsgSpecSegGrpPart) FindSegGrpSpec(name string) (*MsgSpecSegGrpPart, error) {
+	log.Printf("FindSegGrpSpec: %s", name)
 	for _, msgSpecPart := range p.children {
 		switch msgSpecPart := msgSpecPart.(type) {
 		case *MsgSpecSegPart:
+			log.Printf("%s not a group", msgSpecPart.Id())
 			continue
 		case *MsgSpecSegGrpPart:
 			if msgSpecPart.Name() == name {
+				log.Printf("Found %s", name)
 				return msgSpecPart, nil
 			} else {
-				return msgSpecPart.FindSegGrpSpec(name)
+				log.Printf("Descending into %s", msgSpecPart.Name())
+				childResult, err := msgSpecPart.FindSegGrpSpec(name)
+				if err == nil {
+					return childResult, nil
+				} else {
+					log.Printf("Not found in child")
+				}
 			}
 		}
 	}

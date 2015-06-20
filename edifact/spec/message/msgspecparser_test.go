@@ -41,6 +41,20 @@ func TestParseINVOICFile(t *testing.T) {
 	group_1_segm_0 := group_1.Children()[0].(*MsgSpecSegPart)
 	assert.True(t, ok)
 	assert.Equal(t, group_1_segm_0.SegSpec.Id, "RFF")
+
+	// 1st level
+	group_1_by_find, err := spec.FindSegGrpSpec("Group_1")
+	assert.Nil(t, err)
+	assert.Equal(t, "Group_1", group_1_by_find.Name())
+
+	// 2nd level
+	group_2_by_find, err := spec.FindSegGrpSpec("Group_2")
+	assert.Nil(t, err)
+	assert.Equal(t, "Group_2", group_2_by_find.Name())
+
+	group_3_by_find, err := spec.FindSegGrpSpec("Group_3")
+	assert.Nil(t, err)
+	assert.Equal(t, "Group_3", group_3_by_find.Name())
 }
 
 func TestParseAUTHORFile(t *testing.T) {

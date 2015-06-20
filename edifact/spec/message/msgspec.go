@@ -21,7 +21,7 @@ type MsgSpec struct {
 	Revision    string
 	Date        time.Time
 
-	Source        string
+	Source      string
 	TopLevelGrp *MsgSpecSegGrpPart
 }
 
@@ -98,4 +98,8 @@ func (m MsgSpecs) Less(i, j int) bool {
 // from sort.Interface
 func (m MsgSpecs) Swap(i, j int) {
 	m[i], m[j] = m[j], m[i]
+}
+
+func (p *MsgSpec) FindSegGrpSpec(name string) (*MsgSpecSegGrpPart, error) {
+	return p.TopLevelGrp.FindSegGrpSpec(name)
 }
