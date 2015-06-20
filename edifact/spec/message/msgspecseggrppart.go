@@ -69,3 +69,20 @@ func (p *MsgSpecSegGrpPart) TriggerSegPart() *MsgSpecSegPart {
 		return nil
 	}
 }
+
+// Finds group spec of given name in this seg group or its chilren (recursively)
+func (p *MsgSpecSegGrpPart) FindSegGrpSpec(name string) (*MsgSpecSegGrpPart, error) {
+	for _, msgSpecPart := range p.children {
+		switch msgSpecPart := msgSpecPart.(type) {
+		case *MsgSpecSegPart:
+			continue
+		case *MsgSpecSegGrpPart:
+			if msgSpecPart.Name() == name {
+				return msgSpecPart, nil
+			} else {
+				return msgSpecPart.FindSegGrpSpec(name)
+			}
+		}
+	}
+	return nil, fmt.Errorf("Segment spec group with name '%s' not found", name)
+}
