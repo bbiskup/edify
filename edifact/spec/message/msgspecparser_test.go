@@ -52,9 +52,15 @@ func TestParseINVOICFile(t *testing.T) {
 	assert.Nil(t, err)
 	assert.Equal(t, "Group_2", group_2_by_find.Name())
 
+	// 2nd level, 2nd group
 	group_3_by_find, err := spec.FindSegGrpSpec("Group_3")
 	assert.Nil(t, err)
 	assert.Equal(t, "Group_3", group_3_by_find.Name())
+
+	// 3rd level
+	group_33_by_find, err := spec.FindSegGrpSpec("Group_33")
+	assert.Nil(t, err)
+	assert.Equal(t, "Group_33", group_33_by_find.Name())
 }
 
 func TestParseAUTHORFile(t *testing.T) {
