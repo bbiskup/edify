@@ -1,63 +1,62 @@
+all: build up
+
+build:
+	docker-compose build
+
+up:
+	docker-compose up -d
+
+bash:
+	./docker-cmd.sh bash
+
 test:
 	# Run test in current dir and all subdirectories
-	go test ./...
+	./docker-cmd.sh go test ./...
 
 test-race:
 	# Run test in current dir and all subdirectories
-	go test -race -bench . ./...
+	./docker-cmd.sh go test -race -bench . ./...
 
 test-multi-cpu:
-	go test -cpu=1,2,3,4,5,6,7,8 ./...
+	./docker-cmd.sh go test -cpu=1,2,3,4,5,6,7,8 ./...
 
 test-verbose:
-	go test -v ./...
+	./docker-cmd.sh go test -v ./...
 
 
 bench:
 	# Run test in current dir and all subdirectories
-	go test -bench . ./...
+	./docker-cmd.sh go test -bench . ./...
 
 check:
-	go vet -x ./...
-
-get-deps:
-	go get -t ./...
-
-get-test-deps:
-	go get -u golang.org/x/tools/cmd/cover
-	go get -u github.com/fzipp/gocyclo
-	go get -u github.com/barakmich/go-nyet
-	#go get -u github.com/golang/lint/golint
-	go get github.com/opennota/check/cmd/defercheck
-	go get github.com/opennota/check/cmd/structcheck
-	go get github.com/opennota/check/cmd/varcheck
+	./docker-cmd.sh go vet -x ./...
 
 cover:
-	go test -cover ./...
+	./docker-cmd.sh go test -cover ./...
 
 # Coverage for a particular package
-# go test -coverprofile=coverage.out ./...
+# ./docker-cmd.sh go test -coverprofile=coverage.out ./...
 
 # Show package coverage in web browser
-# go tool cover -html=coverage.out
+# ./docker-cmd.sh go tool cover -html=coverage.out
 
 quality: mccabe nyet defercheck structcheck varcheck
 
 mccabe:
-	gocyclo -over 9 .
+	./docker-cmd.sh gocyclo -over 9 .
 
 nyet:
-	go-nyet ./...
+	./docker-cmd.sh go-nyet ./...
 
 defercheck:
-	defercheck ./...
+	./docker-cmd.sh defercheck ./...
 
 structcheck:
-	structcheck ./...
+	./docker-cmd.sh structcheck ./...
 
 varchack:
-	vearcheck ./...
+	./docker-cmd.sh varcheck ./...
 
 clean:
-	go clean ./...
+	./docker-cmd.sh go clean ./...
 	git clean -f -d

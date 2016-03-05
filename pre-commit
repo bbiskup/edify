@@ -1,0 +1,10 @@
+#!/bin/sh -e
+
+echo Rebuilding...
+./docker-cmd.sh go build -a
+
+echo Checking...
+make check
+
+echo Testing...
+make test
