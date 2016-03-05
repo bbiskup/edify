@@ -24,7 +24,7 @@ before_script:
   - make
 
 script:
-  - ./docker-cmd ./scripts/run-checks.sh 
+  - ./docker-cmd.sh ./scripts/run-checks.sh 
 
 after_success:
   - docker tag -f edify_dev bbiskup/edify_dev:latest
