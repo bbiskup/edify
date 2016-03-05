@@ -1,5 +1,5 @@
 # Image for development/testing
 dev:
   build: .
-  volumes:
-    - .:/go/src/github.com/bbiskup/edify
+  # volumes:
+  #  - .:/go/src/github.com/bbiskup/edify
