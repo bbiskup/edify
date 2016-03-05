@@ -18,4 +18,4 @@ time ./edify query  -d testdata/d14b/ -m testdata/messages/INVOIC_1.txt  -q "grp
 # - time ./edify  parse testdata/EDED.14B
 # - time ./edify  parse testdata/EDCD.14B
 
-make cover
+./docker-cmd.sh go test -cover ./...

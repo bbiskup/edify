@@ -1,20 +1,6 @@
 language: go
 sudo: required
 dist: trusty
-# go:
-#     - 1.2
-#     - 1.3
-#     - 1.4
-#     - 1.5
-#     - 1.6
-#     - tip
-cache:
-  #- apt: true
-
-install:
-  - sudo apt-get update -y
-  - sudo apt-get install -y curl bison make
-  - go get golang.org/x/tools/cmd/vet
 
 before_script:
   - mount > build_debug.log
