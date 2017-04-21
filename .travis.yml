@@ -27,7 +27,7 @@ script:
   - time ./edify extract_specs 14B
   - time ./edify purge_specs 14B
   - time ./edify parse testdata/UNCL.14B
-  - time ./edify full_parse --version 14B -d testdata/d14b/
+  - time ./edify query --version 14B -d testdata/d14b/
   - time ./edify query  -d testdata/d14b/ 
   - time ./edify query  -d testdata/d14b/ --version 14B
   - time ./edify query  -d testdata/d14b/ -m testdata/messages/INVOIC_1.txt
