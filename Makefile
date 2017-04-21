@@ -26,7 +26,7 @@ get-deps:
 get-test-deps:
 	go get -u golang.org/x/tools/cmd/cover
 	go get -u github.com/fzipp/gocyclo
-	go get -u github.com/barakmich/go-nyet
+	#go get -u github.com/barakmich/go-nyet
 	#go get -u github.com/golang/lint/golint
 	go get github.com/opennota/check/cmd/defercheck
 	go get github.com/opennota/check/cmd/structcheck
@@ -41,7 +41,7 @@ cover:
 # Show package coverage in web browser
 # go tool cover -html=coverage.out
 
-quality: mccabe nyet defercheck structcheck varcheck
+quality: mccabe  defercheck structcheck varcheck
 
 mccabe:
 	gocyclo -over 9 .

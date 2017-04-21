@@ -10,7 +10,6 @@ cache:
 install:
   - sudo apt-get update -y
   - sudo apt-get install -y curl bison make
-  - go get golang.org/x/tools/cmd/vet
 
 script:
   - go clean
