@@ -29,7 +29,7 @@ get-test-deps:
 	#go get -u github.com/barakmich/go-nyet
 	#go get -u github.com/golang/lint/golint
 	#go get github.com/opennota/check/cmd/structcheck
-	go get github.com/opennota/check/cmd/varcheck
+	#go get github.com/opennota/check/cmd/varcheck
 
 cover:
 	go test -cover ./...
@@ -40,13 +40,10 @@ cover:
 # Show package coverage in web browser
 # go tool cover -html=coverage.out
 
-quality: mccabe varcheck
+quality: mccabe
 
 mccabe:
 	gocyclo -over 9 .
-
-varchack:
-	vearcheck ./...
 
 clean:
 	go clean ./...
